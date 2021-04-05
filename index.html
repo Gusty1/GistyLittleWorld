@@ -34,14 +34,14 @@
 
   <div w3-include-html="header.html"></div>
   <br><br>
-  <div id="carouselExampleIndicators"
+  <div id="animeGirlImg"
     class="carousel slide animate__animated animate__rotateInDownLeft animate__delay-1s" data-ride="carousel">
     <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+      <li data-target="#animeGirlImg" data-slide-to="0" class="active"></li>
+      <li data-target="#animeGirlImg" data-slide-to="1"></li>
+      <li data-target="#animeGirlImg" data-slide-to="2"></li>
+      <li data-target="#animeGirlImg" data-slide-to="3"></li>
+      <li data-target="#animeGirlImg" data-slide-to="4"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-caption d-none d-md-block">
@@ -154,7 +154,9 @@
     w3.includeHTML();//引入html
     $(document).ready(function () {
       var imgsrcArray = [];
-      $.get("https://wall.alphacoders.com/search.php?search=anime+girl", function (result) {
+      var page = Math.floor(Math.random() * 100) + 1;//隨機產生頁數(1~100)
+      //處理網址字串取得img url
+      $.get("https://wall.alphacoders.com/search.php?search=anime+girl&page=" + page, function (result) {
         var imgsrcAll = result.split('src')
         for (let i = 0; i < imgsrcAll.length; i = i + 1) {
           var imgsrc = '';
@@ -163,6 +165,7 @@
             imgsrcArray.push(imgsrc);
           }
         }
+        //隨機產生5個數字(不重複)
         var random = randomsrcOrder(imgsrcArray.length);
         for (let i = 0; i < random.length; i = i + 1) {
           var repulicate = 0
@@ -199,6 +202,7 @@
       $(imgError).attr('src', 'images/index/404replace.jpg');
     }
 
+    //人生流程圖
     var myTemplateConfig = {
       colors: ["#4A4AFF", "#984B4B", "#949449", "#FF8F59", "#AE57A4"],
       width: '500px',

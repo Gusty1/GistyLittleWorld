@@ -32,7 +32,7 @@
         <div class='row justify-content-start'>
             <div class='col-sm-12 h2 mb-2'>請輸入JSON網址</div>
             <div class='col-sm-12 mb-2'>
-                只接受有Array格式的JSON，如果有2個(含)以上的Array會請你擇一。
+                只接受有Array格式的JSON，不支援有2個(含)以上的Array。
                 <span class='text-info'>***目前2個Array的功能還不支援***</span><br>
                 <span class='text-danger'>
                     若使用的是政府部門公開資料網站，有些資料可要要先裝
@@ -283,7 +283,6 @@
             $('#chartShowBlock').hide();
         })
 
-        // 48娛樂稅實徵淨額-按來源別 https://api.kcg.gov.tw/api/service/get/836af471-4875-4405-995c-bf550d58c4fe
         //url確定button
         $('#urlCheck').click(function () {
             if ($('#url').val() == '') {
@@ -352,7 +351,7 @@
                             if (jsonArray.length > 1) {
                                 Swal.fire({
                                     icon: 'error',
-                                    title: '目前不支援包含2個Array的JSON',
+                                    title: '不支援包含2個Array的JSON',
                                     // showCancelButton: false,
                                     confirmButtonText: '確定',
                                     // allowOutsideClick: false,
@@ -691,7 +690,18 @@
                                 '</div></div>');
                         }
                     });
-                }, error: function () {
+                }, error: function (jqXHR) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '發生錯誤',
+                        text: '5秒後自動重新整理或按確定立刻重新整理',
+                        // showCancelButton: false,
+                        confirmButtonText: '確定',
+                        allowOutsideClick: false,
+                        timer: 5000,
+                    }).then((result) => {
+                        window.location.reload();
+                    });
                 }
             });
             if (isClcik != 0) {

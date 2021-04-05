@@ -18,8 +18,10 @@
 </head>
 
 <body style="background-color:#F0F0F0;">
+  <!-- 放在github要改路徑 -->
   <div w3-include-html="/GustyLittleWorld/header.html"></div>
   <br><br><br>
+  
   <div class="container animate__animated animate__backInUp animate__delay-1s">
     <div class="animate__animated animate__bounce row justify-content-center display-4 title">
       Calculator+Clock
@@ -359,7 +361,6 @@
 
     //計算機小鍵盤事件
     $('body').keydown(function (event) {//讀取鍵盤的值
-      //console.log(event.keyCode)
       if ($("#result").text().trim().indexOf('=') != -1) {
         if (event.keyCode >= 96 && event.keyCode <= 105) {
           $("#result").html('');
@@ -455,9 +456,6 @@
           num2 = $("#result").text().substring(parseFloat($("#result").text().indexOf('+') + 1));
           answer = parseFloat(num1) + parseFloat(num2);
           $("#result").append('<br>' + '=' + answer);
-          console.log(num1)
-          console.log(num2)
-          console.log(answer)
         } else if ($("#result").text().indexOf('×') != -1) {
           num1 = $("#result").text().substring(0, parseFloat($("#result").text().indexOf('×')));
           num2 = $("#result").text().substring(parseFloat($("#result").text().indexOf('×') + 1));

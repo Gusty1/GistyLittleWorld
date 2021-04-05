@@ -1,0 +1,16 @@
+/* 右下角回最上層按鈕 */
+#goTop {
+    position: fixed;
+    border-radius: 50px;
+    right: 20px;
+    bottom: 50px;
+    padding: 10px 16px;
+    color: 	#8600FF;
+    cursor: pointer;
+}
+
+/* 其它的標題 */
+.title{
+    font:bold;
+    color:#2828FF;
+}

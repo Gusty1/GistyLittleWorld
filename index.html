@@ -189,14 +189,16 @@
     w3.includeHTML();//引入html
     $(document).ready(function () {
       var imgsrcArray = [];
+      var imgLength = 0;
       $('#musicBlock').easydrag();
       $.get("data/index/imgUrl.json", function (result) {
         imgsrcArray = result.url;
       });
       //讀取需要點時間
       setTimeout(function () {
+        imgLength = imgsrcArray.length
         //隨機產生5個數字(不重複)
-        var random = randomsrcOrder(imgsrcArray.length);
+        var random = randomsrcOrder(imgLength);
         for (let i = 0; i < random.length; i = i + 1) {
           var repulicate = 0
           for (let j = 0; j < i; j = j + 1) {
@@ -206,7 +208,7 @@
             }
           }
           if (repulicate == 1) {
-            random = randomsrcOrder(imgsrcArray.length);
+            random = randomsrcOrder(imgLength);
             i = 0;
           }
         }

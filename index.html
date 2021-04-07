@@ -25,11 +25,6 @@
       height: 75vh;
     }
 
-    /* 人生圖會過長直接隱藏X軸 */
-    body {
-      overflow-x: hidden;
-    }
-
     /* 音樂撥放位置+拖曳位置 */
     #music {
       position: relative;
@@ -144,7 +139,9 @@
       <label class='mx-3' style="width: 25px;height: 25px; background-color:#984B4B ;"></label><span>其它</span>
     </div>
     <br>
-    <canvas id='life-graph-container' style="margin-left: 20vw;"></canvas>
+    <div class="col-sm-12" style="overflow-x: hidden;">
+      <canvas id='life-graph-container' style="margin-left: 20vw;"></canvas>
+    </div>
   </div>
 
   <div id="goTop">

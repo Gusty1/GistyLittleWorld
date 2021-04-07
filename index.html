@@ -29,9 +29,10 @@
     }
 
     /* 音樂撥放器初始位置 */
-    #musicBlock {
-      left: 2vw;
-      bottom: 60vh;
+    #musicSide {
+      position: fixed;
+      left: 0;
+      bottom: 70vh;
     }
   </style>
 </head>
@@ -39,6 +40,7 @@
 <body style="background-color:#F0F0F0;">
   <div w3-include-html="header.html"></div>
   <br><br>
+  <div style="height: 3vh;"></div>
   <div id="carouselExampleIndicators"
     class="carousel slide animate__animated animate__rotateInDownLeft animate__delay-1s" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -143,10 +145,16 @@
     </svg>
   </div>
 
-  <div id='musicBlock' class="animate__animated animate__bounceIn animate__delay-2s">
-    <audio src="music/藍井エイル-鼓動.mp3" type="audio/mpeg">
-      <h1 class='text-danger'>您的瀏覽器不支援音樂播放！</h1>
-    </audio>
+  <div class="row" id="musicSide">
+    <div id='musicToolArea'>
+      <div id='musicTool' class="mt-2">
+        <audio onpause="goPause()" onplay="goPlay()" onended="goEnd()" src="music/藍井エイル-鼓動.mp3" preload="auto"
+          type="audio/mpeg">
+          <h1 class='text-danger'>您的瀏覽器不支援音樂播放！</h1>
+        </audio>
+      </div>
+    </div>
+    <button class="btn btn-warning mb-2"><label style="margin-left: 5px;">音<br>樂</label></button>
   </div>
 
   <div w3-include-html="footer.html"></div>
@@ -156,11 +164,11 @@
     crossorigin="anonymous"></script>
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
   <!-- green music player js-->
   <script src="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/js/green-audio-player.js"></script>
   <!-- live 2D js -->
@@ -169,22 +177,21 @@
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- gitgraph js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.11.4/gitgraph.min.js"></script>
-  <!-- easydrag js -->
-  <script src="js/easydrag.js"></script>
   <!-- Common js -->
   <script src="js/common.js"></script>
 
   <script>
-    w3.includeHTML();//引入html
+    w3.includeHTML(); //引入html
+    var musicPauseOrPlay = document.getElementById('music')
     $(document).ready(function () {
       // 外部插件撥放器初始化
       GreenAudioPlayer.init({
-        selector: '#musicBlock',
-        stopOthersOnPlay: true,//當有其他音樂在播放停止播放此音樂
+        selector: '#musicTool',
+        stopOthersOnPlay: true, //當有其他音樂在播放停止播放此音樂
       });
+      $('#musicToolArea').hide();
       var imgsrcArray = [];
       var imgLength = 0;
-      $('#musicBlock').easydrag();//任意拖動工具
       $.get("data/index/imgUrl.json", function (result) {
         imgsrcArray = result.url;
       });
@@ -209,8 +216,8 @@
         $('#carouselExampleIndicators').find('img').each(function (index, value) {
           $(this).attr('src', imgsrcArray[random[index]]);
         });
-      }, 500);
 
+      }, 500);
     });
 
     //亂數產生網址順序
@@ -220,6 +227,26 @@
         random.push(Math.floor(Math.random() * length + 1))
       }
       return random;
+    }
+
+    // 音樂滑動
+    $(".btn-warning").click(function () {
+      $('#musicToolArea').animate({
+        width: 'toggle',
+      }, 400);
+    });
+
+    //音樂播放狀態增加動畫
+    function goPause() {
+      $('#musicSide').removeClass('animate__animated animate__pulse animate__infinite')
+    }
+
+    function goPlay() {
+      $('#musicSide').addClass('animate__animated animate__pulse animate__infinite')
+    }
+
+    function goEnd() {
+      $('#musicSide').removeClass('animate__animated animate__pulse animate__infinite')
     }
 
     //人生流程圖
@@ -300,7 +327,6 @@
     master.merge(work, {
       message: "2021年2月進入資訊業工作"
     });
-
   </script>
 
 </body>

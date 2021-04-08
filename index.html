@@ -181,8 +181,14 @@
 
   <script>
     w3.includeHTML(); //引入html
-    var musicPauseOrPlay = document.getElementById('music')
     $(document).ready(function () {
+      //判斷是否為移動裝置
+      let isMobileDevice = isMobileDevice();
+      if(isMobileDevice){
+        $('#life-graph-container').css('width','5vw');
+      }else{
+        $('#life-graph-container').css('width','20vw');
+      }
       // 外部插件撥放器初始化
       GreenAudioPlayer.init({
         selector: '#musicTool',
@@ -246,6 +252,18 @@
 
     function goEnd() {
       $('#musicSide').removeClass('animate__animated animate__pulse animate__infinite')
+    }
+    
+    //驗證裝置是否為移動設備
+    function isMobileDevice(){
+      var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
+      var isMobileDevice=false
+      for(var i=0;i<mobileDevice.length;i++){
+        if(navigator.userAgent.match(mobileDevice[i])){
+            isMobileDevice=true
+        }
+      }
+      return isMobileDevice
     }
 
     //人生流程圖

@@ -181,14 +181,14 @@
 
   <script>
     w3.includeHTML(); //引入html
-    $(document).ready(function () {
-      //判斷是否為移動裝置
-      let isMobileDevice = isMobileDevice();
-      if(isMobileDevice){
+    //判斷是否為移動裝置
+      var isMobile = isMobileDevice();
+      if(isMobile){
         $('#life-graph-container').css('margin-left','2vw');
       }else{
         $('#life-graph-container').css('margin-left','20vw');
       }
+    $(document).ready(function () {
       // 外部插件撥放器初始化
       GreenAudioPlayer.init({
         selector: '#musicTool',

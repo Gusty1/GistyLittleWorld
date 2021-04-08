@@ -185,8 +185,10 @@
       var isMobile = isMobileDevice();
       if(isMobile){
         $('#life-graph-container').css('margin-left','0px');
+        $('#life-graph-container').parent().css('overflow-x','auto');
       }else{
         $('#life-graph-container').css('margin-left','20vw');
+        $('#life-graph-container').parent().css('overflow-x','hidden');
       }
     $(document).ready(function () {
       // 外部插件撥放器初始化
@@ -294,7 +296,6 @@
     var graph = new GitGraph({
       template: "metro", // or blackarrow
       orientation: "vertical-reverse",
-      width: '500px',
       author: "Gusty",
       elementId: 'life-graph-container',
       mode: "extended", // or compact if you don't want the messages  

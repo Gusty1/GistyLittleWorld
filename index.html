@@ -34,6 +34,18 @@
       left: 0;
       bottom: 70vh;
     }
+
+    /* 瀏覽量統計位置 */
+    #viewCount {
+      position: fixed;
+      right: 10vw;
+      bottom: 10vh;
+    }
+
+    /* 資訊icon變鼠標 */
+    i {
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -156,7 +168,20 @@
     <button class="btn btn-warning mb-2"><label style="margin-left: 5px;">音<br>樂</label></button>
   </div>
 
-  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  <div id="viewCount" style="background-color:#C4E1FF;"
+    class="border border-dark animate__animated animate__backInDown animate__delay-2s">
+    <span id="busuanzi_container_site_pv" class="mx-2">
+      <i class="fas fa-info-circle" id="PV"></i>
+      本站訪問量(PV):&nbsp
+      <span id="busuanzi_value_site_pv" style="color:#F75000;font-size: 14pt;" class="font-weight-bold"></span>&nbsp次
+    </span>
+    <br>
+    <span id="busuanzi_container_site_uv" class="mx-2 mb-2">
+      <i class="fas fa-info-circle" id="UV"></i>
+      本站訪客數(UV):&nbsp
+      <span id="busuanzi_value_site_uv" style="color:#F75000;font-size: 14pt;" class="font-weight-bold"></span>&nbsp人
+    </span>
+  </div>
 
   <div w3-include-html="footer.html"></div>
 
@@ -174,12 +199,16 @@
   <script src="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/js/green-audio-player.js"></script>
   <!-- live 2D js -->
   <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+  <!-- Sweetalert2 js -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- gitgraph js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.11.4/gitgraph.min.js"></script>
   <!-- view count js -->
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <!-- easydrag js -->
+  <script src="js/easydrag.js"></script>
   <!-- Common js -->
   <script src="js/common.js"></script>
 
@@ -194,6 +223,10 @@
       $('#life-graph-container').css('margin-left', '20vw');
       $('#life-graph-container').parent().css('overflow-x', 'hidden');
     }
+    // 訪問量隨意拖動
+    $(window).on('load', function () {
+      $('#viewCount').easydrag();
+    });
     $(document).ready(function () {
       // 外部插件撥放器初始化
       GreenAudioPlayer.init({
@@ -270,6 +303,25 @@
       }
       return isMobileDevice
     }
+
+    //PV UV 介紹
+    $('#PV').click(function () {
+      Swal.fire({
+        icon: 'info',
+        title: 'PV(page view，頁面瀏覽量)',
+        text: '網頁瀏覽量或點擊量，用戶每1次對網站中的每個網頁訪問均被記錄1個PV。用戶對同一頁面的多次訪問，訪問量累計，用以衡量網站用戶訪問的網頁數量',
+        showConfirmButton: false,
+      });
+    });
+
+    $('#UV').click(function () {
+      Swal.fire({
+        icon: 'info',
+        title: 'UV(unique visitor，網站獨立訪客)',
+        text: '是指通過網路訪問、瀏覽這個網頁的人。訪問您網站的一台電腦客戶端為一個訪客。 00:00-24:00內相同的客戶端只被計算一次',
+        showConfirmButton: false,
+      });
+    });
 
     //人生流程圖
     var myTemplateConfig = {

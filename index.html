@@ -156,6 +156,8 @@
     <button class="btn btn-warning mb-2"><label style="margin-left: 5px;">音<br>樂</label></button>
   </div>
 
+  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+
   <div w3-include-html="footer.html"></div>
 
   <!-- JQuery  -->
@@ -164,10 +166,10 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
+    </script>
   <!-- green music player js-->
   <script src="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/js/green-audio-player.js"></script>
   <!-- live 2D js -->
@@ -176,20 +178,22 @@
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- gitgraph js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.11.4/gitgraph.min.js"></script>
+  <!-- view count js -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <!-- Common js -->
   <script src="js/common.js"></script>
 
   <script>
     w3.includeHTML(); //引入html
     //判斷是否為移動裝置
-      var isMobile = isMobileDevice();
-      if(isMobile){
-        $('#life-graph-container').css('margin-left','0px');
-        $('#life-graph-container').parent().css('overflow-x','auto');
-      }else{
-        $('#life-graph-container').css('margin-left','20vw');
-        $('#life-graph-container').parent().css('overflow-x','hidden');
-      }
+    var isMobile = isMobileDevice();
+    if (isMobile) {
+      $('#life-graph-container').css('margin-left', '0px');
+      $('#life-graph-container').parent().css('overflow-x', 'auto');
+    } else {
+      $('#life-graph-container').css('margin-left', '20vw');
+      $('#life-graph-container').parent().css('overflow-x', 'hidden');
+    }
     $(document).ready(function () {
       // 外部插件撥放器初始化
       GreenAudioPlayer.init({
@@ -254,14 +258,14 @@
     function goEnd() {
       $('#musicSide').removeClass('animate__animated animate__pulse animate__infinite')
     }
-    
+
     //驗證裝置是否為移動設備
-    function isMobileDevice(){
+    function isMobileDevice() {
       var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
-      var isMobileDevice=false
-      for(var i=0;i<mobileDevices.length;i++){
-        if(navigator.userAgent.match(mobileDevices[i])){
-            isMobileDevice=true
+      var isMobileDevice = false
+      for (var i = 0; i < mobileDevices.length; i++) {
+        if (navigator.userAgent.match(mobileDevices[i])) {
+          isMobileDevice = true
         }
       }
       return isMobileDevice

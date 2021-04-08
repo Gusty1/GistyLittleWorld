@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <title>Gustyの生活日誌</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- jquery ui css -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+  <style>
+    .badge-pill {
+      cursor: pointer;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+
+    .cardBlock {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body style="background-color:#F0F0F0;">
+  <div w3-include-html="life_header.html"></div>
+  <br><br><br>
+
+  <div class="container animate__animated animate__fadeInDownBig">
+    <div class='row justify-content-center text-primary font-weight-bold display-2' id="edit">
+      生活日誌
+    </div><br>
+
+    <div class="row justify-content-between">
+      <div class="col-sm-4">
+        <div class="form-group row h5">
+          <label for="subjectSearch" class="col-sm-4 col-form-label text-center">標題搜尋:&nbsp</label>
+          <div class="col-sm-8">
+            <input type="email" class="form-control" id="subjectSearch" aria-describedby="emailHelp"
+              placeholder="請輸入關鍵字">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row h5">
+          <label class="col-sm-4 col-form-label text-center">排序方式:&nbsp</label>
+          <div class="col-sm-8">
+            <select class="browser-default custom-select">
+              <option>請選擇</option>
+              <option value="newToOld">時間&nbsp新-->舊</option>
+              <option value="oldToNew">時間&nbsp舊-->新</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-between">
+      <div class="col-sm-9" id="cardGroup">
+        <div class="card mb-3 cardBlock">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="../images/test.png" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h1 class="card-title h2">標題</h1>
+                <p class="card-text h4">時間</p>
+                <p class="card-text h4 text-primary">標籤</p>
+                <p class="card-text h4">摘要</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <button type="button" class="btn btn-secondary">1</button>
+              <button type="button" class="btn btn-secondary">2</button>
+              <button type="button" class="btn btn-secondary">3</button>
+              <button type="button" class="btn btn-secondary">4</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 border border-light" id="labelGroup" style="background-color:#FFFFFF; height: 50vh;">
+        <div class="col-sm-12 h4 my-2 text-info">標籤雲&nbsp<i class="fab fa-cloudversify"></i></div>
+        <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">工作&nbsp<span
+            class="badge badge-light">4</span></span>
+        <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">其它&nbsp<span
+            class="badge badge-light">4</span></span>
+        <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">敗家&nbsp<span
+            class="badge badge-light">4</span></span>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div id="dialog" title="禁忌之地" style="display: none;">
+    <div class="col-sm-12 form-group mt-3">
+      <label for="secret" class="h5">請輸入密碼:</label>
+      <input type="password" id="secret" class="form-control"></input>
+      <button class="btn btn-primary mt-2 float-right">確定</button>
+    </div>
+  </div>
+
+  <div id="goTop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+      class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    </svg>
+  </div>
+
+  <div w3-include-html="../footer.html"></div>
+
+  <!-- JQuery  -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap4 js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!-- w3school js -->
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <!-- jquery ui js -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- Sweetalert2 js -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- 常用 js -->
+  <script src="../js/common.js"></script>
+
+  <script>
+    w3.includeHTML(); //引入html
+
+    var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF'];
+
+    //雙擊標題出現禁忌之地
+    $('#edit').dblclick(function () {
+      $("#dialog").dialog({
+        resizable: false,
+      });
+    });
+
+    //標籤+顏色
+    $(document).ready(function () {
+      let labelCount = 0;
+      $('#labelGroup').find('span').each(function (index, value) {
+        if ($(this).hasClass('badge-pill')) {
+          $(this).css('background-color', labelColor[labelCount])
+          labelCount = labelCount + 1;
+        }
+      });
+    });
+
+    //禁忌之地的密碼框和確認
+    $('#secret').next('button').click(function () {
+      if ($('#secret').val().trim() == 'abc4899510') {
+        window.open('Edit.html');
+        $('#secret').val('')
+        $("#dialog").dialog('close');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
+          showConfirmButton: false,
+        });
+        $('#secret').val('')
+        $("#dialog").dialog('close');
+      }
+    });
+  </script>
+
+</body>
+
+</html>

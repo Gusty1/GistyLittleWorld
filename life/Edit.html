@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <title>GustyのLittle World</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- icon 路徑 -->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <!-- jquery ui css -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+  <style>
+
+  </style>
+</head>
+
+<body style="background-color:#F0F0F0;">
+  <div w3-include-html="life_header.html"></div>
+  <br><br><br>
+  <div class="container">
+    <div class='row justify-content-center text-primary display-2 font-weight-bold'>
+      新增/編輯
+    </div>
+    <br>
+    <div class="col-sm-8 h4">
+
+      <div class="form-group row">
+        <label for="title" class="col-sm-2 col-form-label">標題</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="title">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="time" class="col-sm-2 col-form-label">時間</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="time" readonly='true'>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="label" class="col-sm-2 col-form-label">標籤</label>
+        <div class="col-sm-4">
+          <select class="browser-default custom-select">
+            <option>請選擇</option>
+          </select>
+        </div>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="label">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="coverImg" class="col-sm-2 col-form-label">封面圖</label>
+        <div class="col-sm-6">
+          <input type="file" class="form-control" id="coverImg">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">預覽圖</label>
+        <img src="../images/life/404.png" onerror="this.onerror=null;this.src='../images/life/404.png'"
+          id="coverPreview" class="rounded" alt="尚未上傳">
+      </div>
+
+      <div class="form-group row">
+        <label for="summary" class="col-sm-2 col-form-label">摘要</label>
+        <div class="col-sm-6">
+          <textarea id="summary" class="form-control"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="content" class="col-sm-2 col-form-label">內容</label>
+        <div class="col-sm-6">
+          <textarea id="content" class="form-control"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="goTop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+      class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    </svg>
+  </div>
+
+  <div w3-include-html="../footer.html"></div>
+
+  <!-- JQuery  -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap4 js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!-- w3school js -->
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <!-- jquery ui js -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- 常用 js -->
+  <script src="../js/common.js"></script>
+
+  <script>
+    w3.includeHTML(); //引入html
+
+    $("#time").datepicker({
+      dateFormat: 'yy-mm-dd',
+    });
+  </script>
+
+</body>
+
+</html>

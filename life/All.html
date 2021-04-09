@@ -6,17 +6,18 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- icon 路徑 -->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
   <!-- jquery ui css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
   <style>
+    /* 標籤 */
     .badge-pill {
       cursor: pointer;
     }
 
-    a {
-      text-decoration: none !important;
-    }
-
+    /* card看起來可以按 */
     .cardBlock {
       cursor: pointer;
     }
@@ -74,25 +75,35 @@
           </div>
         </div>
 
+        <div class="card mb-3 cardBlock">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="../images/test.png" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h1 class="card-title h2">標題</h1>
+                <p class="card-text h4">時間</p>
+                <p class="card-text h4 text-primary">標籤</p>
+                <p class="card-text h4">摘要</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="row justify-content-center">
           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mr-2" role="group" aria-label="First group">
               <button type="button" class="btn btn-secondary">1</button>
-              <button type="button" class="btn btn-secondary">2</button>
-              <button type="button" class="btn btn-secondary">3</button>
-              <button type="button" class="btn btn-secondary">4</button>
             </div>
           </div>
         </div>
+
       </div>
 
       <div class="col-sm-3 border border-light" id="labelGroup" style="background-color:#FFFFFF; height: 50vh;">
         <div class="col-sm-12 h4 my-2 text-info">標籤雲&nbsp<i class="fab fa-cloudversify"></i></div>
         <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">工作&nbsp<span
-            class="badge badge-light">4</span></span>
-        <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">其它&nbsp<span
-            class="badge badge-light">4</span></span>
-        <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">敗家&nbsp<span
             class="badge badge-light">4</span></span>
       </div>
     </div>
@@ -103,8 +114,8 @@
   <div id="dialog" title="禁忌之地" style="display: none;">
     <div class="col-sm-12 form-group mt-3">
       <label for="secret" class="h5">請輸入密碼:</label>
-      <input type="password" id="secret" class="form-control"></input>
-      <button class="btn btn-primary mt-2 float-right">確定</button>
+      <input type="password" id="secret" class="form-control" maxlength="10"></input>
+      <button type="button" class="btn btn-primary mt-2 float-right">確定</button>
     </div>
   </div>
 
@@ -124,16 +135,18 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
+    </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- jquery ui js -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- Sweetalert2 js -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- sha512 js -->
+  <script src="../js/sha512.min.js"></script>
   <!-- 常用 js -->
   <script src="../js/common.js"></script>
 
@@ -162,7 +175,7 @@
 
     //禁忌之地的密碼框和確認
     $('#secret').next('button').click(function () {
-      if ($('#secret').val().trim() == 'abc4899510') {
+      if (sha512($('#secret').val().trim()) == '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d') {
         window.open('Edit.html');
         $('#secret').val('')
         $("#dialog").dialog('close');

@@ -59,7 +59,7 @@
 
     <div class="row justify-content-between">
       <div class="col-sm-9" id="cardGroup">
-        <div class="card mb-3 cardBlock">
+        <!-- <div class="card mb-3 cardBlock">
           <div class="row no-gutters">
             <div class="col-md-4">
               <img src="../images/test.png" class="card-img" alt="...">
@@ -73,38 +73,24 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="card mb-3 cardBlock">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img src="../images/test.png" class="card-img" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h1 class="card-title h2">標題</h1>
-                <p class="card-text h4">時間</p>
-                <p class="card-text h4 text-primary">標籤</p>
-                <p class="card-text h4">摘要</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row justify-content-center">
+        <!-- <div class="row justify-content-center">
           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mr-2" role="group" aria-label="First group">
               <button type="button" class="btn btn-secondary">1</button>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
-      <div class="col-sm-3 border border-light" id="labelGroup" style="background-color:#FFFFFF; height: 50vh;">
+      <div class="col-sm-3 border border-light" style="background-color:#FFFFFF; height: 50vh;">
         <div class="col-sm-12 h4 my-2 text-info">標籤雲&nbsp<i class="fab fa-cloudversify"></i></div>
-        <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">工作&nbsp<span
-            class="badge badge-light">4</span></span>
+        <div class="row m-1" id="labelGroup">
+          <!-- <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">工作&nbsp<span
+              class="badge badge-light">4</span></span> -->
+        </div>
       </div>
     </div>
 
@@ -135,10 +121,10 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+  </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- jquery ui js -->
@@ -152,8 +138,7 @@
 
   <script>
     w3.includeHTML(); //引入html
-
-    var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF'];
+    var lifeArray = [];
 
     //雙擊標題出現禁忌之地
     $('#edit').dblclick(function () {
@@ -162,20 +147,61 @@
       });
     });
 
-    //標籤+顏色
+    //標籤數量顏色+卡片頁數
     $(document).ready(function () {
+      var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF'];
       let labelCount = 0;
-      $('#labelGroup').find('span').each(function (index, value) {
-        if ($(this).hasClass('badge-pill')) {
-          $(this).css('background-color', labelColor[labelCount])
-          labelCount = labelCount + 1;
+      let labelArray = [];
+      let labelArrayCount = [];
+      let cardHtml = ''
+      let labelHtml = '';
+      $.get("../data/life/life.json", function (result) {
+        lifeArray = result;
+        initCard()
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          if (i == 0) {
+            labelArray.push(lifeArray[i].label);
+          }
+          for (let j = 0; j < labelArray.length; j = j + 1) {
+            if (lifeArray[i].label == labelArray[j]) {
+              break;
+            } else {
+              labelArray.push(lifeArray[i].label);
+            }
+          }
         }
       });
+      setTimeout(function () {
+        for (let i = 0; i < labelArray.length; i = i + 1) {
+          let labelCount = 0;
+          for (let j = 0; j < lifeArray.length; j = j + 1) {
+            for (var key in lifeArray[j]) {
+              if (lifeArray[j][key] == labelArray[i]) {
+                labelCount = labelCount + 1;
+              }
+            }
+          }
+          labelArrayCount.push(labelCount);
+        }
+      }, 200);
+
+      setTimeout(function () {
+        for (let i = 0; i < labelArray.length; i = i + 1) {
+          labelHtml +=
+            '<span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;background-color:' +
+            labelColor[i] + '">' + labelArray[i] + '&nbsp<spanclass="badge badge-light">' + labelArrayCount[i] +
+            '</span></span>';
+        }
+        $('#labelGroup').html(labelHtml);
+
+      }, 200);
     });
 
     //禁忌之地的密碼框和確認
     $('#secret').next('button').click(function () {
-      if (sha512($('#secret').val().trim()) == '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d') {
+      if (sha512($('#secret').val().trim()) ==
+        '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
+      ) {
         window.open('Edit.html');
         $('#secret').val('')
         $("#dialog").dialog('close');
@@ -189,6 +215,82 @@
         $("#dialog").dialog('close');
       }
     });
+
+    // 搜尋框
+    $('input').on('input', function () {
+      let cardHtml = '';
+      for (let i = 0; i < lifeArray.length; i = i + 1) {
+        $('#cardGroup').html('');
+        if (lifeArray[i].title.indexOf($(this).val()) != -1) {
+          cardHtml += '<div class="card mb-3 cardBlock">'
+          cardHtml += '<div class="row no-gutters">'
+          cardHtml += '<div class="col-md-4">'
+          cardHtml += '<img src="' + lifeArray[i].coverImg + '" class="card-img" alt="...">'
+          cardHtml += '</div>'
+          cardHtml += '<div class="col-md-8">'
+          cardHtml += '<div class="card-body">'
+          cardHtml += '<h1 class="card-title h2">' + lifeArray[i].title + '</h1>'
+          cardHtml += '<p class="card-text h4"><i class="fas fa-calendar-alt"></i>&nbsp' + lifeArray[i].time +
+            '</p>'
+          cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp' + lifeArray[i]
+            .label + '</p>'
+          cardHtml += '<p class="card-text h4">' + lifeArray[i].summary + '</p>'
+          cardHtml += '</div></div></div></div>'
+        }
+        if (i == lifeArray.length - 1) {
+          cardHtml += '<div class="row justify-content-center">'
+          cardHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">'
+          cardHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">'
+          cardHtml += '<button type="button" class="btn btn-secondary">1</button>'
+          cardHtml += '</div></div></div>'
+        }
+      }
+      if ($('#cardGroup').html() == '') {
+        // Swal.fire({
+        //   icon: 'error',
+        //   html: '查無資料',
+        //   showConfirmButton: false,
+        // });
+        initCard();
+      } else {
+        $('#cardGroup').html(cardHtml);
+      }
+    });
+
+    // 詳細業超連結
+    $('#cardGroup').on('click', '.cardBlock', function () {
+      // $(this).find('h1').text().trim();
+      window.location = 'Detail.html?title=' + $(this).find('h1').text().trim();
+    });
+
+    // 初始化卡片
+    function initCard() {
+      let cardHtml = '';
+      for (let i = 0; i < lifeArray.length; i = i + 1) {
+        cardHtml += '<div class="card mb-3 cardBlock">'
+        cardHtml += '<div class="row no-gutters">'
+        cardHtml += '<div class="col-md-4">'
+        cardHtml += '<img src="' + lifeArray[i].coverImg + '" class="card-img" alt="...">'
+        cardHtml += '</div>'
+        cardHtml += '<div class="col-md-8">'
+        cardHtml += '<div class="card-body">'
+        cardHtml += '<h1 class="card-title h2">' + lifeArray[i].title + '</h1>'
+        cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp' + lifeArray[i]
+          .time +
+          '</p>'
+        cardHtml += '<p class="card-text h4 text-primary"><i class="fas fa-tag"></i>&nbsp' + lifeArray[i]
+          .label + '</p>'
+        cardHtml += '<p class="card-text h4">' + lifeArray[i].summary + '</p>'
+        cardHtml += '</div></div></div></div>'
+      }
+      //頁數
+      cardHtml += '<div class="row justify-content-center">'
+      cardHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">'
+      cardHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">'
+      cardHtml += '<button type="button" class="btn btn-secondary">1</button>'
+      cardHtml += '</div></div></div>'
+      $('#cardGroup').html(cardHtml);
+    }
   </script>
 
 </body>

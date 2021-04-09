@@ -11,6 +11,8 @@
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
   <!-- jquery ui css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+  <!-- dropzone+imgur css -->
+  <link rel="stylesheet" href="../css/imgur.css">
   <style>
 
   </style>
@@ -54,16 +56,15 @@
 
       <div class="form-group row">
         <label for="coverImg" class="col-sm-2 col-form-label text-info">封面圖</label>
-        <div class="col-sm-6 mt-2">
-          <input type="file" class="form-control-file" id="coverImg">
+        <div class="col-sm- 12mt-2">
+          <div class="dropzone"></div>
         </div>
-        <button type="button" class="btn btn-success" id="upload">上傳</button>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-2 text-info">預覽圖</label>
-        <img src="" id="previewImg" onerror="this.onerror=null;this.src='../images/life/404.png'" id="coverPreview"
-          class="rounded" alt="尚未上傳">
+        <img src="" id="previewImg" onError="this.onerror=null;this.src='../images/life/404.png'" class="rounded"
+          alt="尚未上傳" style="width: 40vw;">
       </div>
 
       <div class="form-group row">
@@ -75,31 +76,28 @@
 
       <div class="form-group row">
         <label for="content" class="col-sm-2 col-form-label text-info">內容</label>
-        <div class="col-sm-12 mt-2" style="height: 60vh;">
+        <div class="col-sm-12 mt-2" style="height: 100vh;">
           <textarea id="content" class="form-control" name="content"></textarea>
         </div>
       </div>
 
       <button type="button" class="btn btn-primary float-right" id="preview">預覽</button>
+      <br>
     </div>
 
     <div id="previewBlock" style="background-color: #FFFFFF;">
       <div class='row justify-content-center text-primary display-2 font-weight-bold' id='previewTitle'>
-        我是標題
       </div>
-      <div class='row justify-content-center h2 mt-3' id="previewTime">
-        &nbsp我是時間
+      <div class='row justify-content-center h2 mt-1 text-danger' id="previewTime">
       </div>
-      <div class='row justify-content-center h2 mt-3' id="previewLabel">
-        &nbsp我是標籤
+      <div class='row justify-content-center h2 mt-1 text-success' id="previewLabel">
       </div>
       <div class='row justify-content-center h2 mt-3'>
-        封面圖
-        <img src="../images/life/404.png" style="width: 20vw;height: 60vh;" class="rounded img-fluid">
+        <img src="" id="previewImg2" style="width: 40vw;"
+          onError="this.onerror=null;this.src='../images/life/404.png'" class="rounded img-fluid">
       </div>
       <div class='row justify-content-center mt-3'>
         <div class="col-sm-8 mt-3" id="previewContent">
-          我是內容
         </div>
       </div>
       <div class="row justify-content-end my-3 mr-3">
@@ -119,7 +117,6 @@
     </svg>
   </div>
 
-  <br>
   <div w3-include-html="../footer.html"></div>
 
   <!-- JQuery  -->
@@ -128,10 +125,10 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+  </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- Sweetalert2 js -->
@@ -140,6 +137,8 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- ckeditor js -->
   <script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
+  <!-- dropzone+imgur js -->
+  <script src="../js/imgur.js"></script>
   <!-- filesaver js -->
   <script src="../js/FileSaver.min.js"></script>
   <!-- 常用 js -->
@@ -155,36 +154,77 @@
     var summary = '';
     var content = '';
     var coverImg = '';
+    var getUrlString = location.href;
+    var url = new URL(getUrlString);
+    var urlTitle = url.searchParams.get('title');
+    var lifeArray = [];
+    var labelArray = [];
 
+    //datepicker時間格式
     $("#time").datepicker({
       dateFormat: 'yy-mm-dd',
     });
 
+    //初始化ckeditor和dropzone 編輯抓取的資料
     $(document).ready(function () {
       $('#previewBlock').hide();
       CKEDITOR.replace('content', {
-        height: '40vh',
+        height: '75vh',
         uiColor: '#95CACA'
       });
-      // CKEDITOR.instances.content.setData('')
-      // $.get("../data/life/life.json", function (result) {
-      //   lifeArray = result;
-      //   console.log(lifeArray);
-      // });
-    });
 
-    //封面圖片上傳
-    $('#upload').click(function () {
-      // console.log($('#previewImg').attr('src'));
-      coverImg = $('#coverImg').val().trim();
-      if (coverImg == null || coverImg == '') {
-        Swal.fire({
-          icon: 'error',
-          html: '<span class="h3">請選擇圖片</span>',
-          showConfirmButton: false,
-        });
-        return false;
-      }
+      var callback = function (res) {
+        if (res.success === true) {
+          $('#previewImg').attr('src', res.data.link);
+          $('#previewImg2').attr('src', res.data.link)
+          console.log(res.data.link)
+        }
+      };
+
+      new Imgur({
+        clientid: '0a4c1d7727faf54',
+        callback: callback
+      });
+
+      $.get("../data/life/life.json", function (result) {
+        lifeArray = result;
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          if (i == 0) {
+            labelArray.push(lifeArray[i].label);
+          }
+          for (let j = 0; j < labelArray.length; j = j + 1) {
+            if (lifeArray[i].label == labelArray[j]) {
+              break;
+            } else {
+              labelArray.push(lifeArray[i].label);
+            }
+          }
+        }
+
+        if (urlTitle != '' || urlTitle != null) {
+          for (let i = 0; i < lifeArray.length; i = i + 1) {
+            if (lifeArray[i].title == urlTitle) {
+              document.title = lifeArray[i].title;
+              $('#title').val(lifeArray[i].title);
+              $('#time').val(lifeArray[i].time);
+              // $('#label').parent().parent().find('input').val(lifeArray[i].label)
+              // $('#label').val(lifeArray[i].label);
+              $('#previewImg').attr('src', lifeArray[i].coverImg);
+              $('#previewImg2').attr('src', lifeArray[i].coverImg);
+              $('#summary').val(lifeArray[i].summary);
+              // $('#content').html(lifeArray[i].content);
+              CKEDITOR.instances.content.setData(lifeArray[i].content)
+              break;
+            }
+          }
+        }
+        setTimeout(function () {
+          for (let i = 0; i < labelArray.length; i = i + 1) {
+            $('#label').append('<option>' + labelArray[i] + '</option>')
+          }
+        }, 200)
+
+      });
     });
 
     //確定預覽
@@ -216,23 +256,22 @@
         return false;
       }
 
-      // if ($('#previewImg').attr('src').trim() == '../images/life/404.png') {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     html: '<span class="h3">請確認圖片是否上傳</span>',
-      //     showConfirmButton: false,
-      //   });
-      //   return false;
-      // }
+      if ($('#previewImg').attr('src').trim() == '../images/life/404.png') {
+        Swal.fire({
+          icon: 'error',
+          html: '<span class="h3">請確認圖片是否上傳</span>',
+          showConfirmButton: false,
+        });
+        return false;
+      }
 
       $('#previewTitle').text(title);
       $('#previewTime').html('<i class="fas fa-calendar-alt mt-2"></i>&nbsp' + time);
       $('#previewLabel').html('<i class="fas fa-tag mt-2"></i>&nbsp' + label);
       $('#previewContent').html(content);
-      console.log(content);
 
-      // $('#editBlock').fadeOut('fast');
-      // $('#previewBlock').fadeIn();
+      $('#editBlock').fadeOut('fast');
+      $('#previewBlock').fadeIn();
     });
 
     //預覽返回
@@ -246,20 +285,16 @@
       life.title = title;
       life.time = time;
       life.label = label;
-      life.coverImg = 'aaa';
+      life.coverImg = $('#previewImg').attr('src');
       life.summary = summary;
       life.content = content;
       lifeArray.push(life);
-      console.log(JSON.stringify(lifeArray))
       //下載文件無法指定位置因為安全規定...
-      var blob = new Blob([JSON.stringify(lifeArray)], { type: "" });
-      // var blob = new Blob([json], { type: "application/json" });
-      saveAs(blob, "dd.json");
+      var blob = new Blob([JSON.stringify(lifeArray)], {
+        type: ""
+      });
+      saveAs(blob, "life.json");
     });
-
-
-
-
   </script>
 
 </body>

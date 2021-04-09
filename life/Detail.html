@@ -9,6 +9,8 @@
   <!-- icon 路徑 -->
   <link rel="icon" href="../favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <!-- jquery ui css -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
   <style>
 
   </style>
@@ -18,22 +20,27 @@
   <div w3-include-html="life_header.html"></div>
   <br><br><br>
 
-  <div class="container">
-    <div class='row justify-content-center text-primary display-2 font-weight-bold'>
-      我是標題
+  <div class="container animate__animated animate__rotateIn">
+    <div class='row justify-content-center text-primary display-2 font-weight-bold ' id="edit">
+    </div>
+    <div class='row justify-content-center h2 mt-3 text-danger' id="time">
+      <i class="fas fa-calendar-alt mt-1"></i>&nbsp
+    </div>
+    <div class='row justify-content-center h2 mt-3 text-success' id="label">
+      <i class="fas fa-tag mt-1"></i>&nbsp
     </div>
     <div class='row justify-content-center h2 mt-3'>
-      <i class="fas fa-calendar-alt mt-2"></i>&nbsp我是時間
+      <img src="../images/life/404.png" id="coverImg" style="width: 80vh;" class="rounded img-fluid">
     </div>
-    <div class='row justify-content-center h2 mt-3'>
-      <i class="fas fa-tag mt-2"></i>&nbsp我是標籤
+    <div class="col-sm-12 mt-3" id="content">
     </div>
-    <div class='row justify-content-center h2 mt-3'>
-      封面圖
-      <img src="../images/life/404.png" style="width: 20vw;height: 60vh;" class="rounded img-fluid">
-    </div>
-    <div class="col-sm-12 mt-3">
-      我是內容
+  </div>
+
+  <div id="dialog" title="封印之地" style="display: none;">
+    <div class="col-sm-12 form-group mt-3">
+      <label for="secret" class="h5">請輸入密碼:</label>
+      <input type="password" id="secret" class="form-control" maxlength="10"></input>
+      <button type="button" class="btn btn-primary mt-2 float-right">確定</button>
     </div>
   </div>
 
@@ -52,18 +59,72 @@
     crossorigin="anonymous"></script>
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <!-- Sweetalert2 js -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- sha512 js -->
+  <script src="../js/sha512.min.js"></script>
+  <!-- jquery ui js -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- 常用 js -->
   <script src="../js/common.js"></script>
 
   <script>
-    w3.includeHTML();//引入html
+    w3.includeHTML(); //引入html
+    var getUrlString = location.href;
+    var url = new URL(getUrlString);
+    var urlTitle = url.searchParams.get('title');
+    var lifeArray = [];
+
+    // 抓網頁參數資料+顯示
+    $(document).ready(function () {
+      $.get("../data/life/life.json", function (result) {
+        lifeArray = result;
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          if (lifeArray[i].title == urlTitle) {
+            document.title = lifeArray[i].title;
+            $('#edit').html(lifeArray[i].title);
+            $('#time').append(lifeArray[i].time);
+            $('#label').append(lifeArray[i].label);
+            $('#coverImg').attr('src', lifeArray[i].coverImg);
+            $('#content').html(lifeArray[i].content);
+            break;
+          }
+        }
+      });
+    });
+
+    //雙擊標題出現封印之地
+    $('#edit').dblclick(function () {
+      $("#dialog").dialog({
+        resizable: false,
+      });
+    });
+
+    //封印之地的密碼框和確認
+    $('#secret').next('button').click(function () {
+      if (sha512($('#secret').val().trim()) ==
+        '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
+      ) {
+        window.open('Edit.html?title=' + urlTitle);
+        $('#secret').val('')
+        $("#dialog").dialog('close');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
+          showConfirmButton: false,
+        });
+        $('#secret').val('')
+        $("#dialog").dialog('close');
+      }
+    });
   </script>
 
 </body>

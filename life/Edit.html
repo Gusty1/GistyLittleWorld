@@ -2,7 +2,7 @@
 <html lang="zh-Hant-TW">
 
 <head>
-  <title>GustyのLittle World</title>
+  <title>GustyのLife A/E</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,62 +24,91 @@
       新增/編輯
     </div>
     <br>
-    <div class="col-sm-8 h4">
+    <div class="col-sm-10 h3" id='editBlock'>
 
       <div class="form-group row">
-        <label for="title" class="col-sm-2 col-form-label">標題</label>
-        <div class="col-sm-6">
+        <label for="title" class="col-sm-2 col-form-label text-info">標題</label>
+        <div class="col-sm-6 mt-2">
           <input type="text" class="form-control" id="title">
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="time" class="col-sm-2 col-form-label">時間</label>
-        <div class="col-sm-6">
+        <label for="time" class="col-sm-2 col-form-label text-info">時間</label>
+        <div class="col-sm-6 mt-2">
           <input type="text" class="form-control" id="time" readonly='true'>
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="label" class="col-sm-2 col-form-label">標籤</label>
-        <div class="col-sm-4">
-          <select class="browser-default custom-select">
+        <label for="label" class="col-sm-2 col-form-label text-info">標籤</label>
+        <div class="col-sm-4 mt-2">
+          <select class="browser-default custom-select" id="label">
             <option>請選擇</option>
           </select>
         </div>
-        <div class="col-sm-4">
-          <input type="text" class="form-control" id="label">
+        <div class="col-sm-4 mt-2">
+          <input type="text" class="form-control">
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="coverImg" class="col-sm-2 col-form-label">封面圖</label>
-        <div class="col-sm-6">
-          <input type="file" class="form-control" id="coverImg">
+        <label for="coverImg" class="col-sm-2 col-form-label text-info">封面圖</label>
+        <div class="col-sm-6 mt-2">
+          <input type="file" class="form-control-file" id="coverImg">
+        </div>
+        <button type="button" class="btn btn-success" id="upload">上傳</button>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 text-info">預覽圖</label>
+        <img src="" id="previewImg" onerror="this.onerror=null;this.src='../images/life/404.png'" id="coverPreview"
+          class="rounded" alt="尚未上傳">
+      </div>
+
+      <div class="form-group row">
+        <label for="summary" class="col-sm-2 col-form-label text-info">摘要</label>
+        <div class="col-sm-12 mt-2">
+          <textarea id="summary" class="form-control" style="resize: none;"></textarea>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2">預覽圖</label>
-        <img src="../images/life/404.png" onerror="this.onerror=null;this.src='../images/life/404.png'"
-          id="coverPreview" class="rounded" alt="尚未上傳">
-      </div>
-
-      <div class="form-group row">
-        <label for="summary" class="col-sm-2 col-form-label">摘要</label>
-        <div class="col-sm-6">
-          <textarea id="summary" class="form-control"></textarea>
+        <label for="content" class="col-sm-2 col-form-label text-info">內容</label>
+        <div class="col-sm-12 mt-2" style="height: 60vh;">
+          <textarea id="content" class="form-control" name="content"></textarea>
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="content" class="col-sm-2 col-form-label">內容</label>
-        <div class="col-sm-6">
-          <textarea id="content" class="form-control"></textarea>
-        </div>
-      </div>
-
+      <button type="button" class="btn btn-primary float-right" id="preview">預覽</button>
     </div>
+
+    <div id="previewBlock" style="background-color: #FFFFFF;">
+      <div class='row justify-content-center text-primary display-2 font-weight-bold' id='previewTitle'>
+        我是標題
+      </div>
+      <div class='row justify-content-center h2 mt-3' id="previewTime">
+        &nbsp我是時間
+      </div>
+      <div class='row justify-content-center h2 mt-3' id="previewLabel">
+        &nbsp我是標籤
+      </div>
+      <div class='row justify-content-center h2 mt-3'>
+        封面圖
+        <img src="../images/life/404.png" style="width: 20vw;height: 60vh;" class="rounded img-fluid">
+      </div>
+      <div class='row justify-content-center mt-3'>
+        <div class="col-sm-8 mt-3" id="previewContent">
+          我是內容
+        </div>
+      </div>
+      <div class="row justify-content-end my-3 mr-3">
+        <button type="button" class="btn btn-danger mr-3" id="back">返回</button>
+        <button type="button" class="btn btn-primary mr-3" id="define">確定</button>
+      </div>
+      <br>
+    </div>
+
   </div>
 
   <div id="goTop">
@@ -90,6 +119,7 @@
     </svg>
   </div>
 
+  <br>
   <div w3-include-html="../footer.html"></div>
 
   <!-- JQuery  -->
@@ -98,23 +128,138 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
+    </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <!-- Sweetalert2 js -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- jquery ui js -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- ckeditor js -->
+  <script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
+  <!-- filesaver js -->
+  <script src="../js/FileSaver.min.js"></script>
   <!-- 常用 js -->
   <script src="../js/common.js"></script>
 
   <script>
     w3.includeHTML(); //引入html
+    var lifeArray = [];
+    var life = {};
+    var title = '';
+    var time = '';
+    var label = '';
+    var summary = '';
+    var content = '';
+    var coverImg = '';
 
     $("#time").datepicker({
       dateFormat: 'yy-mm-dd',
     });
+
+    $(document).ready(function () {
+      $('#previewBlock').hide();
+      CKEDITOR.replace('content', {
+        height: '40vh',
+        uiColor: '#95CACA'
+      });
+      // CKEDITOR.instances.content.setData('')
+      // $.get("../data/life/life.json", function (result) {
+      //   lifeArray = result;
+      //   console.log(lifeArray);
+      // });
+    });
+
+    //封面圖片上傳
+    $('#upload').click(function () {
+      // console.log($('#previewImg').attr('src'));
+      coverImg = $('#coverImg').val().trim();
+      if (coverImg == null || coverImg == '') {
+        Swal.fire({
+          icon: 'error',
+          html: '<span class="h3">請選擇圖片</span>',
+          showConfirmButton: false,
+        });
+        return false;
+      }
+    });
+
+    //確定預覽
+    $('#preview').click(function () {
+      title = $('#title').val().trim();
+      time = $('#time').val().trim();
+      label = $('#label').val().trim();
+      summary = $('#summary').val().trim();
+      content = CKEDITOR.instances.content.getData()
+
+      if (label == '請選擇') {
+        label = $('#label').parent().parent().find('input').val().trim();
+        if (label == '') {
+          Swal.fire({
+            icon: 'error',
+            html: '<span class="h3">label請寫好</span>',
+            showConfirmButton: false,
+          });
+          return false;
+        }
+      }
+
+      if (title == '' || time == '' || summary == '' || content == '') {
+        Swal.fire({
+          icon: 'error',
+          html: '<span class="h3">請填寫完整資料</span>',
+          showConfirmButton: false,
+        });
+        return false;
+      }
+
+      // if ($('#previewImg').attr('src').trim() == '../images/life/404.png') {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     html: '<span class="h3">請確認圖片是否上傳</span>',
+      //     showConfirmButton: false,
+      //   });
+      //   return false;
+      // }
+
+      $('#previewTitle').text(title);
+      $('#previewTime').html('<i class="fas fa-calendar-alt mt-2"></i>&nbsp' + time);
+      $('#previewLabel').html('<i class="fas fa-tag mt-2"></i>&nbsp' + label);
+      $('#previewContent').html(content);
+      console.log(content);
+
+      // $('#editBlock').fadeOut('fast');
+      // $('#previewBlock').fadeIn();
+    });
+
+    //預覽返回
+    $('#back').click(function () {
+      $('#previewBlock').fadeOut('fast');
+      $('#editBlock').fadeIn();
+    });
+
+    //預覽後確定送出
+    $('#define').click(function () {
+      life.title = title;
+      life.time = time;
+      life.label = label;
+      life.coverImg = 'aaa';
+      life.summary = summary;
+      life.content = content;
+      lifeArray.push(life);
+      console.log(JSON.stringify(lifeArray))
+      //下載文件無法指定位置因為安全規定...
+      var blob = new Blob([JSON.stringify(lifeArray)], { type: "" });
+      // var blob = new Blob([json], { type: "application/json" });
+      saveAs(blob, "dd.json");
+    });
+
+
+
+
   </script>
 
 </body>

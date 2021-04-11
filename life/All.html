@@ -17,7 +17,7 @@
       cursor: pointer;
     }
 
-    /* card看起來可以按 */
+    /* 卡片滑鼠切換 */
     .cardBlock {
       cursor: pointer;
     }
@@ -29,13 +29,6 @@
       border-radius: 3%;
       border: 1px solid #E0E0E0;
       /* box-shadow: 3px 3px 5px 6px #cccccc; */
-    }
-
-    /* 女僕區域 */
-    #maid {
-      position: fixed;
-      left: 1px;
-      bottom: 30px;
     }
   </style>
 </head>
@@ -113,10 +106,6 @@
 
   </div>
 
-  <div class="" id="maid">
-    <img src="../images/life/maid.gif" class="rounded img-fluid" style="width:10vw;height: 30vh;">
-  </div>
-
   <div id="dialog" title="禁忌之地" style="display: none;">
     <div class="col-sm-12 form-group mt-3">
       <label for="secret" class="h5">請輸入密碼:</label>
@@ -171,11 +160,6 @@
     } else {
       $('#labelBlock').show();
     }
-
-    $(window).on('load', function () {
-      $('#conversation').show('slow');
-      $('#maid').easydrag();
-    });
 
     //雙擊標題出現禁忌之地
     $('#edit').dblclick(function () {

@@ -12,9 +12,11 @@
   <!-- jquery ui css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
   <style>
+    /* 卡片滑鼠切換 */
     .card {
       cursor: pointer;
     }
+
   </style>
 </head>
 
@@ -375,23 +377,6 @@
           initCard(changeACGArray)
         }
       }
-
-
-      // if ($(this).val().trim() == 'newToOld') {
-      //   changeLifeArray.sort(function (a, b) {
-      //     if (new Date(a.time) > new Date(b.time)) {
-      //       return -1;
-      //     }
-      //   });
-      //   initCard(changeLifeArray)
-      // } else {
-      //   changeLifeArray.sort(function (a, b) {
-      //     if (new Date(a.time) < new Date(b.time)) {
-      //       return -1;
-      //     }
-      //   });
-      //   initCard(changeLifeArray)
-      // }
     });
 
     //詳細頁超連結
@@ -410,7 +395,7 @@
         newACGArray = ACGArray;
       }
       for (let i = 0; i < newACGArray.length; i++) {
-        cardHtml += '<div class="card mr-3" style="width: 21rem;">'
+        cardHtml += '<div class="card mx-3" style="width: 21rem;">'
         cardHtml += '<img class="card-img-top rounded img-fluid" style="height:50vh;" src="' + newACGArray[i].coverImg +
           '" alt="Card image cap">'
         cardHtml += '<div class="card-body">'
@@ -444,10 +429,11 @@
           }
         }
         cardHtml += '</p>'
-        cardHtml += '<p class="h4">'
-        cardHtml += newACGArray[i].say
-        cardHtml += '<p class="h5 text-muted float-right">-' + newACGArray[i].say_author + '</p>'
-        cardHtml += '</p>'
+        if (newACGArray[i].type == '遊戲') {
+          cardHtml += '<p class="h4">' + newACGArray[i].type + '、' + newACGArray[i].collect + '小時</p>'
+        } else {
+          cardHtml += '<p class="h4">' + newACGArray[i].type + '、' + newACGArray[i].collect + '集</p>'
+        }
         cardHtml += '</div></div></div>'
       }
       if (newACGArray.length >= 7) {

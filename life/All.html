@@ -30,6 +30,13 @@
       border: 1px solid #E0E0E0;
       /* box-shadow: 3px 3px 5px 6px #cccccc; */
     }
+
+    /* 女僕區域 */
+    #maid {
+      position: fixed;
+      left: 1px;
+      bottom: 30px;
+    }
   </style>
 </head>
 
@@ -104,7 +111,10 @@
       </div>
     </div>
 
+  </div>
 
+  <div class="" id="maid">
+    <img src="../images/life/maid.gif" class="rounded img-fluid" style="width:10vw;height: 30vh;">
   </div>
 
   <div id="dialog" title="禁忌之地" style="display: none;">
@@ -143,6 +153,8 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- sha512 js -->
   <script src="../js/sha512.min.js"></script>
+  <!-- easydrag js -->
+  <script src="../js/easydrag.js"></script>
   <!-- 常用 js -->
   <script src="../js/common.js"></script>
 
@@ -160,6 +172,11 @@
       $('#labelBlock').show();
     }
 
+    $(window).on('load', function () {
+      $('#conversation').show('slow');
+      $('#maid').easydrag();
+    });
+
     //雙擊標題出現禁忌之地
     $('#edit').dblclick(function () {
       $("#dialog").dialog({
@@ -169,6 +186,7 @@
 
     //標籤數量顏色+卡片頁數
     $(document).ready(function () {
+      $('#conversation').hide();
       var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF'];
       let labelCount = 0;
       let labelArray = [];

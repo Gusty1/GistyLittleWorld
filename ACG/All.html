@@ -16,7 +16,6 @@
     .card {
       cursor: pointer;
     }
-
   </style>
 </head>
 
@@ -44,7 +43,6 @@
           <label class="col-sm-4 col-form-label text-center">排序方式:</label>
           <div class="col-sm-8 mt-1">
             <select class="browser-default custom-select">
-              <option>請選擇</option>
               <option value="newToOld">時間&nbsp新-->舊</option>
               <option value="oldToNew">時間&nbsp舊-->新</option>
               <option value="highToLow">評分&nbsp高-->低</option>
@@ -158,6 +156,12 @@
       var typeArrayCount = [0, 0, 0, 0];
       $.get('../data/ACG/ACG.json', function (result) {
         ACGArray = result;
+        ACGArray.sort(function (a, b) {
+          if (new Date(a.time) > new Date(b.time)) {
+            return -1;
+          }
+        });
+        initCard(ACGArray)
         typeArrayCount[0] = ACGArray.length;
         for (let i = 0; i < ACGArray.length; i++) {
           if (ACGArray[i].type == '遊戲') {
@@ -172,7 +176,6 @@
         }
       });
       setTimeout(function () {
-        initCard();
         $('.nav-tabs').find('a').each(function (index, value) {
           if (index == 0) {
             $(this).html('<i class="fas fa-khanda"></i>&nbspALL&nbsp' + typeArrayCount[index])
@@ -235,6 +238,7 @@
           $('#pageBlock').html('');
         }
       }
+      $('select').val('newToOld');
       $('#subjectSearch').val('');
     });
 
@@ -396,7 +400,7 @@
       }
       for (let i = 0; i < newACGArray.length; i++) {
         cardHtml += '<div class="card mx-3" style="width: 21rem;">'
-        cardHtml += '<img class="card-img-top rounded img-fluid" style="height:50vh;" src="' + newACGArray[i].coverImg +
+        cardHtml += '<img class="card-img-top img-fluid" style="height:50vh;" src="' + newACGArray[i].coverImg +
           '" alt="Card image cap">'
         cardHtml += '<div class="card-body">'
         cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'

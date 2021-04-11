@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <title>GustyのACG心得</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- icon 路徑 -->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <!-- jquery ui css -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+  <style>
+    .card {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body style="background-color:#F0F0F0;">
+  <div w3-include-html="ACG_header.html"></div>
+  <br><br><br>
+
+  <div class="container animate__animated animate__flipInX">
+    <div class='row justify-content-center text-primary font-weight-bold display-2' id="edit">
+      ACG心得
+    </div><br>
+
+    <div class="row justify-content-between">
+      <div class="col-sm-4">
+        <div class="form-group row h5">
+          <label for="subjectSearch" class="col-sm-4 col-form-label text-center">標題搜尋:</label>
+          <div class="col-sm-8">
+            <input type="email" class="form-control mt-1" id="subjectSearch" aria-describedby="emailHelp"
+              placeholder="請輸入關鍵字">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row h5">
+          <label class="col-sm-4 col-form-label text-center">排序方式:</label>
+          <div class="col-sm-8 mt-1">
+            <select class="browser-default custom-select">
+              <option>請選擇</option>
+              <option value="newToOld">時間&nbsp新-->舊</option>
+              <option value="oldToNew">時間&nbsp舊-->新</option>
+              <option value="highToLow">評分&nbsp高-->低</option>
+              <option value="lowToHigh">評分&nbsp低-->高</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center h2">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active text-info" href="#"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-info" href="#"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-info" href="#"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-info" href="#"></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="row justify-content-center mt-3" id="cardBlock">
+      <!-- <div class="card mr-3" style="width: 21rem;">
+        <img class="card-img-top rounded img-fluid" style="height:50vh;" src="../images/test.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h1 class="h1 text-center text-success">我是標題</h1>
+          <p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp2021-04-05</p>
+          <p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp&nbsp★★★★★</p>
+          <p class="h4">
+            我是名言
+            <p class="h5 text-muted float-right">-XXX</p>
+          </p>
+        </div>
+      </div> -->
+
+
+    </div>
+
+    <div class="row justify-content-center mt-3 h4" id='pageBlock'>
+      <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-secondary">1</button>
+          <button type="button" class="btn btn-secondary">2</button>
+          <button type="button" class="btn btn-secondary">3</button>
+          <button type="button" class="btn btn-secondary">4</button>
+        </div>
+      </div> -->
+    </div>
+
+  </div>
+
+  <div id="dialog" title="禁忌之地" style="display: none;">
+    <div class="col-sm-12 form-group mt-3">
+      <label for="secret" class="h5">請輸入密碼:</label>
+      <input type="password" id="secret" class="form-control" maxlength="10"></input>
+      <button type="button" class="btn btn-primary mt-2 float-right">確定</button>
+    </div>
+  </div>
+
+  <div id="goTop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+      class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    </svg>
+  </div>
+
+  <div w3-include-html="../footer.html"></div>
+
+  <!-- JQuery  -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap4 js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!-- w3school js -->
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <!-- jquery ui js -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- Sweetalert2 js -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- sha512 js -->
+  <script src="../js/sha512.min.js"></script>
+  <!-- 常用 js -->
+  <script src="../js/common.js"></script>
+
+  <script>
+    w3.includeHTML(); //引入html
+    var ACGArray = [];
+    var searchArray = [];
+
+    //雙擊標題出現禁忌之地
+    $('#edit').dblclick(function () {
+      $("#dialog").dialog({
+        resizable: false,
+      });
+    });
+
+    //各項初始設定
+    $(document).ready(function () {
+      var typeArrayCount = [0, 0, 0, 0];
+      $.get('../data/ACG/ACG.json', function (result) {
+        ACGArray = result;
+        typeArrayCount[0] = ACGArray.length;
+        for (let i = 0; i < ACGArray.length; i++) {
+          if (ACGArray[i].type == '遊戲') {
+            typeArrayCount[1]++;
+          }
+          if (ACGArray[i].type == '動畫') {
+            typeArrayCount[2]++;
+          }
+          if (ACGArray[i].type == '漫畫') {
+            typeArrayCount[3]++;
+          }
+        }
+      });
+      setTimeout(function () {
+        initCard();
+        $('.nav-tabs').find('a').each(function (index, value) {
+          if (index == 0) {
+            $(this).html('<i class="fas fa-khanda"></i>&nbspALL&nbsp' + typeArrayCount[index])
+          }
+          if (index == 1) {
+            $(this).html('<i class="fas fa-gamepad"></i>&nbsp遊戲&nbsp' + typeArrayCount[index]);
+          }
+          if (index == 2) {
+            $(this).html('<i class="fas fa-tv"></i>&nbsp動畫&nbsp' + typeArrayCount[index]);
+          }
+          if (index == 3) {
+            $(this).html('<i class="fas fa-book-open"></i>&nbsp漫畫&nbsp' + typeArrayCount[index]);
+          }
+        });
+      }, 200);
+    });
+
+    //禁忌之地的密碼框和確認
+    $('#secret').next('button').click(function () {
+      if (sha512($('#secret').val().trim()) ==
+        '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
+      ) {
+        window.open('Edit.html');
+        $('#secret').val('')
+        $("#dialog").dialog('close');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
+          showConfirmButton: false,
+        });
+        $('#secret').val('')
+        $("#dialog").dialog('close');
+      }
+    });
+
+    // 分類點擊和顯示
+    $('.nav-tabs').on('click', 'a', function (e) {
+      e.preventDefault();
+      let changeACGArray = [];
+      $('.nav-tabs').find('a').each(function () {
+        $(this).removeClass('active');
+      });
+      $(this).addClass('active');
+      if ($(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&')) == 'ALL') {
+        initCard();
+      } else {
+        for (let i = 0; i < ACGArray.length; i = i + 1) {
+          if (ACGArray[i].type == $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html()
+              .lastIndexOf('&'))) {
+            changeACGArray.push(ACGArray[i]);
+          }
+        }
+        if (changeACGArray.length > 0) {
+          initCard(changeACGArray);
+        } else {
+          $('#cardBlock').html(
+            '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
+          );
+          $('#pageBlock').html('');
+        }
+      }
+      $('#subjectSearch').val('');
+    });
+
+    // 搜尋框
+    $('#subjectSearch').on('input', function () {
+      let type = '';
+      let searchACGArray = [];
+      $('.nav-tabs').find('a').each(function () {
+        if ($(this).hasClass('active')) {
+          type = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))
+        }
+      });
+      // console.log(type);
+      if (type == 'ALL') {
+        if ($('#subjectSearch').val() == '') {
+          initCard()
+          return false;
+        } else {
+          for (let i = 0; i < ACGArray.length; i++) {
+            if (ACGArray[i].type == type && ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
+              searchACGArray.push(ACGArray[i]);
+            }
+          }
+          if (searchACGArray.length > 0) {
+            initCard(ACGArray);
+          } else {
+            $('#cardBlock').html(
+              '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp查無資料，換個關鍵字試試。</div>'
+            );
+            $('#pageBlock').html('');
+          }
+        }
+      } else if ($('#subjectSearch').val() == '') {
+        for (let i = 0; i < ACGArray.length; i++) {
+          if (ACGArray[i].type == type) {
+            searchACGArray.push(ACGArray[i]);
+          }
+        }
+        initCard(searchACGArray);
+      } else {
+        for (let i = 0; i < ACGArray.length; i = i + 1) {
+          if (ACGArray[i].type == 'type' && ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
+            searchACGArray.push(ACGArray[i]);
+          }
+        }
+        if (searchACGArray.length > 0) {
+          initCard(searchACGArray);
+        } else {
+          $('#cardBlock').html(
+            '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp在' +
+            type + '裡查無資料，換個關鍵字或選其他類型試試。</div>');
+          $('#pageBlock').html('');
+        }
+      }
+    });
+
+    //排序方式
+    $('select').on('change', function () {
+      let changeACGArray = [];
+      let type = '';
+      $('.nav-tabs').find('a').each(function () {
+        if ($(this).hasClass('active')) {
+          type = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))
+        }
+      });
+      if ($(this).val() == '請選擇') {
+        return false;
+      } else if (type == 'ALL') {
+        changeACGArray = ACGArray;
+        if ($(this).val().trim() == 'newToOld') {
+          changeACGArray.sort(function (a, b) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            }
+          });
+          initCard(changeACGArray)
+        } else if ($(this).val().trim() == 'oldToNew') {
+          changeACGArray.sort(function (a, b) {
+            if (new Date(a.time) < new Date(b.time)) {
+              return -1;
+            }
+          });
+          initCard(changeACGArray)
+        } else if ($(this).val().trim() == 'highToLow') {
+          changeACGArray.sort(function (a, b) {
+            if (a.rate < b.rate) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
+          initCard(changeACGArray)
+        } else if ($(this).val().trim() == 'lowToHigh') {
+          changeACGArray.sort(function (a, b) {
+            if (a.rate < b.rate) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+          initCard(changeACGArray)
+        }
+      } else {
+        for (let i = 0; i < ACGArray.length; i = i + 1) {
+          if (ACGArray[i].type == type) {
+            changeACGArray.push(ACGArray[i]);
+          }
+        }
+        if ($(this).val().trim() == 'newToOld') {
+          changeACGArray.sort(function (a, b) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            }
+          });
+          initCard(changeACGArray)
+        } else if ($(this).val().trim() == 'oldToNew') {
+          changeACGArray.sort(function (a, b) {
+            if (new Date(a.time) < new Date(b.time)) {
+              return -1;
+            }
+          });
+          initCard(changeACGArray)
+        } else if ($(this).val().trim() == 'highToLow') {
+          changeACGArray.sort(function (a, b) {
+            if (a.rate < b.rate) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
+          initCard(changeACGArray)
+        } else if ($(this).val().trim() == 'lowToHigh') {
+          changeACGArray.sort(function (a, b) {
+            if (a.rate < b.rate) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+          initCard(changeACGArray)
+        }
+      }
+
+
+      // if ($(this).val().trim() == 'newToOld') {
+      //   changeLifeArray.sort(function (a, b) {
+      //     if (new Date(a.time) > new Date(b.time)) {
+      //       return -1;
+      //     }
+      //   });
+      //   initCard(changeLifeArray)
+      // } else {
+      //   changeLifeArray.sort(function (a, b) {
+      //     if (new Date(a.time) < new Date(b.time)) {
+      //       return -1;
+      //     }
+      //   });
+      //   initCard(changeLifeArray)
+      // }
+    });
+
+    //詳細頁超連結
+    $('#cardBlock').on('click', '.card', function () {
+      // console.log($(this).html())
+      window.location = 'Detail.html?order=' + $(this).find('input').val().trim();
+    });
+
+    // 初始化卡片
+    function initCard(newACGArray) {
+      let cardHtml = '';
+      let pageHtml = '';
+      $('#cardBlock').html('');
+      $('#pageBlock').html('');
+      if (newACGArray == null) {
+        newACGArray = ACGArray;
+      }
+      for (let i = 0; i < newACGArray.length; i++) {
+        cardHtml += '<div class="card mr-3" style="width: 21rem;">'
+        cardHtml += '<img class="card-img-top rounded img-fluid" style="height:50vh;" src="' + newACGArray[i].coverImg +
+          '" alt="Card image cap">'
+        cardHtml += '<div class="card-body">'
+        cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'
+        cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'
+        cardHtml += '<p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp' + newACGArray[i].time +
+          '</p>'
+        cardHtml += '<p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp&nbsp'
+        if (newACGArray[i].rate.toString().indexOf('.') != -1) {
+          for (let j = 0; j < 5; j = j + 1) {
+            if (j < parseInt(newACGArray[i].rate)) {
+              cardHtml += '<i class="fas fa-star"></i>';
+            } else {
+              cardHtml += '<i class="fas fa-star-half-alt"></i>';
+              j = j + 1;
+              if (j < 5) {
+                for (let k = j; k < 5; k++) {
+                  cardHtml += '<i class="far fa-star"></i>';
+                }
+                break;
+              }
+            }
+          }
+        } else {
+          for (let j = 0; j < 5; j = j + 1) {
+            if (j < newACGArray[i].rate) {
+              cardHtml += '<i class="fas fa-star"></i>';
+            } else {
+              cardHtml += '<i class="far fa-star"></i>';
+            }
+          }
+        }
+        cardHtml += '</p>'
+        cardHtml += '<p class="h4">'
+        cardHtml += newACGArray[i].say
+        cardHtml += '<p class="h5 text-muted float-right">-' + newACGArray[i].say_author + '</p>'
+        cardHtml += '</p>'
+        cardHtml += '</div></div></div>'
+      }
+      if (newACGArray.length >= 7) {
+        pageHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">';
+        pageHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">';
+        for (let i = 0; i < newACGArray.length / 6 + 1; i++) {
+          pageHtml += '<button type="button" class="btn btn-secondary">' + i + '</button>';
+        }
+        pageHtml += '</div></div>';
+      } else {
+        pageHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">';
+        pageHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">';
+        pageHtml += '<button type="button" class="btn btn-secondary">1</button>';
+        pageHtml += '</div></div>';
+      }
+      if (cardHtml == '') {
+        $('#cardBlock').html(
+          '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
+        );
+        return false;
+      }
+      $('#cardBlock').html(cardHtml);
+      $('#pageBlock').html(pageHtml);
+    }
+  </script>
+
+</body>
+
+</html>

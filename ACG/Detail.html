@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <title>文章標題</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- icon 路徑 -->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <!-- jquery ui css -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+  <style>
+
+  </style>
+</head>
+
+<body style="background-color:#F0F0F0;">
+  <div w3-include-html="ACG_header.html"></div>
+  <br><br><br>
+
+  <div class="container animate__animated animate__rollIn">
+    <div class="media">
+      <img class="align-self-center m-3 img-fluid rounded" src="../images/ACG/404.jpg" style="width:20vw;height: 60vh;"
+        alt="Generic placeholder image">
+      <div class="media-body ml-3">
+        <div class="row justify-content-center text-primary font-weight-bold display-2" id="edit"></div>
+        <div class="row justify-content-center h1 mt-2 text-danger"></div>
+        <div class="row justify-content-center h1 mt-2 text-success"></div>
+        <div class="row justify-content-center h1 mt-2 text-warning"></div>
+        <div class="col-sm-12 h1 mt-2 text-center">
+          <span>dd</span><br>
+          <p class="float-right text-muted h3 mr-3"></p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="col-sm-12 mx-3" id="content">
+
+    </div>
+    <div class='row justify-content-center'>
+      <button type="button" class="btn btn-primary" id="back">返回</button>
+    </div>
+  </div>
+
+  <div id="dialog" title="封印之地" style="display: none;">
+    <div class="col-sm-12 form-group mt-3">
+      <label for="secret" class="h5">請輸入密碼:</label>
+      <input type="password" id="secret" class="form-control" maxlength="10"></input>
+      <button type="button" class="btn btn-primary mt-2 float-right">確定</button>
+    </div>
+  </div>
+
+  <div id="goTop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+      class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    </svg>
+  </div>
+
+  <div w3-include-html="../footer.html"></div>
+
+  <!-- JQuery  -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap4 js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!-- w3school js -->
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <!-- Sweetalert2 js -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- sha512 js -->
+  <script src="../js/sha512.min.js"></script>
+  <!-- jquery ui js -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- 常用 js -->
+  <script src="../js/common.js"></script>
+
+  <script>
+    w3.includeHTML(); //引入html
+    var getUrlString = location.href;
+    var url = new URL(getUrlString);
+    var urlOrder = url.searchParams.get('order');
+    var ACGArray = [];
+
+    // 抓網頁參數資料+顯示
+    $(document).ready(function () {
+      $.get("../data/ACG/ACG.json", function (result) {
+        ACGArray = result;
+        for (let i = 0; i < result.length; i = i + 1) {
+          if (urlOrder == result[i].order) {
+            document.title = result[i].title;
+            $('.media').find('img').attr('src', result[i].coverImg);
+            $('.media-body').find('div').each(function (index, value) {
+              if (index == 0) {
+                $(this).html(result[i].title)
+              }
+              if (index == 1) {
+                if (result[i].type == '動畫' || result[i].type == '漫畫') {
+                  $(this).html(result[i].type + '、' + result[i].collect + '集');
+                } else {
+                  $(this).html(result[i].type + '、' + result[i].collect + '小時');
+                }
+              }
+              if (index == 2) {
+                $(this).html(result[i].time)
+              }
+              if (index == 3) {
+                let rateHtml = '';
+                if (result[i].rate.toString().indexOf('.') != -1) {
+                  // $(this).append('<i class="fas fa-star-half-alt"></i>');
+                  for (let j = 0; j < 5; j = j + 1) {
+                    if (i < parseInt(result[i].rate)) {
+                      rateHtml += '<i class="fas fa-star"></i>';
+                    } else {
+                      rateHtml += '<i class="fas fa-star-half-alt"></i>';
+                      j = j + 1;
+                      if (j < 5) {
+                        for (let k = j; k < 5; k++) {
+                          rateHtml += '<i class="far fa-star"></i>';
+                        }
+                        break;
+                      }
+                    }
+                  }
+                } else {
+                  for (let j = 0; j < 5; j = j + 1) {
+                    if (j < result[i].rate) {
+                      rateHtml += '<i class="fas fa-star"></i>';
+                    } else {
+                      rateHtml += '<i class="far fa-star"></i>';
+                    }
+                  }
+                }
+                $(this).html(rateHtml);
+              }
+            });
+            $('.media-body').find('span').html(result[i].say);
+            $('.media-body').find('p').html('-' + result[i].say_author);
+            $('#content').html(result[i].content);
+            break;
+          }
+        }
+      });
+    });
+
+    //雙擊標題出現封印之地
+    $('#edit').dblclick(function () {
+      $("#dialog").dialog({
+        resizable: false,
+      });
+    });
+
+    //封印之地的密碼框和確認
+    $('#secret').next('button').click(function () {
+      if (sha512($('#secret').val().trim()) ==
+        '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
+      ) {
+        window.open('Edit.html?order=' + urlOrder);
+        $('#secret').val('')
+        $("#dialog").dialog('close');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
+          showConfirmButton: false,
+        });
+        $('#secret').val('')
+        $("#dialog").dialog('close');
+      }
+    });
+
+    // 回總覽
+    $('#back').click(function () {
+      window.location = 'All.html';
+    });
+  </script>
+
+</body>
+
+</html>

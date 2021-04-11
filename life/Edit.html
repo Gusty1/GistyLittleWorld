@@ -23,10 +23,10 @@
   <br><br><br>
   <div class="container">
     <div class='row justify-content-center text-primary display-2 font-weight-bold'>
-      新增/編輯
+      生活日誌&nbsp新增/編輯
     </div>
     <br>
-    <div class="col-sm-10 h3" id='editBlock'>
+    <div class="col-sm-12 h3" id='editBlock'>
 
       <div class="form-group row">
         <label for="title" class="col-sm-2 col-form-label text-info">標題</label>
@@ -55,16 +55,16 @@
       </div>
 
       <div class="form-group row">
-        <label for="coverImg" class="col-sm-2 col-form-label text-info">封面圖</label>
-        <div class="col-sm- 12mt-2">
+        <label class="col-sm-2 col-form-label text-info">封面圖</label>
+        <div class="col-sm-10 mt-2">
           <div class="dropzone"></div>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-2 text-info">預覽圖</label>
-        <img src="" id="previewImg" onError="this.onerror=null;this.src='../images/life/404.png'" class="rounded"
-          alt="尚未上傳" style="width: 40vw;">
+        <img src="" id="previewImg" onError="this.onerror=null;this.src='../images/life/404.jpg'"
+          class="rounded img-fluid" alt="尚未上傳" style="width: 40vw;height: 60vh;">
       </div>
 
       <div class="form-group row">
@@ -76,7 +76,7 @@
 
       <div class="form-group row">
         <label for="content" class="col-sm-2 col-form-label text-info">內容</label>
-        <div class="col-sm-12 mt-2" style="height: 100vh;">
+        <div class="col-sm-12 mt-2">
           <textarea id="content" class="form-control" name="content"></textarea>
         </div>
       </div>
@@ -93,8 +93,8 @@
       <div class='row justify-content-center h2 mt-1 text-success' id="previewLabel">
       </div>
       <div class='row justify-content-center h2 mt-3'>
-        <img src="" id="previewImg2" style="width: 40vw;"
-          onError="this.onerror=null;this.src='../images/life/404.png'" class="rounded img-fluid">
+        <img src="" id="previewImg2" style="width: 40vw;height: 60vh;"
+          onError="this.onerror=null;this.src='../images/life/404.jpg'" class="rounded img-fluid">
       </div>
       <div class='row justify-content-center mt-3'>
         <div class="col-sm-8 mt-3" id="previewContent">
@@ -136,7 +136,7 @@
   <!-- jquery ui js -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- ckeditor js -->
-  <script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
+  <script src="../js/ckeditor.js"></script>
   <!-- dropzone+imgur js -->
   <script src="../js/imgur.js"></script>
   <!-- filesaver js -->
@@ -156,8 +156,7 @@
     var coverImg = '';
     var getUrlString = location.href;
     var url = new URL(getUrlString);
-    var urlTitle = url.searchParams.get('title');
-    var lifeArray = [];
+    var urlOrder = url.searchParams.get('order');
     var labelArray = [];
 
     //datepicker時間格式
@@ -167,6 +166,7 @@
 
     //初始化ckeditor和dropzone 編輯抓取的資料
     $(document).ready(function () {
+      let editLabel = '';
       $('#previewBlock').hide();
       CKEDITOR.replace('content', {
         height: '75vh',
@@ -177,7 +177,6 @@
         if (res.success === true) {
           $('#previewImg').attr('src', res.data.link);
           $('#previewImg2').attr('src', res.data.link)
-          console.log(res.data.link)
         }
       };
 
@@ -201,18 +200,16 @@
           }
         }
 
-        if (urlTitle != '' || urlTitle != null) {
+        if (urlOrder != '' || urlOrder != null) {
           for (let i = 0; i < lifeArray.length; i = i + 1) {
-            if (lifeArray[i].title == urlTitle) {
+            if (lifeArray[i].order == urlOrder) {
               document.title = lifeArray[i].title;
+              editLabel = lifeArray[i].label;
               $('#title').val(lifeArray[i].title);
               $('#time').val(lifeArray[i].time);
-              // $('#label').parent().parent().find('input').val(lifeArray[i].label)
-              // $('#label').val(lifeArray[i].label);
               $('#previewImg').attr('src', lifeArray[i].coverImg);
               $('#previewImg2').attr('src', lifeArray[i].coverImg);
               $('#summary').val(lifeArray[i].summary);
-              // $('#content').html(lifeArray[i].content);
               CKEDITOR.instances.content.setData(lifeArray[i].content)
               break;
             }
@@ -222,7 +219,15 @@
           for (let i = 0; i < labelArray.length; i = i + 1) {
             $('#label').append('<option>' + labelArray[i] + '</option>')
           }
-        }, 200)
+        }, 200);
+
+        setTimeout(function () {
+          $('select').find('option').each(function (index, value) {
+            if ($(this).text().trim() == editLabel) {
+              $('select').val(editLabel);
+            }
+          });
+        }, 400);
 
       });
     });
@@ -256,7 +261,7 @@
         return false;
       }
 
-      if ($('#previewImg').attr('src').trim() == '../images/life/404.png') {
+      if ($('#previewImg').attr('src').trim() == '../images/life/404.jpg') {
         Swal.fire({
           icon: 'error',
           html: '<span class="h3">請確認圖片是否上傳</span>',
@@ -266,34 +271,59 @@
       }
 
       $('#previewTitle').text(title);
-      $('#previewTime').html('<i class="fas fa-calendar-alt mt-2"></i>&nbsp' + time);
-      $('#previewLabel').html('<i class="fas fa-tag mt-2"></i>&nbsp' + label);
+      $('#previewTime').html('<i class="fas fa-calendar-alt mt-1"></i>&nbsp' + time);
+      $('#previewLabel').html('<i class="fas fa-tag mt-1"></i>&nbsp' + label);
       $('#previewContent').html(content);
-
-      $('#editBlock').fadeOut('fast');
-      $('#previewBlock').fadeIn();
+      $('html').animate({
+        scrollTop: 0,
+      });
+      $('#editBlock').fadeOut('slow');
+      $('#previewBlock').fadeIn('slow');
     });
 
     //預覽返回
     $('#back').click(function () {
-      $('#previewBlock').fadeOut('fast');
-      $('#editBlock').fadeIn();
+      $('html').animate({
+        scrollTop: 0,
+      });
+      $('#previewBlock').fadeOut('slow');
+      $('#editBlock').fadeIn('slow');
     });
 
     //預覽後確定送出
     $('#define').click(function () {
-      life.title = title;
-      life.time = time;
-      life.label = label;
-      life.coverImg = $('#previewImg').attr('src');
-      life.summary = summary;
-      life.content = content;
-      lifeArray.push(life);
       //下載文件無法指定位置因為安全規定...
-      var blob = new Blob([JSON.stringify(lifeArray)], {
-        type: ""
-      });
-      saveAs(blob, "life.json");
+      let edit = 0;
+      for (let i = 0; i < lifeArray.length; i = i + 1) {
+        if (lifeArray[i].order == urlOrder) {
+          lifeArray[i].title = title;
+          lifeArray[i].time = time;
+          lifeArray[i].label = label;
+          lifeArray[i].coverImg = $('#previewImg').attr('src');
+          lifeArray[i].summary = summary;
+          lifeArray[i].content = content;
+          edit = 1;
+        }
+      }
+      if (edit == 0) {
+        life.order = parseInt(lifeArray[lifeArray.length - 1].order + 1);
+        life.title = title;
+        life.time = time;
+        life.label = label;
+        life.coverImg = $('#previewImg').attr('src');
+        life.summary = summary;
+        life.content = content;
+        lifeArray.push(life);
+        var blob = new Blob([JSON.stringify(lifeArray)], {
+          type: ""
+        });
+        saveAs(blob, "life.json");
+      } else {
+        var blob = new Blob([JSON.stringify(lifeArray)], {
+          type: ""
+        });
+        saveAs(blob, "life.json");
+      }
     });
   </script>
 

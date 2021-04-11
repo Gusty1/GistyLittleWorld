@@ -30,10 +30,14 @@
       <i class="fas fa-tag mt-1"></i>&nbsp
     </div>
     <div class='row justify-content-center h2 mt-3'>
-      <img src="../images/life/404.png" id="coverImg" style="width: 80vh;" class="rounded img-fluid">
+      <img src="../images/life/404.jpg" id="coverImg" style="width: 80vh;" class="rounded img-fluid">
     </div>
     <div class="col-sm-12 mt-3" id="content">
     </div>
+    <div class="row justify-content-center">
+      <button type="button" class="btn btn-info" id="back">返回</button>
+    </div>
+    <br>
   </div>
 
   <div id="dialog" title="封印之地" style="display: none;">
@@ -79,7 +83,7 @@
     w3.includeHTML(); //引入html
     var getUrlString = location.href;
     var url = new URL(getUrlString);
-    var urlTitle = url.searchParams.get('title');
+    var urlOrder = url.searchParams.get('order');
     var lifeArray = [];
 
     // 抓網頁參數資料+顯示
@@ -87,7 +91,7 @@
       $.get("../data/life/life.json", function (result) {
         lifeArray = result;
         for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (lifeArray[i].title == urlTitle) {
+          if (lifeArray[i].order == urlOrder) {
             document.title = lifeArray[i].title;
             $('#edit').html(lifeArray[i].title);
             $('#time').append(lifeArray[i].time);
@@ -112,7 +116,7 @@
       if (sha512($('#secret').val().trim()) ==
         '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
       ) {
-        window.open('Edit.html?title=' + urlTitle);
+        window.open('Edit.html?order=' + urlOrder);
         $('#secret').val('')
         $("#dialog").dialog('close');
       } else {
@@ -124,6 +128,11 @@
         $('#secret').val('')
         $("#dialog").dialog('close');
       }
+    });
+
+    // 回總覽
+    $('#back').click(function () {
+      window.location = 'All.html';
     });
   </script>
 

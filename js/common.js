@@ -1,6 +1,6 @@
 // 回最上層 js
 $("#goTop").click(function(){
-    $("html,body").animate({
+    $("html").animate({
         scrollTop:0
     },1000);
 });

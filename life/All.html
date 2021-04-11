@@ -21,6 +21,15 @@
     .cardBlock {
       cursor: pointer;
     }
+
+    /* label區域 */
+    #labelBlock {
+      background-color: #FFFFFF;
+      height: 60vh;
+      border-radius: 3%;
+      border: 1px solid #E0E0E0;
+      /* box-shadow: 3px 3px 5px 6px #cccccc; */
+    }
   </style>
 </head>
 
@@ -36,17 +45,17 @@
     <div class="row justify-content-between">
       <div class="col-sm-4">
         <div class="form-group row h5">
-          <label for="subjectSearch" class="col-sm-4 col-form-label text-center">標題搜尋:&nbsp</label>
+          <label for="subjectSearch" class="col-sm-4 col-form-label text-center">標題搜尋:</label>
           <div class="col-sm-8">
-            <input type="email" class="form-control" id="subjectSearch" aria-describedby="emailHelp"
+            <input type="email" class="form-control mt-1" id="subjectSearch" aria-describedby="emailHelp"
               placeholder="請輸入關鍵字">
           </div>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="form-group row h5">
-          <label class="col-sm-4 col-form-label text-center">排序方式:&nbsp</label>
-          <div class="col-sm-8">
+          <label class="col-sm-4 col-form-label text-center">排序方式:</label>
+          <div class="col-sm-8 mt-1">
             <select class="browser-default custom-select">
               <option>請選擇</option>
               <option value="newToOld">時間&nbsp新-->舊</option>
@@ -85,11 +94,12 @@
 
       </div>
 
-      <div class="col-sm-3 border border-light" style="background-color:#FFFFFF; height: 50vh;">
+      <div class="col-sm-3" id='labelBlock'>
         <div class="col-sm-12 h4 my-2 text-info">標籤雲&nbsp<i class="fab fa-cloudversify"></i></div>
+        <div class="col-sm-12 h5 my-2">目前標籤:</div>
         <div class="row m-1" id="labelGroup">
-          <!-- <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">工作&nbsp<span
-              class="badge badge-light">4</span></span> -->
+          <!-- <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">ALL&nbsp<span
+              class="badge badge-light"></span></span> -->
         </div>
       </div>
     </div>
@@ -139,6 +149,16 @@
   <script>
     w3.includeHTML(); //引入html
     var lifeArray = [];
+    var searchArray = [];
+    var clickLabel = '';
+
+    //判斷是否為移動設備
+    var isMobile = isMobileDevice();
+    if (isMobile) {
+      $('#labelBlock').hide();
+    } else {
+      $('#labelBlock').show();
+    }
 
     //雙擊標題出現禁忌之地
     $('#edit').dblclick(function () {
@@ -165,7 +185,7 @@
           for (let j = 0; j < labelArray.length; j = j + 1) {
             if (lifeArray[i].label == labelArray[j]) {
               break;
-            } else {
+            } else if (j == labelArray.length - 1) {
               labelArray.push(lifeArray[i].label);
             }
           }
@@ -186,15 +206,20 @@
       }, 200);
 
       setTimeout(function () {
+        labelHtml +=
+          '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp<spanclass="badge badge-light">' +
+          labelArray.length + '</span></span>';
         for (let i = 0; i < labelArray.length; i = i + 1) {
           labelHtml +=
-            '<span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;background-color:' +
+            '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' +
             labelColor[i] + '">' + labelArray[i] + '&nbsp<spanclass="badge badge-light">' + labelArrayCount[i] +
             '</span></span>';
         }
         $('#labelGroup').html(labelHtml);
 
       }, 200);
+
+      $('#labelGroup').prev().html('目前標籤:&nbspALL');
     });
 
     //禁忌之地的密碼框和確認
@@ -217,79 +242,176 @@
     });
 
     // 搜尋框
-    $('input').on('input', function () {
+    $('#subjectSearch').on('input', function () {
       let cardHtml = '';
-      for (let i = 0; i < lifeArray.length; i = i + 1) {
-        $('#cardGroup').html('');
-        if (lifeArray[i].title.indexOf($(this).val()) != -1) {
-          cardHtml += '<div class="card mb-3 cardBlock">'
-          cardHtml += '<div class="row no-gutters">'
-          cardHtml += '<div class="col-md-4">'
-          cardHtml += '<img src="' + lifeArray[i].coverImg + '" class="card-img" alt="...">'
-          cardHtml += '</div>'
-          cardHtml += '<div class="col-md-8">'
-          cardHtml += '<div class="card-body">'
-          cardHtml += '<h1 class="card-title h2">' + lifeArray[i].title + '</h1>'
-          cardHtml += '<p class="card-text h4"><i class="fas fa-calendar-alt"></i>&nbsp' + lifeArray[i].time +
-            '</p>'
-          cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp' + lifeArray[i]
-            .label + '</p>'
-          cardHtml += '<p class="card-text h4">' + lifeArray[i].summary + '</p>'
-          cardHtml += '</div></div></div></div>'
+      let pageCount = 0;
+      let changeLifeArray = [];
+      $('#cardGroup').html('');
+      if (clickLabel == '' || clickLabel == 'ALL') {
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          if (lifeArray[i].title.indexOf($(this).val()) != -1) {
+            changeLifeArray.push(lifeArray[i])
+          }
         }
-        if (i == lifeArray.length - 1) {
-          cardHtml += '<div class="row justify-content-center">'
-          cardHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">'
-          cardHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">'
-          cardHtml += '<button type="button" class="btn btn-secondary">1</button>'
-          cardHtml += '</div></div></div>'
+        if (changeLifeArray.length == 0) {
+          $('#cardGroup').html(
+            '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp查無資料，換個關鍵字試試。</div>')
+          return false;
+        } else {
+          initCard(changeLifeArray)
         }
-      }
-      if ($('#cardGroup').html() == '') {
-        // Swal.fire({
-        //   icon: 'error',
-        //   html: '查無資料',
-        //   showConfirmButton: false,
-        // });
-        initCard();
       } else {
-        $('#cardGroup').html(cardHtml);
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          if (lifeArray[i].title.indexOf($(this).val()) != -1 && lifeArray[i].label == clickLabel) {
+            changeLifeArray.push(lifeArray[i])
+          }
+        }
+        if (changeLifeArray.length == 0) {
+          $('#cardGroup').html(
+            '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp此標籤內查無資料，換個關鍵字或標籤試試。</div>')
+          return false;
+        } else {
+          initCard(changeLifeArray)
+        }
       }
     });
 
-    // 詳細業超連結
+    // 詳細頁超連結
     $('#cardGroup').on('click', '.cardBlock', function () {
-      // $(this).find('h1').text().trim();
-      window.location = 'Detail.html?title=' + $(this).find('h1').text().trim();
+      window.location = 'Detail.html?order=' + $(this).find('input').val().trim();
+    });
+
+    //頁數換頁
+    $('#cardGroup').on('click', '.btn-secondary', function () {
+      // console.log($(this).text());
+      // console.log(searchArray)
+    });
+
+    //排序方式
+    $('select').on('change', function () {
+      let changeLifeArray = [];
+      if ($(this).val().trim() == '請選擇') {
+        return false;
+      }
+      changeLifeArray = lifeArray;
+      if (clickLabel != '' && clickLabel != 'ALL') {
+        let changeLabelLifeArray = [];
+        for (let i = 0; i < changeLifeArray.length; i = i + 1) {
+          if (changeLifeArray[i].label == clickLabel) {
+            changeLabelLifeArray.push(changeLifeArray[i]);
+          }
+        }
+        if ($(this).val().trim() == 'newToOld') {
+          changeLabelLifeArray.sort(function (a, b) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            }
+          });
+          initCard(changeLabelLifeArray)
+        } else {
+          changeLabelLifeArray.sort(function (a, b) {
+            if (new Date(a.time) < new Date(b.time)) {
+              return -1;
+            }
+          });
+          initCard(changeLabelLifeArray)
+        }
+      } else {
+        if ($(this).val().trim() == 'newToOld') {
+          changeLifeArray.sort(function (a, b) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            }
+          });
+          initCard(changeLifeArray)
+        } else {
+          changeLifeArray.sort(function (a, b) {
+            if (new Date(a.time) < new Date(b.time)) {
+              return -1;
+            }
+          });
+          initCard(changeLifeArray)
+        }
+      }
+    });
+
+    //標籤點擊
+    $('#labelGroup').on('click', '.badge-pill', function () {
+      clickLabel = $(this).html().substring(0, $(this).html().indexOf('&'))
+      $('#labelGroup').prev().html('目前標籤:&nbsp' + clickLabel);
+      if ($(this).html().substring(0, $(this).html().indexOf('&')) == 'ALL') {
+        initCard();
+        return false;
+      }
+      let changeLifeArray = []
+      for (let i = 0; i < lifeArray.length; i = i + 1) {
+        if ($(this).html().substring(0, $(this).html().indexOf('&')) == lifeArray[i].label) {
+          changeLifeArray.push(lifeArray[i]);
+        }
+      }
+      if (changeLifeArray.length > 0) {
+        initCard(changeLifeArray)
+      }
+      $('#subjectSearch').val('')
     });
 
     // 初始化卡片
-    function initCard() {
+    function initCard(newlifeArray) {
       let cardHtml = '';
-      for (let i = 0; i < lifeArray.length; i = i + 1) {
+      if (newlifeArray == null) {
+        newlifeArray = lifeArray;
+      }
+      for (let i = 0; i < newlifeArray.length; i = i + 1) {
+        if (i > 10) {
+          break;
+        }
         cardHtml += '<div class="card mb-3 cardBlock">'
         cardHtml += '<div class="row no-gutters">'
         cardHtml += '<div class="col-md-4">'
-        cardHtml += '<img src="' + lifeArray[i].coverImg + '" class="card-img" alt="...">'
+        cardHtml += '<img src="' + newlifeArray[i].coverImg + '" class="card-img img-fluid rounded" alt="...">'
         cardHtml += '</div>'
         cardHtml += '<div class="col-md-8">'
         cardHtml += '<div class="card-body">'
-        cardHtml += '<h1 class="card-title h2">' + lifeArray[i].title + '</h1>'
-        cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp' + lifeArray[i]
+        cardHtml += '<h1 class="card-title h2">' + newlifeArray[i].title + '</h1>'
+        cardHtml += '<input type="hidden" value="' + newlifeArray[i].order + '">'
+        cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp' + newlifeArray[i]
           .time +
           '</p>'
-        cardHtml += '<p class="card-text h4 text-primary"><i class="fas fa-tag"></i>&nbsp' + lifeArray[i]
+        cardHtml += '<p class="card-text h4 text-primary"><i class="fas fa-tag"></i>&nbsp' + newlifeArray[i]
           .label + '</p>'
-        cardHtml += '<p class="card-text h4">' + lifeArray[i].summary + '</p>'
+        cardHtml += '<p class="card-text h4">' + newlifeArray[i].summary + '</p>'
         cardHtml += '</div></div></div></div>'
       }
       //頁數
-      cardHtml += '<div class="row justify-content-center">'
-      cardHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">'
-      cardHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">'
-      cardHtml += '<button type="button" class="btn btn-secondary">1</button>'
-      cardHtml += '</div></div></div>'
+      if (newlifeArray.length >= 6) {
+        for (let i = 0; i < newlifeArray.length / 5 + 1; i = i + 1) {
+          cardHtml += '<div class="row justify-content-center">'
+          cardHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">'
+          cardHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">'
+          cardHtml += '<button type="button" class="btn btn-secondary">' + i + '</button>'
+          cardHtml += '</div></div></div>'
+        }
+      } else {
+        cardHtml += '<div class="row justify-content-center">'
+        cardHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">'
+        cardHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">'
+        cardHtml += '<button type="button" class="btn btn-secondary">1</button>'
+        cardHtml += '</div></div></div>'
+      }
       $('#cardGroup').html(cardHtml);
+
+    }
+
+    //判斷是否為移動設備
+    function isMobileDevice() {
+      var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
+      var isMobileDevice = false
+      for (var i = 0; i < mobileDevices.length; i++) {
+        if (navigator.userAgent.match(mobileDevices[i])) {
+          isMobileDevice = true
+        }
+      }
+      return isMobileDevice
     }
   </script>
 

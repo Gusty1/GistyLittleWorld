@@ -258,12 +258,12 @@
           return false;
         } else {
           for (let i = 0; i < ACGArray.length; i++) {
-            if (ACGArray[i].type == type && ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
+            if (ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
               searchACGArray.push(ACGArray[i]);
             }
           }
           if (searchACGArray.length > 0) {
-            initCard(ACGArray);
+            initCard(searchACGArray);
           } else {
             $('#cardBlock').html(
               '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp查無資料，換個關鍵字試試。</div>'
@@ -280,7 +280,7 @@
         initCard(searchACGArray);
       } else {
         for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (ACGArray[i].type == 'type' && ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
+          if (ACGArray[i].type == type && ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
             searchACGArray.push(ACGArray[i]);
           }
         }
@@ -400,7 +400,7 @@
       }
       for (let i = 0; i < newACGArray.length; i++) {
         cardHtml += '<div class="card mx-3" style="width: 21rem;">'
-        cardHtml += '<img class="card-img-top img-fluid" style="height:50vh;" src="' + newACGArray[i].coverImg +
+        cardHtml += '<img class="card-img-top img-fluid" style="height:325px;" src="' + newACGArray[i].coverImg +
           '" alt="Card image cap">'
         cardHtml += '<div class="card-body">'
         cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'

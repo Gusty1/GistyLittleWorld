@@ -344,7 +344,12 @@
       $('select').val('newToOld');
       $('#subjectSearch').val('');
       if ($(this).html().substring(0, $(this).html().indexOf('&')) == 'ALL') {
-        initCard();
+        lifeArray.sort(function (a, b) {
+          if (new Date(a.time) < new Date(b.time)) {
+            return 1;
+          }
+        });
+        initCard(lifeArray);
         return false;
       }
       let changeLifeArray = []
@@ -354,6 +359,11 @@
         }
       }
       if (changeLifeArray.length > 0) {
+        changeLifeArray.sort(function (a,b) {
+          if (new Date(a.time) < new Date(b.time)) {
+            return 1;
+          }
+        });
         initCard(changeLifeArray)
       }
     });

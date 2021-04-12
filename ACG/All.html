@@ -11,6 +11,8 @@
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
   <!-- jquery ui css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+  <!-- pagination css -->
+  <link rel="stylesheet" href="../css/pagination.css">
   <style>
     /* 卡片滑鼠切換 */
     .card {
@@ -37,6 +39,8 @@
               placeholder="請輸入關鍵字">
           </div>
         </div>
+      </div>
+      <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult">
       </div>
       <div class="col-sm-4">
         <div class="form-group row h5">
@@ -100,6 +104,8 @@
 
   </div>
 
+
+
   <div id="dialog" title="禁忌之地" style="display: none;">
     <div class="col-sm-12 form-group mt-3">
       <label for="secret" class="h5">請輸入密碼:</label>
@@ -124,16 +130,18 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+  </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- jquery ui js -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- Sweetalert2 js -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- pagination js -->
+  <script src="../js/pagination.js"></script>
   <!-- sha512 js -->
   <script src="../js/sha512.min.js"></script>
   <!-- 常用 js -->
@@ -157,7 +165,9 @@
       $.get('../data/ACG/ACG.json', function (result) {
         ACGArray = result;
         ACGArray.sort(function (a, b) {
-          if (new Date(a.time) < new Date(b.time)) {
+          if (new Date(a.time) > new Date(b.time)) {
+            return -1;
+          } else {
             return 1;
           }
         });
@@ -230,7 +240,7 @@
       } else {
         for (let i = 0; i < ACGArray.length; i = i + 1) {
           if (ACGArray[i].type == $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html()
-            .lastIndexOf('&'))) {
+              .lastIndexOf('&'))) {
             changeACGArray.push(ACGArray[i]);
           }
         }
@@ -264,7 +274,6 @@
       if (type == 'ALL') {
         if ($('#subjectSearch').val() == '') {
           initCard()
-          return false;
         } else {
           for (let i = 0; i < ACGArray.length; i++) {
             if (ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
@@ -302,6 +311,13 @@
           $('#pageBlock').html('');
         }
       }
+      if ($('#subjectSearch').val() == '') {
+        $('#searchResult').html('')
+      } else if (searchACGArray.length > 0) {
+        $('#searchResult').html('共&nbsp' + searchACGArray.length + '&nbsp筆符合的資料')
+      } else {
+        $('#searchResult').html('')
+      }
     });
 
     //排序方式
@@ -317,7 +333,9 @@
         changeACGArray = ACGArray;
         if ($(this).val().trim() == 'newToOld') {
           changeACGArray.sort(function (a, b) {
-            if (new Date(a.time) < new Date(b.time)) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            } else {
               return 1;
             }
           });
@@ -326,6 +344,8 @@
           changeACGArray.sort(function (a, b) {
             if (new Date(a.time) > new Date(b.time)) {
               return 1;
+            } else {
+              return -1;
             }
           });
           initCard(changeACGArray)
@@ -356,7 +376,9 @@
         }
         if ($(this).val().trim() == 'newToOld') {
           changeACGArray.sort(function (a, b) {
-            if (new Date(a.time) < new Date(b.time)) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            } else {
               return 1;
             }
           });
@@ -365,6 +387,8 @@
           changeACGArray.sort(function (a, b) {
             if (new Date(a.time) > new Date(b.time)) {
               return 1;
+            } else {
+              return -1;
             }
           });
           initCard(changeACGArray)
@@ -406,7 +430,7 @@
         newACGArray = ACGArray;
       }
       for (let i = 0; i < newACGArray.length; i++) {
-        cardHtml += '<div class="card m-3 " style="width: 21rem;">'
+        cardHtml += '<div class="card m-3 hvr-grow" style="width: 21rem;">'
         cardHtml += '<img class="card-img-top img-fluid" style="height:325px;" src="' + newACGArray[i].coverImg +
           '" alt="Card image cap">'
         cardHtml += '<div class="card-body">'
@@ -447,19 +471,7 @@
         }
         cardHtml += '</div></div></div>'
       }
-      if (newACGArray.length >= 7) {
-        pageHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">';
-        pageHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">';
-        for (let i = 0; i < newACGArray.length / 6 + 1; i++) {
-          pageHtml += '<button type="button" class="btn btn-secondary">' + i + '</button>';
-        }
-        pageHtml += '</div></div>';
-      } else {
-        pageHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">';
-        pageHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">';
-        pageHtml += '<button type="button" class="btn btn-secondary">1</button>';
-        pageHtml += '</div></div>';
-      }
+      buildPage(newACGArray);
       if (cardHtml == '') {
         $('#cardBlock').html(
           '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
@@ -467,7 +479,26 @@
         return false;
       }
       $('#cardBlock').html(cardHtml);
-      $('#pageBlock').html(pageHtml);
+    }
+
+    function buildPage(newACGArray) {
+      let pagelength = [];
+      if (newACGArray.length > 6) {
+        for (let i = 0; i < newACGArray.length / 6 + 1; i = i + 1) {
+          pagelength.push(i)
+        }
+      } else {
+        pagelength.push(1)
+      }
+      $('#pageBlock').pagination({
+        dataSource: pagelength,
+        pageSize: 1,
+        showPrevious: false,
+        showNext: false,
+        callback: function (data, pagination) {
+
+        }
+      });
     }
   </script>
 

@@ -9,6 +9,8 @@
   <!-- icon 路徑 -->
   <link rel="icon" href="../favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <!-- pagination css -->
+  <link rel="stylesheet" href="../css/pagination.css">
   <!-- jquery ui css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
   <style>
@@ -52,6 +54,7 @@
           </div>
         </div>
       </div>
+      <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult"></div>
       <div class="col-sm-4">
         <div class="form-group row h5">
           <label class="col-sm-4 col-form-label text-center">排序方式:</label>
@@ -93,7 +96,7 @@
 
       </div>
 
-      <div class="col-sm-3" id='labelBlock'>
+      <div class="col-sm-3 " id='labelBlock'>
         <div class="col-sm-12 h4 my-2 text-info">標籤雲&nbsp<i class="fab fa-cloudversify"></i></div>
         <div class="col-sm-12 h5 my-2">目前標籤:</div>
         <div class="row m-1" id="labelGroup">
@@ -129,10 +132,10 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+  </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- jquery ui js -->
@@ -141,10 +144,11 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- sha512 js -->
   <script src="../js/sha512.min.js"></script>
-  <!-- easydrag js -->
-  <script src="../js/easydrag.js"></script>
+  <!-- pagination js -->
+  <script src="../js/pagination.js"></script>
   <!-- 常用 js -->
-  <script src="../js/common.js"></script>
+  <script src="../js/common.js">
+  </script>
 
   <script>
     w3.includeHTML(); //引入html
@@ -179,7 +183,9 @@
       $.get("../data/life/life.json", function (result) {
         lifeArray = result;
         lifeArray.sort(function (a, b) {
-          if (new Date(a.time) < new Date(b.time)) {
+          if (new Date(a.time) > new Date(b.time)) {
+            return -1;
+          } else {
             return 1;
           }
         });
@@ -279,6 +285,13 @@
           initCard(changeLifeArray)
         }
       }
+      if ($(this).val() == '') {
+        $('#searchResult').html('')
+      } else if (changeLifeArray.length > 0) {
+        $('#searchResult').html('共&nbsp' + changeLifeArray.length + '&nbsp筆符合的結果')
+      } else {
+        $('#searchResult').html('')
+      }
     });
 
     // 詳細頁超連結
@@ -305,7 +318,9 @@
         }
         if ($(this).val().trim() == 'newToOld') {
           changeLabelLifeArray.sort(function (a, b) {
-            if (new Date(a.time) < new Date(b.time)) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            } else {
               return 1;
             }
           });
@@ -314,6 +329,8 @@
           changeLabelLifeArray.sort(function (a, b) {
             if (new Date(a.time) > new Date(b.time)) {
               return 1;
+            } else {
+              return -1;
             }
           });
           initCard(changeLabelLifeArray)
@@ -321,7 +338,9 @@
       } else {
         if ($(this).val().trim() == 'newToOld') {
           changeLifeArray.sort(function (a, b) {
-            if (new Date(a.time) < new Date(b.time)) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            } else {
               return 1;
             }
           });
@@ -330,6 +349,8 @@
           changeLifeArray.sort(function (a, b) {
             if (new Date(a.time) > new Date(b.time)) {
               return 1;
+            } else {
+              return -1;
             }
           });
           initCard(changeLifeArray)
@@ -359,7 +380,7 @@
         }
       }
       if (changeLifeArray.length > 0) {
-        changeLifeArray.sort(function (a,b) {
+        changeLifeArray.sort(function (a, b) {
           if (new Date(a.time) < new Date(b.time)) {
             return 1;
           }
@@ -378,10 +399,11 @@
         if (i > 10) {
           break;
         }
-        cardHtml += '<div class="card mb-3 cardBlock">'
-        cardHtml += '<div class="row no-gutters">'
+        cardHtml += '<div class="card mb-3 cardBlock hvr-glow">'
+        cardHtml += '<div class="row no-gutters ">'
         cardHtml += '<div class="col-md-4">'
-        cardHtml += '<img src="' + newlifeArray[i].coverImg + '" class="card-img img-fluid rounded" alt="404 not found">'
+        cardHtml += '<img src="' + newlifeArray[i].coverImg +
+          '" class="card-img img-fluid rounded" alt="404 not found">'
         cardHtml += '</div>'
         cardHtml += '<div class="col-md-8">'
         cardHtml += '<div class="card-body">'
@@ -395,24 +417,31 @@
         cardHtml += '<p class="card-text h4">' + newlifeArray[i].summary + '</p>'
         cardHtml += '</div></div></div></div>'
       }
+      cardHtml += '<div class="row justify-content-center h4" id="page"></div>'
       //頁數
-      if (newlifeArray.length >= 6) {
-        for (let i = 0; i < newlifeArray.length / 5 + 1; i = i + 1) {
-          cardHtml += '<div class="row justify-content-center">'
-          cardHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">'
-          cardHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">'
-          cardHtml += '<button type="button" class="btn btn-secondary">' + i + '</button>'
-          cardHtml += '</div></div></div>'
-        }
-      } else {
-        cardHtml += '<div class="row justify-content-center">'
-        cardHtml += '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">'
-        cardHtml += '<div class="btn-group mr-2" role="group" aria-label="First group">'
-        cardHtml += '<button type="button" class="btn btn-secondary">1</button>'
-        cardHtml += '</div></div></div>'
-      }
       $('#cardGroup').html(cardHtml);
 
+      buildPage(newlifeArray);
+    }
+
+    function buildPage(newlifeArray) {
+      let pagelength = [];
+      if (newlifeArray.length > 5) {
+        for (let i = 0; i < newlifeArray.length / 5 + 1; i = i + 1) {
+          pagelength.push(i);
+        }
+      } else {
+        pagelength.push(1)
+      }
+      $('#page').pagination({
+        dataSource: pagelength,
+        pageSize: 1,
+        showPrevious: false,
+        showNext: false,
+        callback: function (data, pagination) {
+
+        }
+      })
     }
 
     //判斷是否為移動設備

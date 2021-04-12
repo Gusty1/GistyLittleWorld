@@ -360,33 +360,42 @@
 
     //標籤點擊
     $('#labelGroup').on('click', '.badge-pill', function () {
+      if (clickLabel == $(this).html().substring(0, $(this).html().indexOf('&'))) {
+        return false;
+      }
       clickLabel = $(this).html().substring(0, $(this).html().indexOf('&'))
       $('#labelGroup').prev().html('目前標籤:&nbsp' + clickLabel);
       $('select').val('newToOld');
       $('#subjectSearch').val('');
       if ($(this).html().substring(0, $(this).html().indexOf('&')) == 'ALL') {
         lifeArray.sort(function (a, b) {
-          if (new Date(a.time) < new Date(b.time)) {
+          if (new Date(a.time) > new Date(b.time)) {
+            return -1;
+          } else {
             return 1;
           }
         });
         initCard(lifeArray);
         return false;
-      }
-      let changeLifeArray = []
-      for (let i = 0; i < lifeArray.length; i = i + 1) {
-        if ($(this).html().substring(0, $(this).html().indexOf('&')) == lifeArray[i].label) {
-          changeLifeArray.push(lifeArray[i]);
+      } else {
+        let changeLifeArray = []
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          if ($(this).html().substring(0, $(this).html().indexOf('&')) == lifeArray[i].label) {
+            changeLifeArray.push(lifeArray[i]);
+          }
+        }
+        if (changeLifeArray.length > 0) {
+          changeLifeArray.sort(function (a, b) {
+            if (new Date(a.time) > new Date(b.time)) {
+              return -1;
+            } else {
+              return 1;
+            }
+          });
+          initCard(changeLifeArray)
         }
       }
-      if (changeLifeArray.length > 0) {
-        changeLifeArray.sort(function (a, b) {
-          if (new Date(a.time) < new Date(b.time)) {
-            return 1;
-          }
-        });
-        initCard(changeLifeArray)
-      }
+
     });
 
     // 初始化卡片

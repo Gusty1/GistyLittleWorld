@@ -221,7 +221,12 @@
       });
       $(this).addClass('active');
       if ($(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&')) == 'ALL') {
-        initCard();
+        ACGArray.sort(function (a, b) {
+          if (new Date(a.time) < new Date(b.time)) {
+            return 1;
+          }
+        });
+        initCard(ACGArray);
       } else {
         for (let i = 0; i < ACGArray.length; i = i + 1) {
           if (ACGArray[i].type == $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html()
@@ -230,6 +235,11 @@
           }
         }
         if (changeACGArray.length > 0) {
+          changeACGArray.sort(function (a, b) {
+            if (new Date(a.time) < new Date(b.time)) {
+              return 1;
+            }
+          });
           initCard(changeACGArray);
         } else {
           $('#cardBlock').html(
@@ -396,7 +406,7 @@
         newACGArray = ACGArray;
       }
       for (let i = 0; i < newACGArray.length; i++) {
-        cardHtml += '<div class="card m-3" style="width: 21rem;">'
+        cardHtml += '<div class="card m-3 " style="width: 21rem;">'
         cardHtml += '<img class="card-img-top img-fluid" style="height:325px;" src="' + newACGArray[i].coverImg +
           '" alt="Card image cap">'
         cardHtml += '<div class="card-body">'

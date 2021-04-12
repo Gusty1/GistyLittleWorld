@@ -371,16 +371,16 @@
         cardHtml += '<div class="card mb-3 cardBlock">'
         cardHtml += '<div class="row no-gutters">'
         cardHtml += '<div class="col-md-4">'
-        cardHtml += '<img src="' + newlifeArray[i].coverImg + '" class="card-img img-fluid rounded" alt="...">'
+        cardHtml += '<img src="' + newlifeArray[i].coverImg + '" class="card-img img-fluid rounded" alt="404 not found">'
         cardHtml += '</div>'
         cardHtml += '<div class="col-md-8">'
         cardHtml += '<div class="card-body">'
-        cardHtml += '<h1 class="card-title h2">' + newlifeArray[i].title + '</h1>'
+        cardHtml += '<h1 class="card-title h2 text-success">' + newlifeArray[i].title + '</h1>'
         cardHtml += '<input type="hidden" value="' + newlifeArray[i].order + '">'
         cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp' + newlifeArray[i]
           .time +
           '</p>'
-        cardHtml += '<p class="card-text h4 text-primary"><i class="fas fa-tag"></i>&nbsp' + newlifeArray[i]
+        cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp' + newlifeArray[i]
           .label + '</p>'
         cardHtml += '<p class="card-text h4">' + newlifeArray[i].summary + '</p>'
         cardHtml += '</div></div></div></div>'

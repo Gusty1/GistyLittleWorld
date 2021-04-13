@@ -176,8 +176,8 @@
       $('#conversation').hide();
       var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF'];
       let labelCount = 0;
-      let labelArray = [];
-      let labelArrayCount = [];
+      let labelArray = ['學習', '工作'];
+      let labelArrayCount = [0, 0];
       let cardHtml = '';
       let labelHtml = '';
       $.get("../data/life/life.json", function (result) {
@@ -190,37 +190,19 @@
           }
         });
         initCard(lifeArray)
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (i == 0) {
-            labelArray.push(lifeArray[i].label);
-          }
-          for (let j = 0; j < labelArray.length; j = j + 1) {
-            if (lifeArray[i].label == labelArray[j]) {
-              break;
-            } else if (j == labelArray.length - 1) {
-              labelArray.push(lifeArray[i].label);
-            }
-          }
-        }
       });
-      setTimeout(function () {
-        for (let i = 0; i < labelArray.length; i = i + 1) {
-          let labelCount = 0;
-          for (let j = 0; j < lifeArray.length; j = j + 1) {
-            for (var key in lifeArray[j]) {
-              if (lifeArray[j][key] == labelArray[i]) {
-                labelCount = labelCount + 1;
-              }
-            }
-          }
-          labelArrayCount.push(labelCount);
-        }
-      }, 500);
 
       setTimeout(function () {
+        for (let i = 0; i < labelArray.length; i = i + 1) {
+          for (let j = 0; j < lifeArray.length; j = j + 1) {
+            if (labelArray[i] == lifeArray[j].label) {
+              labelArrayCount[i]++;
+            }
+          }
+        }
         labelHtml +=
           '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp<spanclass="badge badge-light">' +
-          labelArray.length + '</span></span>';
+          lifeArray.length + '</span></span>';
         for (let i = 0; i < labelArray.length; i = i + 1) {
           labelHtml +=
             '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' +
@@ -228,7 +210,7 @@
             '</span></span>';
         }
         $('#labelGroup').html(labelHtml);
-      }, 500);
+      }, 300)
 
       $('#labelGroup').prev().html('目前標籤:&nbspALL');
     });
@@ -447,6 +429,7 @@
         pageSize: 1,
         showPrevious: false,
         showNext: false,
+        className: 'paginationjs-theme-red paginationjs-big',
         callback: function (data, pagination) {
 
         }

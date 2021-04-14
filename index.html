@@ -239,7 +239,7 @@
       var imgLength = 0;
       $.get("data/index/imgUrl.json", function (result) {
         imgsrcArray = result.url;
-      });
+      },'json');
       //讀取需要點時間
       setTimeout(function () {
         imgLength = imgsrcArray.length

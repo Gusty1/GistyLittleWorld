@@ -117,7 +117,7 @@
                 if (result[i].rate.toString().indexOf('.') != -1) {
                   // $(this).append('<i class="fas fa-star-half-alt"></i>');
                   for (let j = 0; j < 5; j = j + 1) {
-                    if (i < parseInt(result[i].rate)) {
+                    if (j < parseInt(result[i].rate)) {
                       rateHtml += '<i class="fas fa-star"></i>';
                     } else {
                       rateHtml += '<i class="fas fa-star-half-alt"></i>';
@@ -126,8 +126,6 @@
                         for (let k = j; k < 5; k++) {
                           rateHtml += '<i class="far fa-star"></i>';
                         }
-                        break;
-                      }else{
                         break;
                       }
                     }

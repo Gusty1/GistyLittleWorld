@@ -14,7 +14,7 @@
   <!-- FB 留言外掛程式 -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v10.0"
-    nonce="OFMpMDJT"></script>
+    nonce="otCmxLDB"></script>
   <style>
 
   </style>
@@ -37,15 +37,11 @@
       <img src="../images/life/404.jpg" id="coverImg" style="width: 550px;height: 400px;" class="rounded img-fluid">
     </div>
     <div class="col-sm-12 mt-3" id="content">
-    </div>
-    <div class="row justify-content-center">
-      <div class="fb-comments" data-href="https://gusty1.github.io/GustyLittleWorld/" data-width="60%"
-        data-numposts="5"></div>
-    </div>
+    </div><br>
 
     <div class="row justify-content-center">
-      <div class="fb-comments" data-href="https://gusty1.github.io/GustyLittleWorld/" data-width="60%"
-        data-numposts="5"></div>
+      <div class="fb-comments" data-href="https://gusty1.github.io/GustyLittleWorld/life/Detail.html?order="
+        data-width="" data-numposts="5"></div>
     </div>
 
     <div class="row justify-content-center">
@@ -111,6 +107,8 @@
             $('#label').append(lifeArray[i].label);
             $('#coverImg').attr('src', lifeArray[i].coverImg);
             $('#content').html(lifeArray[i].content);
+            $('.fb-comments').data('href', 'https://gusty1.github.io/GustyLittleWorld/life/Detail.html?order=' +
+              urlOrder)
             break;
           }
         }

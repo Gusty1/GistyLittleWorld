@@ -14,7 +14,7 @@
   <!-- FB 留言外掛程式 -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v10.0"
-    nonce="OFMpMDJT"></script>
+    nonce="otCmxLDB"></script>
   <style>
   </style>
 </head>
@@ -44,8 +44,8 @@
     </div>
 
     <div class="row justify-content-center">
-      <div class="fb-comments" data-href="https://gusty1.github.io/GustyLittleWorld/" data-width="60%"
-        data-numposts="5"></div>
+      <div class="fb-comments" data-href="https://gusty1.github.io/GustyLittleWorld/ACG/Detail.html?order="
+        data-width="" data-numposts="5"></div>
     </div>
 
     <div class='row justify-content-center'>
@@ -154,6 +154,8 @@
             $('.media-body').find('span').html(result[i].say);
             $('.media-body').find('p').html('-' + result[i].say_author);
             $('#content').html(result[i].content);
+            $('.fb-comments').data('href', 'https://gusty1.github.io/GustyLittleWorld/ACG/Detail.html?order=' +
+              urlOrder)
             break;
           }
         }

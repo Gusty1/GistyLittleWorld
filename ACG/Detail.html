@@ -11,8 +11,11 @@
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
   <!-- jquery ui css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+  <!-- FB 留言外掛程式 -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v10.0"
+    nonce="OFMpMDJT"></script>
   <style>
-
   </style>
 </head>
 
@@ -22,8 +25,8 @@
 
   <div class="container animate__animated animate__rollIn">
     <div class="media">
-      <img class="align-self-center m-3 img-fluid rounded" src="../images/ACG/404.jpg" style="height: 460px;width: 350px;"
-        alt="Generic placeholder image">
+      <img class="align-self-center m-3 img-fluid rounded" src="../images/ACG/404.jpg"
+        style="height: 460px;width: 350px;" alt="Generic placeholder image">
       <div class="media-body ml-3">
         <div class="row justify-content-center text-primary font-weight-bold display-2" id="edit"></div>
         <div class="row justify-content-center h1 mt-2 text-danger"></div>
@@ -39,6 +42,12 @@
     <div class="col-sm-12 mx-3" id="content">
 
     </div>
+
+    <div class="row justify-content-center">
+      <div class="fb-comments" data-href="https://gusty1.github.io/GustyLittleWorld/" data-width="60%"
+        data-numposts="5"></div>
+    </div>
+
     <div class='row justify-content-center'>
       <button type="button" class="btn btn-info" id="back">返回</button>
     </div>
@@ -148,7 +157,7 @@
             break;
           }
         }
-      },'json');
+      }, 'json');
     });
 
     //雙擊標題出現封印之地

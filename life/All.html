@@ -27,7 +27,7 @@
     /* label區域 */
     #labelBlock {
       background-color: #FFFFFF;
-      height: 400px;
+      height: 40vh;
       border-radius: 3%;
       border: 1px solid #E0E0E0;
       /* box-shadow: 3px 3px 5px 6px #cccccc; */
@@ -46,20 +46,19 @@
 
     <div class="row justify-content-between">
       <div class="col-sm-4">
-        <div class="form-group row h5">
-          <label for="subjectSearch" class="col-sm-4 col-form-label text-center">標題搜尋:</label>
-          <div class="col-sm-8">
-            <input type="email" class="form-control mt-1" id="subjectSearch" aria-describedby="emailHelp"
-              placeholder="請輸入關鍵字">
+        <div class="form-group row h5 justify-content-center">
+          <label for="subjectSearch" class="col-form-label float-right"><i class="fas fa-search"></i>&nbsp標題搜尋</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control mt-1" id="subjectSearch" placeholder="請輸入關鍵字">
           </div>
         </div>
       </div>
       <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult"></div>
       <div class="col-sm-4">
-        <div class="form-group row h5">
-          <label class="col-sm-4 col-form-label text-center">排序方式:</label>
-          <div class="col-sm-8 mt-1">
-            <select class="browser-default custom-select">
+        <div class="form-group row h5 justify-content-end">
+          <label class="col-form-label text-center"><i class="fas fa-sort"></i>&nbsp排序方式</label>
+          <div class="col-sm-7 mt-1">
+            <select class="form-control">
               <option value="newToOld">時間&nbsp新-->舊</option>
               <option value="oldToNew">時間&nbsp舊-->新</option>
             </select>
@@ -132,10 +131,10 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
+    </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- jquery ui js -->
@@ -156,7 +155,7 @@
     var searchArray = [];
     var clickLabel = '';
 
-    //判斷是否為移動設備
+    //判斷是否為移動設備，隱藏label區域
     var isMobile = isMobileDevice();
     if (isMobile) {
       $('#labelBlock').hide();
@@ -171,7 +170,7 @@
       });
     });
 
-    //標籤數量顏色+卡片頁數
+    //標籤數量顏色+initcard
     $(document).ready(function () {
       $('#conversation').hide();
       var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF'];
@@ -190,7 +189,7 @@
           }
         });
         initCard(lifeArray)
-      },'json');
+      }, 'json');
 
       setTimeout(function () {
         for (let i = 0; i < labelArray.length; i = i + 1) {
@@ -279,12 +278,6 @@
     // 詳細頁超連結
     $('#cardGroup').on('click', '.cardBlock', function () {
       window.location = 'Detail.html?order=' + $(this).find('input').val().trim();
-    });
-
-    //頁數換頁
-    $('#cardGroup').on('click', '.btn-secondary', function () {
-      // console.log($(this).text());
-      // console.log(searchArray)
     });
 
     //排序方式
@@ -409,17 +402,17 @@
         cardHtml += '</div></div></div></div>'
       }
       cardHtml += '<div class="row justify-content-center h4" id="page"></div>'
-      //頁數
       $('#cardGroup').html(cardHtml);
-
+      //頁數
       buildPage(newlifeArray);
     }
 
+    // 產生頁數
     function buildPage(newlifeArray) {
       let pagelength = [];
       if (newlifeArray.length > 5) {
         for (let i = 0; i < newlifeArray.length / 5 + 1; i = i + 1) {
-          pagelength.push(i);
+          pagelength.push(i+1);
         }
       } else {
         pagelength.push(1)

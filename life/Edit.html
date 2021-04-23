@@ -45,7 +45,7 @@
       <div class="form-group row">
         <label for="label" class="col-sm-2 col-form-label text-info">標籤</label>
         <div class="col-sm-4 mt-2">
-          <select class="browser-default custom-select" id="label">
+          <select class="form-control" id="label">
             <option>請選擇</option>
           </select>
         </div>
@@ -125,10 +125,10 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
+    </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- Sweetalert2 js -->
@@ -190,11 +190,15 @@
         for (let i = 0; i < lifeArray.length; i = i + 1) {
           if (i == 0) {
             labelArray.push(lifeArray[i].label);
-          }
-          for (let j = 0; j < labelArray.length; j = j + 1) {
-            if (lifeArray[i].label == labelArray[j]) {
-              break;
-            } else {
+          } else {
+            let labelRepeat = 0;
+            for (let j = 0; j < labelArray.length; j = j + 1) {
+              if (lifeArray[i].label == labelArray[j]) {
+                labelRepeat = 1;
+                break;
+              }
+            }
+            if (labelRepeat == 0) {
               labelArray.push(lifeArray[i].label);
             }
           }
@@ -229,7 +233,7 @@
           });
         }, 400);
 
-      },'json');
+      }, 'json');
     });
 
     //確定預覽

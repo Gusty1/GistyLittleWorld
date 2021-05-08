@@ -129,10 +129,10 @@
   <!-- Bootstrap4 js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+  </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <!-- jquery ui js -->
@@ -253,7 +253,7 @@
       } else {
         for (let i = 0; i < ACGArray.length; i = i + 1) {
           if (ACGArray[i].type == $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html()
-            .lastIndexOf('&'))) {
+              .lastIndexOf('&'))) {
             changeACGArray.push(ACGArray[i]);
           }
         }
@@ -431,18 +431,18 @@
 
     //詳細頁超連結
     $('#cardBlock').on('click', '.card', function () {
-      // console.log($(this).html())
       window.location = 'Detail.html?order=' + $(this).find('input').val().trim();
     });
 
     // 初始化卡片
-    function initCard(newACGArray) {
+    function initCard(newACGArray, isPage) {
       let cardHtml = '';
-      let pageHtml = '';
       $('#cardBlock').html('');
-      $('#pageBlock').html('');
       if (newACGArray == null) {
         newACGArray = ACGArray;
+      }
+      if (typeof isPage == 'undefined') {
+        isPage = false;
       }
       for (let i = 0; i < newACGArray.length; i++) {
         cardHtml += '<div class="card m-3 hvr-grow" style="width: 20rem;">'
@@ -486,35 +486,61 @@
         }
         cardHtml += '</div></div></div>'
       }
-      buildPage(newACGArray);
       if (cardHtml == '') {
         $('#cardBlock').html(
           '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
         );
+        $('#pageBlock').html('');
         return false;
       }
       $('#cardBlock').html(cardHtml);
+      if (isPage) {
+        return false
+      }
+      buildPage(newACGArray);
+
     }
 
     function buildPage(newACGArray) {
       let pagelength = [];
+      let pageAcgArray = [];
       if (newACGArray.length > 6) {
-        for (let i = 0; i < newACGArray.length / 6 + 1; i = i + 1) {
+        for (let i = 0; i < parseInt(newACGArray.length / 6) + 1; i = i + 1) {
           pagelength.push(i)
         }
       } else {
         pagelength.push(1)
       }
-      $('#pageBlock').pagination({
-        dataSource: pagelength,
-        pageSize: 1,
-        showPrevious: false,
-        showNext: false,
-        className: 'paginationjs-theme-red paginationjs-big',
-        callback: function (data, pagination) {
-
-        }
-      });
+      if (newACGArray.length > 6) {
+        $('#pageBlock').pagination({
+          dataSource: pagelength,
+          pageSize: 1,
+          showPrevious: false,
+          showNext: false,
+          className: 'paginationjs-theme-red paginationjs-big',
+          callback: function (data, pagination) {
+            // start: i*6
+            // end:   (i+1)*6-1
+            pageAcgArray = []
+            for (let i = 0; i < newACGArray.length; i = i + 1) {
+              if (i >= parseInt(data[0] * 6) && i <= parseInt((data[0] + 1) * 6 - 1)) {
+                pageAcgArray.push(newACGArray[i])
+              }
+            }
+            initCard(pageAcgArray, true)
+          }
+        });
+      } else {
+        $('#pageBlock').pagination({
+          dataSource: pagelength,
+          pageSize: 1,
+          showPrevious: false,
+          showNext: false,
+          className: 'paginationjs-theme-red paginationjs-big',
+          callback: function (data, pagination) {
+          }
+        });
+      }
     }
   </script>
 

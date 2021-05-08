@@ -68,7 +68,9 @@
     </div>
 
     <div class="row justify-content-between">
-      <div class="col-sm-9" id="cardGroup">
+      <div class="col-sm-9">
+        <div class="col-md-12" id="cardGroup">
+        </div>
         <!-- <div class="card mb-3 cardBlock">
           <div class="row no-gutters">
             <div class="col-md-4">
@@ -84,15 +86,8 @@
             </div>
           </div>
         </div> -->
-
-        <!-- <div class="row justify-content-center">
-          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-              <button type="button" class="btn btn-secondary">1</button>
-            </div>
-          </div>
-        </div> -->
-
+        <div class="row justify-content-center h4" id="page">
+        </div>
       </div>
 
       <div class="col-sm-3 " id='labelBlock'>
@@ -248,7 +243,8 @@
         if (changeLifeArray.length == 0) {
           $('#cardGroup').html(
             '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp查無資料，換個關鍵字試試。</div>')
-          return false;
+          $('#page').html('')
+            return false;
         } else {
           initCard(changeLifeArray)
         }
@@ -261,6 +257,7 @@
         if (changeLifeArray.length == 0) {
           $('#cardGroup').html(
             '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp此標籤內查無資料，換個關鍵字或標籤試試。</div>')
+          $('#page').html('')
           return false;
         } else {
           initCard(changeLifeArray)
@@ -374,15 +371,15 @@
     });
 
     // 初始化卡片
-    function initCard(newlifeArray) {
+    function initCard(newlifeArray, isPage) {
       let cardHtml = '';
       if (newlifeArray == null) {
         newlifeArray = lifeArray;
       }
+      if (typeof isPage == 'undefined') {
+        isPage = false
+      }
       for (let i = 0; i < newlifeArray.length; i = i + 1) {
-        if (i > 10) {
-          break;
-        }
         cardHtml += '<div class="card mb-3 cardBlock hvr-glow">'
         cardHtml += '<div class="row no-gutters ">'
         cardHtml += '<div class="col-md-4">'
@@ -401,32 +398,59 @@
         cardHtml += '<p class="card-text h4">' + newlifeArray[i].summary + '</p>'
         cardHtml += '</div></div></div></div>'
       }
-      cardHtml += '<div class="row justify-content-center h4" id="page"></div>'
+      // cardHtml += '<div class="row justify-content-center h4" id="page"></div>'
       $('#cardGroup').html(cardHtml);
       //頁數
+      if (isPage) {
+        return false
+      }
       buildPage(newlifeArray);
+
     }
 
     // 產生頁數
     function buildPage(newlifeArray) {
       let pagelength = [];
+      let pageLifeArray = [];
       if (newlifeArray.length > 5) {
-        for (let i = 0; i < newlifeArray.length / 5 + 1; i = i + 1) {
-          pagelength.push(i + 1);
+        for (let i = 0; i < parseInt(newlifeArray.length / 5) + 1; i = i + 1) {
+          pagelength.push(i);
         }
       } else {
         pagelength.push(1)
       }
-      $('#page').pagination({
-        dataSource: pagelength,
-        pageSize: 1,
-        showPrevious: false,
-        showNext: false,
-        className: 'paginationjs-theme-red paginationjs-big',
-        callback: function (data, pagination) {
+      if (newlifeArray.length > 5) {
+        $('#page').pagination({
+          dataSource: pagelength,
+          pageSize: 1,
+          showPrevious: false,
+          showNext: false,
+          className: 'paginationjs-theme-red paginationjs-big',
+          callback: function (data, pagination) {
+            // start: i*5
+            // end:   (i+1)*5-1
+            pageLifeArray = [];
+            for (let i = 0; i < newlifeArray.length; i = i + 1) {
+              if (i >= parseInt(data[0] * 5) && i <= parseInt((data[0] + 1) * 5 - 1)) {
+                pageLifeArray.push(newlifeArray[i])
+              }
+            }
+            initCard(pageLifeArray, true)
+          }
+        });
+      } else {
+        $('#page').pagination({
+          dataSource: pagelength,
+          pageSize: 1,
+          showPrevious: false,
+          showNext: false,
+          className: 'paginationjs-theme-red paginationjs-big',
+          callback: function (data, pagination) {
 
-        }
-      })
+          }
+        });
+      }
+
     }
 
     //判斷是否為移動設備

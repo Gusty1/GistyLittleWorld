@@ -429,6 +429,7 @@
           callback: function (data, pagination) {
             // start: i*5
             // end:   (i+1)*5-1
+            $(document).scrollTop(0);
             pageLifeArray = [];
             for (let i = 0; i < newlifeArray.length; i = i + 1) {
               if (i >= parseInt(data[0] * 5) && i <= parseInt((data[0] + 1) * 5 - 1)) {

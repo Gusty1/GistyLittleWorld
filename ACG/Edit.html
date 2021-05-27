@@ -113,8 +113,8 @@
 
     <div id="previewBlock" style="background-color: #FFFFFF;">
       <div class="media">
-        <img class="align-self-center m-3 img-fluid rounded" src="../images/ACG/404.jpg" style="height: 460px;width: 350px;"
-          alt="Generic placeholder image">
+        <img class="align-self-center m-3 img-fluid rounded" src="../images/ACG/404.jpg"
+          style="height: 460px;width: 350px;" alt="Generic placeholder image">
         <div class="media-body ml-3">
           <div class="row justify-content-center text-primary font-weight-bold display-2"></div>
           <div class="row justify-content-center h1 mt-2 text-danger"></div>
@@ -173,6 +173,10 @@
   <script src="../js/rater.js"></script>
   <!-- filesaver js -->
   <script src="../js/FileSaver.min.js"></script>
+  <!-- cursor js -->
+  <script src="../js/fairyDustCursor.js"></script>
+  <!-- bubbly js -->
+  <script src="../js/bubbly-bg.js"></script>
   <!-- 常用 js -->
   <script src="../js/common.js"></script>
 
@@ -248,7 +252,7 @@
             CKEDITOR.instances.content.setData(result[i].content);
           }
         }
-      },'json');
+      }, 'json');
     });
 
     //取得rate的值

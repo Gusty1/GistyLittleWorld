@@ -230,17 +230,17 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- Bootstrap4 js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.12/lib/draggable.js"></script>
     <!-- Sweetalert2 js -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Datatable js -->
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js">
+    </script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
@@ -258,21 +258,25 @@
     <script src="../js/dragula.js"></script>
     <!-- w3school js -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <!-- Common js -->
+    <!-- cursor js -->
+    <script src="../js/fairyDustCursor.js"></script>
+    <!-- bubbly js -->
+    <script src="../js/bubbly-bg.js"></script>
+    <!-- common js -->
     <script src="../js/common.js"></script>
 
     <script>
         w3.includeHTML(); //引入html
         var drag = 0 //拖曳元素
-        var jsonUrl;//json資料取得成功保存網址
-        var finalDataTable = 0;//判斷是否2次搜尋table
-        var successData = [];//成功時取得資料陣列
-        var ctx = document.getElementById("finalChart").getContext('2d');//圖表
-        var myChart = 0;//判斷是否更新chart
-        var isClcik = 0;//展開視窗是否被過
-        var numLabel = [];//是數字的資料欄位
+        var jsonUrl; //json資料取得成功保存網址
+        var finalDataTable = 0; //判斷是否2次搜尋table
+        var successData = []; //成功時取得資料陣列
+        var ctx = document.getElementById("finalChart").getContext('2d'); //圖表
+        var myChart = 0; //判斷是否更新chart
+        var isClcik = 0; //展開視窗是否被過
+        var numLabel = []; //是數字的資料欄位
 
-        $(document).ready(function () {//init
+        $(document).ready(function () { //init
             $('.alert').hide();
             $('.spinner-border').hide();
             $('#successStepBlock').hide();
@@ -364,19 +368,29 @@
                     error: function (jqXHR) {
                         $('.spinner-border').hide();
                         if (jqXHR.status == 200) {
-                            $('.alert').html('<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp回應成功；但還是發生問題，換個網址或稍後再試');
+                            $('.alert').html(
+                                '<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp回應成功；但還是發生問題，換個網址或稍後再試'
+                            );
                             $('.alert').show();
                         } else if (jqXHR.status == 400) {
-                            $('.alert').html('<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp此回應意味伺服器因為收到無效語法，而無法理解請求');
+                            $('.alert').html(
+                                '<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp此回應意味伺服器因為收到無效語法，而無法理解請求'
+                            );
                             $('.alert').show();
                         } else if (jqXHR.status == 404) {
-                            $('.alert').html('<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp伺服器找不到請求的資源');
+                            $('.alert').html(
+                                '<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp伺服器找不到請求的資源'
+                            );
                             $('.alert').show();
                         } else if (jqXHR.status == 405) {
-                            $('.alert').html('<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp伺服器理解此請求方法，但它被禁用或不可用');
+                            $('.alert').html(
+                                '<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp伺服器理解此請求方法，但它被禁用或不可用'
+                            );
                             $('.alert').show();
                         } else {
-                            $('.alert').html('<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp發生預期之外的問題，換個網址試試看。若是政府資料請安裝Chrome插件');
+                            $('.alert').html(
+                                '<i class="fas fa-exclamation-triangle h4"></i>&nbsp&nbsp發生預期之外的問題，換個網址試試看。若是政府資料請安裝Chrome插件'
+                            );
                             $('.alert').show();
                         }
                     }
@@ -386,7 +400,7 @@
 
         //處理url取得的jsonArray資料
         function success_SelectDataColnum(jsonArray) {
-            var colArray = [];//排序用陣列
+            var colArray = []; //排序用陣列
             for (var key in jsonArray[0]) {
                 for (var jsonKey in jsonArray[0][key]) {
                     colArray.push(jsonKey);
@@ -407,7 +421,8 @@
                 }
             });
             for (let i = 0; i < colArray.length; i = i + 1) {
-                $('#dataColnum').append('<label class="h4 border border-dark my-2 w-100 bg-info text-center">' + colArray[i] + '</label>');
+                $('#dataColnum').append('<label class="h4 border border-dark my-2 w-100 bg-info text-center">' +
+                    colArray[i] + '</label>');
             }
             $('#successStepBlock').show();
             $('#selectColnum').css('height', $('#dataColnum').height());
@@ -419,7 +434,8 @@
             }
             drag = dragula([document.getElementById('dataColnum'), document.getElementById('selectColnum')], {
                 invalid: function (el, handle) {
-                    if ($('#selectColnum').find('label').length >= 8 || $('#dataColnum').find('label').length == 0) {
+                    if ($('#selectColnum').find('label').length >= 8 || $('#dataColnum').find('label')
+                        .length == 0) {
                         $("#selectColnum").sortable({
                             disabled: $('#step1OK').attr('disabled') == 'disabled',
                         });
@@ -430,10 +446,13 @@
                 },
                 revertOnSpill: true,
             }).on('drop', function () {
-                if ($('#selectColnum').find('label').length == 8 || $('#dataColnum').find('label').length == 0) {
-                    $('#colnumCheck').append('已選滿，請調整並確認右邊欄位順序後按下<button class="btn btn-warning id="step1OK">確定</button>')
+                if ($('#selectColnum').find('label').length == 8 || $('#dataColnum').find('label').length ==
+                    0) {
+                    $('#colnumCheck').append(
+                        '已選滿，請調整並確認右邊欄位順序後按下<button class="btn btn-warning id="step1OK">確定</button>')
                     $('#selectColnum').find('label').each(function () {
-                        $(this).html('<i class="fas fa-arrows-alt-v float-left mx-3 text-light"></i>' + $(this).html())
+                        $(this).html('<i class="fas fa-arrows-alt-v float-left mx-3 text-light"></i>' +
+                            $(this).html())
                     });
                 } else {
                     $('#colnumCheck').html('');
@@ -453,9 +472,11 @@
                     $('#selectColnum').append($(this));
                 }
             });
-            $('#colnumCheck').append('<br>已選滿，請調整並確認右邊欄位順序後按下<button class="btn btn-warning" id="step1OK">確定</button>')
+            $('#colnumCheck').append(
+                '<br>已選滿，請調整並確認右邊欄位順序後按下<button class="btn btn-warning" id="step1OK">確定</button>')
             $('#selectColnum').find('label').each(function () {
-                $(this).html('<i class="fas fa-arrows-alt-v float-left mx-3 text-light"></i>' + $(this).html())
+                $(this).html('<i class="fas fa-arrows-alt-v float-left mx-3 text-light"></i>' + $(this)
+                    .html())
             });
         });
 
@@ -503,7 +524,9 @@
             $('#clearSelectColnum').attr('disabled', true);
             $("#autoDrag").attr('disabled', true);
             $('#selectColnum').find('label').each(function () {
-                $("#selectSearchButton").append('<button type="button" class="btn btn-outline-info m-2">' + $(this).text() + '</button>')
+                $("#selectSearchButton").append(
+                    '<button type="button" class="btn btn-outline-info m-2">' + $(this).text() +
+                    '</button>')
             });
             $('#selectSearchButton').append('<span class="mx-3"></span>');
             $("#successStep2").show('fast');
@@ -554,7 +577,8 @@
                 }
             })
             if (selectCount == 2) {
-                $('#selectSearchButton').find('span').append('<br>已選滿，請確認後按下<button class="btn btn-warning">確定</button>');
+                $('#selectSearchButton').find('span').append(
+                    '<br>已選滿，請確認後按下<button class="btn btn-warning">確定</button>');
             } else {
                 $('#selectSearchButton').find('span').html('');
             }
@@ -576,7 +600,10 @@
                     message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status">' +
                         '<span class="sr-only"></span>' +
                         '</div>',
-                    css: { borderWidth: '0px', backgroundColor: 'transparent' },
+                    css: {
+                        borderWidth: '0px',
+                        backgroundColor: 'transparent'
+                    },
                 });
                 setTimeout(function () {
                     $.unblockUI();
@@ -629,8 +656,7 @@
                         "dom": "<'row'<'col-sm-8 d-flex justify-content-start searchBar'<'d-none'f>><'col-sm-4 d-flex justify-content-end'<'mr-3'l>B>>tip",
                         "responsive": true,
                         "autoWidth": false,
-                        "buttons": [
-                            {
+                        "buttons": [{
                                 extend: 'excelHtml5',
                                 charset: 'UTF-8',
                                 bom: true,
@@ -683,13 +709,17 @@
                         if ($(this).hasClass('btn-dark')) {
                             searchIndex = searchIndex + 1;
                             $('.searchBar').append('<div class="form-group row ml-3">' +
-                                '<label class= "col-form-label" for="search' + searchIndex + '">' + $(this).text() + ':</label>' +
+                                '<label class= "col-form-label" for="search' + searchIndex +
+                                '">' + $(this).text() + ':</label>' +
                                 '<div class="col-sm-8">' +
-                                '<input type="text" id="search' + searchIndex + '" class="form-control" placeholder=搜尋"' + $(this).text() + '">' +
+                                '<input type="text" id="search' + searchIndex +
+                                '" class="form-control" placeholder=搜尋"' + $(this).text() +
+                                '">' +
                                 '</div></div>');
                         }
                     });
-                }, error: function (jqXHR) {
+                },
+                error: function (jqXHR) {
                     Swal.fire({
                         icon: 'error',
                         title: '發生錯誤',
@@ -724,7 +754,9 @@
         $('#yourTable').on('draw.dt', function () {
             $('#yourTable').find('td').each(function (index, value) {
                 if ($(this).text().trim().length >= 10) {
-                    var tooLongHtml = $(this).text().trim().substring(0, 10) + '...<button class="btn btn-default" data-info="' + $(this).text().trim() + '"><i class="fas fa-info"></i></button>';
+                    var tooLongHtml = $(this).text().trim().substring(0, 10) +
+                        '...<button class="btn btn-default" data-info="' + $(this).text().trim() +
+                        '"><i class="fas fa-info"></i></button>';
                     $(this).html(tooLongHtml);
                 }
             });
@@ -823,13 +855,17 @@
                 for (let i = 0; i < label.length; i = i + 1) {
                     if (i == label.length - 1) {
                         graphicSetHtml += '<div class="custom-control custom-checkbox mt-1">';
-                        graphicSetHtml += '<input type="checkbox" class="custom-control-input" id="' + label[i] + '" data-value="' + label[i] + '">';
-                        graphicSetHtml += '<label class="custom-control-label" for="' + label[i] + '">' + label[i] + '</label>';
+                        graphicSetHtml += '<input type="checkbox" class="custom-control-input" id="' + label[
+                            i] + '" data-value="' + label[i] + '">';
+                        graphicSetHtml += '<label class="custom-control-label" for="' + label[i] + '">' + label[
+                            i] + '</label>';
                         graphicSetHtml += '</div>';
                     } else {
                         graphicSetHtml += '<div class="custom-control custom-checkbox mt-1">';
-                        graphicSetHtml += '<input type="checkbox" class="custom-control-input" id="' + label[i] + '" data-value="' + label[i] + '">';
-                        graphicSetHtml += '<label class="custom-control-label" for="' + label[i] + '">' + label[i] + '</label>';
+                        graphicSetHtml += '<input type="checkbox" class="custom-control-input" id="' + label[
+                            i] + '" data-value="' + label[i] + '">';
+                        graphicSetHtml += '<label class="custom-control-label" for="' + label[i] + '">' + label[
+                            i] + '</label>';
                         graphicSetHtml += '</div>';
                     }
                 }
@@ -950,11 +986,10 @@
                         }
                     });
                 }
-            }
-            else if ($("#chartShowBlock").find('select').eq(0).find("option:selected").val() == '長條圖') {
-                var label = [];//選中的資料欄位
-                var dataSets = {};//最後放入圖表的物件
-                var labelX = [];//X軸的資料
+            } else if ($("#chartShowBlock").find('select').eq(0).find("option:selected").val() == '長條圖') {
+                var label = []; //選中的資料欄位
+                var dataSets = {}; //最後放入圖表的物件
+                var labelX = []; //X軸的資料
                 $('#graphicSet').find('input:checked').each(function () {
                     label.push($(this).data('value'));
                 });
@@ -981,7 +1016,7 @@
                 dataSets.labels = labelX;
                 dataSets.datasets = [];
                 for (let i = 0; i < label.length; i = i + 1) {
-                    data = {};//每個欄位的資料集
+                    data = {}; //每個欄位的資料集
                     dataColnum = [];
                     for (let j = 0; j < successData.length; j = j + 1) {
                         for (var key in successData[j]) {
@@ -1025,11 +1060,10 @@
                         }
                     });
                 }
-            }
-            else if ($("#chartShowBlock").find('select').eq(0).find("option:selected").val() == '折線圖') {
-                var label = [];//選中的資料欄位
-                var dataSets = {};//最後放入圖表的物件
-                var labelX = [];//X軸的資料
+            } else if ($("#chartShowBlock").find('select').eq(0).find("option:selected").val() == '折線圖') {
+                var label = []; //選中的資料欄位
+                var dataSets = {}; //最後放入圖表的物件
+                var labelX = []; //X軸的資料
                 $('#graphicSet').find('input:checked').each(function () {
                     label.push($(this).data('value'));
                 });
@@ -1056,7 +1090,7 @@
                 dataSets.labels = labelX;
                 dataSets.datasets = [];
                 for (let i = 0; i < label.length; i = i + 1) {
-                    data = {};//每個欄位的資料集
+                    data = {}; //每個欄位的資料集
                     dataColnum = [];
                     for (let j = 0; j < successData.length; j = j + 1) {
                         for (var key in successData[j]) {
@@ -1138,27 +1172,31 @@
             }
 
             var graphicBarSetHtml = '';
-            graphicBarSetHtml += '<div class="col-sm-4 mt-3">請選擇長條/折線圖要顯示資料的欄位:&nbsp</div><div class="col mt-3">';
+            graphicBarSetHtml +=
+                '<div class="col-sm-4 mt-3">請選擇長條/折線圖要顯示資料的欄位:&nbsp</div><div class="col mt-3">';
             for (let i = 0; i < numLabel.length; i = i + 1) {
                 if (numLabel[i] == $(this).find("option:selected").text()) {
                     continue;
                 }
                 if (i == numLabel.length - 1) {
                     graphicBarSetHtml += '<div class="custom-control custom-checkbox mt-1">';
-                    graphicBarSetHtml += '<input type="checkbox" class="custom-control-input" id="' + numLabel[i] + '" data-value="' + numLabel[i] + '">';
-                    graphicBarSetHtml += '<label class="custom-control-label" for="' + numLabel[i] + '">' + numLabel[i] + '</label>';
+                    graphicBarSetHtml += '<input type="checkbox" class="custom-control-input" id="' + numLabel[
+                        i] + '" data-value="' + numLabel[i] + '">';
+                    graphicBarSetHtml += '<label class="custom-control-label" for="' + numLabel[i] + '">' +
+                        numLabel[i] + '</label>';
                     graphicBarSetHtml += '</div>';
                 } else {
                     graphicBarSetHtml += '<div class="custom-control custom-checkbox mt-1">';
-                    graphicBarSetHtml += '<input type="checkbox" class="custom-control-input" id="' + numLabel[i] + '" data-value="' + numLabel[i] + '">';
-                    graphicBarSetHtml += '<label class="custom-control-label" for="' + numLabel[i] + '">' + numLabel[i] + '</label>';
+                    graphicBarSetHtml += '<input type="checkbox" class="custom-control-input" id="' + numLabel[
+                        i] + '" data-value="' + numLabel[i] + '">';
+                    graphicBarSetHtml += '<label class="custom-control-label" for="' + numLabel[i] + '">' +
+                        numLabel[i] + '</label>';
                     graphicBarSetHtml += '</div>';
                 }
             }
             graphicBarSetHtml += '<button class="btn btn-warning mt-2">確定</button></div>';
             $('#graphicSet').append(graphicBarSetHtml);
         })
-
     </script>
 
 </body>

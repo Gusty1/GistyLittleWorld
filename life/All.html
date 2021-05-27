@@ -140,9 +140,12 @@
   <script src="../js/sha512.min.js"></script>
   <!-- pagination js -->
   <script src="../js/pagination.js"></script>
-  <!-- 常用 js -->
-  <script src="../js/common.js">
-  </script>
+  <!-- cursor js -->
+  <script src="../js/fairyDustCursor.js"></script>
+  <!-- bubbly js -->
+  <script src="../js/bubbly-bg.js"></script>
+  <!-- common js -->
+  <script src="../js/common.js"></script>
 
   <script>
     w3.includeHTML(); //引入html
@@ -244,7 +247,7 @@
           $('#cardGroup').html(
             '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp查無資料，換個關鍵字試試。</div>')
           $('#page').html('')
-            return false;
+          return false;
         } else {
           initCard(changeLifeArray)
         }

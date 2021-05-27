@@ -107,6 +107,7 @@
     $(document).ready(function () {
       $.get("../data/life/life.json", function (result) {
         lifeArray = result;
+
         for (let i = 0; i < lifeArray.length; i = i + 1) {
           if (lifeArray[i].order == urlOrder) {
             document.title = lifeArray[i].title;
@@ -115,6 +116,9 @@
             $('#label').append(lifeArray[i].label);
             $('#coverImg').attr('src', lifeArray[i].coverImg);
             $('#content').html(lifeArray[i].content);
+            $('.fb-comments').attr('data-href',
+              'https://gusty1.github.io/GustyLittleWorld/life/Detail.html?order=' +
+              urlOrder)
             $('.fb-comments').data('href', 'https://gusty1.github.io/GustyLittleWorld/life/Detail.html?order=' +
               urlOrder)
             break;

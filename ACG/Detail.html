@@ -162,6 +162,8 @@
             $('.media-body').find('span').html(result[i].say);
             $('.media-body').find('p').html('-' + result[i].say_author);
             $('#content').html(result[i].content);
+            $('.fb-comments').attr('data-href', 'https://gusty1.github.io/GustyLittleWorld/ACG/Detail.html?order=' +
+              urlOrder)
             $('.fb-comments').data('href', 'https://gusty1.github.io/GustyLittleWorld/ACG/Detail.html?order=' +
               urlOrder)
             break;

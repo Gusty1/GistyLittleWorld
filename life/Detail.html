@@ -124,6 +124,9 @@
             break;
           }
         }
+        $("img").on("error", function (e) {
+          $(this).attr("src", "../images/error.gif");
+        });
       }, 'json');
     });
 

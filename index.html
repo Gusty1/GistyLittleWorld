@@ -137,7 +137,7 @@
       <div class='row justify-content-start'>
         <h1 class='h2 text-info col-sm-2'>其它東西:&nbsp</h1>
         <div class='h4 mt-1 col-sm-10'>
-          就跟標題一樣，哪天我突然心血來潮想做甚麼或是我想不到放哪都會放那邊，可以當成一個垃圾集中場&nbsp<i class="fas fa-trash"></i>。
+          每過一段時間我就會發病一陣子，裡面大部分都是放我發病時生出來的東西(垃圾)。
         </div>
       </div>
     </div>
@@ -254,38 +254,28 @@
       var imgLength = 0;
       $.get("data/index/imgUrl.json", function (result) {
         imgsrcArray = result.url;
-      }, 'json');
-      //讀取需要點時間
-      setTimeout(function () {
         imgLength = imgsrcArray.length
-        //隨機產生5個數字(不重複)
-        var random = randomsrcOrder(imgLength);
-        for (let i = 0; i < random.length; i = i + 1) {
-          var repulicate = 0
-          for (let j = 0; j < i; j = j + 1) {
-            if (random[i] == random[j]) {
-              repulicate = 1;
-              break;
-            }
-          }
-          if (repulicate == 1) {
-            random = randomsrcOrder(imgLength);
-            i = 0;
-          }
-        }
+        let random = randomsrcOrder(imgLength);
         $('#carouselExampleIndicators').find('img').each(function (index, value) {
           $(this).attr('src', imgsrcArray[random[index]]);
         });
-      }, 500);
+      }, 'json');
     });
 
-    //亂數產生網址順序
+    //亂數產生網址順序 不重複
     function randomsrcOrder(length) {
-      var random = [];
+      let random = [];
       for (let i = 0; i < 5; i = i + 1) {
         random.push(Math.floor(Math.random() * length + 1))
       }
-      return random;
+      random.filter(function (element, index, arr) {
+        return arr.indexOf(element) != index;
+      });
+      if (random.length < 5) {
+        return randomsrcOrder(length)
+      } else {
+        return random
+      }
     }
 
     // 音樂滑動

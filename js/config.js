@@ -10,4 +10,5 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins = 'youtube';
 	config.extraPlugins = 'imgur';
     config.imgurClientID = '0a4c1d7727faf54'; //You need to change this key with your's
+	config.removePlugins = 'easyimage,cloudservices,exportpdf';
 };

@@ -163,8 +163,6 @@
   <script src="../js/animate_headline.js"></script>
   <!-- socila share js -->
   <script src="../js/social-share-kit.js"></script>
-  <!-- lazyload js -->
-  <script src="../js/lazyload.js"></script>
   <!-- common js -->
   <script src="../js/common.js"></script>
 
@@ -182,7 +180,6 @@
 
     //各項初始設定
     $(document).ready(function () {
-      $("img.lazyload").lazyload();
       let typeArrayCount = [0, 0, 0, 0];
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
       let adHtml = 'Gusty歷史上的今天看/玩完了&nbsp&nbsp'
@@ -480,8 +477,8 @@
       }
       for (let i = 0; i < newACGArray.length; i++) {
         cardHtml += '<div class="card m-3 hvr-grow" style="width: 20rem;">'
-        cardHtml += '<img class="card-img-top img-fluid lazyload" style="height:350px;" src="' + newACGArray[i].coverImg +
-          '" alt="Card image cap" data-src="../images/error.gif">'
+        cardHtml += '<img class="card-img-top img-fluid" style="height:350px;" src="' + newACGArray[i].coverImg +
+          '" alt="Card image cap">'
         cardHtml += '<div class="card-body">'
         cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'
         cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'

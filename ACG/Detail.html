@@ -40,9 +40,8 @@
     </div>
     <br>
     <div class="col-sm-12 mx-3" id="content">
-
     </div><br>
-
+    
     <div class="row justify-content-center h1 text-center" style="color:#AE57A4">
       <u>留言</u>
     </div><br>
@@ -52,9 +51,6 @@
         data-width="" data-numposts="5"></div>
     </div>
 
-    <div class='row justify-content-center'>
-      <button type="button" class="btn btn-info" id="back">返回</button>
-    </div>
   </div>
 
   <div id="dialog" title="封印之地" style="display: none;">
@@ -97,7 +93,9 @@
   <script src="../js/fairyDustCursor.js"></script>
   <!-- bubbly js -->
   <script src="../js/bubbly-bg.js"></script>
-  <!-- 常用 js -->
+  <!-- socila share js -->
+  <script src="../js/social-share-kit.js"></script>
+  <!-- common js -->
   <script src="../js/common.js"></script>
 
   <script>
@@ -176,10 +174,6 @@
       }, 'json');
     });
 
-
-
-
-
     //雙擊標題出現封印之地
     $('#edit').dblclick(function () {
       $("#dialog").dialog({
@@ -204,11 +198,6 @@
         $('#secret').val('')
         $("#dialog").dialog('close');
       }
-    });
-
-    // 回總覽
-    $('#back').click(function () {
-      window.location = 'All.html';
     });
   </script>
 

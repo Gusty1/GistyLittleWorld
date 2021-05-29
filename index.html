@@ -56,7 +56,7 @@
 
 <body style="background-color:#F0F0F0">
   <div w3-include-html="header.html"></div>
-  <br><br>
+  <br><br><br>
   <div id="carouselExampleIndicators" class="carousel slide animate__animated animate__rotateInDownLeft"
     data-ride="carousel">
     <ol class="carousel-indicators">
@@ -220,6 +220,8 @@
   <script src="js/fairyDustCursor.js"></script>
   <!-- bubbly js -->
   <script src="js/bubbly-bg.js"></script>
+  <!-- socila share js -->
+  <script src="js/social-share-kit.js"></script>
   <!-- common js -->
   <script src="js/common.js"></script>
 
@@ -234,9 +236,6 @@
       $('#life-graph-container').css('margin-left', '20vw');
       $('#life-graph-container').parent().css('overflow-x', 'hidden');
     }
-    $(window).on('load', function () {
-      $('#viewCount').easydrag();
-    });
 
     // 訪問量隨意拖動
     $(window).on('load', function () {

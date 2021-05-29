@@ -32,12 +32,21 @@
       border: 1px solid #E0E0E0;
       /* box-shadow: 3px 3px 5px 6px #cccccc; */
     }
+
+    body {
+      overflow-x: hidden;
+    }
   </style>
 </head>
 
 <body style="background-color:#F0F0F0;">
   <div w3-include-html="life_header.html"></div>
   <br><br><br>
+
+  <div class="row bg-warning">
+    <marquee width="100%" direction="right" scrollamount="6" style="font-size: 18px;color:#8600FF;">
+    </marquee>
+  </div>
 
   <div class="container animate__animated animate__fadeInDownBig">
     <div class='row justify-content-center text-primary font-weight-bold display-2' id="edit">
@@ -144,6 +153,8 @@
   <script src="../js/fairyDustCursor.js"></script>
   <!-- bubbly js -->
   <script src="../js/bubbly-bg.js"></script>
+  <!-- socila share js -->
+  <script src="../js/social-share-kit.js"></script>
   <!-- common js -->
   <script src="../js/common.js"></script>
 
@@ -177,6 +188,8 @@
       let labelArrayCount = [0, 0, 0]; //新增標籤要改這
       let cardHtml = '';
       let labelHtml = '';
+      let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
+      let adHtml = 'Gusty歷史上的今天發生了&nbsp&nbsp'
       $.get("../data/life/life.json", function (result) {
         lifeArray = result;
         lifeArray.sort(function (a, b) {
@@ -187,6 +200,20 @@
           }
         });
         initCard(lifeArray)
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          if (parseInt(new Date(lifeArray[i].time).getMonth()) + 1 + '-' + new Date(lifeArray[i].time)
+            .getDate() == today) {
+            adHtml +=
+              '<a class="font-weight-bold" style="margin-right:5px;color:#00FFFF;" href="javascript:window.open(\'Detail.html?order=' +
+              lifeArray[i].order + '\')">' + lifeArray[i].title +
+              '</a>、'
+          }
+        }
+        if (adHtml != 'Gusty歷史上的今天發生了&nbsp&nbsp') {
+          $('marquee').html(adHtml)
+        } else {
+          $('marquee').html('Gusty歷史上的今天甚麼事都沒發生。')
+        }
         for (let i = 0; i < labelArray.length; i = i + 1) {
           for (let j = 0; j < lifeArray.length; j = j + 1) {
             if (labelArray[i] == lifeArray[j].label) {

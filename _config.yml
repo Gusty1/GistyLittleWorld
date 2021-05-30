@@ -1,7 +1,6 @@
 title: GustyのLittleWorld
 email: a0985209465@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  Gusty的個人網站...
+description:  Gusty的個人網站...
 
 baseurl: "/GustyLittleWorld" # the subpath of your site, e.g. /blog
 
@@ -40,6 +39,8 @@ defaults:
 
 gems:
   - octopress-paginate
+
+Permissions-Policy: fullscreen=(self "https://example.com"), geolocation=*, camera=()
 
 
 

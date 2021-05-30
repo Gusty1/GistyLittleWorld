@@ -40,8 +40,6 @@ defaults:
 gems:
   - octopress-paginate
 
-Permissions-Policy: fullscreen=(self "https://example.com"), geolocation=*, camera=()
-
 
 
 

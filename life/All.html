@@ -48,7 +48,7 @@
     </marquee>
   </div>
 
-  <div class="container-xl animate__animated animate__fadeInDownBig">
+  <div class="container-xl animate__animated animate__fadeInDownBig animate__delay-2s">
     <div class='row justify-content-center text-primary font-weight-bold display-2' id="edit">
       生活日誌
     </div><br>
@@ -113,9 +113,11 @@
 
   <div id="dialog" title="禁忌之地" style="display: none;">
     <div class="col-sm-12 form-group mt-3">
-      <label for="secret" class="h5">請輸入密碼:</label>
-      <input type="password" id="secret" class="form-control" maxlength="10"></input>
-      <button type="button" class="btn btn-primary mt-2 float-right">確定</button>
+      <form>
+        <label for="secret" class="h5">請輸入密碼:</label>
+        <input type="password" id="secret" class="form-control" maxlength="10"></input>
+        <button type="submit" class="btn btn-primary mt-2 float-right">確定</button>
+      </form>
     </div>
   </div>
 
@@ -152,6 +154,13 @@
   <script src="../js/bubbly-bg.js"></script>
   <!-- socila share js -->
   <script src="../js/social-share-kit.js"></script>
+  <!-- blockUI js -->
+  <script src="../js/jquery.blockUI.js"></script>
+  <!-- firebase realtimedatabase -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
+    integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- common js -->
   <script src="../js/common.js"></script>
 
@@ -181,14 +190,26 @@
       $('#conversation').hide();
       var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF'];
       let labelCount = 0;
-      let labelArray = ['學習', '工作', '垃圾話']; //新增標籤要改這
-      let labelArrayCount = [0, 0, 0]; //新增標籤要改這
+      let labelArray = [];
+      let labelArrayCount = [];
       let cardHtml = '';
       let labelHtml = '';
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
       let adHtml = 'Gusty歷史上的今天發生了&nbsp&nbsp'
-      $.get("../data/life/life.json", function (result) {
-        lifeArray = result;
+      $.blockUI({
+        message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status">' +
+          '<span class="sr-only"></span>' +
+          '</div>',
+        css: {
+          borderWidth: '0px',
+          backgroundColor: 'transparent'
+        },
+      });
+      setTimeout(function () {
+        $.unblockUI();
+      }, 2000);
+      database.ref('/life').on('value', function (result) {
+        lifeArray = result.val()
         lifeArray.sort(function (a, b) {
           if (new Date(a.time) > new Date(b.time)) {
             return -1;
@@ -211,13 +232,23 @@
         } else {
           $('marquee').html('Gusty歷史上的今天甚麼事都沒發生。')
         }
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          labelArray.push(lifeArray[i].label)
+        }
+        labelArray = labelArray.filter(function (element, index, arr) {
+          return arr.indexOf(element) == index;
+        });
+        labelArrayCount = []
         for (let i = 0; i < labelArray.length; i = i + 1) {
+          let labelCount = 0;
           for (let j = 0; j < lifeArray.length; j = j + 1) {
             if (labelArray[i] == lifeArray[j].label) {
-              labelArrayCount[i]++;
+              labelCount = labelCount + 1;
             }
           }
+          labelArrayCount.push(labelCount)
         }
+        labelHtml = ''
         labelHtml +=
           '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp<spanclass="badge badge-light">' +
           lifeArray.length + '</span></span>';
@@ -229,11 +260,12 @@
         }
         $('#labelGroup').prev().html('目前標籤:&nbspALL');
         $('#labelGroup').html(labelHtml);
-      }, 'json');
+      })
     });
 
     //禁忌之地的密碼框和確認
-    $('#secret').next('button').click(function () {
+    $('#secret').next('button').click(function (e) {
+      e.preventDefault()
       if (sha512($('#secret').val().trim()) ==
         '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
       ) {

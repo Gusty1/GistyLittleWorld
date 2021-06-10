@@ -103,7 +103,7 @@
         </div>
       </div>
       <div class="row justify-content-end my-3 mr-3">
-        <button type="button" class="btn btn-danger mr-3" id="back">返回</button>
+        <button type="button" class="btn btn-info mr-3" id="back">返回</button>
         <button type="button" class="btn btn-primary mr-3" id="define">確定</button>
       </div>
       <br>
@@ -146,6 +146,11 @@
   <script src="../js/bubbly-bg.js"></script>
   <!-- socila share js -->
   <script src="../js/social-share-kit.js"></script>
+  <!-- firebase realtimedatabase -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
+    integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- common js -->
   <script src="../js/common.js"></script>
 
@@ -178,7 +183,7 @@
         uiColor: '#95CACA'
       });
 
-      var callback = function (res) {
+      let callback = function (res) {
         if (res.success === true) {
           $('#previewImg').attr('src', res.data.link);
           $('#previewImg2').attr('src', res.data.link)
@@ -190,26 +195,17 @@
         callback: callback
       });
 
-      $.get("../data/life/life.json", function (result) {
-        lifeArray = result;
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (i == 0) {
-            labelArray.push(lifeArray[i].label);
-          } else {
-            let labelRepeat = 0;
-            for (let j = 0; j < labelArray.length; j = j + 1) {
-              if (lifeArray[i].label == labelArray[j]) {
-                labelRepeat = 1;
-                break;
-              }
-            }
-            if (labelRepeat == 0) {
-              labelArray.push(lifeArray[i].label);
-            }
-          }
-        }
+      database.ref('/life').once('value', function (result) {
+        lifeArray = result.val()
 
-        if (urlOrder != '' || urlOrder != null) {
+        for (let i = 0; i < lifeArray.length; i = i + 1) {
+          labelArray.push(lifeArray[i].label)
+        }
+        labelArray = labelArray.filter(function (element, index, arr) {
+          return arr.indexOf(element) == index;
+        });
+
+        if (urlOrder != null) {
           for (let i = 0; i < lifeArray.length; i = i + 1) {
             if (lifeArray[i].order == urlOrder) {
               document.title = lifeArray[i].title;
@@ -237,8 +233,7 @@
             }
           });
         }, 400);
-
-      }, 'json');
+      });
     });
 
     //確定預覽
@@ -301,20 +296,18 @@
 
     //預覽後確定送出
     $('#define').click(function () {
-      //下載文件無法指定位置因為安全規定...
-      let edit = 0;
-      for (let i = 0; i < lifeArray.length; i = i + 1) {
-        if (lifeArray[i].order == urlOrder) {
-          lifeArray[i].title = title;
-          lifeArray[i].time = time;
-          lifeArray[i].label = label;
-          lifeArray[i].coverImg = $('#previewImg').attr('src');
-          lifeArray[i].summary = summary;
-          lifeArray[i].content = content;
-          edit = 1;
-        }
+      //舊時代的產物
+      // saveAs(blob, "life.json");
+      // var blob = new Blob([JSON.stringify(lifeArray)], {
+      //   type: ""
+      // });
+      let edit;
+      if (urlOrder != null) {
+        edit = true
+      } else {
+        edit = false
       }
-      if (edit == 0) {
+      if (!edit) { //新增
         life.order = parseInt(lifeArray[lifeArray.length - 1].order + 1);
         life.title = title;
         life.time = time;
@@ -322,16 +315,18 @@
         life.coverImg = $('#previewImg').attr('src');
         life.summary = summary;
         life.content = content;
-        lifeArray.push(life);
-        var blob = new Blob([JSON.stringify(lifeArray)], {
-          type: ""
-        });
-        saveAs(blob, "life.json");
-      } else {
-        var blob = new Blob([JSON.stringify(lifeArray)], {
-          type: ""
-        });
-        saveAs(blob, "life.json");
+        database.ref('/life/' + parseInt(lifeArray[lifeArray.length - 1].order)).set(life)
+        window.location.href = 'All.html';
+      } else { //編輯
+        life.order = urlOrder;
+        life.title = title;
+        life.time = time;
+        life.label = label;
+        life.coverImg = $('#previewImg').attr('src');
+        life.summary = summary;
+        life.content = content;
+        database.ref('/life/' + parseInt(urlOrder - 1)).update(life)
+        window.location.href = 'All.html';
       }
     });
   </script>

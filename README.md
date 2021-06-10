@@ -19,3 +19,6 @@ Gusty 個人網站<br /><br />
 
 2021/05/29 v1.55 <br />
 大規模修正BUG +一堆奇怪的東西
+
+2021/06/10 v1.7 <br />
+使用firebase 用realtimedatabase

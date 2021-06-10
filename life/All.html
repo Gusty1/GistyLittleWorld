@@ -470,8 +470,14 @@
       let pagelength = [];
       let pageLifeArray = [];
       if (newlifeArray.length > 5) {
-        for (let i = 0; i < parseInt(newlifeArray.length / 5) + 1; i = i + 1) {
-          pagelength.push(i);
+        if (newlifeArray.length % 5 == 0) {
+          for (let i = 0; i < parseInt(newlifeArray.length / 5); i = i + 1) {
+            pagelength.push(i);
+          }
+        } else {
+          for (let i = 0; i < parseInt(newlifeArray.length / 5) + 1; i = i + 1) {
+            pagelength.push(i);
+          }
         }
       } else {
         pagelength.push(1)

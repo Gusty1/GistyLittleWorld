@@ -40,3 +40,27 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
+
+
+// toastr工具範例 以後如果有用到的話...
+// toastr.options = {
+//     "closeButton": true,
+//     "debug": false,
+//     "newestOnTop": false,
+//     "progressBar": true,
+//     "positionClass": "toast-bottom-center",
+//     "preventDuplicates": true,
+//     "showDuration": "300",
+//     "hideDuration": "1000",
+//     "timeOut": "5000",
+//     "extendedTimeOut": "1000",
+//     "showEasing": "swing",
+//     "hideEasing": "linear",
+//     "showMethod": "fadeIn",
+//     "hideMethod": "fadeOut"
+// }
+
+// 不知道為啥會跟w3.includeHTML()衝到所以強制硬改顏色、加事件
+// toastr.info('<h4>有人傳送訊息給你<h4>').css('background-color', '#2F96B4').on('click', function () {
+//     window.location.href = 'other/easyChat.html'
+// });

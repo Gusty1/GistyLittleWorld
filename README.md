@@ -22,3 +22,6 @@ Gusty 個人網站<br /><br />
 
 2021/06/10 v1.7 <br />
 使用firebase 用realtimedatabase
+
+2021/06/13 v1.75 <br />
+使用firebase 做出聊天4

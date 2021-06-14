@@ -328,6 +328,16 @@
                     });
                     return false;
                 } else { //開始聊天
+                    let isOnline = 0;
+                    isOnline = 0;
+                    $('#user').find('.userBlock').each(function () {
+                        if ($(this).find('.isMe').text().indexOf('(他)') != -1) {
+                            isOnline++
+                        }
+                    });
+                    if(isOnline > 0){
+                        return false
+                    }
                     let name = $(this).find('.isMe').text()
                     let chatRoomId = uuid()
                     database.ref('/chat/user').once('value', function (result) {

@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="row justify-content-center" style="display: none;" id="chatStart">
-                        <div class="col-sm-12">您已經有暱稱了，找個人開始聊天吧。</div>
+                        <div class="col-sm-12 h4">您已經有暱稱了，找個人開始聊天吧。</div>
                     </div>
                     <div class="row w-100" style="padding: 0px;display: none;" id="chatRoom">
                         <div class="col-sm-12" style="height:55vh;overflow-y: auto;overflow-x: hidden;"
@@ -153,7 +153,8 @@
                                 2.開始選聊天對象，對方必須也要是綠的<br>
                                 3.開始聊天<br>
                                 <span class="text-danger">***選好一個使用者就無法切換，只能關掉重開***</span><br>
-                                <span class="text-danger">***聊天功能只能在雙方都在該網頁的情況下才能開始***</span>
+                                <span class="text-danger">***聊天功能只能在雙方都在該網頁的情況下才能開始***</span><br>
+                                <span class="text-danger">***聊天開始就不能跟其他人聊天，一樣只能關掉重開或是其中一方離開***</span><br>
                                 <span class="text-danger">***聊天紀錄不會保存，即使是同一組人每次開始聊天訊息也都會清空***</span>
                             </div>
                         </div>
@@ -229,7 +230,7 @@
         $(document).ready(function () {
             if (sessionStorage.getItem('user') != null) {
                 $('#nameinit').hide()
-                $('#chatStart').html('<div class="col-sm-12">您已經有暱稱了，找個人開始聊天吧。</div>').show()
+                $('#chatStart').html('<div class="col-sm-12 h4">您已經有暱稱了，找個人開始聊天吧。</div>').show()
                 $('#chatRoom').hide()
             }
             database.ref('/chat/user').on('value', function (result) {
@@ -300,7 +301,7 @@
                     return false;
                 } else { //成為使用者
                     $('#nameinit').hide()
-                    $('#chatStart').html('<div class="col-sm-12">您已經有暱稱了，找個人開始聊天吧。</div>').show()
+                    $('#chatStart').html('<div class="col-sm-12 h4">您已經有暱稱了，找個人開始聊天吧。</div>').show()
                     $('#chatRoom').hide()
                     let user = {
                         status: "online",
@@ -335,10 +336,35 @@
                             isOnline++
                         }
                     });
-                    if(isOnline > 0){
+                    if (isOnline > 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '你已經在跟別人聊天中了',
+                            showConfirmButton: false,
+                        });
                         return false
                     }
                     let name = $(this).find('.isMe').text()
+                    let chatIng = false
+                    database.ref('/chat/user').on('value', function (result) {
+                        let userAry = result.val()
+                        for (let i = 0; i < userAry.length; i = i + 1) {
+                            if(userAry[i].name == name){
+                                if(userAry[i].chatRoomId != ''){
+                                    chatIng = true
+                                    return false
+                                }
+                            }
+                        }
+                    });
+                    if (chatIng) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '對方已經在跟別人聊天中',
+                            showConfirmButton: false,
+                        });
+                        return false
+                    }
                     let chatRoomId = uuid()
                     database.ref('/chat/user').once('value', function (result) {
                         let userAry = result.val()
@@ -389,7 +415,8 @@
                 });
                 if (isOnline == $('#user').find('.userBlock').length) {
                     $('#chatStart').html(
-                        '<div class="col-sm-12 text-danger">對方已經不再線上，聊天結束。</div>').show()
+                        '<div class="col-sm-12 text-danger h4">對方已經不再線上，聊天結束。<br>聊天紀錄還是可以匯出，或是可以找其他人聊天。</div>'
+                    ).show()
                     $('#chatRoom').hide()
                     return false
                 }
@@ -530,7 +557,7 @@
                 database.ref('/chat/user/' + user.order).set(user)
                 $('#nameinit').find('input').val('')
                 $('#nameinit').hide()
-                $('#chatStart').html('<div class="col-sm-12">您已經有暱稱了，找個人開始聊天吧。</div>').show()
+                $('#chatStart').html('<div class="col-sm-12 h4">您已經有暱稱了，找個人開始聊天吧。</div>').show()
                 $('#chatRoom').hide()
             });
         });
@@ -549,7 +576,8 @@
             });
             if (isOnline == $('#user').find('.userBlock').length) {
                 $('#chatStart').html(
-                    '<div class="col-sm-12 text-danger">對方已經不再線上，聊天結束。</div>').show()
+                        '<div class="col-sm-12 text-danger h4">對方已經不再線上，聊天結束。<br>聊天紀錄還是可以匯出，或是可以找其他人聊天。</div>')
+                    .show()
                 $('#chatRoom').hide()
                 return false
             }

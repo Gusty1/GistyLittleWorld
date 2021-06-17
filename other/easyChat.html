@@ -153,7 +153,7 @@
                                 2.開始選聊天對象，對方必須也要是綠的<br>
                                 3.開始聊天<br>
                                 <span class="text-danger">***選好一個使用者就無法切換，只能關掉重開***</span><br>
-                                <span class="text-danger">***聊天功能只能在雙方都在該網頁的情況下才能開始***</span><br>
+                                <span class="text-danger">***聊天功能只能在雙方都在該網頁(都是綠色)的情況下才能開始***</span><br>
                                 <span class="text-danger">***聊天開始就不能跟其他人聊天，一樣只能關掉重開或是其中一方離開***</span><br>
                                 <span class="text-danger">***聊天紀錄不會保存，即使是同一組人每次開始聊天訊息也都會清空***</span>
                             </div>
@@ -171,9 +171,9 @@
                         <div id="description3" class="collapse" aria-labelledby="headingThree"
                             data-parent="#authorGGYY">
                             <div class="card-body">
-                                整體來說是不難拉，但在設計上我想很久，邏輯要很清晰，原本還想說弄已讀跟打字中，但弄不出來...
-                                還想說在其他頁也可以跳出訊息通知，試過了有問題做不到。<br>
-                                總而言之就是醬拉，簡陋的畫面，但是至少可以聊天ㄏㄏ。
+                                整體來說是不難拉，但在設計上我想很久，邏輯要很清晰，原本還想說弄已讀跟打字中、其他頁也可以跳出訊息通知；
+                                但是試過了有問題做不到...<br>
+                                總而言之就是醬拉，至少可以聊天ㄏㄏ。
                             </div>
                         </div>
                     </div>
@@ -210,8 +210,6 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- filesaver js -->
     <script src="../js/FileSaver.min.js"></script>
-    <!-- toastr js -->
-    <script src="../js/toastr.min.js"></script>
     <!-- firebase realtimedatabase -->
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
@@ -346,6 +344,7 @@
                     }
                     let name = $(this).find('.isMe').text()
                     let chatIng = false
+                    chatIng = false
                     database.ref('/chat/user').on('value', function (result) {
                         let userAry = result.val()
                         for (let i = 0; i < userAry.length; i = i + 1) {

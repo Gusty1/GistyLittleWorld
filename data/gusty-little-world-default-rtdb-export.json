@@ -241,6 +241,17 @@
     "time" : "2021-06-25",
     "title" : "無職轉生",
     "type" : "動畫"
+  }, {
+    "collect" : "1",
+    "content" : "<p><span style=\"color:#e74c3c\"><strong><span style=\"font-size:24px\">故事大綱:</span></strong></span><span style=\"font-size:22px\">接續假面騎士01 TV版之後的劇情...</span></p>\n\n<p><span style=\"font-size:22px\">假面騎士01TV版全部好像40多集吧，真正能看的只有第1集跟最後1集，其他感覺都是惡意拖戲、增加時間而已，這部劇場版大改就跟TV版能看的同水平，雖然劇情上好像還是有點怪怪的地方，但影響也不大，還能看啦。</span></p>\n\n<p><span style=\"font-size:22px\">全片也就80分鐘左右，劇情上也是說60分鐘內要拯救世界，跟影片長度差不多，所以整部劇場版節奏很緊湊，不會有讓你覺得無聊、想睡覺的地方，雖然劇情並沒有特別好看，但每次打架BGM出現時都很HIGH，感覺就是贏定了，這是我覺得01最好看的地方。</span></p>\n\n<p><span style=\"font-size:22px\">果然蝗蟲是最強的蟲蟲，大家都聽過蝗災，好像沒聽過其他蟲災，所以蝗蟲最強。</span></p>\n\n<p style=\"text-align:center\"><span style=\"color:#8e44ad\"><span style=\"font-size:22px\"><span style=\"background-color:#f39c12\">BGM之一</span></span></span></p>\n\n<p style=\"text-align:center\"><iframe allowfullscreen=\"\" frameborder=\"0\" height=\"360\" src=\"https://www.youtube.com/embed/mxrOo_I5bsU\" width=\"640\"></iframe></p>\n",
+    "coverImg" : "https://i.imgur.com/ukp66Sy.jpg",
+    "order" : 23,
+    "rate" : 3,
+    "say" : "能夠阻止你的，就是我們",
+    "say_author" : "或人&伊茲",
+    "time" : "2021-06-26",
+    "title" : "假面騎士01 REAL X TIME",
+    "type" : "動畫"
   } ],
   "chat" : {
     "chatRoom" : [ {
@@ -354,12 +365,20 @@
     "time" : "2021-06-20",
     "title" : "救救菜英文"
   }, {
-    "content" : "<p><span style=\"font-size:22px\">原本以為只有等到我換工作才有機會碰到一些新東西，沒想到工作還沒半年就有新的挑戰來了，目前工作都大概90%以上都在寫JS，還有一點點的JAVA。</span></p>\n\n<p><span style=\"font-size:22px\">某天老闆突然跟我說有新專案要開發，用mongoDB、java1.8、bootstrap4.6、tomcat8，聽到有新東西其實我還蠻開心的，因為之前用的東西都很舊，有時候真的會被那些舊東西搞到氣死，像是Bootstrap以前專案都是用3，我之前在資策會就是用4了，發現4一堆東西在3都不能用，不然就是用起來完全不一樣，害我每次都搞很久；然後mongoDB大概聽過就是NoSQL，講到NoSQL我這網站的資料也都是用NoSQL(firebase)，還有那個聊天4也是，應該不會差太多吧，之後回家練習發現差很多，不管是設定、CURD都差很多，感覺自己打開一個新的大門。</span></p>\n\n<p><span style=\"font-size:22px\">然後我問老闆環境是我要自己從頭建好嗎?老闆:YES；我一開始想說沒多難吧，弄一弄應該就可以，弄了才發現好難，還記得以前資策會老師說建環境是一件麻煩、複雜的是，通常你們剛出去不會讓你們建，但我現在工作沒滿半年就要建環境了 ㄟ；環境如果要簡單也可以很簡單，就SQL連線成功就好，但是老闆說要連線池、要寫出log、要包成jar...也許是很久沒碰後端了吧，感覺超級陌生，整個過程感覺都在碰壁。</span></p>\n\n<p><span style=\"font-size:22px\">然後我用的IDE是intellij，以前大學、資策會都是用Eclipse，公司預設也是Eclipse，想說新專案我也順便換新IDE試試看好了，但這就是錯誤的開始，我派遣的公司是某知名大大大公司，然後他們因為資安問題網路會擋一大堆東西，我的maven專案自動下載jar都會失敗，一開始我想說是我IDE哪裡沒裝好還是怎樣，回家自己試試看發現一切正常啊，所以是公司問題，所以我之後都不能直接掛maven，所有東西都要手動下載、設路徑，好麻煩、好累。</span></p>\n\n<p><span style=\"font-size:22px\">總而言之拿到新玩具我當然會很開心，但是我希望玩具是已經組裝好，而不是連組裝都要我自己來，然後我只要負責玩就好；事與願違，老闆說啥就做啥，社畜悲歌。</span></p>\n\n<p style=\"text-align:center\"><span style=\"font-size:22px\"><img src=\"https://i.imgur.com/8eIbz6Z.png\" style=\"width:60%\" /></span></p>\n\n<p style=\"text-align:center\"><span style=\"color:#f1c40f\"><span style=\"font-size:22px\"><span style=\"background-color:#2980b9\">寫程式也要很油</span></span></span></p>\n",
+    "content" : "<p><span style=\"font-size:22px\">原本以為只有等到我換工作才有機會碰到一些新東西，沒想到工作還沒半年就有新的挑戰來了，目前工作都大概90%以上都在寫JS，還有一點點的JAVA。</span></p>\n\n<p><span style=\"font-size:22px\">某天老闆突然跟我說有新專案要開發，用mongoDB、java1.8、bootstrap4.6、tomcat8，聽到有新東西其實我還蠻開心的，因為之前用的東西都很舊，有時候真的會被那些舊東西搞到氣死，像是Bootstrap以前專案都是用3，我之前在資策會就是用4了，發現4一堆東西在3都不能用，不然就是用起來完全不一樣，害我每次都搞很久；然後mongoDB大概聽過就是NoSQL，講到NoSQL我這網站的資料也都是用NoSQL(firebase)，還有那個聊天4也是，應該不會差太多吧，之後回家練習發現差很多，不管是設定、CURD都差很多，感覺自己打開一個新的大門。</span></p>\n\n<p><span style=\"font-size:22px\">然後我問老闆環境是我要自己從頭建好嗎?老闆:YES；我一開始想說沒多難吧，弄一弄應該就可以，弄了才發現好難，還記得以前資策會老師說建環境是一件麻煩、複雜的是，通常你們剛出去不會讓你們建，但我現在工作沒滿半年就要建環境了 ㄟ；環境如果要簡單也可以很簡單，就SQL連線成功就好，但是老闆說要連線池、要寫出log、要包成jar...也許是很久沒碰後端了吧，感覺超級陌生，整個過程感覺都在碰壁。</span></p>\n\n<p><span style=\"font-size:22px\">然後我用的IDE是intellij，以前大學、資策會都是用Eclipse，公司預設也是Eclipse，想說新專案我也順便換新IDE試試看好了，但這就是錯誤的開始，我派遣的公司是某知名大大大公司，然後他們因為資安問題網路會擋一大堆東西，我的maven專案自動下載jar都會失敗，一開始我想說是我IDE哪裡沒裝好還是怎樣，回家自己試試看發現一切正常啊，所以是公司問題，所以我之後都不能直接掛maven，所有東西都要手動下載、設路徑，好麻煩、好累。</span></p>\n\n<p><span style=\"font-size:22px\">總而言之拿到新玩具我當然會很開心，但是我希望玩具是已經組裝好，而不是連組裝都要我自己來，然後我只要負責玩就好，可惜現實總是殘酷的。</span></p>\n\n<p style=\"text-align:center\"><span style=\"font-size:22px\"><img src=\"https://i.imgur.com/8eIbz6Z.png\" style=\"width:60%\" /></span></p>\n\n<p style=\"text-align:center\"><span style=\"color:#f1c40f\"><span style=\"font-size:22px\"><span style=\"background-color:#2980b9\">寫程式也要很油</span></span></span></p>\n",
     "coverImg" : "https://i.imgur.com/31eBsed.jpg",
     "label" : "工作",
     "order" : "10",
     "summary" : "工作上有新東西要做了...",
     "time" : "2021-06-25",
     "title" : "工作GGYY"
+  }, {
+    "content" : "<p><span style=\"font-size:22px\">玩個遊戲想放鬆心情，結果玩到一肚子火，不說2句受不了。</span></p>\n\n<p><span style=\"font-size:22px\">想說放假好久沒玩LOL，打個ARAM好了，不玩還好，一玩整個火都來了，剛開始空個2招技能就被pin ?然後就開嘴，嘴的話不外呼就那幾句 NMSL、F5、摺蓮花...；可惜我遇到的人比較沒讀書他直接用白話文跟我說；我打個ARAM也要被嘴成這樣，那麼厲害你怎不去打職業，還是嘴我們這種一般人會比較有成就感，真的是搞不懂這種人ㄟ。</span></p>\n\n<p><span style=\"font-size:22px\">不知道484因為現在疫情，學生都在家，失業也在家，所以玩遊戲的人變多了，玩家素質也變差了(雖然本來就沒多好)，可能失業沒工作，只能來遊戲裡面發洩；真D可憐。我想說第一場就算了，白癡天天有只是今天特別多，然後我又比較衰剛好遇到他而已，所以我就直接掛機等下一場；然後下一場又有一個名字不一樣的白癡；我真的是太久沒做好事了，連續2場遇到白癡；如果是以前的我因該會打字回嘴他，但現在的我已經是個成熟的大人了，所以我直接開送，反正他也不在乎遊戲體驗，剛好我也不在乎。</span></p>\n\n<p><span style=\"font-size:22px\">想當年S4我第一次玩LOL大家就算嘴也是那種半開玩笑的嘴，現在就直接死爸、死媽了，嘴那麼臭才死爸死媽哩，也許是最近各大實況主都在玩陸服，所以大家的問候語也就慢慢入境隨俗了，這遊戲真的是越來越臭ㄟ，不僅是遊戲本體，連玩家也臭到一個不行。以後再也不玩這遊戲了，誰玩誰小狗。氣氣氣氣~~~</span></p>\n\n<p style=\"text-align:center\"><span style=\"color:#e74c3c\"><span style=\"font-size:24px\"><span style=\"background-color:#2c3e50\">只許我戳隊友，休叫隊友戳我 霸氣開送</span></span></span></p>\n\n<p style=\"text-align:center\"><span style=\"font-size:22px\"><img src=\"https://i.imgur.com/4OhKt77.jpg\" style=\"width:80%\" /></span></p>\n",
+    "coverImg" : "https://i.imgur.com/V4NaIQb.jpg",
+    "label" : "垃圾話",
+    "order" : "11",
+    "summary" : "這遊戲到底怎麼了。",
+    "time" : "2021-06-29",
+    "title" : "孤兒聯盟"
   } ]
 }

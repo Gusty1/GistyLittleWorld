@@ -35,6 +35,12 @@
       bottom: 70vh;
     }
 
+    #covid19Button {
+      position: fixed;
+      right: 0;
+      bottom: 70vh;
+    }
+
     /* 瀏覽量統計位置 */
     #viewCount {
       position: fixed;
@@ -175,6 +181,8 @@
     <button class="btn btn-warning mb-2"><label style="margin-left: 5px;">音<br>樂</label></button>
   </div>
 
+  <button type="button" id="covid19Button" class="btn btn-info" data-toggle="modal" data-target="#covid19">全<br>球<br>疫<br>情</button>
+
   <div id="viewCount" style="background-color:#C4E1FF;"
     class="border border-dark animate__animated animate__backInDown animate__delay-1s">
     <span id="busuanzi_container_site_pv" class="mx-2">
@@ -188,6 +196,22 @@
       本站訪客數(UV):&nbsp
       <span id="busuanzi_value_site_uv" style="color:#F75000;font-size: 14pt;" class="font-weight-bold"></span>
     </span>
+  </div>
+
+  <div class="modal fade" id="covid19" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title">全球疫情分佈</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body w-100">
+          <iframe src="https://www.lovestu.com/api/project/cnmapyinqing/obj.php" height="500" frameborder="no" width="90%"> </iframe>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div w3-include-html="footer.html"></div>

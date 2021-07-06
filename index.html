@@ -367,15 +367,15 @@
 
     var master = graph.branch("master");
     master.commit({
-      message: "2019年6月大學畢業"
+      message: "2019/06 大學畢業"
     });
 
     var other = graph.branch("other");
     other.commit({
-      message: "2019年9月國家需要我"
+      message: "2019/09 國家需要我"
     });
     other.commit({
-      message: "2019年12月國家不要我"
+      message: "2019/12 國家不要我"
     });
     other.merge(master, {
       message: "   "
@@ -383,10 +383,10 @@
 
     var work = graph.branch("work");
     work.commit({
-      message: "2020年2月當作業員"
+      message: "2020/02 當作業員"
     });
     work.commit({
-      message: "2020年8月不當作業員"
+      message: "2020/08 不當作業員"
     });
     work.merge(master, {
       message: "   "
@@ -394,17 +394,17 @@
 
     var study = graph.branch("study");
     study.commit({
-      message: "2020年9月去資策會上課"
+      message: "2020/09 去資策會上課"
     });
     study.commit({
-      message: "2021年1月資策會結業"
+      message: "2021/01 資策會結業"
     });
     study.merge(master, {
       message: "   "
     });
 
     master.merge(work, {
-      message: "2021年2月當工程師"
+      message: "2021/02 當工程師"
     });
   </script>
 

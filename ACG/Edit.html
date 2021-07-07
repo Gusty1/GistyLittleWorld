@@ -408,7 +408,7 @@
         isEdit = false
       }
       if (isEdit) {
-        ACGObject.order = urlOrder
+        ACGObject.order = parseInt(urlOrder);
         database.ref('/ACG/' + parseInt(urlOrder - 1)).update(ACGObject)
         window.location.href = 'All.html'
       } else {

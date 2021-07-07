@@ -311,7 +311,7 @@
         database.ref('/life/' + parseInt(lifeArray[lifeArray.length - 1].order)).set(life)
         window.location.href = 'All.html';
       } else { //編輯
-        life.order = urlOrder;
+        life.order = parseInt(urlOrder);
         life.title = title;
         life.time = time;
         life.label = label;

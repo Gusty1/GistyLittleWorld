@@ -9,14 +9,9 @@
     <!-- icon 路徑 -->
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-    <style>
-        body {
-            overflow-x: hidden;
-        }
-    </style>
 </head>
 
-<body>
+<body class="h-100">
 
     <div w3-include-html="other_header.html"></div>
     <br><br><br>
@@ -204,6 +199,8 @@
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <!-- cursor js -->
     <script src="../js/fairyDustCursor.js"></script>
+    <!-- live 2D js -->
+    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
     <!-- bubbly js -->
     <script src="../js/bubbly-bg.js"></script>
     <!-- Sweetalert2 js -->
@@ -348,8 +345,8 @@
                     database.ref('/chat/user').on('value', function (result) {
                         let userAry = result.val()
                         for (let i = 0; i < userAry.length; i = i + 1) {
-                            if(userAry[i].name == name){
-                                if(userAry[i].chatRoomId != ''){
+                            if (userAry[i].name == name) {
+                                if (userAry[i].chatRoomId != '') {
                                     chatIng = true
                                     return false
                                 }

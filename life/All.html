@@ -32,21 +32,15 @@
       border: 1px solid #E0E0E0;
       /* box-shadow: 3px 3px 5px 6px #cccccc; */
     }
-
-    body {
-      overflow-x: hidden;
-    }
   </style>
 </head>
 
-<body style="background-color:#F0F0F0;">
+<body class="h-100">
   <div w3-include-html="life_header.html"></div>
   <br><br><br>
 
-  <div class="row bg-warning">
-    <marquee width="100%" direction="right" scrollamount="6" style="font-size: 18px;color:#8600FF;">
-    </marquee>
-  </div>
+  <marquee class="bg-warning" direction="right" scrollamount="6" style="font-size:1.1rem;color:#8600FF;">
+  </marquee>
 
   <div class="container-xl animate__animated animate__fadeInDownBig animate__delay-2s">
     <div class='row justify-content-center text-primary font-weight-bold display-2' id="edit">
@@ -140,6 +134,8 @@
   </script>
   <!-- w3school js -->
   <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <!-- live 2D js -->
+  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
   <!-- jquery ui js -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- Sweetalert2 js -->

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <title>戰爭</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- icon 路徑 -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+</head>
+
+<body class="h-100">
+
+    <div w3-include-html="other_header.html"></div>
+    <br><br><br>
+    <div class="container-xl">
+
+        <div class="row justify-content-center text-center mt-3">
+            <h1 class="display-3 font-weight-bold" style="color:#2894FF;">
+                戰爭
+            </h1>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 rounded h5" style="border: solid 2px green;background-color: greenyellow;">
+                <div class="col-sm-12">
+                    <p class="mt-2">您的國家:&nbsp</p>
+                    <p>您的分數:&nbsp</p>
+                </div>
+                <hr style="background-color: green;">
+                <div class="col-sm-12">
+                    <p>排名</p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+        </div><br>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="accordion" id="authorGGYY">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#description1" aria-expanded="true" aria-controls="description1">
+                                    創作動機
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="description1" class="collapse" data-parent="#authorGGYY">
+                            <div class="card-body">
+                                看到漫畫，突然覺得好像我也可以做到，就試試看。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#description2" aria-expanded="false" aria-controls="description2">
+                                    功能說明
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="description2" class="collapse" data-parent="#authorGGYY">
+                            <div class="card-body">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#description3" aria-expanded="false" aria-controls="description3">
+                                    心得感想
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="description3" class="collapse" aria-labelledby="headingThree"
+                            data-parent="#authorGGYY">
+                            <div class="card-body">
+                                *****
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+
+    </div>
+
+    <div id="goTop">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+            class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+            <path
+                d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+        </svg>
+    </div>
+
+    <div w3-include-html="../footer.html"></div>
+
+    <!-- JQuery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- Bootstrap4 js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+    <!-- w3school js -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <!-- cursor js -->
+    <script src="../js/fairyDustCursor.js"></script>
+    <!-- live 2D js -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script> -->
+    <!-- bubbly js -->
+    <script src="../js/bubbly-bg.js"></script>
+    <!-- Sweetalert2 js -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- filesaver js -->
+    <script src="../js/FileSaver.min.js"></script>
+    <!-- firebase realtimedatabase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
+        integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- socila share js -->
+    <script src="../js/social-share-kit.js"></script>
+    <!-- common js -->
+    <script src="../js/common.js"></script>
+
+    <script>
+        w3.includeHTML(); //引入html
+        
+    </script>
+
+</body>
+
+</html>

@@ -19,7 +19,6 @@
 </head>
 
 <body class="h-100">
-
     <div w3-include-html="other_header.html"></div>
     <br><br><br>
     <div class="container-xl">
@@ -110,16 +109,16 @@
                             </div>
                         </div>
                     </div>
-                    <canvas id="warShow" style="position: fixed;width: 28vw;height: 50vh;">
+                    <canvas id="warShow" style="position: fixed;">
                     </canvas>
                     <div class="row justify-content-between mt-4 mx-2">
-                        <label class="badge badge-secondary" style="transform: rotate(-45deg);width:15%;">A<br><i
+                        <label class="badge badge-secondary mt-3" style="transform: rotate(-45deg);width:15%;">A<br><i
                                 class="fas fa-allergies"></i></label>
-                        <label class="badge badge-secondary" style="transform: rotate(45deg);width:15%;">B<br><i
+                        <label class="badge badge-secondary mt-3" style="transform: rotate(45deg);width:15%;">B<br><i
                                 class="fas fa-allergies"></i></label>
                     </div>
-                    <div class="d-flex align-items-end " style="height: 70%;">
-                        <div class="row justify-content-between mx-2 w-100">
+                    <div class="d-flex align-items-end" style="height: 60%;">
+                        <div class="row justify-content-between mx-2 w-100 mb-4">
                             <label class="badge badge-secondary" style="transform: rotate(45deg);width:15%;"><i
                                     class="fas fa-allergies"></i><br>C</label>
                             <label class="badge badge-secondary" style="transform: rotate(-45deg);width:15%;"><i
@@ -154,7 +153,22 @@
                         </button>
                     </div>
                     <div class="modal-body h5">
-                        規則
+                        跟據漫畫「狂賭之淵」 58話 的遊戲改編<br><br>
+                        1. 玩家人數4人，分別選擇ABCD國，起始分數都是0分，遊戲7回合結束，分數多的一方勝利。<br><br>
+                        2. 每回合玩家可以選擇「攻擊」、「防禦」。<br><br>
+                        3. 攻擊:選擇攻擊的國家，攻擊的國家多少都可以選擇。<br><br>
+                        4. 防禦:加固防守，不會被攻擊影響；防禦需要-5分，0分也可以防禦。<br><br>
+                        5. 每回合的選擇時間沒有限制，等到所有玩家都決定好才會開始交戰。<br><br>
+                        6. 交戰結果:攻擊攻擊國家，攻擊方+10分，被攻擊方-10分；攻擊防禦國家，防禦方+10分，攻擊方-10。<br><br>
+                        7.外交:玩家無論甚麼時候都可以和其他國家進行外交，不限次數，請求其他國家防禦或是攻擊其他國家，被請求方可以選擇YES、NO，即使選擇YES被請求方也可以不按照請求的內容去做也不會有任何懲罰。<br><br>
+
+                        <div class="row justify-content-center text-center">
+                            <p class="text-danger">***在國家間沒有真正的朋友，互相欺騙的遊戲***</p>
+                            <div class="col-sm-8">
+                                <img src='../images/other/war/rule.jpg' alt="sorry not found"
+                                    class="rounded w-100 h-100">
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -289,7 +303,7 @@
     <!-- Bootstrap4 js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-        </script>
+    </script>
     <!-- w3school js -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <!-- cursor js -->
@@ -298,6 +312,8 @@
     <!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script> -->
     <!-- bubbly js -->
     <script src="../js/bubbly-bg.js"></script>
+    <!-- anime js -->
+    <script src="../js/anime.js"></script>
     <!-- Sweetalert2 js -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- filesaver js -->
@@ -314,18 +330,57 @@
 
     <script>
         w3.includeHTML(); //引入html
+        var context = document.getElementById("warShow").getContext("2d")
+        var contextX = 0
+        var contextY = 0
+        var country_A = {
+            x: 0,
+            y: 0
+        }
+        var country_B = {
+            x: 0,
+            y: 0
+        }
+        var country_C = {
+            x: 0,
+            y: 0
+        }
+        var country_D = {
+            x: 0,
+            y: 0
+        }
 
         //載入完先閱讀規則
-        $(document).ready(function(){
-            console.log($('#warShow').height())
+        $(document).ready(function () {
+            // $('#rule').modal();
         });
 
-        $('#optionButton').click(function(e){
-            e.preventDefault()
-            $('#option').modal();
+        //設定戰場大小
+        $(window).on('load', function () {
+            contextX = parseInt($('#warShow').next().width())
+            contextY = parseInt($('#warShow').next().height() + $('#warShow').next().next().height())
+            $('#warShow').css('width', contextX).css('height', contextY);
+            draw()
         })
 
+        function draw(x1, y1, x2, y2) {
 
+            setInterval(function () {
+                // a = a + 10
+                context.beginPath();
+                context.strokeStyle = 'red';
+                context.lineWidth = 1;
+                context.moveTo(0, 0);
+                context.lineTo(contextX+contextX/2, contextY);
+                // context.lineTo(contextX, 10);
+                context.stroke();
+            }, 50)
+        }
+
+        $('#optionButton').click(function (e) {
+            e.preventDefault()
+            $('#option').modal();
+        });
     </script>
 
 </body>

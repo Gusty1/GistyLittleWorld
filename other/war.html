@@ -9,6 +9,13 @@
     <!-- icon 路徑 -->
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <style>
+        .part {
+            border-width: 0;
+            height: 2.5px;
+            background-image: linear-gradient(90deg, #B87070 0%, #AFAF61 50%, #6FB7B7 100%);
+        }
+    </style>
 </head>
 
 <body class="h-100">
@@ -17,30 +24,199 @@
     <br><br><br>
     <div class="container-xl">
 
-        <div class="row justify-content-center text-center mt-3">
+        <div class="row justify-content-center text-center mt-3 rounded">
             <h1 class="display-3 font-weight-bold" style="color:#2894FF;">
                 戰爭
             </h1>
         </div>
 
-        <div class="row">
-            <div class="col-sm-3 rounded h5" style="border: solid 2px green;background-color: greenyellow;">
+        <div class="row rounded" style="border:2px solid #FF5809;background-color: #C4E1FF;height:65vh;">
+            <div class="col-sm-3 rounded-right h5 mb-0" style="border-right: 2px solid #FF5809;">
                 <div class="col-sm-12">
-                    <p class="mt-2">您的國家:&nbsp</p>
-                    <p>您的分數:&nbsp</p>
+                    <p class="mt-4">您的國家:&nbsp<span>?</span></p>
+                    <p class="mt-4">您的分數:&nbsp<span>0</span></p>
                 </div>
-                <hr style="background-color: green;">
+                <hr class="part">
                 <div class="col-sm-12">
-                    <p>排名</p>
+                    <p><i class="bi bi-trophy-fill"></i>目前排名</p>
+                    <table class="table table-bordered table-hover text-center table-dark">
+                        <tr>
+                            <thead>
+                                <th>名次</th>
+                                <th>國家</th>
+                                <th>分數</th>
+                            </thead>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>A</td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>B</td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>C</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>D</td>
+                                <td>10</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-sm-6">
-
+            <div class="col-sm-6 h5 mb-0">
+                <!-- <div class="row d-flex align-items-center text-center justify-content-center h-100">
+                    <div class="col-sm-12">
+                        <p>請先選擇一個國家，並等待其他玩家。<br>
+                            紅色是別人選好的國家，無法選擇；<i class="fas fa-flag"></i>代表您選的國家<br>
+                            當玩家都選好國家就會開始遊戲。(國家選好後無法變更)
+                        <p>
+                        <div class="row justify-content-center mt-5">
+                            <div class="col-sm-3">
+                                <i class="fas fa-flag"></i>
+                                <button type="button" class="btn btn-success w-100">A</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-success w-100">B</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-success w-100">C</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-success w-100">D</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="h-100">
+                    <div class="row justify-content-center" style="border-bottom: 2px solid #FF5809;">
+                        <div class="col-sm-12 text-center">
+                            <span class="h1 mt-2">第1回</span>
+                        </div>
+                        <div class="row justify-content-center w-100">
+                            <div class="col-sm-6 text-center">
+                                <span class="h4 text-secondary"><i class="fas fa-square"></i>操作中</span>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                <span class="h4 text-success"><i class="fas fa-square"></i>操作完畢</span>
+                            </div>
+                        </div>
+                    </div>
+                    <canvas id="warShow" style="position: fixed;width: 28vw;height: 50vh;">
+                    </canvas>
+                    <div class="row justify-content-between mt-4 mx-2">
+                        <label class="badge badge-secondary" style="transform: rotate(-45deg);width:15%;">A<br><i
+                                class="fas fa-allergies"></i></label>
+                        <label class="badge badge-secondary" style="transform: rotate(45deg);width:15%;">B<br><i
+                                class="fas fa-allergies"></i></label>
+                    </div>
+                    <div class="d-flex align-items-end " style="height: 70%;">
+                        <div class="row justify-content-between mx-2 w-100">
+                            <label class="badge badge-secondary" style="transform: rotate(45deg);width:15%;"><i
+                                    class="fas fa-allergies"></i><br>C</label>
+                            <label class="badge badge-secondary" style="transform: rotate(-45deg);width:15%;"><i
+                                    class="fas fa-allergies"></i><br>D</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-3">
-
+            <div class="col-sm-3 h5 mb-0 rounded-left" style="border-left:2px solid #FF5809;">
+                <div class="col-sm-12">
+                    <button class="btn btn-warning w-100 mt-2" type="button" data-toggle="modal"
+                        data-target="#rule">規則說明</button>
+                    <button class="btn btn-info w-100 mt-2" id="optionButton" type="button" data-toggle="modal"
+                        data-target="#option">操作</button>
+                </div>
+                <hr class="part">
+                <div class="col-sm-12">
+                    <p><i class="fas fa-history"></i>交戰紀錄</p>
+                </div>
             </div>
         </div><br>
+
+        <!-- 規則說明 Modal -->
+        <div class="modal fade" id="rule" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-lg modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title h4">規則說明</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body h5">
+                        規則
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 操作 Modal -->
+        <div class="modal fade" id="option" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title h4">操作選項</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body h5">
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-sm-12 text-center">
+                                <button class="btn btn-danger w-50"><i
+                                        class="fas fa-skull-crossbones"></i>&nbspATTACK</button>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-sm-12 text-center">
+                                <button class="btn btn-primary w-50"><i
+                                        class="bi bi-shield-fill"></i>&nbspDEFENSE</button>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-sm-12 text-center">
+                                <button class="btn btn-secondary w-50"><i class="fas fa-handshake"></i>&nbsp外交</button>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-5">
+                            <div class="col-sm-12 text-center">
+                                請選擇要攻擊的國家
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="" id="attack_A">
+                                <label class="form-check-label mr-4" for="attackA">A</label>
+                                <input class="form-check-input" type="checkbox" value="" id="attack_B">
+                                <label class="form-check-label mr-4" for="attackB">B</label>
+                                <input class="form-check-input" type="checkbox" value="" id="attack_C">
+                                <label class="form-check-label mr-4" for="attackC">C</label>
+                                <input class="form-check-input" type="checkbox" value="" id="attack_D">
+                                <label class="form-check-label" for="attackD">D</label>
+                            </div>
+                            <div class="col-sm-8 text-right mt-3">
+                                <button type="button" class="btn btn-warning">攻擊</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row justify-content-center">
             <div class="col-sm-8">
@@ -71,7 +247,7 @@
                         </div>
                         <div id="description2" class="collapse" data-parent="#authorGGYY">
                             <div class="card-body">
-                               
+                                太長了我都寫在規則裡。
                             </div>
                         </div>
                     </div>
@@ -113,7 +289,7 @@
     <!-- Bootstrap4 js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-    </script>
+        </script>
     <!-- w3school js -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <!-- cursor js -->
@@ -138,7 +314,18 @@
 
     <script>
         w3.includeHTML(); //引入html
-        
+
+        //載入完先閱讀規則
+        $(document).ready(function(){
+            console.log($('#warShow').height())
+        });
+
+        $('#optionButton').click(function(e){
+            e.preventDefault()
+            $('#option').modal();
+        })
+
+
     </script>
 
 </body>

@@ -95,7 +95,7 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="h-100">
+                <div>
                     <div class="row justify-content-center" style="border-bottom: 2px solid #FF5809;">
                         <div class="col-sm-12 text-center">
                             <span class="h1 mt-2">第1回</span>
@@ -110,7 +110,7 @@
                         </div>
                     </div>
 
-                    <canvas id="warGround" width="300" height="300" style="position: absolute;">
+                    <canvas id="warGround" width="540" height="400" style="position: absolute;">
                     </canvas>
 
                     <div class="row justify-content-between mt-4 mx-2">
@@ -358,9 +358,9 @@
 
         //設定戰場大小
         $(window).on('load', function () {
-            contextX = parseInt($('#warGround').next().width())
-            contextY = parseInt($('#warGround').next().height() + $('#warGround').next().next().height())
-            $('#warGround').css('width', contextX).css('height', contextY)
+            // contextX = parseInt($('#warGround').next().width())
+            // contextY = parseInt($('#warGround').next().height() + $('#warGround').next().next().height())
+            // $('#warGround').css('width', contextX).css('height', contextY)
             drawFire()
         })
 

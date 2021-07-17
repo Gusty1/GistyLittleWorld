@@ -32,8 +32,8 @@
         <div class="row rounded" style="border:2px solid #FF5809;background-color: #C4E1FF;height:65vh;">
             <div class="col-sm-3 rounded-right h5 mb-0" style="border-right: 2px solid #FF5809;">
                 <div class="col-sm-12">
-                    <p class="mt-4">您的國家:&nbsp<span>?</span></p>
-                    <p class="mt-4">您的分數:&nbsp<span>0</span></p>
+                    <p class="mt-4">您的國家:&nbsp<span id='myCountry'>?</span></p>
+                    <p class="mt-4">您的分數:&nbsp<span id='myPoint'>0</span></p>
                 </div>
                 <hr class="part">
                 <div class="col-sm-12">
@@ -46,8 +46,8 @@
                                 <th>分數</th>
                             </thead>
                         </tr>
-                        <tbody>
-                            <tr>
+                        <tbody id="playersRank">
+                            <!-- <tr>
                                 <td>1</td>
                                 <td>A</td>
                                 <td>40</td>
@@ -66,21 +66,22 @@
                                 <td>4</td>
                                 <td>D</td>
                                 <td>10</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="col-sm-6 h5 mb-0">
-                <div class="row d-flex align-items-center text-center justify-content-center h-100">
+                <div class="row align-items-center text-center justify-content-center h-100" id="playerSelect">
                     <div class="col-sm-12">
                         <p>請先選擇一個國家，並等待其他玩家。<br>
                             紅色是別人選好的國家，無法選擇；<i class="fas fa-flag"></i>代表您選的國家<br>
                             當玩家都選好國家就會開始遊戲。(國家選好後無法變更)
-                        <p>
-                        <div class="row justify-content-center mt-5">
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-success w-100 "><i class="fas fa-flag"></i> A</button>
+                        </p>
+                        <div class="row justify-content-center mt-5" id="selectCountry">
+                            <!-- <div class="col-sm-3">
+                                <button type="button" class="btn btn-success w-100 "><i
+                                        class="fas fa-flag"></i>A</button>
                             </div>
                             <div class="col-sm-3">
                                 <button type="button" class="btn btn-success w-100 ">B</button>
@@ -90,20 +91,23 @@
                             </div>
                             <div class="col-sm-3">
                                 <button type="button" class="btn btn-success w-100">D</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
-                <!-- <div>
+                <div style="display:none;" id='warStart'>
                     <div class="row justify-content-center" style="border-bottom: 2px solid #FF5809;">
                         <div class="col-sm-12 text-center">
-                            <span class="h1 mt-2">第1回</span>
+                            <span class="h1 mt-2" id="nowTurn">第1回</span>
                         </div>
                         <div class="row justify-content-center w-100">
-                            <div class="col-sm-6 text-center">
+                            <div class="col-sm-3 text-left">
                                 <span class="h4 text-secondary"><i class="fas fa-square"></i>操作中</span>
                             </div>
-                            <div class="col-sm-6 text-center">
+                            <div class="col-sm-5 text-right">
+                                <span class="text-danger" id="nextTimeCount" style="display: none;">10秒後進入下一回合</span>
+                            </div>
+                            <div class="col-sm-4 text-right">
                                 <span class="h4 text-success"><i class="fas fa-square"></i>操作完畢</span>
                             </div>
                         </div>
@@ -113,20 +117,16 @@
                     </canvas>
 
                     <div class="row justify-content-between mt-4 mx-2">
-                        <label class="badge badge-secondary mt-3" style="transform: rotate(-45deg);width:15%;">A<br><i
-                                class="fas fa-allergies"></i></label>
-                        <label class="badge badge-secondary mt-3" style="transform: rotate(45deg);width:15%;">B<br><i
-                                class="fas fa-allergies"></i></label>
+                        <label class="badge badge-secondary mt-3" style="transform: rotate(-45deg);width:15%;">A</label>
+                        <label class="badge badge-secondary mt-3" style="transform: rotate(45deg);width:15%;">B</label>
                     </div>
                     <div class="d-flex align-items-end" style="height: 300px;">
                         <div class="row justify-content-between mx-2 w-100 mb-4">
-                            <label class="badge badge-secondary" style="transform: rotate(45deg);width:15%;"><i
-                                    class="fas fa-allergies"></i><br>C</label>
-                            <label class="badge badge-secondary" style="transform: rotate(-45deg);width:15%;"><i
-                                    class="fas fa-allergies"></i><br>D</label>
+                            <label class="badge badge-secondary" style="transform: rotate(45deg);width:15%;">C</label>
+                            <label class="badge badge-secondary" style="transform: rotate(-45deg);width:15%;">D</label>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="col-sm-3 h5 mb-0 rounded-left" style="border-left:2px solid #FF5809;">
                 <div class="col-sm-12">
@@ -138,6 +138,11 @@
                 <hr class="part">
                 <div class="col-sm-12">
                     <p><i class="fas fa-history"></i>交戰紀錄</p>
+                    <div class="col-sm-12" style="height: 380px;overflow-y: auto;" id="warHistory">
+                        <!-- <p>回合1:</p>
+                        <p>A選擇攻擊A</p>
+                        <p>獲得30分</p> -->
+                    </div>
                 </div>
             </div>
         </div><br>
@@ -190,39 +195,59 @@
                         </button>
                     </div>
                     <div class="modal-body h5">
+                        <div class="col-sm-12 text-center mb-2" style="color: #FF5809;display: none;" id="optionInfo">
+                        </div>
                         <div class="row justify-content-center mt-2">
                             <div class="col-sm-12 text-center">
-                                <button class="btn btn-danger w-50"><i
+                                <button class="btn btn-danger w-50" id="attack"><i
                                         class="fas fa-skull-crossbones"></i>&nbspATTACK</button>
                             </div>
                         </div>
                         <div class="row justify-content-center mt-2">
                             <div class="col-sm-12 text-center">
-                                <button class="btn btn-primary w-50"><i
+                                <button class="btn btn-primary w-50" id="defense"><i
                                         class="bi bi-shield-fill"></i>&nbspDEFENSE</button>
                             </div>
                         </div>
                         <div class="row justify-content-center mt-2">
-                            <div class="col-sm-12 text-center">
+                            <div class="col-sm-12 text-center" id="diplomatic">
                                 <button class="btn btn-secondary w-50"><i class="fas fa-handshake"></i>&nbsp外交</button>
                             </div>
                         </div>
-                        <div class="row justify-content-center mt-5">
+                        <div class="row justify-content-center mt-5" id="selectAttack_area" style="display: none;">
                             <div class="col-sm-12 text-center">
                                 請選擇要攻擊的國家
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" value="" id="attack_A">
-                                <label class="form-check-label mr-4" for="attack_A">A</label>
-                                <input class="form-check-input" type="checkbox" value="" id="attack_B">
-                                <label class="form-check-label mr-4" for="attack_B">B</label>
-                                <input class="form-check-input" type="checkbox" value="" id="attack_C">
-                                <label class="form-check-label mr-4" for="attack_C">C</label>
-                                <input class="form-check-input" type="checkbox" value="" id="attack_D">
-                                <label class="form-check-label" for="attack_D">D</label>
+                                <input class="form-check-input" type="checkbox" value="" id="attack_1">
+                                <label class="form-check-label mr-4" for="attack_1">A</label>
+                                <input class="form-check-input" type="checkbox" value="" id="attack_2">
+                                <label class="form-check-label mr-4" for="attack_2">B</label>
+                                <input class="form-check-input" type="checkbox" value="" id="attack_3">
+                                <label class="form-check-label mr-4" for="attack_3">C</label>
                             </div>
                             <div class="col-sm-8 text-right mt-3">
-                                <button type="button" class="btn btn-warning">攻擊</button>
+                                <button type="button" class="btn btn-warning" id="sentAttack">攻擊</button>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-5" id="selectdiplomatic_area" style="display: none;">
+                            <div class="col-sm-12 text-center">
+                                請選擇要外交的國家
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="" id="diplomatic_1">
+                                <label class="form-check-label mr-4" for="diplomatic_1">A</label>
+                                <input class="form-check-input" type="checkbox" value="" id="diplomatic_2">
+                                <label class="form-check-label mr-4" for="diplomatic_2">B</label>
+                                <input class="form-check-input" type="checkbox" value="" id="diplomatic_3">
+                                <label class="form-check-label mr-4" for="diplomatic_3">C</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <textarea class="w-100 form-control" placeholder="請輸入外交內容"
+                                    style="height: 20vh; resize: none;"></textarea>
+                            </div>
+                            <div class="col-sm-8 text-right mt-3">
+                                <button type="button" class="btn btn-warning" id="sentDiplomatic">送出</button>
                             </div>
                         </div>
                     </div>
@@ -314,7 +339,7 @@
     <!-- bubbly js -->
     <script src="../js/bubbly-bg.js"></script>
     <!-- anime js -->
-    <script src="../js/anime.js"></script>
+    <!-- <script src="../js/anime.js"></script> -->
     <!-- Sweetalert2 js -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- filesaver js -->
@@ -330,10 +355,15 @@
     <script src="../js/common.js"></script>
 
     <script>
-        w3.includeHTML(); //引入html
+        w3.includeHTML();
+        //回合數
+        var _TURN = 1;
+
+        //判斷回合是否結算
+        var _ISALLREADY = false
 
         //取得戰場、各國座標
-        // var _CONTEXT = document.getElementById("warGround").getContext("2d")
+        var _CONTEXT = document.getElementById("warGround").getContext("2d")
         var _COUNTRYA = {
             x: 70,
             y: 75
@@ -353,75 +383,709 @@
 
         //載入完先閱讀規則
         $(document).ready(function () {
-
+            callStatus()
+            // $('#optionButton').attr('disabled', true)
             // $('#rule').modal();
         });
 
-        //設定戰場大小
-        $(window).on('load', function () {
-            // contextX = parseInt($('#warGround').next().width())
-            // contextY = parseInt($('#warGround').next().height() + $('#warGround').next().next().height())
-            // $('#warGround').css('width', contextX).css('height', contextY)
-            // drawFire()
-        })
+        //玩家選擇國家
+        $('#selectCountry').on('click', '.btn-success', function () {
+            if (sessionStorage.getItem('country') != null) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '你已經選擇了' + sessionStorage.getItem('country') + '國',
+                    showConfirmButton: false,
+                });
+                return false
+            }
+            let selectCountry = $(this).text()
+            sessionStorage.setItem('country', selectCountry);
+            database.ref('/war/players').once('value', function (result) {
+                let players = result.val();
+                let playersHtml = ''
+                for (let i = 0; i < players.length; i = i + 1) {
+                    if (players[i].country == selectCountry) {
+                        players[i].status = 'online'
+                        database.ref('/war/players/' + parseInt(players[i].order)).update(players[i])
+                    }
+                }
+            });
+        });
 
-        function drawFire() {
-            let a = (470 - 70) / 25
-            let b = (315 - 75) / 25;
-            let x = 70
-            let y = 75
-            let xx = 470
-            let yy = 315
-            let i = setInterval(function () {
-                _CONTEXT.beginPath();
-                _CONTEXT.strokeStyle = 'red';
-                _CONTEXT.lineWidth = 7;
-                _CONTEXT.moveTo(x, y);
-                x = x + a
-                y = y + b
-                if (x >= 470) {
-                    x = 470
+        //讀取玩家狀態 有4人就開始遊戲
+        database.ref('/war/players').on('value', function (result) {
+            let players = result.val();
+            let playersHtml = ''
+            let readyPlayers = 0
+            for (let i = 0; i < players.length; i = i + 1) {
+                playersHtml += '<div class="col-sm-3">'
+                if (players[i].status == 'offline') {
+                    playersHtml += '<button type="button" class="btn btn-success w-100">' + players[i]
+                        .country + '</button>'
+                } else if (players[i].country == sessionStorage.getItem('country')) {
+                    playersHtml +=
+                        '<button type="button" class="btn btn-danger w-100" disabled><i class="fas fa-flag"></i>&nbsp' +
+                        players[i]
+                        .country + '</button>'
+                } else {
+                    playersHtml += '<button type="button" class="btn btn-danger w-100" disabled>' + players[i]
+                        .country + '</button>'
                 }
-                if (y >= 315) {
-                    y = 315
+                playersHtml += '</div>'
+                if (players[i].status == 'online') {
+                    readyPlayers = readyPlayers + 1;
                 }
-                _CONTEXT.lineTo(x, y);
-                _CONTEXT.stroke();
-                if (x >= 470 && y >= 315) {
-                    clearInterval(i)
-                    return false
-                }
-                _CONTEXT.closePath();
-            }, 100)
+            }
+            if (readyPlayers == 4) {
+                startGame()
+            }
+            $('#selectCountry').html(playersHtml);
+        });
 
-            let j = setInterval(function () {
-                _CONTEXT.beginPath();
-                _CONTEXT.strokeStyle = 'green'
-                _CONTEXT.lineWidth = 7;
-                _CONTEXT.moveTo(xx, yy);
-                xx = xx - a
-                yy = yy - b
-                if (xx <= 70) {
-                    xx = 70
+        //遊戲開始該顯示的顯示該消失的消失
+        function startGame() {
+            $('#myCountry').text(sessionStorage.getItem('country'))
+            let rankHtml = ''
+            let country = ['A', 'B', 'C', 'D']
+            let otherCountry = []
+            for (let i = 0; i < country.length; i = i + 1) {
+                if (country[i] != sessionStorage.getItem('country')) {
+                    otherCountry.push(country[i])
                 }
-                if (yy <=75 ) {
-                    yy = 75
-                }
-                
-                _CONTEXT.lineTo(xx, yy);
-                _CONTEXT.stroke();
-                if (xx <= 70 && yy <= 75) {
-                    clearInterval(j)
-                    return false
-                }
-                _CONTEXT.closePath();
-            }, 100)
+            }
+
+            for (let i = 0; i < 4; i = i + 1) {
+                rankHtml += '<tr>'
+                rankHtml += '<td>0</td>'
+                rankHtml += '<td>' + country[i] + '</td>'
+                rankHtml += '<td>0</td>'
+                rankHtml += '</tr>'
+            }
+
+            $('#selectAttack_area').find('label').each(function (index, value) {
+                $(this).text(otherCountry[index]);
+            })
+            $('#selectAttack_area').find('input[type="checkbox"]').each(function (index, value) {
+                $(this).val(otherCountry[index]);
+            })
+
+            $('#selectdiplomatic_area').find('label').each(function (index, value) {
+                $(this).text(otherCountry[index]);
+            })
+            $('#selectdiplomatic_area').find('input[type="checkbox"]').each(function (index, value) {
+                $(this).val(otherCountry[index]);
+            })
+
+            $('#playersRank').html(rankHtml)
+            $('#playerSelect').hide()
+            $('#warStart').show()
+            $('#optionButton').attr('disabled', false)
+            if (sessionStorage.getItem('country') == null) {
+                $('#optionButton').attr('disabled', true)
+            }
         }
 
+        //顯示操作畫面
         $('#optionButton').click(function (e) {
             e.preventDefault()
+            if ($('#attack').attr('disabled') && $('#defense').attr('disabled')) {
+                $('#optionInfo').show()
+            } else {
+                $('#optionInfo').hide()
+            }
+            $('#selectAttack_area').hide()
+            $('#selectdiplomatic_area').hide()
             $('#option').modal();
         });
+
+        //操作攻擊顯示選項
+        $('#attack').click(function () {
+            if ($('#selectdiplomatic_area').is(':visible')) {
+                $('#selectdiplomatic_area').hide()
+            }
+            if ($('#selectAttack_area').is(':visible')) {
+                $('#selectAttack_area').hide('fast')
+                return false
+            }
+            $('#selectAttack_area').find('input[type="checkbox"]').each(function () {
+                $(this).prop('checked', false);
+            })
+            $('#selectAttack_area').show('fast')
+        })
+
+        //操作外交顯示選項
+        $('#diplomatic').click(function () {
+            if ($('#selectAttack_area').is(':visible')) {
+                $('#selectAttack_area').hide()
+            }
+            if ($('#selectdiplomatic_area').is(':visible')) {
+                $('#selectdiplomatic_area').hide('fast')
+                return false
+            }
+            $('#selectdiplomatic_area').find('input[type="checkbox"]').each(function () {
+                $(this).prop('checked', false);
+            })
+            $('#selectdiplomatic_area').find('textarea').val('');
+            $('#selectdiplomatic_area').show('fast')
+        })
+
+        //攻擊操作
+        $('#sentAttack').click(function () {
+            let attackCountry = []
+            $('#selectAttack_area').find('input[type="checkbox"]').each(function () {
+                if ($(this).is(':checked')) {
+                    attackCountry.push($(this).val())
+                }
+            })
+            if (attackCountry.length > 0) {
+                let attackInfo = ''
+                for (let i = 0; i < attackCountry.length; i = i + 1) {
+                    if (attackCountry.length > 1) {
+                        if (i == attackCountry.length - 1) {
+                            attackInfo += attackCountry[i]
+                        } else {
+                            attackInfo += attackCountry[i] + ','
+                        }
+                    } else {
+                        attackInfo += attackCountry[i]
+                    }
+                }
+                database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
+                    let optionAry = result.val().option;
+                    for (let i = 0; i < optionAry.length; i = i + 1) {
+                        if (optionAry[i].country == sessionStorage.getItem('country')) {
+                            optionAry[i].option = 'attack'
+                            optionAry[i].enemy = attackCountry
+                            database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(
+                                optionAry[i].order)).update(
+                                optionAry[i])
+                        }
+                    }
+                });
+                optionEnable(false)
+                $('#optionInfo').html('您已選擇攻擊 ' + attackInfo).show()
+                $('#selectAttack_area').hide('fast')
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: '請選擇要攻擊的國家',
+                    showConfirmButton: false,
+                });
+                return false
+            }
+        })
+
+        //防禦操作
+        $('#defense').click(function () {
+            database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
+                let optionAry = result.val().option;
+                for (let i = 0; i < optionAry.length; i = i + 1) {
+                    if (optionAry[i].country == sessionStorage.getItem('country')) {
+                        optionAry[i].option = 'defense'
+                        optionAry[i].enemy = []
+                        database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(
+                            optionAry[i].order)).update(
+                            optionAry[i])
+                    }
+                }
+            });
+            optionEnable(false)
+            $('#selectAttack_area').hide('fast')
+            $('#optionInfo').html('您已選擇防禦').show()
+        });
+
+        //外交操作
+        $('#sentDiplomatic').click(function () {
+            let diplomaticCountry = []
+            let diplomaticContent = $('#selectdiplomatic_area').find('textarea').val()
+            $('#selectdiplomatic_area').find('input[type="checkbox"]').each(function () {
+                if ($(this).is(':checked')) {
+                    diplomaticCountry.push($(this).val())
+                }
+            })
+            if (diplomaticCountry.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '請選擇要外交的國家',
+                    showConfirmButton: false,
+                });
+            } else if (diplomaticContent == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: '請輸入外交內容',
+                    showConfirmButton: false,
+                });
+            } else {
+                database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
+                    let diplomaticAry = result.val().diplomatic;
+                    let diplomaticObject = {
+                        order: diplomaticAry.length,
+                        country: sessionStorage.getItem('country'),
+                        enemy: diplomaticCountry,
+                        content: diplomaticContent,
+                        answer: ""
+                    }
+                    database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/diplomatic/' +
+                        parseInt(diplomaticObject.order)).update(diplomaticObject)
+                });
+                $('#selectdiplomatic_area').hide('fast')
+            }
+        });
+
+        //離開網頁玩家登出
+        $(window).on('beforeunload', function (event) {
+            if (sessionStorage.getItem('country') != null) {
+                database.ref('/war/players').once('value', function (result) {
+                    let players = result.val();
+                    for (let i = 0; i < players.length; i = i + 1) {
+                        if (players[i].country == sessionStorage.getItem('country')) {
+                            players[i].status = 'offline'
+                            database.ref('/war/players/' + parseInt(players[i].order)).update(players[
+                                i])
+                        }
+                    }
+                    sessionStorage.removeItem('country')
+                });
+            }
+        });
+
+        //接收有無外交請求，同意或拒絕
+        database.ref('/war/warInfo/' + parseInt(_TURN - 1)).on('value', function (result) {
+            let diplomaticAry = result.val().diplomatic;
+            if (sessionStorage.getItem('country') != null && diplomaticAry.length > 1) {
+                for (let i = 0; i < diplomaticAry.length; i = i + 1) {
+                    for (let j = 0; j < diplomaticAry[i].enemy.length; j = j + 1) {
+                        if (diplomaticAry[i].enemy[j] == sessionStorage.getItem('country')) {
+                            if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
+                                let isAnswer = false
+                                $.each(diplomaticAry[i].answer, function (index, answerValue) {
+                                    if (answerValue.country == sessionStorage.getItem('country')) {
+                                        isAnswer = true
+                                        return false
+                                    }
+                                });
+                                if (isAnswer) {
+                                    return false
+                                }
+                            }
+                            Swal.fire({
+                                icon: 'info',
+                                title: '來自' + diplomaticAry[i].country + '的外交請求',
+                                text: diplomaticAry[i].content,
+                                showConfirmButton: true,
+                                showCancelButton: false,
+                                showDenyButton: true,
+                                confirmButtonText: 'YES',
+                                denyButtonText: 'NO',
+                                focusConfirm: false,
+                                allowOutsideClick: false
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    let answerObject = {
+                                        country: sessionStorage.getItem('country'),
+                                        answer: "YES"
+                                    }
+                                    database.ref('/war/warInfo/' + parseInt(_TURN - 1) +
+                                        '/diplomatic/' +
+                                        parseInt(diplomaticAry[i].order) + '/answer').push(
+                                        answerObject)
+                                } else if (result.isDenied) {
+                                    let answerObject = {
+                                        country: sessionStorage.getItem('country'),
+                                        answer: "NO"
+                                    }
+                                    database.ref('/war/warInfo/' + parseInt(_TURN - 1) +
+                                        '/diplomatic/' +
+                                        parseInt(diplomaticAry[i].order) + '/answer').push(
+                                        answerObject)
+                                }
+                            })
+                        }
+                    }
+                    if (diplomaticAry[i].country == sessionStorage.getItem('country')) {
+                        if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
+                            $.each(diplomaticAry[i].answer, function (index, answerValue) {
+                                if (answerValue.answer == 'YES') {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: '國家' + answerValue.country + '同意你的外交請求',
+                                        allowOutsideClick: false,
+                                        showConfirmButton: true,
+                                        focusConfirm: false,
+                                    })
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: '國家' + answerValue.country + '拒絕你的外交請求',
+                                        allowOutsideClick: false,
+                                        showConfirmButton: true,
+                                        focusConfirm: false,
+                                    })
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+
+        //判斷回合
+        function callStatus() {
+            database.ref('/war/warInfo/' + parseInt(_TURN - 1)).on('value', function (result) {
+                let optionAry = result.val().option
+                let allReady = 0
+                for (let i = 0; i < optionAry.length; i = i + 1) {
+                    if (optionAry[i].option != '') {
+                        $('#warStart').find('label').each(function () {
+                            if ($(this).text().indexOf(optionAry[i].country) != -1) {
+                                $(this).removeClass('badge-secondary').removeClass('badge-success')
+                                    .addClass('badge-success')
+                            }
+                        })
+                        allReady = allReady + 1;
+                    }
+                }
+                if (allReady == 4 && !_ISALLREADY) {
+                    _ISALLREADY = true
+                    drawFire(optionAry)
+                    pointSum(optionAry)
+                }
+            })
+        }
+
+        //計算分數+排名顯示+歷史顯示
+        function pointSum(optionAry) {
+            for (let i = 0; i < optionAry.length; i = i + 1) {
+                if (optionAry[i].option == 'attack') {
+                    for (let j = 0; j < optionAry[i].enemy.length; j = j + 1) {
+                        for (let k = 0; k < optionAry.length; k = k + 1) {
+                            if (optionAry[i].enemy[j] == optionAry[k].country) {
+                                if (optionAry[k].option == 'attack') {
+                                    optionAry[i].point = parseInt(optionAry[i].point + 10)
+                                    optionAry[k].point = parseInt(optionAry[k].point - 10)
+                                } else if (optionAry[k].option == 'defense') {
+                                    optionAry[i].point = parseInt(optionAry[i].point - 10)
+                                    optionAry[k].point = parseInt(optionAry[k].point + 10)
+                                }
+                            }
+                        }
+                    }
+                } else if (optionAry[i].option == 'defense') {
+                    optionAry[i].point = parseInt(optionAry[i].point - 5)
+                }
+            }
+            let rankHtml = ''
+            let historyHtml = ''
+            historyHtml += '<p>第' + _TURN + '回合:</p>'
+            for (let i = 0; i < optionAry.length; i = i + 1) {
+                if (optionAry[i].option == 'attack') {
+                    historyHtml += '<p>' + optionAry[i].country + '選擇攻擊'
+                    for (let j = 0; j < optionAry[i].enemy.length; j = j + 1) {
+                        historyHtml += optionAry[i].enemy[j]
+                    }
+                    historyHtml += '</p>'
+                } else if (optionAry[i].option == 'defense') {
+                    historyHtml += '<p>' + optionAry[i].country + '選擇防禦</p>'
+                }
+                historyHtml += '<p>' + optionAry[i].country + '共獲得' + optionAry[i].point + '分</p>'
+            }
+            $('#warHistory').append(historyHtml)
+            optionAry.sort(function (a, b) {
+                if (a.point < b.point) {
+                    return 1
+                } else {
+                    return -1
+                }
+            })
+            for (let i = 0; i < optionAry.length; i = i + 1) {
+                rankHtml += '<tr>'
+                rankHtml += '<td>' + parseInt(i + 1) + '</td>'
+                rankHtml += '<td>' + optionAry[i].country + '</td>'
+                rankHtml += '<td>' + optionAry[i].point + '</td>'
+                rankHtml += '</tr>'
+                if (optionAry[i].country == sessionStorage.getItem('country')) {
+                    $('#myPoint').text(optionAry[i].point)
+                }
+            }
+            $('#playersRank').html(rankHtml)
+            for (let i = 0; i < optionAry.length; i = i + 1) {
+                if (optionAry[i].country == sessionStorage.getItem('country') && _TURN < 7) {
+                    database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(optionAry[i].order))
+                        .update(
+                            optionAry[i])
+                    if (_TURN < 7) {
+                        optionAry[i].option = ''
+                        optionAry[i].enemy = [""]
+                        database.ref('/war/warInfo/' + parseInt(_TURN) + '/option/' + parseInt(optionAry[i].order))
+                            .update(
+                                optionAry[i])
+                    }
+                }
+            }
+            let nextTime = 10;
+            setTimeout(function () {
+                let nextTimeCount = setInterval(function () {
+                    nextTime = nextTime - 1;
+                    $('#nextTimeCount').html(nextTime + '秒後進入下一回合').show()
+                    if (nextTime == 0) {
+                        clearInterval(nextTimeCount)
+                        turnNext()
+                        return false
+                    }
+                }, 1000)
+            }, 3000);
+        }
+
+        //開火
+        function drawFire(optionAry) {
+            $('#rule').modal('hide')
+            $('#option').modal('hide')
+            let countryColor = ['badge-danger', 'badge-dark', 'badge-primary', 'badge-warning']
+            $('#warStart').find('label').each(function (index, value) {
+                $(this).removeClass('badge-secondary').removeClass('badge-success').addClass(countryColor[
+                    index])
+            })
+            setTimeout(function () {
+                for (let i = 0; i < optionAry.length; i = i + 1) {
+                    if (optionAry[i].option == 'attack') {
+                        $('#warStart').find('label').each(function (index, value) {
+                            if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i]
+                                    .country ==
+                                    'A' ||
+                                    optionAry[i].country == 'B')) {
+                                $(this).html(optionAry[i].country +
+                                    '<br><i class="fas fa-skull-crossbones"></i>')
+                            }
+                            if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i]
+                                    .country ==
+                                    'C' ||
+                                    optionAry[i].country == 'D')) {
+                                $(this).html('<i class="fas fa-skull-crossbones"></i><br>' +
+                                    optionAry[i]
+                                    .country)
+                            }
+                        });
+                        for (let j = 0; j < optionAry[i].enemy.length; j = j + 1) {
+                            let myPosition = findMyPosition(optionAry[i].country)
+                            let spaceX = 0
+                            let spaceY = 0
+                            let x = myPosition.x
+                            let y = myPosition.y
+                            let color = getCountryColor(optionAry[i].country)
+                            if (optionAry[i].enemy[j] == 'A') {
+                                spaceX = parseInt((myPosition.x - _COUNTRYA.x) / 25)
+                                spaceY = parseInt((myPosition.y - _COUNTRYA.y) / 25)
+                                if (myPosition.x > _COUNTRYA.x) {
+                                    spaceX = spaceX * -1
+                                }
+                                if (myPosition.y > _COUNTRYA.y) {
+                                    spaceY = spaceY * -1
+                                }
+                                let xA = x
+                                let yA = y
+                                let fireA = setInterval(function () {
+                                    _CONTEXT.beginPath();
+                                    _CONTEXT.strokeStyle = color;
+                                    _CONTEXT.lineWidth = 7;
+                                    _CONTEXT.moveTo(xA, yA);
+                                    xA = parseInt(xA + spaceX)
+                                    yA = parseInt(yA + spaceY)
+                                    if (xA <= 70) {
+                                        xA = 70
+                                    }
+                                    if (yA <= 75) {
+                                        yA = 75
+                                    }
+                                    _CONTEXT.lineTo(xA, yA);
+                                    _CONTEXT.stroke();
+                                    if (xA == 70 && yA == 75) {
+                                        clearInterval(fireA)
+                                        return false
+                                    }
+                                    _CONTEXT.closePath();
+                                }, 100)
+                            }
+                            if (optionAry[i].enemy[j] == 'B') {
+                                spaceX = parseInt((myPosition.x - _COUNTRYB.x) / 25)
+                                spaceY = parseInt((myPosition.y - _COUNTRYB.y) / 25)
+                                if (myPosition.x < _COUNTRYB.x) {
+                                    spaceX = spaceX * -1
+                                }
+                                if (myPosition.y > _COUNTRYB.y) {
+                                    spaceY = spaceY * -1
+                                }
+                                let xB = x
+                                let yB = y
+                                let fireB = setInterval(function () {
+                                    _CONTEXT.beginPath();
+                                    _CONTEXT.strokeStyle = color;
+                                    _CONTEXT.lineWidth = 7;
+                                    _CONTEXT.moveTo(xB, yB);
+                                    xB = parseInt(xB + spaceX)
+                                    yB = parseInt(yB + spaceY)
+                                    if (xB >= 470) {
+                                        xB = 470
+                                    }
+                                    if (yB <= 75) {
+                                        yB = 75
+                                    }
+                                    _CONTEXT.lineTo(xB, yB);
+                                    _CONTEXT.stroke();
+                                    if (xB >= 470 && yB >= 75) {
+                                        clearInterval(fireB)
+                                        return false
+                                    }
+                                    _CONTEXT.closePath();
+                                }, 100)
+                            }
+                            if (optionAry[i].enemy[j] == 'C') {
+                                spaceX = parseInt((myPosition.x - _COUNTRYC.x) / 25)
+                                spaceY = parseInt((myPosition.y - _COUNTRYC.y) / 25)
+                                if (myPosition.x > _COUNTRYC.x) {
+                                    spaceX = spaceX * -1
+                                }
+                                if (myPosition.y < _COUNTRYC.y) {
+                                    spaceY = spaceY * -1
+                                }
+                                let xC = x
+                                let yC = y
+                                let fireC = setInterval(function () {
+                                    _CONTEXT.beginPath();
+                                    _CONTEXT.strokeStyle = color;
+                                    _CONTEXT.lineWidth = 7;
+                                    _CONTEXT.moveTo(xC, yC);
+                                    xC = parseInt(xC + spaceX)
+                                    yC = parseInt(yC + spaceY)
+                                    if (xC <= 70) {
+                                        xC = 70
+                                    }
+                                    if (yC >= 315) {
+                                        yC = 315
+                                    }
+                                    _CONTEXT.lineTo(xC, yC);
+                                    _CONTEXT.stroke();
+                                    if (xC == 70 && yC == 315) {
+                                        clearInterval(fireC)
+                                        return false
+                                    }
+                                    _CONTEXT.closePath();
+                                }, 100)
+                            }
+                            if (optionAry[i].enemy[j] == 'D') {
+                                spaceX = parseInt((myPosition.x - _COUNTRYD.x) / 25)
+                                spaceY = parseInt((myPosition.y - _COUNTRYD.y) / 25)
+                                if (myPosition.x < _COUNTRYD.x) {
+                                    spaceX = spaceX * -1
+                                }
+                                if (myPosition.y < _COUNTRYD.y) {
+                                    spaceY = spaceY * -1
+                                }
+                                let xD = x
+                                let yD = y
+                                let fireD = setInterval(function () {
+                                    _CONTEXT.beginPath();
+                                    _CONTEXT.strokeStyle = color;
+                                    _CONTEXT.lineWidth = 7;
+                                    _CONTEXT.moveTo(xD, yD);
+                                    xD = parseInt(xD + spaceX)
+                                    yD = parseInt(yD + spaceY)
+                                    if (xD >= 470) {
+                                        xD = 470
+                                    }
+                                    if (yD >= 315) {
+                                        yD = 315
+                                    }
+                                    _CONTEXT.lineTo(xD, yD);
+                                    _CONTEXT.stroke();
+                                    if (xD == 470 && yD == 315) {
+                                        clearInterval(fireD)
+                                        return false
+                                    }
+                                    _CONTEXT.closePath();
+                                }, 100)
+                            }
+                        }
+                    } else if (optionAry[i].option == 'defense') {
+                        $('#warStart').find('label').each(function (index, value) {
+                            if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i]
+                                    .country ==
+                                    'A' ||
+                                    optionAry[i].country == 'B')) {
+                                $(this).html(optionAry[i].country +
+                                    '<br><i class="bi bi-shield-fill"></i>')
+                            }
+                            if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i]
+                                    .country ==
+                                    'C' ||
+                                    optionAry[i].country == 'D')) {
+                                $(this).html('<i class="bi bi-shield-fill"></i><br>' + optionAry[i]
+                                    .country)
+                            }
+                        })
+                    }
+                }
+            }, 700)
+        }
+
+        //下一回合準備
+        function turnNext() {
+            _TURN = _TURN + 1
+            $('#nowTurn').html('第' + _TURN + '回')
+            _ISALLREADY = false
+            _CONTEXT.clearRect(0, 0, 540, 400);
+            let countryName = ['A', 'B', 'C', 'D']
+            $('#warStart').find('label').each(function (index, value) {
+                $(this).removeClass('badge-danger').removeClass('badge-dark').removeClass('badge-primary')
+                    .removeClass('badge-warning').removeClass('badge-success').removeClass('badge-secondary')
+                    .addClass('badge-secondary').html(countryName[index])
+            })
+            optionEnable(true)
+            $('#nextTimeCount').html('').hide()
+            callStatus()
+        }
+
+        //操作功能禁用
+        function optionEnable(enable) {
+            if (!enable) {
+                $('#attack').attr('disabled', true)
+                $('#defense').attr('disabled', true)
+            } else {
+                $('#attack').attr('disabled', false)
+                $('#defense').attr('disabled', false)
+            }
+        }
+
+        //取得目前玩家的位置
+        function findMyPosition(country) {
+            if (country == 'A') {
+                return _COUNTRYA
+            }
+            if (country == 'B') {
+                return _COUNTRYB
+            }
+            if (country == 'C') {
+                return _COUNTRYC
+            }
+            if (country == 'D') {
+                return _COUNTRYD
+            }
+        }
+
+        //取得目前玩家的顏色
+        function getCountryColor(country) {
+            if (country == 'A') {
+                return 'red'
+            }
+            if (country == 'B') {
+                return 'black'
+            }
+            if (country == 'C') {
+                return 'blue'
+            }
+            if (country == 'D') {
+                return 'yellow'
+            }
+        }
     </script>
 
 </body>

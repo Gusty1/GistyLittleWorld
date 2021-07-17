@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="col-sm-6 h5 mb-0">
-                <!-- <div class="row d-flex align-items-center text-center justify-content-center h-100">
+                <div class="row d-flex align-items-center text-center justify-content-center h-100">
                     <div class="col-sm-12">
                         <p>請先選擇一個國家，並等待其他玩家。<br>
                             紅色是別人選好的國家，無法選擇；<i class="fas fa-flag"></i>代表您選的國家<br>
@@ -80,11 +80,10 @@
                         <p>
                         <div class="row justify-content-center mt-5">
                             <div class="col-sm-3">
-                                <i class="fas fa-flag"></i>
-                                <button type="button" class="btn btn-success w-100">A</button>
+                                <button type="button" class="btn btn-success w-100 "><i class="fas fa-flag"></i> A</button>
                             </div>
                             <div class="col-sm-3">
-                                <button type="button" class="btn btn-success w-100">B</button>
+                                <button type="button" class="btn btn-success w-100 ">B</button>
                             </div>
                             <div class="col-sm-3">
                                 <button type="button" class="btn btn-success w-100">C</button>
@@ -94,8 +93,8 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
-                <div>
+                </div>
+                <!-- <div>
                     <div class="row justify-content-center" style="border-bottom: 2px solid #FF5809;">
                         <div class="col-sm-12 text-center">
                             <span class="h1 mt-2">第1回</span>
@@ -127,7 +126,7 @@
                                     class="fas fa-allergies"></i><br>D</label>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-sm-3 h5 mb-0 rounded-left" style="border-left:2px solid #FF5809;">
                 <div class="col-sm-12">
@@ -332,22 +331,24 @@
 
     <script>
         w3.includeHTML(); //引入html
-        var context = document.getElementById("warGround").getContext("2d")
-        var country_A = {
-            x: 40,
-            y: 60
+
+        //取得戰場、各國座標
+        // var _CONTEXT = document.getElementById("warGround").getContext("2d")
+        var _COUNTRYA = {
+            x: 70,
+            y: 75
         }
-        var country_B = {
-            x: 270,
-            y: 60
+        var _COUNTRYB = {
+            x: 470,
+            y: 75
         }
-        var country_C = {
-            x: 40,
-            y: 270
+        var _COUNTRYC = {
+            x: 70,
+            y: 315
         }
-        var country_D = {
-            x: 270,
-            y: 270
+        var _COUNTRYD = {
+            x: 470,
+            y: 315
         }
 
         //載入完先閱讀規則
@@ -361,83 +362,59 @@
             // contextX = parseInt($('#warGround').next().width())
             // contextY = parseInt($('#warGround').next().height() + $('#warGround').next().next().height())
             // $('#warGround').css('width', contextX).css('height', contextY)
-            drawFire()
+            // drawFire()
         })
 
         function drawFire() {
-            let a = (270 - 40) / 25
-            let b = (270 - 60) / 25
-            let x = 40
-            let y = 60
-            let v=40
-            let g=60
-            let m=40
-            let n=60
-           let i = setInterval(function () {
-                context.beginPath();
-                context.strokeStyle = 'red';
-                context.lineWidth = 3;
-                context.moveTo(x, y);
+            let a = (470 - 70) / 25
+            let b = (315 - 75) / 25;
+            let x = 70
+            let y = 75
+            let xx = 470
+            let yy = 315
+            let i = setInterval(function () {
+                _CONTEXT.beginPath();
+                _CONTEXT.strokeStyle = 'red';
+                _CONTEXT.lineWidth = 7;
+                _CONTEXT.moveTo(x, y);
                 x = x + a
                 y = y + b
-                if (x >= 270) {
-                    x = 270
+                if (x >= 470) {
+                    x = 470
                 }
-                if (y >= 270) {
-                    y = 270
+                if (y >= 315) {
+                    y = 315
                 }
-                context.strokeStyle='red'
-                context.lineTo(x, y);
-                context.stroke();
-                if (x >= 270 && y >= 270) {
+                _CONTEXT.lineTo(x, y);
+                _CONTEXT.stroke();
+                if (x >= 470 && y >= 315) {
                     clearInterval(i)
                     return false
                 }
-                context.closePath();
+                _CONTEXT.closePath();
             }, 100)
-            let w= setInterval(function () {
-                context.beginPath();
-                context.strokeStyle = 'red';
-                context.lineWidth = 3;
-                context.moveTo(v, g);
-                v = v + a
-                g = g + b
-                if (v >= 40) {
-                    v = 40
+
+            let j = setInterval(function () {
+                _CONTEXT.beginPath();
+                _CONTEXT.strokeStyle = 'green'
+                _CONTEXT.lineWidth = 7;
+                _CONTEXT.moveTo(xx, yy);
+                xx = xx - a
+                yy = yy - b
+                if (xx <= 70) {
+                    xx = 70
                 }
-                if (g >= 270) {
-                    g = 270
+                if (yy <=75 ) {
+                    yy = 75
                 }
-                context.strokeStyle='red'
-                context.lineTo(v, g);
-                context.stroke();
-                if (v >= 40 && g >= 270) {
-                    clearInterval(g)
+                
+                _CONTEXT.lineTo(xx, yy);
+                _CONTEXT.stroke();
+                if (xx <= 70 && yy <= 75) {
+                    clearInterval(j)
                     return false
                 }
-                context.closePath();
-            }, 100)
-            let r= setInterval(function () {
-                context.beginPath();
-                context.strokeStyle = 'red';
-                context.lineWidth = 3;
-                context.moveTo(m, n);
-                m = m + a
-                n = n + b
-                if (m >= 270) {
-                    m = 270
-                }
-                if (n >= 60) {
-                    n = 60
-                }
-                context.strokeStyle='red'
-                context.lineTo(m, n);
-                context.stroke();
-                if (m >= 270 && n >= 60) {
-                    clearInterval(r)
-                    return false
-                }
-                context.closePath();
+                _CONTEXT.closePath();
             }, 100)
         }
 

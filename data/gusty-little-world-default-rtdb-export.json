@@ -487,5 +487,270 @@
     "summary" : "花錢囉...",
     "time" : "2021-07-07",
     "title" : "2021 Steam 夏季特賣"
-  } ]
+  } ],
+  "war" : {
+    "players" : [ {
+      "country" : "A",
+      "order" : 0,
+      "status" : "offline"
+    }, {
+      "country" : "B",
+      "order" : 1,
+      "status" : "offline"
+    }, {
+      "country" : "C",
+      "order" : 2,
+      "status" : "offline"
+    }, {
+      "country" : "D",
+      "order" : 3,
+      "status" : "offline"
+    } ],
+    "warInfo" : [ {
+      "diplomatic" : [ {
+        "answer" : [ "" ],
+        "content" : "",
+        "country" : "",
+        "enemy" : "",
+        "order" : 0
+      } ],
+      "option" : [ {
+        "country" : "A",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 0,
+        "point" : 0
+      }, {
+        "country" : "B",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 1,
+        "point" : 0
+      }, {
+        "country" : "C",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 2,
+        "point" : 0
+      }, {
+        "country" : "D",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 3,
+        "point" : 0
+      } ],
+      "order" : 0,
+      "turn" : 1
+    }, {
+      "diplomatic" : [ {
+        "answer" : [ "" ],
+        "content" : "",
+        "country" : "",
+        "enemy" : "",
+        "order" : 0
+      } ],
+      "option" : [ {
+        "country" : "A",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 0,
+        "point" : 0
+      }, {
+        "country" : "B",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 1,
+        "point" : 0
+      }, {
+        "country" : "C",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 2,
+        "point" : 0
+      }, {
+        "country" : "D",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 3,
+        "point" : 0
+      } ],
+      "order" : 1,
+      "turn" : 2
+    }, {
+      "diplomatic" : [ {
+        "answer" : [ "" ],
+        "content" : "",
+        "country" : "",
+        "enemy" : "",
+        "order" : 0
+      } ],
+      "option" : [ {
+        "country" : "A",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 0,
+        "point" : 0
+      }, {
+        "country" : "B",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 1,
+        "point" : 0
+      }, {
+        "country" : "C",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 2,
+        "point" : 0
+      }, {
+        "country" : "D",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 3,
+        "point" : 0
+      } ],
+      "order" : 2,
+      "turn" : 3
+    }, {
+      "diplomatic" : [ {
+        "answer" : [ "" ],
+        "content" : "",
+        "country" : "",
+        "enemy" : "",
+        "order" : 0
+      } ],
+      "option" : [ {
+        "country" : "A",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 0,
+        "point" : 0
+      }, {
+        "country" : "B",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 1,
+        "point" : 0
+      }, {
+        "country" : "C",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 2,
+        "point" : 0
+      }, {
+        "country" : "D",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 3,
+        "point" : 0
+      } ],
+      "order" : 3,
+      "turn" : 4
+    }, {
+      "diplomatic" : [ {
+        "answer" : [ "" ],
+        "content" : "",
+        "country" : "",
+        "enemy" : "",
+        "order" : 0
+      } ],
+      "option" : [ {
+        "country" : "A",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 0,
+        "point" : 0
+      }, {
+        "country" : "B",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 1,
+        "point" : 0
+      }, {
+        "country" : "C",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 2,
+        "point" : 0
+      }, {
+        "country" : "D",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 3,
+        "point" : 0
+      } ],
+      "order" : 4,
+      "turn" : 5
+    }, {
+      "diplomatic" : [ {
+        "answer" : [ "" ],
+        "content" : "",
+        "country" : "",
+        "enemy" : "",
+        "order" : 0
+      } ],
+      "option" : [ {
+        "country" : "A",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 0,
+        "point" : 0
+      }, {
+        "country" : "B",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 1,
+        "point" : 0
+      }, {
+        "country" : "C",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 2,
+        "point" : 0
+      }, {
+        "country" : "D",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 3,
+        "point" : 0
+      } ],
+      "order" : 5,
+      "turn" : 6
+    }, {
+      "diplomatic" : [ {
+        "answer" : [ "" ],
+        "content" : "",
+        "country" : "",
+        "enemy" : "",
+        "order" : 0
+      } ],
+      "option" : [ {
+        "country" : "A",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 0,
+        "point" : 0
+      }, {
+        "country" : "B",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 1,
+        "point" : 0
+      }, {
+        "country" : "C",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 2,
+        "point" : 0
+      }, {
+        "country" : "D",
+        "enemy" : [ "" ],
+        "option" : "",
+        "order" : 3,
+        "point" : 0
+      } ],
+      "order" : 6,
+      "turn" : 7
+    } ]
+  }
 }

@@ -29,7 +29,7 @@
             </h1>
         </div>
 
-        <div class="row rounded" style="border:2px solid #FF5809;background-color: #C4E1FF;height:65vh;">
+        <div class="row rounded" style="border:2px solid #FF5809;background-color: #C4E1FF;">
             <div class="col-sm-3 rounded-right h5 mb-0" style="border-right: 2px solid #FF5809;">
                 <div class="col-sm-12">
                     <p class="mt-4">您的國家:&nbsp<span id='myCountry'>?</span></p>
@@ -159,21 +159,35 @@
                         </button>
                     </div>
                     <div class="modal-body h5">
-                        跟據漫畫「狂賭之淵」 58話 的遊戲改編<br><br>
-                        1. 玩家人數4人，分別選擇ABCD國，起始分數都是0分，遊戲7回合結束，分數多的一方勝利。<br><br>
-                        2. 每回合玩家可以選擇「攻擊」、「防禦」。<br><br>
-                        3. 攻擊:選擇攻擊的國家，攻擊的國家多少都可以選擇。<br><br>
-                        4. 防禦:加固防守，不會被攻擊影響；防禦需要-5分，0分也可以防禦。<br><br>
-                        5. 每回合的選擇時間沒有限制，等到所有玩家都決定好才會開始交戰。<br><br>
-                        6. 交戰結果:攻擊攻擊國家，攻擊方+10分，被攻擊方-10分；攻擊防禦國家，防禦方+10分，攻擊方-10。<br><br>
-                        7.
-                        外交:玩家無論甚麼時候都可以和其他國家進行外交，不限次數，請求其他國家防禦或是攻擊其他國家，被請求方可以選擇YES、NO，即使選擇YES被請求方也可以不按照請求的內容去做也不會有任何懲罰。<br><br>
+                        <p>跟據漫畫「狂賭之淵」 58話 的遊戲改編&nbsp<span class="text-warning">(有時間記得去看狂賭之淵，真顏藝漫畫)</span></p>
+                        <p>1. 玩家人數4人，分別選擇ABCD國，起始分數都是0分，遊戲7回合結束，分數多的一方勝利。</p>
+                        <p>2. 每回合玩家可以選擇「攻擊」、「防禦」。</p>
+                        <p> 3. 攻擊:選擇攻擊的國家，攻擊的國家多少都可以選擇。</p>
+                        <p>4. 防禦:加固防守，不會被攻擊影響；防禦需要-5分，0分也可以防禦。</p>
+                        <p>5. 每回合的選擇時間沒有限制，等到所有玩家都決定好才會開始交戰。</p>
+                        <p>6. 交戰結果:攻擊攻擊國家，攻擊方+10分，被攻擊方-10分；攻擊防禦國家，防禦方+10分，攻擊方-10。</p>
+                        <p>7.
+                            外交:玩家無論甚麼時候都可以和其他國家進行外交，不限次數，請求其他國家防禦或是攻擊其他國家，被請求方可以選擇YES、NO，即使選擇YES被請求方也可以不按照請求的內容去做也不會有任何懲罰。
+                        </p>
+                        <p>8.當玩家都操作完會進行開火，此時到下一回合開始前無法操作任何功能，只可以看規則。</p>
+                        <p>9.有玩家中離遊戲會強制結束和重置。</p>
+                        <p>10.假設已經有4人在玩，第5人進來「應該」會只能看，不能做任何事。</p>
                         <div class="row justify-content-center text-center">
                             <p class="text-danger">***在國家間沒有真正的朋友，互相欺騙的遊戲***</p>
                             <div class="col-sm-8">
                                 <img src='../images/other/war/rule.jpg' alt="sorry not found"
                                     class="rounded w-100 h-100">
                             </div>
+                        </div>
+                        <div class="mt-2 col-sm-12 alert alert-warning h5">
+                            <p><i class="fas fa-exclamation-triangle"></i>以下是可能會遇到的問題:</p>
+                            <p>
+                                1.螢幕比例太小，開火畫的線會跑掉。<br>
+                                2.每一回合新的開始，戰場上可能還是會留有殘線。<br>
+                                3.外交回覆的時間如果太接近，新的會蓋掉舊的。<br>
+                                4.其他我還沒有看到先這樣...<br>
+                                我沒有辦法~~~<i class="fas fa-sad-cry"></i>
+                            </p>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -363,7 +377,12 @@
                         <div id="description3" class="collapse" aria-labelledby="headingThree"
                             data-parent="#authorGGYY">
                             <div class="card-body">
-                                *****
+                                好累~~~，沒事自己找事做ㄟ，假日都不見了；<br>
+                                總而言之，一定還是有BUG，但應該沒有太大的問題了吧...<br>
+                                其實當初看到漫畫就有一股衝動，只是當時可能技術不好(現在也沒多好)<br>
+                                いま，我突然覺得自己好像做得到了，就開始做了，最後就長這樣。<br>
+                                這是我現在最後的創作，之後的等到我去學些新技術，有緣再開始發病吧。<br>
+                                竟然是最後的創作就紀錄一下時間「2021/7/18」<i class="fas fa-tired"></i>
                             </div>
                         </div>
                     </div>
@@ -421,7 +440,8 @@
         //回合數
         var _TURN = 1;
 
-        var _DIPLOMATICCONTENT=''
+        //判斷使否有回覆外交
+        var _DIPLOMATICARY = []
 
         //判斷回合是否結算
         var _ISALLREADY = false
@@ -450,9 +470,8 @@
             callStatus()
             detectDiplomatic()
             clearGameData()
-            // $('#finalResult').modal()
             $('#optionButton').attr('disabled', true)
-            // $('#rule').modal();
+            $('#rule').modal()
         });
 
         //玩家選擇國家
@@ -505,6 +524,7 @@
             }
             if (readyPlayers == 4) {
                 startGame()
+                playerIsOnline()
             }
             $('#selectCountry').html(playersHtml);
         });
@@ -683,6 +703,13 @@
                     showConfirmButton: false,
                 });
             } else {
+                for (let i = 0; i < diplomaticCountry.length; i = i + 1) {
+                    let request = {
+                        requestCountry: diplomaticCountry[i],
+                        requestAnswer: ''
+                    }
+                    _DIPLOMATICARY.push(request)
+                }
                 database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
                     let diplomaticAry = result.val().diplomatic;
                     let diplomaticObject = {
@@ -773,23 +800,98 @@
                         if (diplomaticAry[i].country == sessionStorage.getItem('country')) {
                             if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
                                 $.each(diplomaticAry[i].answer, function (index, answerValue) {
-                                    if (answerValue.answer == 'YES') {
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: '國家' + answerValue.country + '同意你的外交請求',
-                                            allowOutsideClick: false,
-                                            showConfirmButton: true,
-                                            focusConfirm: false,
-                                        })
-                                    } else {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: '國家' + answerValue.country + '拒絕你的外交請求',
-                                            allowOutsideClick: false,
-                                            showConfirmButton: true,
-                                            focusConfirm: false,
-                                        })
+                                    for (let l = 0; l < _DIPLOMATICARY.length; l = l + 1) {
+                                        if (answerValue.country == _DIPLOMATICARY[l].requestCountry) {
+                                            if (_DIPLOMATICARY[l].requestAnswer != '') {
+                                                return
+                                            } else {
+                                                if (answerValue.answer == 'YES') {
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: '國家' + answerValue.country +
+                                                            '同意你的外交請求',
+                                                        allowOutsideClick: false,
+                                                        showConfirmButton: true,
+                                                        focusConfirm: false,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            for (let l = 0; l < _DIPLOMATICARY
+                                                                .length; l =
+                                                                l + 1) {
+                                                                if (answerValue.country ==
+                                                                    _DIPLOMATICARY[l]
+                                                                    .requestCountry) {
+                                                                    _DIPLOMATICARY[l]
+                                                                        .requestAnswer = 'YES'
+                                                                }
+                                                            }
+                                                        }
+                                                    })
+                                                } else {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: '國家' + answerValue.country +
+                                                            '拒絕你的外交請求',
+                                                        allowOutsideClick: false,
+                                                        showConfirmButton: true,
+                                                        focusConfirm: false,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            for (let l = 0; l < _DIPLOMATICARY
+                                                                .length; l =
+                                                                l + 1) {
+                                                                if (answerValue.country ==
+                                                                    _DIPLOMATICARY[l]
+                                                                    .requestCountry) {
+                                                                    _DIPLOMATICARY[l]
+                                                                        .requestAnswer = 'NO'
+                                                                }
+                                                            }
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        }
                                     }
+
+                                    //先不要刪，總覺得還有用
+                                    // if (answerValue.answer == 'YES') {
+                                    //     Swal.fire({
+                                    //         icon: 'success',
+                                    //         title: '國家' + answerValue.country + '同意你的外交請求',
+                                    //         allowOutsideClick: false,
+                                    //         showConfirmButton: true,
+                                    //         focusConfirm: false,
+                                    //     }).then((result) => {
+                                    //         if (result.isConfirmed) {
+                                    //             for (let l = 0; l < _DIPLOMATICARY.length; l =
+                                    //                 l + 1) {
+                                    //                 if (answerValue.country == _DIPLOMATICARY[l]
+                                    //                     .requestCountry) {
+                                    //                     _DIPLOMATICARY[l].requestAnswer = 'YES'
+                                    //                 }
+                                    //             }
+                                    //         }
+                                    //     })
+                                    // } else {
+                                    //     Swal.fire({
+                                    //         icon: 'error',
+                                    //         title: '國家' + answerValue.country + '拒絕你的外交請求',
+                                    //         allowOutsideClick: false,
+                                    //         showConfirmButton: true,
+                                    //         focusConfirm: false,
+                                    //     }).then((result) => {
+                                    //         if (result.isConfirmed) {
+                                    //             for (let l = 0; l < _DIPLOMATICARY.length; l =
+                                    //                 l + 1) {
+                                    //                 if (answerValue.country == _DIPLOMATICARY[l]
+                                    //                     .requestCountry) {
+                                    //                     _DIPLOMATICARY[l].requestAnswer = 'NO'
+                                    //                 }
+                                    //             }
+                                    //         }
+                                    //     })
+                                    // }
                                 });
                             }
                         }
@@ -818,6 +920,7 @@
                     _ISALLREADY = true
                     drawFire(optionAry)
                     pointSum(optionAry)
+                    $('#optionButton').attr('disabled', true)
                 }
             })
         }
@@ -848,13 +951,13 @@
             historyHtml += '<p>第' + _TURN + '回合:</p>'
             for (let i = 0; i < optionAry.length; i = i + 1) {
                 if (optionAry[i].option == 'attack') {
-                    historyHtml += '<p>' + optionAry[i].country + '選擇攻擊'
+                    historyHtml += '<p>' + optionAry[i].country + '選擇<span class="text-danger">攻擊</span>'
                     for (let j = 0; j < optionAry[i].enemy.length; j = j + 1) {
                         historyHtml += optionAry[i].enemy[j]
                     }
                     historyHtml += '</p>'
                 } else if (optionAry[i].option == 'defense') {
-                    historyHtml += '<p>' + optionAry[i].country + '選擇防禦</p>'
+                    historyHtml += '<p>' + optionAry[i].country + '選擇<span class="text-primary">防禦</span></p>'
                 }
                 historyHtml += '<p>' + optionAry[i].country + '共獲得' + optionAry[i].point + '分</p>'
             }
@@ -1022,7 +1125,7 @@
                                     }
                                     _CONTEXT.lineTo(xB, yB);
                                     _CONTEXT.stroke();
-                                    if (xB >= 470 && yB >= 75) {
+                                    if (xB == 470 && yB == 75) {
                                         clearInterval(fireB)
                                         return false
                                     }
@@ -1145,9 +1248,9 @@
                 }
                 $('#finalResultTable').html(tableHtml)
                 $('#finalResult').modal()
-                setTimeout(function () {
-                    clearGameData()
-                }, 3000)
+                // setTimeout(function () {
+                //     clearGameData()
+                // }, 3000)
             });
         }
 
@@ -1167,8 +1270,10 @@
             $('#nextTimeCount').html('').hide()
             $('#option').modal('hide')
             $('#rule').modal('hide')
+            $('#optionButton').attr('disabled', false)
             callStatus()
             detectDiplomatic()
+            _DIPLOMATICARY = []
         }
 
         //操作功能禁用
@@ -1228,6 +1333,7 @@
             }
         })
 
+        //匯出外交紀錄
         function outPutDiplomatic(diplomaticData) {
             var blob = new Blob([JSON.stringify(diplomaticData)], {
                 type: ""
@@ -1257,6 +1363,39 @@
                     database.ref('/war/warInfo/' + i + '/diplomatic').set([newDiplomatic])
                 });
             }
+        }
+
+        //偵測玩家是否斷線
+        function playerIsOnline() {
+            let detectStatus = setInterval(function () {
+                database.ref('/war/players').once('value', function (result) {
+                    let players = result.val();
+                    for (let i = 0; i < players.length; i = i + 1) {
+                        if (players[i].status == 'offline' && _TURN != 7) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '有玩家中離遊戲，遊戲強制結束',
+                                text: '5秒後重置遊戲，或按下確認立即重置遊戲',
+                                confirmButtonText: '確認',
+                                allowOutsideClick: false,
+                                showConfirmButton: true,
+                                focusConfirm: false,
+                                timerProgressBar: true,
+                                timer: 5000,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    clearGameData()
+                                    history.go(0)
+                                }
+                                clearGameData()
+                                history.go(0)
+                            })
+                            clearInterval(detectStatus)
+                            return false
+                        }
+                    }
+                });
+            }, 5000)
         }
     </script>
 

@@ -183,6 +183,66 @@
             </div>
         </div>
 
+        <!-- 最終結果 Modal -->
+        <div class="modal fade" id="finalResult" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-lg modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title h4">遊戲結束，分數結算</h5>
+                        <button type="button" class="close resultClose" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body h5"
+                        style="background-image: url('../images/other/war/result.gif');background-size: cover;background-repeat: repeat;z-index: 10;">
+                        <p>最終排名:
+                            <button type="button" class="mb-2 float-right btn btn-warning" id="exportDiplomatic"><i
+                                    class="fas fa-file-export"></i>匯出外交紀錄(JSON)</button>
+                        </p>
+
+                        <table class="table table-bordered table-hover text-center">
+                            <tr>
+                                <thead>
+                                    <th>名次</th>
+                                    <th>國家</th>
+                                    <th>分數</th>
+                                </thead>
+                            </tr>
+                            <tbody id="finalResultTable">
+                                <!-- <tr>
+                                    <td>1</td>
+                                    <td>A</td>
+                                    <td>40</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>B</td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>C</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>D</td>
+                                    <td>10</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <div class="alert alert-success col-sm-12">
+                            <p>感謝遊玩，關閉本視窗遊戲就會重製了。<i class="fas fa-smile-wink"></i></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="resultClose btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 操作 Modal -->
         <div class="modal fade" id="option" data-backdrop="static" data-keyboard="false" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -351,6 +411,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- socila share js -->
     <script src="../js/social-share-kit.js"></script>
+    <!-- filesaver js -->
+    <script src="../js/FileSaver.min.js"></script>
     <!-- common js -->
     <script src="../js/common.js"></script>
 
@@ -358,6 +420,8 @@
         w3.includeHTML();
         //回合數
         var _TURN = 1;
+
+        var _DIPLOMATICCONTENT=''
 
         //判斷回合是否結算
         var _ISALLREADY = false
@@ -381,10 +445,13 @@
             y: 315
         }
 
-        //載入完先閱讀規則
+        //載入完先閱讀規則+讀取玩家狀態
         $(document).ready(function () {
             callStatus()
-            // $('#optionButton').attr('disabled', true)
+            detectDiplomatic()
+            clearGameData()
+            // $('#finalResult').modal()
+            $('#optionButton').attr('disabled', true)
             // $('#rule').modal();
         });
 
@@ -650,84 +717,86 @@
         });
 
         //接收有無外交請求，同意或拒絕
-        database.ref('/war/warInfo/' + parseInt(_TURN - 1)).on('value', function (result) {
-            let diplomaticAry = result.val().diplomatic;
-            if (sessionStorage.getItem('country') != null && diplomaticAry.length > 1) {
-                for (let i = 0; i < diplomaticAry.length; i = i + 1) {
-                    for (let j = 0; j < diplomaticAry[i].enemy.length; j = j + 1) {
-                        if (diplomaticAry[i].enemy[j] == sessionStorage.getItem('country')) {
-                            if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
-                                let isAnswer = false
-                                $.each(diplomaticAry[i].answer, function (index, answerValue) {
-                                    if (answerValue.country == sessionStorage.getItem('country')) {
-                                        isAnswer = true
+        function detectDiplomatic() {
+            database.ref('/war/warInfo/' + parseInt(_TURN - 1)).on('value', function (result) {
+                let diplomaticAry = result.val().diplomatic;
+                if (sessionStorage.getItem('country') != null && diplomaticAry.length > 1) {
+                    for (let i = 0; i < diplomaticAry.length; i = i + 1) {
+                        for (let j = 0; j < diplomaticAry[i].enemy.length; j = j + 1) {
+                            if (diplomaticAry[i].enemy[j] == sessionStorage.getItem('country')) {
+                                if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
+                                    let isAnswer = false
+                                    $.each(diplomaticAry[i].answer, function (index, answerValue) {
+                                        if (answerValue.country == sessionStorage.getItem('country')) {
+                                            isAnswer = true
+                                            return false
+                                        }
+                                    });
+                                    if (isAnswer) {
                                         return false
                                     }
-                                });
-                                if (isAnswer) {
-                                    return false
                                 }
+                                Swal.fire({
+                                    icon: 'info',
+                                    title: '來自' + diplomaticAry[i].country + '國的外交請求',
+                                    text: diplomaticAry[i].content,
+                                    showConfirmButton: true,
+                                    showCancelButton: false,
+                                    showDenyButton: true,
+                                    confirmButtonText: 'YES',
+                                    denyButtonText: 'NO',
+                                    focusConfirm: false,
+                                    allowOutsideClick: false
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        let answerObject = {
+                                            country: sessionStorage.getItem('country'),
+                                            answer: "YES",
+                                        }
+                                        database.ref('/war/warInfo/' + parseInt(_TURN - 1) +
+                                            '/diplomatic/' +
+                                            parseInt(diplomaticAry[i].order) + '/answer').push(
+                                            answerObject)
+                                    } else if (result.isDenied) {
+                                        let answerObject = {
+                                            country: sessionStorage.getItem('country'),
+                                            answer: "NO",
+                                        }
+                                        database.ref('/war/warInfo/' + parseInt(_TURN - 1) +
+                                            '/diplomatic/' +
+                                            parseInt(diplomaticAry[i].order) + '/answer').push(
+                                            answerObject)
+                                    }
+                                })
                             }
-                            Swal.fire({
-                                icon: 'info',
-                                title: '來自' + diplomaticAry[i].country + '的外交請求',
-                                text: diplomaticAry[i].content,
-                                showConfirmButton: true,
-                                showCancelButton: false,
-                                showDenyButton: true,
-                                confirmButtonText: 'YES',
-                                denyButtonText: 'NO',
-                                focusConfirm: false,
-                                allowOutsideClick: false
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    let answerObject = {
-                                        country: sessionStorage.getItem('country'),
-                                        answer: "YES"
-                                    }
-                                    database.ref('/war/warInfo/' + parseInt(_TURN - 1) +
-                                        '/diplomatic/' +
-                                        parseInt(diplomaticAry[i].order) + '/answer').push(
-                                        answerObject)
-                                } else if (result.isDenied) {
-                                    let answerObject = {
-                                        country: sessionStorage.getItem('country'),
-                                        answer: "NO"
-                                    }
-                                    database.ref('/war/warInfo/' + parseInt(_TURN - 1) +
-                                        '/diplomatic/' +
-                                        parseInt(diplomaticAry[i].order) + '/answer').push(
-                                        answerObject)
-                                }
-                            })
                         }
-                    }
-                    if (diplomaticAry[i].country == sessionStorage.getItem('country')) {
-                        if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
-                            $.each(diplomaticAry[i].answer, function (index, answerValue) {
-                                if (answerValue.answer == 'YES') {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: '國家' + answerValue.country + '同意你的外交請求',
-                                        allowOutsideClick: false,
-                                        showConfirmButton: true,
-                                        focusConfirm: false,
-                                    })
-                                } else {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: '國家' + answerValue.country + '拒絕你的外交請求',
-                                        allowOutsideClick: false,
-                                        showConfirmButton: true,
-                                        focusConfirm: false,
-                                    })
-                                }
-                            });
+                        if (diplomaticAry[i].country == sessionStorage.getItem('country')) {
+                            if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
+                                $.each(diplomaticAry[i].answer, function (index, answerValue) {
+                                    if (answerValue.answer == 'YES') {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: '國家' + answerValue.country + '同意你的外交請求',
+                                            allowOutsideClick: false,
+                                            showConfirmButton: true,
+                                            focusConfirm: false,
+                                        })
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: '國家' + answerValue.country + '拒絕你的外交請求',
+                                            allowOutsideClick: false,
+                                            showConfirmButton: true,
+                                            focusConfirm: false,
+                                        })
+                                    }
+                                });
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
 
         //判斷回合
         function callStatus() {
@@ -813,26 +882,48 @@
                     database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(optionAry[i].order))
                         .update(
                             optionAry[i])
-                    if (_TURN < 7) {
-                        optionAry[i].option = ''
-                        optionAry[i].enemy = [""]
-                        database.ref('/war/warInfo/' + parseInt(_TURN) + '/option/' + parseInt(optionAry[i].order))
-                            .update(
-                                optionAry[i])
-                    }
+                    // if (_TURN < 7) {
+                    //     optionAry[i].option = ''
+                    //     optionAry[i].enemy = [""]
+                    //     database.ref('/war/warInfo/' + parseInt(_TURN) + '/option/' + parseInt(optionAry[i].order))
+                    //         .update(
+                    //             optionAry[i])
+                    // }
                 }
             }
             let nextTime = 10;
             setTimeout(function () {
                 let nextTimeCount = setInterval(function () {
                     nextTime = nextTime - 1;
-                    $('#nextTimeCount').html(nextTime + '秒後進入下一回合').show()
+                    if (_TURN != 7) {
+                        $('#nextTimeCount').html(nextTime + '秒後進入下一回合').show()
+                    } else {
+                        $('#nextTimeCount').html(nextTime + '秒後進入結算畫面').show()
+                    }
                     if (nextTime == 0) {
                         clearInterval(nextTimeCount)
-                        turnNext()
+                        if (_TURN != 7) {
+                            turnNext()
+                        } else {
+                            showFinalResult()
+                        }
                         return false
                     }
                 }, 1000)
+                setTimeout(function () {
+                    for (let i = 0; i < optionAry.length; i = i + 1) {
+                        if (optionAry[i].country == sessionStorage.getItem('country') && _TURN < 7) {
+                            if (_TURN < 7) {
+                                optionAry[i].option = ''
+                                optionAry[i].enemy = [""]
+                                database.ref('/war/warInfo/' + parseInt(_TURN) + '/option/' + parseInt(
+                                        optionAry[i].order))
+                                    .update(
+                                        optionAry[i])
+                            }
+                        }
+                    }
+                }, 3000)
             }, 3000);
         }
 
@@ -1027,6 +1118,39 @@
             }, 700)
         }
 
+        //關閉遊戲結果重置資料+重新整理
+        $('.resultClose').click(function () {
+            clearGameData()
+            history.go(0)
+        })
+
+        //顯示最終結果
+        function showFinalResult() {
+            database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
+                let optionAry = result.val().option;
+                optionAry.sort(function (a, b) {
+                    if (a.point < b.point) {
+                        return 1
+                    } else {
+                        return -1
+                    }
+                })
+                let tableHtml = ''
+                for (let i = 0; i < optionAry.length; i = i + 1) {
+                    tableHtml += '<tr>'
+                    tableHtml += '<td>' + parseInt(i + 1) + '</td>'
+                    tableHtml += '<td>' + optionAry[i].country + '</td>'
+                    tableHtml += '<td>' + optionAry[i].point + '</td>'
+                    tableHtml += '</tr>'
+                }
+                $('#finalResultTable').html(tableHtml)
+                $('#finalResult').modal()
+                setTimeout(function () {
+                    clearGameData()
+                }, 3000)
+            });
+        }
+
         //下一回合準備
         function turnNext() {
             _TURN = _TURN + 1
@@ -1041,7 +1165,10 @@
             })
             optionEnable(true)
             $('#nextTimeCount').html('').hide()
+            $('#option').modal('hide')
+            $('#rule').modal('hide')
             callStatus()
+            detectDiplomatic()
         }
 
         //操作功能禁用
@@ -1084,6 +1211,51 @@
             }
             if (country == 'D') {
                 return 'yellow'
+            }
+        }
+
+        //匯出外交紀錄
+        $('#exportDiplomatic').click(function () {
+            let allDiplomaticAry = []
+            for (let i = 0; i < 7; i = i + 1) {
+                database.ref('/war/warInfo/' + parseInt(i)).once('value', function (result) {
+                    let diplomaticAry = result.val().diplomatic;
+                    allDiplomaticAry.push(diplomaticAry)
+                    if (i == 6) {
+                        outPutDiplomatic(allDiplomaticAry)
+                    }
+                });
+            }
+        })
+
+        function outPutDiplomatic(diplomaticData) {
+            var blob = new Blob([JSON.stringify(diplomaticData)], {
+                type: ""
+            });
+            saveAs(blob, "diplomatic.json");
+        }
+
+        //重置本場遊戲的資料
+        function clearGameData() {
+            let newDiplomatic = {
+                answer: [''],
+                content: '',
+                country: '',
+                enemy: '',
+                order: 0
+            }
+            for (let i = 0; i < 7; i = i + 1) {
+                database.ref('/war/warInfo/' + i).once('value', function (result) {
+                    let gameDataAry = result.val();
+                    for (let j = 0; j < gameDataAry.option.length; j = j + 1) {
+                        gameDataAry.option[j].option = ''
+                        gameDataAry.option[j].enemy = [""]
+                        gameDataAry.option[j].point = 0
+                        database.ref('/war/warInfo/' + i + '/option/' + gameDataAry.option[j].order).update(
+                            gameDataAry.option[j])
+                    }
+                    database.ref('/war/warInfo/' + i + '/diplomatic').set([newDiplomatic])
+                });
             }
         }
     </script>

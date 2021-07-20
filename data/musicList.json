@@ -1,0 +1,37 @@
+[{
+    "name": "夢なんかじゃ飯は喰えないと誰かのせいにして",
+    "artist": "藤川千愛",
+    "url": "music/mp3/夢なんかじゃ飯は喰えないと誰かのせいにして.mp3",
+    "lrc": "music/lrc/夢なんかじゃ飯は喰えないと誰かのせいにして.lrc",
+    "cover": "music/coverImg/夢なんかじゃ飯は喰えないと誰かのせいにして.jpg"
+}, {
+    "name": "Be The One",
+    "artist": "PANDORA feat.Beverly",
+    "url": "music/mp3/Be The One.mp3",
+    "lrc": "music/lrc/Be The One.lrc",
+    "cover": "music/coverImg/Be The One.jpg"
+}, {
+    "name": "Drive By",
+    "artist": "Train",
+    "url": "music/mp3/Drive By.mp3",
+    "lrc": "music/lrc/Drive By.lrc",
+    "cover": "music/coverImg/Drive By.jpg"
+},{
+    "name": "残酷な天使のテーゼ",
+    "artist": "高橋洋子",
+    "url": "music/mp3/残酷な天使のテーゼ.mp3",
+    "lrc": "music/lrc/残酷な天使のテーゼ.lrc",
+    "cover": "music/coverImg/残酷な天使のテーゼ.jpg"
+},{
+    "name": "Hikari Are",
+    "artist": "Akihito Okano",
+    "url": "music/mp3/Hikari Are.mp3",
+    "lrc": "music/lrc/Hikari Are.lrc",
+    "cover": "music/coverImg/Hikari Are.jpg"
+},{
+    "name": "アイデンティティ",
+    "artist": "秋山黄色",
+    "url": "music/mp3/アイデンティティ.mp3",
+    "lrc": "music/lrc/アイデンティティ.lrc",
+    "cover": "music/coverImg/アイデンティティ.jpg"
+}]

@@ -28,13 +28,6 @@
       height: 75vh;
     }
 
-    /* 音樂撥放器初始位置 */
-    #musicSide {
-      position: fixed;
-      left: 0;
-      bottom: 70vh;
-    }
-
     /* 瀏覽量統計位置 */
     #viewCount {
       position: fixed;
@@ -51,6 +44,7 @@
     body {
       overflow-x: hidden;
     }
+    
   </style>
 </head>
 
@@ -112,8 +106,7 @@
         一個喊者伸縮自如的、右手拿者斬魄刀、左手搓螺旋丸的隨處可見的魔法師&nbsp<i class="fas fa-hat-wizard"></i>。<br>
         Gusty是某天我在學英文單字，打進Google翻譯，覺得很中2於是就取這個名字；雖然念起來很不像是名字，但是我喜歡&nbsp<i class="fas fa-laugh-beam"></i>。
         想做的事很多，但都只有想而已...；<s>夢想是當個有錢的家裡蹲</s><br>
-        上面的油圖輪播是從<a
-          href="javascript:window.open('https://wall.alphacoders.com/tags.php?tid=101808')">這裡</a>隨機抓的，
+        上面的油圖輪播是從<a href="javascript:window.open('https://wall.alphacoders.com/tags.php?tid=101808')">這裡</a>隨機抓的，
         要高清圖請自行前往，如果都顯示一樣那就是出事了。最近迷上了Hololive。&nbsp<span style="color:#D9B300">PEKO</span>&nbsp
         唯一支持團長。<a href="javascript:window.open('https://www.youtube.com/watch?v=yHW32KtnNhw')">音樂來源</a><br>
         <div class='row justify-content-center mt-2'>
@@ -163,17 +156,7 @@
     </svg>
   </div>
 
-  <div class="row" id="musicSide">
-    <div id='musicToolArea'>
-      <div id='musicTool' class="mt-2">
-        <audio onpause="goPause()" onplay="goPlay()" onended="goEnd()" src="music/藤川千愛-夢なんかじゃ飯は喰えないと誰かのせいにして.mp3"
-          preload="auto" type="audio/mpeg">
-          <h1 class='text-danger'>您的瀏覽器不支援音樂播放！</h1>
-        </audio>
-      </div>
-    </div>
-    <button class="btn btn-warning mb-2"><label style="margin-left: 5px;">音<br>樂</label></button>
-  </div>
+  <div id="player"></div>
 
   <div id="viewCount" style="background-color:#C4E1FF;"
     class="border text-center border-dark animate__animated animate__backInDown animate__delay-1s">
@@ -198,10 +181,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
   </script>
-  <!-- green music player js-->
-  <script src="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/js/green-audio-player.js"></script>
   <!-- live 2D js -->
-  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script> -->
   <!-- Sweetalert2 js -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- w3school js -->
@@ -223,12 +204,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
     integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- view count js -->
+  <script async src="js/APlayer.min.js"></script>
   <!-- common js -->
   <script src="js/common.js"></script>
 
   <script>
     w3.includeHTML(); //引入html
-
+    var _AP
     //判斷是否為移動裝置
     var isMobile = isMobileDevice();
     if (isMobile) {
@@ -242,15 +225,23 @@
     // 訪問量隨意拖動
     $(window).on('load', function () {
       $('#viewCount').easydrag();
+      $.get('data/musicList.json', function (musicList) {
+        _AP = new APlayer({
+          container: document.getElementById('player'),
+          fixed: true,
+          lrcType: 3,
+          order: 'random',
+          // autoplay: true,
+          volume: 0.5,
+          audio: musicList,
+        });
+      })
     });
 
+
+
+    //油圖初始化
     $(document).ready(function () {
-      // 外部插件撥放器初始化
-      GreenAudioPlayer.init({
-        selector: '#musicTool',
-        stopOthersOnPlay: true, //當有其他音樂在播放停止播放此音樂
-      });
-      $('#musicToolArea').hide();
       var imgsrcArray = [];
       var imgLength = 0;
       database.ref('/indexImg/url').on('value', function (result) {
@@ -277,26 +268,6 @@
       } else {
         return random
       }
-    }
-
-    // 音樂滑動
-    $(".btn-warning").click(function () {
-      $('#musicToolArea').animate({
-        width: 'toggle',
-      }, 400);
-    });
-
-    //音樂播放狀態增加動畫
-    function goPause() {
-      $('#musicSide').removeClass('animate__animated animate__pulse animate__infinite')
-    }
-
-    function goPlay() {
-      $('#musicSide').addClass('animate__animated animate__pulse animate__infinite')
-    }
-
-    function goEnd() {
-      $('#musicSide').removeClass('animate__animated animate__pulse animate__infinite')
     }
 
     //驗證裝置是否為移動設備

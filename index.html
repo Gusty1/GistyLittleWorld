@@ -44,7 +44,6 @@
     body {
       overflow-x: hidden;
     }
-    
   </style>
 </head>
 
@@ -214,17 +213,13 @@
     var _AP
     //判斷是否為移動裝置
     var isMobile = isMobileDevice();
-    if (isMobile) {
-      $('#life-graph-container').css('margin-left', '0px');
-      $('#life-graph-container').parent().css('overflow-x', 'auto');
-    } else {
-      $('#life-graph-container').css('margin-left', '20vw');
-      $('#life-graph-container').parent().css('overflow-x', 'hidden');
-    }
 
-    // 訪問量隨意拖動
+    // 訪問量隨意拖動+音樂初始化
     $(window).on('load', function () {
-      $('#viewCount').easydrag();
+      setTimeout(function () {
+        $('#viewCount').easydrag();
+      }, 1000)
+
       $.get('data/musicList.json', function (musicList) {
         _AP = new APlayer({
           container: document.getElementById('player'),
@@ -238,8 +233,6 @@
       })
     });
 
-
-
     //油圖初始化
     $(document).ready(function () {
       var imgsrcArray = [];
@@ -251,6 +244,32 @@
         $('#carouselExampleIndicators').find('img').each(function (index, value) {
           $(this).attr('src', imgsrcArray[random[index]]);
         });
+      });
+      if (isMobile) {
+        $('#life-graph-container').css('margin-left', '0px');
+        $('#life-graph-container').parent().css('overflow-x', 'auto');
+      } else {
+        $('#life-graph-container').css('margin-left', '20vw');
+        $('#life-graph-container').parent().css('overflow-x', 'hidden');
+      }
+    });
+
+    //PV UV 介紹
+    $('#PV').click(function () {
+      Swal.fire({
+        icon: 'info',
+        title: 'PV(page view，頁面瀏覽量)',
+        text: '網頁瀏覽量或點擊量，用戶每1次對網站中的每個網頁訪問均被記錄1個PV。用戶對同一頁面的多次訪問，訪問量累計，用以衡量網站用戶訪問的網頁數量',
+        showConfirmButton: false,
+      });
+    });
+
+    $('#UV').click(function () {
+      Swal.fire({
+        icon: 'info',
+        title: 'UV(unique visitor，網站獨立訪客)',
+        text: '是指通過網路訪問、瀏覽這個網頁的人。訪問您網站的一台電腦客戶端為一個訪客。 00:00-24:00內相同的客戶端只被計算一次',
+        showConfirmButton: false,
       });
     });
 
@@ -282,24 +301,6 @@
       return isMobileDevice
     }
 
-    //PV UV 介紹
-    $('#PV').click(function () {
-      Swal.fire({
-        icon: 'info',
-        title: 'PV(page view，頁面瀏覽量)',
-        text: '網頁瀏覽量或點擊量，用戶每1次對網站中的每個網頁訪問均被記錄1個PV。用戶對同一頁面的多次訪問，訪問量累計，用以衡量網站用戶訪問的網頁數量',
-        showConfirmButton: false,
-      });
-    });
-
-    $('#UV').click(function () {
-      Swal.fire({
-        icon: 'info',
-        title: 'UV(unique visitor，網站獨立訪客)',
-        text: '是指通過網路訪問、瀏覽這個網頁的人。訪問您網站的一台電腦客戶端為一個訪客。 00:00-24:00內相同的客戶端只被計算一次',
-        showConfirmButton: false,
-      });
-    });
 
     //人生流程圖
     var myTemplateConfig = {

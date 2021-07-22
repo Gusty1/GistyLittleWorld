@@ -34,4 +34,10 @@
     "url": "music/mp3/アイデンティティ.mp3",
     "lrc": "music/lrc/アイデンティティ.lrc",
     "cover": "music/coverImg/アイデンティティ.jpg"
+},{
+    "name": "告白",
+    "artist": "MY FIRST STORY",
+    "url": "music/mp3/告白.mp3",
+    "lrc": "music/lrc/告白.lrc",
+    "cover": "music/coverImg/告白.jpg"
 }]

@@ -5,7 +5,29 @@
     right: 20px;
     bottom: 70px;
     padding: 10px 16px;
-    color: 	#8600FF;
+    color: #8600FF;
     cursor: pointer;
 }
 
+/*scrollbar自訂議樣式*/
+body::-webkit-scrollbar {
+    width: 12px;
+    background-color:#BEBEBE;
+}
+
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
+    border-radius: 10px;
+    background-color:#BEBEBE;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
+    background-color:#F75000;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+    background:	#FF9224;
+}

@@ -48,8 +48,10 @@
 </head>
 
 <body>
+  
   <div w3-include-html="header.html"></div>
   <br><br><br>
+  
   <div id="carouselExampleIndicators" class="carousel slide animate__animated animate__rotateInDownLeft"
     data-ride="carousel">
     <ol class="carousel-indicators">
@@ -213,13 +215,13 @@
     var _AP
     //判斷是否為移動裝置
     var isMobile = isMobileDevice();
-
+  
     // 訪問量隨意拖動+音樂初始化
     $(window).on('load', function () {
       setTimeout(function () {
         $('#viewCount').easydrag();
       }, 1000)
-
+      
       $.get('data/musicList.json', function (musicList) {
         _AP = new APlayer({
           container: document.getElementById('player'),

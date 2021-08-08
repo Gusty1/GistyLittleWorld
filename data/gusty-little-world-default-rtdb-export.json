@@ -384,6 +384,28 @@
     "time" : "2021-08-06",
     "title" : "異度侵入",
     "type" : "動畫"
+  }, {
+    "collect" : "4",
+    "content" : "<p><span style=\"color:#e74c3c\"><span style=\"font-size:24px\"><strong>劇情介紹:</strong></span></span><span style=\"font-size:22px\">講一些露伴老師遇到的神奇故事...</span></p>\n\n<p><span style=\"font-size:22px\">講一些岸邊露伴遇到的奇妙鬼怪故事，基本上除了天堂之門也不會有其他替身出現，4集就只有一個替身使者，不是說替身使者會互相吸引嗎?怎麼這次都吸引到一些妖魔鬼怪。</span></p>\n\n<p><span style=\"font-size:22px\">每一集都是一個小故事，雖然只有4集，但故事都蠻能吸引人的，你會想知道到底發生甚麼事，然後又怎樣了，我猜這一定也是荒木飛呂彥本人的親身經歷，「天堂之門!」</span></p>\n",
+    "coverImg" : "https://i.imgur.com/5YA8PJR.jpg",
+    "order" : 36,
+    "rate" : 3,
+    "say" : "天堂之門!",
+    "say_author" : "岸邊露伴",
+    "time" : "2021-08-07",
+    "title" : "岸邊露伴一動也不動",
+    "type" : "動畫"
+  }, {
+    "collect" : "4",
+    "content" : "<p><span style=\"color:#e74c3c\"><strong><span style=\"font-size:24px\">劇情介紹:</span></strong></span><span style=\"font-size:22px\">打殭屍拯救世界...</span></p>\n\n<p><span style=\"font-size:22px\">動畫4集長度也差不多是一集電影版的長度了，這次的CG電影水準越來越高了，人物越來越精細了，感覺都快堪比真人了；惡靈古堡的CG電影我每一部我都有看，但他的遊戲我一部都沒玩過，我怕。</span></p>\n\n<p><span style=\"font-size:22px\">依照慣例這次一定有殭屍，然後背後有有一個大陰謀...也就差不多這樣，但劇情上都有說清楚，前前後後所發生的事都有連在一起，然後劇中有多次提到中國，完全不怕會不會辱華ㄟ；現在這時代你只要開口提到中國，99.99%都會辱華，但是這事竟然還有字幕組翻譯，難道這就是那傳說中0.01%沒有辱華，最後裡面一定有一家製藥公司，可是這次那間製藥公司就然不是我們熟知的保護傘，看來惡靈古堡又要開一個新的坑了，浣熊市事件的火焰永遠滅不了了。</span></p>\n",
+    "coverImg" : "https://i.imgur.com/eLS0yH6.jpg",
+    "order" : 37,
+    "rate" : 3.5,
+    "say" : "世上有諸多可怕的事物，<br>但都比不上人類。",
+    "say_author" : "杰森",
+    "time" : "2021-08-08",
+    "title" : "惡靈古堡 無盡黑暗",
+    "type" : "動畫"
   } ],
   "chat" : {
     "chatRoom" : [ {

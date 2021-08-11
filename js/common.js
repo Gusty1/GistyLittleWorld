@@ -41,7 +41,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
-
 // toastr工具範例 以後如果有用到的話...
 // toastr.options = {
 //     "closeButton": true,
@@ -64,3 +63,9 @@ var database = firebase.database();
 // toastr.info('<h4>有人傳送訊息給你<h4>').css('background-color', '#2F96B4').on('click', function () {
 //     window.location.href = 'other/easyChat.html'
 // });
+
+// firebase auth 登出，以後可能有G會用到
+// firebase.auth().signOut().then(function () {
+//     var user = firebase.auth().currentUser;
+//     console.log(user)
+// })

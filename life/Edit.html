@@ -106,6 +106,40 @@
 
   </div>
 
+  <div class="modal fade" id="authModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centere">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user-secret"></i></span>
+              </div>
+              <input type="email" class="form-control" placeholder="請輸入電子郵件">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              </div>
+              <input type="password" class="form-control" placeholder="請輸入密碼">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+          <button type="submit" class="btn btn-primary">確定</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div id="goTop">
     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
       class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
@@ -144,6 +178,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
     integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
   <!-- common js -->
   <script src="../js/common.js"></script>
 
@@ -287,8 +322,38 @@
       $('#editBlock').fadeIn('slow');
     });
 
-    //預覽後確定送出
+    //登入並送出
+    $('#authModal').on('click', '.btn-primary', function (e) {
+      e.preventDefault()
+      let email = $('#authModal').find('input').eq(0).val().trim()
+      let password = $('#authModal').find('input').eq(1).val().trim()
+      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+        let user = firebase.auth().currentUser;
+        if (user != null) {
+          updateData()
+        }
+      }).catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: '登入失敗',
+          html: '可能帳號或密碼錯誤',
+          showConfirmButton: false,
+        });
+      });
+    })
+
+    //預覽後確定送出，沒有登入就去登入
     $('#define').click(function () {
+      let user = firebase.auth().currentUser
+      if (user == null) {
+        $('#authModal').modal()
+      } else {
+        updateData()
+      }
+    });
+
+    //更新或新增資料
+    function updateData() {
       //舊時代的產物
       // saveAs(blob, "life.json");
       // var blob = new Blob([JSON.stringify(lifeArray)], {
@@ -321,7 +386,7 @@
         database.ref('/life/' + parseInt(urlOrder - 1)).update(life)
         window.location.href = 'All.html';
       }
-    });
+    }
   </script>
 
 </body>

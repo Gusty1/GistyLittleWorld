@@ -417,6 +417,17 @@
     "time" : "2021-08-10",
     "title" : "戰鬥員派遣中",
     "type" : "動畫"
+  }, {
+    "collect" : "12",
+    "content" : "<p><span style=\"font-size:24px\"><span style=\"color:#e74c3c\"><strong>劇情介紹:</strong></span></span><span style=\"font-size:22px\">另類SAO的感覺。</span></p>\n\n<p><span style=\"font-size:22px\">總得來說不好看，很拖非常拖，真的看到最後的最後才有那麼一點轉折，前期真的是太拖了，會讓人想棄追。</span></p>\n\n<p><span style=\"font-size:22px\">就跟名字一樣，主角進去玩一個比現實更真實的遊戲，然後發生很多事...，這部本質上是搞笑動畫，但是搞笑性質再會出人命的地方真的是很難讓人笑得出來，就哪有搞笑是要倒出人命才笑得出來啊，隔壁的戰鬥員至少死的還是魔族、魔物之類的，這邊死的是人類ㄟ(NPC)；基本上前面10集都是看一些無意義的吐槽拖劇情，只有最後2集劇情真的出現一點轉折，才覺得原來還是有能看的地方，那前面到底在拖尛。</span></p>\n\n<p><span style=\"font-size:22px\">設定上明明一直跟你說這是比真實還更真實的遊戲，那為甚麼還有幽靈、魔劍、打架殘影...，最後又加了一個少年動漫的設定，那前面強調的真實到底是尛；還有OP和ED一直有後宮團出現，但劇情一點都沒有後宮的感覺啊，圖片詐騙；總而言之如果把最後才出現的轉折往前移一點，就應該會好一點。</span></p>\n",
+    "coverImg" : "https://i.imgur.com/B7cp6PC.jpg",
+    "order" : 39,
+    "rate" : 1.5,
+    "say" : "當你開始抱怨時就是沉迷某件事的前兆。",
+    "say_author" : "結城宏",
+    "time" : "2021-08-14",
+    "title" : "如果究極進化...",
+    "type" : "動畫"
   } ],
   "chat" : {
     "chatRoom" : [ {
@@ -553,6 +564,14 @@
     "summary" : "花錢囉...",
     "time" : "2021-07-07",
     "title" : "2021 Steam 夏季特賣"
+  }, {
+    "content" : "<p><span style=\"font-size:22px\">一個多月沒有發生甚麼大事了，<s>可能我已經死了</s>，那就來說說近況和垃圾話吧。</span></p>\n\n<p><span style=\"color:#2980b9\"><strong><span style=\"font-size:24px\">生活</span></strong></span><span style=\"font-size:22px\"><span style=\"color:#2980b9\"><strong><span style=\"font-size:24px\">:</span></strong></span>普普通通，除了體重持續上升其他一切安好。</span></p>\n\n<p><span style=\"color:#2980b9\"><strong><span style=\"font-size:24px\">感情:</span></strong></span></p>\n\n<p><span style=\"font-size:22px\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src=\"https://i.imgur.com/7z9T1PG.png\" style=\"width:15%\" /></span></p>\n\n<p><span style=\"color:#2980b9\"><strong><span style=\"font-size:24px\">學習:</span></strong></span><span style=\"font-size:22px\">明明已經報名考日文了，可是下班和假日就是不想看書，想當一條爛蟲...；程式方面自從做完那個戰爭以後就沒啥動力了，我又懶又爛。</span></p>\n\n<p><strong><span style=\"color:#2980b9\"><span style=\"font-size:24px\">工作:</span></span></strong><span style=\"font-size:22px\">最近不知道為啥，就感覺上班沒啥幹勁只想摸魚，這應該叫做什麼職業倦怠嗎?就感覺不是很難的東西認真搞一下應該就可以解決了，但就是一直摸，不知道在想什麼，每次都弄到下班還要在加班一下把它弄好，就明明可以準時下班自己又在那邊不知搞尛；喔喔喔 好煩喔，我到底在幹嘛。然後最近工作都在用MongoDB，那個JOIN有夠複雜ㄟ，突然好懷念以前的SQL了。</span></p>\n\n<p><span style=\"font-size:22px\">總而言之最近大概就這樣，也沒什麼大事。</span></p>\n\n<p style=\"text-align:center\"><span style=\"color:#f39c12\"><strong><span style=\"font-size:24px\"><span style=\"background-color:#000000\">又、又、又舔，奶酪!</span></span></strong></span></p>\n\n<p style=\"text-align:center\"><span style=\"font-size:22px\"><img src=\"https://i.imgur.com/w1u6I89.jpg\" style=\"width:80%\" /></span></p>\n\n<p style=\"text-align:center\">&nbsp;</p>\n",
+    "coverImg" : "https://i.imgur.com/zMmJw9D.jpg",
+    "label" : "垃圾話",
+    "order" : 13,
+    "summary" : "太久沒出聲了，說說近況和垃圾話。",
+    "time" : "2021-08-12",
+    "title" : "近況垃圾話"
   } ],
   "war" : {
     "players" : [ {

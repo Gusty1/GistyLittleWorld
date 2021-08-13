@@ -20,6 +20,15 @@
     .card {
       cursor: pointer;
     }
+
+    .marquee {
+      width: 100vw;
+      overflow: hidden;
+      border: 1px solid #D9B300;
+      background: #D9B300;
+      font-size: 1.1rem;
+      color: #8600FF;
+    }
   </style>
 </head>
 
@@ -27,13 +36,14 @@
   <div w3-include-html="ACG_header.html"></div>
   <br><br><br>
 
-  <marquee class="bg-warning" direction="right" scrollamount="6" style="font-size:1.1rem;color:#8600FF;">
-  </marquee>
+  <!-- <marquee class="bg-warning" direction="right" scrollamount="6" style="font-size:1.1rem;color:#8600FF;">
+  </marquee> -->
+  <div class="marquee"></div>
 
   <div class="container-xl animate__animated animate__flipInX animate__delay-2s">
     <div class='row justify-content-center text-primary' id="edit">
       <h1 class="cd-headline letters scale display-2 font-weight-bold">
-        <span class="cd-words-wrapper" style="color:#FF8000;">
+        <span class="cd-words-wrapper" style="color:#FF8000;padding-right: 160px;">
           <b class="is-visible" style="font:inherit;">動畫</b>
           <b>遊戲</b>
           <b>漫畫</b>
@@ -159,6 +169,8 @@
   <script src="../js/animate_headline.js"></script>
   <!-- socila share js -->
   <script src="../js/social-share-kit.js"></script>
+  <!-- marquee js -->
+  <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
   <!-- firebase realtimedatabase -->
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
@@ -228,9 +240,21 @@
           }
         }
         if (adHtml != 'Gusty歷史上的今天看/玩完了&nbsp&nbsp') {
-          $('marquee').html(adHtml)
+          $('.marquee').html(adHtml).marquee({
+            duration: 15000,
+            gap: 50,
+            delayBeforeStart: 0,
+            direction: 'right',
+            duplicated: false
+          });
         } else {
-          $('marquee').html('Gusty歷史上的今天甚麼事都沒做。')
+          $('.marquee').html('Gusty歷史上的今天甚麼事都沒做。').marquee({
+            duration: 15000,
+            gap: 50,
+            delayBeforeStart: 0,
+            direction: 'right',
+            duplicated: false
+          });
         }
         $('.nav-tabs').find('a').each(function (index, value) {
           if (index == 0) {

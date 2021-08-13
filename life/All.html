@@ -32,6 +32,15 @@
       border: 1px solid #E0E0E0;
       /* box-shadow: 3px 3px 5px 6px #cccccc; */
     }
+
+    .marquee {
+      width: 100vw;
+      overflow: hidden;
+      border: 1px solid #D9B300;
+      background: #D9B300;
+      font-size: 1.1rem;
+      color: #8600FF;
+    }
   </style>
 </head>
 
@@ -39,8 +48,7 @@
   <div w3-include-html="life_header.html"></div>
   <br><br><br>
 
-  <marquee class="bg-warning" direction="right" scrollamount="6" style="font-size:1.1rem;color:#8600FF;">
-  </marquee>
+  <div class="marquee"></div>
 
   <div class="container-xl animate__animated animate__fadeInDownBig animate__delay-2s">
     <div class='row justify-content-center text-primary font-weight-bold display-2' id="edit">
@@ -152,6 +160,8 @@
   <script src="../js/social-share-kit.js"></script>
   <!-- blockUI js -->
   <script src="../js/jquery.blockUI.js"></script>
+  <!-- marquee js -->
+  <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
   <!-- firebase realtimedatabase -->
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
@@ -184,7 +194,7 @@
     //標籤數量顏色+initcard
     $(document).ready(function () {
       $('#conversation').hide();
-      var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF','#7AFEC6','#FFBB77','#95CACA','#B8B8DC'];
+      var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77', '#95CACA', '#B8B8DC'];
       let labelCount = 0;
       let labelArray = [];
       let labelArrayCount = [];
@@ -224,9 +234,21 @@
           }
         }
         if (adHtml != 'Gusty歷史上的今天發生了&nbsp&nbsp') {
-          $('marquee').html(adHtml)
+          $('.marquee').html(adHtml).marquee({
+            duration: 15000,
+            gap: 50,
+            delayBeforeStart: 0,
+            direction: 'right',
+            duplicated: false
+          });
         } else {
-          $('marquee').html('Gusty歷史上的今天甚麼事都沒發生。')
+          $('.marquee').html('Gusty歷史上的今天甚麼事都沒發生。').marquee({
+            duration: 15000,
+            gap: 50,
+            delayBeforeStart: 0,
+            direction: 'right',
+            duplicated: false
+          });
         }
         for (let i = 0; i < lifeArray.length; i = i + 1) {
           labelArray.push(lifeArray[i].label)

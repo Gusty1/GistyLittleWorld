@@ -124,9 +124,6 @@
           backgroundColor: 'transparent'
         },
       });
-      /*setTimeout(function () {
-        $.unblockUI();
-      }, 1000);*/
       database.ref('/life').once('value', function (result) {
         lifeArray = result.val()
         for (let i = 0; i < lifeArray.length; i = i + 1) {

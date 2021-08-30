@@ -127,9 +127,6 @@
           backgroundColor: 'transparent'
         },
       });
-      /*setTimeout(function () {
-        $.unblockUI();
-      }, 1000);*/
       database.ref('/ACG').on('value', function (result) {
         ACGArray = result.val()
         for (let i = 0; i < ACGArray.length; i = i + 1) {

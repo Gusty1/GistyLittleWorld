@@ -124,9 +124,9 @@
           backgroundColor: 'transparent'
         },
       });
-      setTimeout(function () {
+      /*setTimeout(function () {
         $.unblockUI();
-      }, 1000);
+      }, 1000);*/
       database.ref('/life').once('value', function (result) {
         lifeArray = result.val()
         for (let i = 0; i < lifeArray.length; i = i + 1) {
@@ -144,6 +144,7 @@
         $("img").on("error", function (e) {
           $(this).attr("src", "../images/error.gif");
         });
+        $.unblockUI();
       });
     });
 

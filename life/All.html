@@ -211,9 +211,9 @@
           backgroundColor: 'transparent'
         },
       });
-      setTimeout(function () {
+      /*setTimeout(function () {
         $.unblockUI();
-      }, 2000);
+      }, 2000);*/
       database.ref('/life').on('value', function (result) {
         lifeArray = result.val()
         lifeArray.sort(function (a, b) {
@@ -278,6 +278,7 @@
         }
         $('#labelGroup').prev().html('目前標籤:&nbspALL');
         $('#labelGroup').html(labelHtml);
+        $.unblockUI();
       })
     });
 

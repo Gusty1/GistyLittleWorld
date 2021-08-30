@@ -207,9 +207,9 @@
           backgroundColor: 'transparent'
         },
       });
-      setTimeout(function () {
+      /*setTimeout(function () {
         $.unblockUI();
-      }, 2000);
+      }, 2000);*/
       database.ref('/ACG').on('value', function (result) {
         // console.log(result.val())
         ACGArray = result.val()
@@ -270,6 +270,7 @@
             $(this).html('<i class="fas fa-book-open"></i>&nbsp漫畫&nbsp' + typeArrayCount[index]);
           }
         });
+        $.unblockUI();
       });
     });
 

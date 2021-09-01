@@ -6,15 +6,13 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="fb:admins" content="100004436167377" />
+  <meta property="fb:app_id" content="245269784128755">
   <!-- icon 路徑 -->
   <link rel="icon" href="../favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
   <!-- jquery ui css -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
-  <!-- FB 留言外掛程式 -->
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v10.0"
-    nonce="otCmxLDB"></script>
 </head>
 
 <body class="h-100">
@@ -44,11 +42,22 @@
       <u>留言</u>
     </div><br>
 
-    <div class="row justify-content-center mb-3">
-      <div id="fb-root"></div>
-      <div class="fb-comments" data-href="https://gusty1.github.io/GustyLittleWorld/ACG/Detail.html?order="
-        data-width="" data-numposts="5"></div>
-    </div>
+    <div id="disqus_thread"></div>
+    <script>
+      // var disqus_config = function () {
+      //   this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+      //   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      // };
+      (function () { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://gustylittleworld.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
   </div>
 
   <div id="dialog" title="封印之地" style="display: none;">
@@ -99,9 +108,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- blockUI js -->
   <script src="../js/jquery.blockUI.js"></script>
-  <!-- FB 留言 -->
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v11.0"
-    nonce="QuHQ7AWd"></script>
+  <script id="dsq-count-scr" src="//gustylittleworld.disqus.com/count.js" async></script>
   <!-- socila share js -->
   <script src="../js/social-share-kit.js"></script>
   <!-- common js -->

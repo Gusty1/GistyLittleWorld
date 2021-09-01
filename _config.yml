@@ -6,6 +6,11 @@ baseurl: "/GustyLittleWorld" # the subpath of your site, e.g. /blog
 
 url: "https://gusty1.github.io/GustyLittleWorld/" # the base hostname & protocol for your site
 
+comments :
+provider : disqus
+disqus :
+short_name : GustyLittleWorld
+
 twitter_username: none
 github_username:  Gusty1
 

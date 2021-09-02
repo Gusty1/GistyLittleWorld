@@ -29,7 +29,8 @@
       <i class="fas fa-tag mt-1"></i>&nbsp
     </div>
     <div class='row justify-content-center h2 mt-3'>
-      <img src="../images/life/404.jpg" id="coverImg" style="width: 550px;height: 400px;" class="rounded img-fluid">
+      <img src="../images/life/loading.gif" id="coverImg" style="width: 550px;height: 400px;"
+        class="lazy rounded img-fluid">
     </div>
     <div class="col-sm-12 mt-3" id="content">
     </div><br>
@@ -39,7 +40,7 @@
     </div><br>
 
     <div class="row justify-content-center mb-3">
-      <div class="fb-comments" data-href="" data-width="" data-numposts="5" ></div>
+      <div class="fb-comments" data-href="" data-width="" data-numposts="5"></div>
     </div>
 
   </div>
@@ -94,6 +95,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
     integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- lazyload js -->
+  <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <!-- FB 留言外掛程式 -->
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v11.0"
     nonce="cqOa46ti"></script>
@@ -127,14 +130,15 @@
       database.ref('/life').once('value', function (result) {
         lifeArray = result.val()
         for (let i = 0; i < lifeArray.length; i = i + 1) {
-
           if (lifeArray[i].order == urlOrder) {
             document.title = lifeArray[i].title;
             $('#edit').html(lifeArray[i].title);
             $('#time').append(lifeArray[i].time);
             $('#label').append(lifeArray[i].label);
-            $('#coverImg').attr('src', lifeArray[i].coverImg);
+            $('#coverImg').attr('data-src', lifeArray[i].coverImg);
+            $('#coverImg').data('src', lifeArray[i].coverImg);
             $('#content').html(lifeArray[i].content);
+            new LazyLoad();
             break;
           }
         }

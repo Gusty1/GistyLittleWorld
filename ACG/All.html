@@ -187,6 +187,7 @@
     w3.includeHTML(); //引入html
     var ACGArray = [];
     var searchArray = [];
+    var _LAZYLOAD = '';
 
     //雙擊標題出現禁忌之地
     $('#edit').dblclick(function () {
@@ -568,6 +569,11 @@
         return false;
       }
       $('#cardBlock').html(cardHtml);
+      if (_LAZYLOAD != '') {
+        _LAZYLOAD.update();
+      } else {
+        _LAZYLOAD = new LazyLoad({});
+      }
       $("img").on("error", function (e) {
         $(this).attr("src", "../images/error.gif");
       });
@@ -575,7 +581,6 @@
         return false
       }
       buildPage(newACGArray);
-      new LazyLoad();
     }
 
     function buildPage(newACGArray) {

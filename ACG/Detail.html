@@ -21,7 +21,7 @@
 
   <div class="container-xl animate__animated animate__rollIn animate__delay-1s">
     <div class="media">
-      <img class="align-self-center m-3 img-fluid rounded" src="../images/ACG/404.jpg"
+      <img class="align-self-center m-3 img-fluid rounded lazy" src="../images/ACG/loading.gif"
         style="height: 460px;width: 350px;" alt="Generic placeholder image">
       <div class="media-body ml-3">
         <div class="row justify-content-center text-primary font-weight-bold display-2" id="edit"></div>
@@ -108,7 +108,10 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- blockUI js -->
   <script src="../js/jquery.blockUI.js"></script>
+  <!-- disqus js -->
   <script id="dsq-count-scr" src="//gustylittleworld.disqus.com/count.js" async></script>
+  <!-- lazyload js -->
+  <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <!-- socila share js -->
   <script src="../js/social-share-kit.js"></script>
   <!-- common js -->
@@ -143,7 +146,8 @@
         for (let i = 0; i < ACGArray.length; i = i + 1) {
           if (urlOrder == ACGArray[i].order) {
             document.title = ACGArray[i].title;
-            $('.media').find('img').attr('src', ACGArray[i].coverImg);
+            $('.media').find('img').attr('data-src', ACGArray[i].coverImg);
+            $('.media').find('img').data('data-src', ACGArray[i].coverImg);
             $('.media-body').find('div').each(function (index, value) {
               if (index == 0) {
                 $(this).html(ACGArray[i].title)
@@ -198,6 +202,7 @@
           $(this).attr("src", "../images/error.gif");
         });
         $.unblockUI();
+        new LazyLoad();
       });
     });
 

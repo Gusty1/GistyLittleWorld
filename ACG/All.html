@@ -438,21 +438,14 @@
           });
           initCard(changeACGArray)
         } else if ($(this).val().trim() == 'highToLow') {
+          //根據時間新舊和分數高低排序
           changeACGArray.sort(function (a, b) {
-            if (a.rate < b.rate) {
-              return 1;
-            } else {
-              return -1;
-            }
+            return b.rate - a.rate || new Date(b.time) - new Date(a.time);
           });
           initCard(changeACGArray)
         } else if ($(this).val().trim() == 'lowToHigh') {
           changeACGArray.sort(function (a, b) {
-            if (a.rate < b.rate) {
-              return -1;
-            } else {
-              return 1;
-            }
+            return a.rate - b.rate || new Date(a.time) - new Date(b.time);
           });
           initCard(changeACGArray)
         }
@@ -482,20 +475,12 @@
           initCard(changeACGArray)
         } else if ($(this).val().trim() == 'highToLow') {
           changeACGArray.sort(function (a, b) {
-            if (a.rate < b.rate) {
-              return 1;
-            } else {
-              return -1;
-            }
+            return b.rate - a.rate || new Date(b.time) - new Date(a.time);
           });
           initCard(changeACGArray)
         } else if ($(this).val().trim() == 'lowToHigh') {
           changeACGArray.sort(function (a, b) {
-            if (a.rate < b.rate) {
-              return -1;
-            } else {
-              return 1;
-            }
+            return a.rate - b.rate || new Date(a.time) - new Date(b.time);
           });
           initCard(changeACGArray)
         }
@@ -517,7 +502,6 @@
       if (typeof isPage == 'undefined') {
         isPage = false;
       }
-      // class =" lazy " data-src =" lazy.jpg "
       for (let i = 0; i < newACGArray.length; i++) {
         cardHtml += '<div class="card m-3 hvr-grow" style="width: 20rem;">'
         cardHtml +=
@@ -583,6 +567,7 @@
       buildPage(newACGArray);
     }
 
+    //產生頁數
     function buildPage(newACGArray) {
       let pagelength = [];
       let pageAcgArray = [];

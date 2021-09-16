@@ -257,7 +257,8 @@
     });
 
     //PV UV 介紹
-    $('#PV').click(function () {
+    $('#PV').click(function (e) {
+      e.stopPropagation();
       Swal.fire({
         icon: 'info',
         title: 'PV(page view，頁面瀏覽量)',
@@ -266,7 +267,8 @@
       });
     });
 
-    $('#UV').click(function () {
+    $('#UV').click(function (e) {
+      e.stopPropagation();
       Swal.fire({
         icon: 'info',
         title: 'UV(unique visitor，網站獨立訪客)',

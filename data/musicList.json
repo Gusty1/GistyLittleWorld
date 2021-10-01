@@ -40,4 +40,10 @@
     "url": "music/mp3/告白.mp3",
     "lrc": "music/lrc/告白.lrc",
     "cover": "music/coverImg/告白.jpg"
+},{
+    "name": "Happy Synthesizer",
+    "artist": "Noel & Flare",
+    "url": "music/mp3/Happy Synthesizer.mp3",
+    "lrc": "music/lrc/Happy Synthesizer.lrc",
+    "cover": "music/coverImg/Happy Synthesizer.jpg"
 }]

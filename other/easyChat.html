@@ -241,7 +241,7 @@
                 }
                 for (let i = 0; i < userAry.length; i = i + 1) {
                     userhtml += '<div class="row mt-3 h4 rounded p-2 mr-1 ml-1 hvr-buzz userBlock" style="background-color: #ACD6FF;cursor: pointer;">'
-                    userhtml += '<div class="col-sm-3 rounded-circle text-center">'
+                    userhtml += '<div class="col-sm-2 rounded-circle text-center">'
                     userhtml += '<div class="badge badge-warning rounded-circle border border-dark p-1">'
                     userhtml += '<i class="fas fa-user-circle" style="font-size:1.5rem"></i>'
                     userhtml += '</div></div>'
@@ -254,7 +254,7 @@
                             chatRoomShow(userAry[i].chatRoomId)
                         }
                         delaultChatRoomID = userAry[i].chatRoomId
-                        userhtml += '<div class="col-sm-6 isMe" data-order="' + userAry[i].order +
+                        userhtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order +
                             '" style="color:#FFFF37;">' + userAry[i]
                                 .name +
                             '(我)</div>'
@@ -264,19 +264,19 @@
                         $('#chatRoom').show()
                         $('#exportButton').show()
                         chatRoomShow(userAry[i].chatRoomId)
-                        userhtml += '<div class="col-sm-6 isMe" data-order="' + userAry[i].order +
+                        userhtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order +
                             '" style="color:#8600FF;">' + userAry[i].name +
                             '(他)</div>'
                     } else {
-                        userhtml += '<div class="col-sm-6 isMe" data-order="' + userAry[i].order +
+                        userhtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order +
                             '">' + userAry[i].name + '</div>'
                     }
                     if (userAry[i].status == 'offline') {
                         userhtml +=
-                            '<div class="w-100 col-sm-3 text-right text-danger userStatus"><i class="fas fa-signal"></i></div>'
+                            '<div class="w-100 col-sm-2 text-right text-danger userStatus"><i class="fas fa-signal"></i></div>'
                     } else {
                         userhtml +=
-                            '<div class="w-100 col-sm-3 text-right text-success userStatus"><i class="fas fa-signal"></i></div>'
+                            '<div class="w-100 col-sm-2 text-right text-success userStatus"><i class="fas fa-signal"></i></div>'
                     }
                     userhtml += '</div>'
                 }

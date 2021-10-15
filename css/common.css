@@ -35,3 +35,12 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
     background:	#FF9224;
 }
+
+/* 禁止時變換鼠標 */
+button:disabled {
+	cursor: not-allowed !important;
+}
+
+input:disabled {
+	cursor: not-allowed !important;
+}

@@ -9,10 +9,6 @@
     cursor: pointer;
 }
 
-body{
-    overflow-x: hidden;
-}
-
 /*scrollbar自訂議樣式*/
 body::-webkit-scrollbar {
     width: 12px;

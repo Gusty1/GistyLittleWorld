@@ -10,9 +10,9 @@
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
     <style>
-        /* body {
-            overflow-y: hidden;
-        } */
+        body {
+            overflow: hidden;
+        }
     </style>
 </head>
 
@@ -173,7 +173,8 @@
                             const audio = new THREE.Audio(listener).setBuffer(buffer);
                             MotionObjects[val].AudioClip = audio;
                             resolve(true);
-                            $('body').find('.btn-primary').attr('disabled', false).text('Start')
+                            $('body').find('.btn-primary').attr('disabled', false).text(
+                                'Start')
                         }, onProgress, onError);
                     } else {
                         resolve(false);

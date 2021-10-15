@@ -53,7 +53,7 @@
                     <div class="row justify-content-center" id="nameinit">
                         <div class="col-sm-12 text-center">
                             <h4>請先幫自己取一個暱稱，或從左邊隨便選一個暱稱</h4>
-                            <span class="text-success">(不限中英文數字，長度>=2、<=10，隨機產生都是「隨機」英文名字)</span> <br>
+                            <span class="text-success">(不限中英文數字，長度>=2、<=10，隨機產生都是「隨機」英文名字)< /span> <br>
                                     <span class="text-danger">詳細說明看下面</span>
                         </div>
                         <div class="col-sm-8 text-center mt-2">
@@ -194,7 +194,7 @@
     <!-- Bootstrap4 js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-    </script>
+        </script>
     <!-- w3school js -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <!-- cursor js -->
@@ -240,11 +240,11 @@
                     }
                 }
                 for (let i = 0; i < userAry.length; i = i + 1) {
-                    userhtml +=
-                        '<div class="row mt-3 h4 rounded p-2 mr-1 ml-1 hvr-buzz userBlock" style="background-color: #ACD6FF;cursor: pointer;">'
-                    userhtml +=
-                        '<div class="col-sm-3 border rounded-pill text-center" style="background-color: mediumturquoise;">'
-                    userhtml += userAry[i].name.substring(0, 2) + '</div>'
+                    userhtml += '<div class="row mt-3 h4 rounded p-2 mr-1 ml-1 hvr-buzz userBlock" style="background-color: #ACD6FF;cursor: pointer;">'
+                    userhtml += '<div class="col-sm-3 rounded-circle text-center">'
+                    userhtml += '<div class="badge badge-warning rounded-circle border border-dark p-1">'
+                    userhtml += '<i class="fas fa-user-circle" style="font-size:1.5rem"></i>'
+                    userhtml += '</div></div>'
                     if (sessionStorage.getItem('user') == userAry[i].name) {
                         if (delaultChatRoomID != userAry[i].chatRoomId && delaultChatRoomID != '') {
                             $('#nameinit').hide()
@@ -256,7 +256,7 @@
                         delaultChatRoomID = userAry[i].chatRoomId
                         userhtml += '<div class="col-sm-6 isMe" data-order="' + userAry[i].order +
                             '" style="color:#FFFF37;">' + userAry[i]
-                            .name +
+                                .name +
                             '(我)</div>'
                     } else if (roomId == userAry[i].chatRoomId && roomId != '') {
                         $('#nameinit').hide()
@@ -307,7 +307,7 @@
                     database.ref('/chat/user/' + user.order).update(user)
                 }
             } else if (sessionStorage.getItem('user') != null && $(this).find('.userStatus').hasClass(
-                    'text-danger')) {
+                'text-danger')) {
                 Swal.fire({
                     icon: 'error',
                     title: '對方不在線上無法聊天',
@@ -315,7 +315,7 @@
                 });
                 return false;
             } else if (sessionStorage.getItem('user') != null && $(this).find('.userStatus').hasClass(
-                    'text-success')) {
+                'text-success')) {
                 if ($(this).find('.isMe').text().indexOf(sessionStorage.getItem('user')) != -1) {
                     Swal.fire({
                         icon: 'error',
@@ -572,7 +572,7 @@
             });
             if (isOnline == $('#user').find('.userBlock').length) {
                 $('#chatStart').html(
-                        '<div class="col-sm-12 text-danger h4">對方已經不再線上，聊天結束。<br>聊天紀錄還是可以匯出，或是可以找其他人聊天。</div>')
+                    '<div class="col-sm-12 text-danger h4">對方已經不再線上，聊天結束。<br>聊天紀錄還是可以匯出，或是可以找其他人聊天。</div>')
                     .show()
                 $('#chatRoom').hide()
                 return false
@@ -625,7 +625,7 @@
                                 chatHtml += '<div class="col-sm-12 h5">'
                                 chatHtml += '<span class="badge badge-pill badge-primary">' +
                                     value
-                                    .name + '</span>'
+                                        .name + '</span>'
                                 chatHtml += '</div>'
                                 chatHtml += '<div class="col-sm-8">'
                                 chatHtml +=
@@ -633,7 +633,7 @@
                                 chatHtml += value.content
                                 chatHtml += '</div>'
                                 chatHtml += '<div class="float-left mt-3">&nbsp' + showMessageTime(value
-                                        .time) +
+                                    .time) +
                                     '</div>'
                                 chatHtml += '</div></div>'
                             } else {
@@ -649,7 +649,7 @@
                                 chatHtml += value.content
                                 chatHtml += '</div>'
                                 chatHtml += '<div class="float-right mt-3">' + showMessageTime(value
-                                        .time) +
+                                    .time) +
                                     '&nbsp</div>'
                                 chatHtml += '</div></div>'
                             }
@@ -667,7 +667,7 @@
         $(window).on('beforeunload', function (event) {
             $('#user').find('.userBlock').each(function () {
                 if ($(this).find('.isMe').text().substring(0, $(this).find('.isMe').text().indexOf(
-                        '(我)')) == sessionStorage.getItem('user')) {
+                    '(我)')) == sessionStorage.getItem('user')) {
                     let user = {
                         status: "offline",
                         name: $(this).find('.isMe').text().substring(0, $(this).find('.isMe')

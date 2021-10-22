@@ -211,8 +211,9 @@
                     <div class="modal-body h5"
                         style="background-image: url('../images/other/war/result.gif');background-size: cover;background-repeat: repeat;z-index: 10;">
                         <p>最終排名:
-                            <button type="button" class="mb-2 float-right btn btn-warning" id="exportDiplomatic"><i
-                                    class="fas fa-file-export"></i>匯出外交紀錄(JSON)</button>
+                            <button type="button" class="mb-2 float-right btn btn-warning" id="exportDiplomatic">
+                                <i class="fas fa-file-export"></i>匯出外交紀錄(JSON)
+                            </button>
                         </p>
 
                         <table class="table table-bordered table-hover text-center">
@@ -273,14 +274,16 @@
                         </div>
                         <div class="row justify-content-center mt-2">
                             <div class="col-sm-12 text-center">
-                                <button class="btn btn-danger w-50" id="attack"><i
-                                        class="fas fa-skull-crossbones"></i>&nbspATTACK</button>
+                                <button class="btn btn-danger w-50" id="attack">
+                                    <i class="fas fa-skull-crossbones"></i>&nbspATTACK
+                                </button>
                             </div>
                         </div>
                         <div class="row justify-content-center mt-2">
                             <div class="col-sm-12 text-center">
-                                <button class="btn btn-primary w-50" id="defense"><i
-                                        class="bi bi-shield-fill"></i>&nbspDEFENSE</button>
+                                <button class="btn btn-primary w-50" id="defense">
+                                    <i class="bi bi-shield-fill"></i>&nbspDEFENSE
+                                </button>
                             </div>
                         </div>
                         <div class="row justify-content-center mt-2">
@@ -318,7 +321,8 @@
                             </div>
                             <div class="col-sm-8">
                                 <textarea class="w-100 form-control" placeholder="請輸入外交內容"
-                                    style="height: 20vh; resize: none;"></textarea>
+                                    style="height: 20vh; resize: none;">
+                                </textarea>
                             </div>
                             <div class="col-sm-8 text-right mt-3">
                                 <button type="button" class="btn btn-warning" id="sentDiplomatic">送出</button>
@@ -530,49 +534,6 @@
             $('#selectCountry').html(playersHtml);
         });
 
-        //遊戲開始該顯示的顯示該消失的消失
-        function startGame() {
-            $('#myCountry').text(sessionStorage.getItem('country'))
-            let rankHtml = ''
-            let country = ['A', 'B', 'C', 'D']
-            let otherCountry = []
-            for (let i = 0; i < country.length; i = i + 1) {
-                if (country[i] != sessionStorage.getItem('country')) {
-                    otherCountry.push(country[i])
-                }
-            }
-
-            for (let i = 0; i < 4; i = i + 1) {
-                rankHtml += '<tr>'
-                rankHtml += '<td>0</td>'
-                rankHtml += '<td>' + country[i] + '</td>'
-                rankHtml += '<td>0</td>'
-                rankHtml += '</tr>'
-            }
-
-            $('#selectAttack_area').find('label').each(function (index, value) {
-                $(this).text(otherCountry[index]);
-            })
-            $('#selectAttack_area').find('input[type="checkbox"]').each(function (index, value) {
-                $(this).val(otherCountry[index]);
-            })
-
-            $('#selectdiplomatic_area').find('label').each(function (index, value) {
-                $(this).text(otherCountry[index]);
-            })
-            $('#selectdiplomatic_area').find('input[type="checkbox"]').each(function (index, value) {
-                $(this).val(otherCountry[index]);
-            })
-
-            $('#playersRank').html(rankHtml)
-            $('#playerSelect').hide()
-            $('#warStart').show()
-            $('#optionButton').attr('disabled', false)
-            if (sessionStorage.getItem('country') == null) {
-                $('#optionButton').attr('disabled', true)
-            }
-        }
-
         //顯示操作畫面
         $('#optionButton').click(function (e) {
             e.preventDefault()
@@ -645,8 +606,7 @@
                             optionAry[i].option = 'attack'
                             optionAry[i].enemy = attackCountry
                             database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(
-                                optionAry[i].order)).update(
-                                optionAry[i])
+                                optionAry[i].order)).update(optionAry[i])
                         }
                     }
                 });
@@ -672,8 +632,7 @@
                         optionAry[i].option = 'defense'
                         optionAry[i].enemy = []
                         database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(
-                            optionAry[i].order)).update(
-                            optionAry[i])
+                            optionAry[i].order)).update(optionAry[i])
                     }
                 }
             });
@@ -735,14 +694,57 @@
                     for (let i = 0; i < players.length; i = i + 1) {
                         if (players[i].country == sessionStorage.getItem('country')) {
                             players[i].status = 'offline'
-                            database.ref('/war/players/' + parseInt(players[i].order)).update(players[
-                                i])
+                            database.ref('/war/players/' + parseInt(players[i].order)).
+                            update(players[i])
                         }
                     }
                     sessionStorage.removeItem('country')
                 });
             }
         });
+
+        //遊戲開始該顯示的顯示該消失的消失
+        function startGame() {
+            $('#myCountry').text(sessionStorage.getItem('country'))
+            let rankHtml = ''
+            let country = ['A', 'B', 'C', 'D']
+            let otherCountry = []
+            for (let i = 0; i < country.length; i = i + 1) {
+                if (country[i] != sessionStorage.getItem('country')) {
+                    otherCountry.push(country[i])
+                }
+            }
+
+            for (let i = 0; i < 4; i = i + 1) {
+                rankHtml += '<tr>'
+                rankHtml += '<td>0</td>'
+                rankHtml += '<td>' + country[i] + '</td>'
+                rankHtml += '<td>0</td>'
+                rankHtml += '</tr>'
+            }
+
+            $('#selectAttack_area').find('label').each(function (index, value) {
+                $(this).text(otherCountry[index]);
+            })
+            $('#selectAttack_area').find('input[type="checkbox"]').each(function (index, value) {
+                $(this).val(otherCountry[index]);
+            })
+
+            $('#selectdiplomatic_area').find('label').each(function (index, value) {
+                $(this).text(otherCountry[index]);
+            })
+            $('#selectdiplomatic_area').find('input[type="checkbox"]').each(function (index, value) {
+                $(this).val(otherCountry[index]);
+            })
+
+            $('#playersRank').html(rankHtml)
+            $('#playerSelect').hide()
+            $('#warStart').show()
+            $('#optionButton').attr('disabled', false)
+            if (sessionStorage.getItem('country') == null) {
+                $('#optionButton').attr('disabled', true)
+            }
+        }
 
         //接收有無外交請求，同意或拒絕
         function detectDiplomatic() {
@@ -782,18 +784,16 @@
                                             answer: "YES",
                                         }
                                         database.ref('/war/warInfo/' + parseInt(_TURN - 1) +
-                                            '/diplomatic/' +
-                                            parseInt(diplomaticAry[i].order) + '/answer').push(
-                                            answerObject)
+                                            '/diplomatic/' + parseInt(diplomaticAry[i].order) +
+                                            '/answer').push(answerObject)
                                     } else if (result.isDenied) {
                                         let answerObject = {
                                             country: sessionStorage.getItem('country'),
                                             answer: "NO",
                                         }
                                         database.ref('/war/warInfo/' + parseInt(_TURN - 1) +
-                                            '/diplomatic/' +
-                                            parseInt(diplomaticAry[i].order) + '/answer').push(
-                                            answerObject)
+                                            '/diplomatic/' + parseInt(diplomaticAry[i].order) +
+                                            '/answer').push(answerObject)
                                     }
                                 })
                             }
@@ -817,8 +817,7 @@
                                                     }).then((result) => {
                                                         if (result.isConfirmed) {
                                                             for (let l = 0; l < _DIPLOMATICARY
-                                                                .length; l =
-                                                                l + 1) {
+                                                                .length; l = l + 1) {
                                                                 if (answerValue.country ==
                                                                     _DIPLOMATICARY[l]
                                                                     .requestCountry) {
@@ -984,8 +983,7 @@
             for (let i = 0; i < optionAry.length; i = i + 1) {
                 if (optionAry[i].country == sessionStorage.getItem('country') && _TURN < 7) {
                     database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(optionAry[i].order))
-                        .update(
-                            optionAry[i])
+                        .update(optionAry[i])
                     // if (_TURN < 7) {
                     //     optionAry[i].option = ''
                     //     optionAry[i].enemy = [""]
@@ -1020,10 +1018,8 @@
                             if (_TURN < 7) {
                                 optionAry[i].option = ''
                                 optionAry[i].enemy = [""]
-                                database.ref('/war/warInfo/' + parseInt(_TURN) + '/option/' + parseInt(
-                                        optionAry[i].order))
-                                    .update(
-                                        optionAry[i])
+                                database.ref('/war/warInfo/' + parseInt(_TURN) + '/option/' +
+                                    parseInt(optionAry[i].order)).update(optionAry[i])
                             }
                         }
                     }
@@ -1044,20 +1040,15 @@
                 for (let i = 0; i < optionAry.length; i = i + 1) {
                     if (optionAry[i].option == 'attack') {
                         $('#warStart').find('label').each(function (index, value) {
-                            if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i]
-                                    .country ==
-                                    'A' ||
-                                    optionAry[i].country == 'B')) {
+                            if ($(this).html().indexOf(optionAry[i].country) != -1 &&
+                                (optionAry[i].country == 'A' || optionAry[i].country == 'B')) {
                                 $(this).html(optionAry[i].country +
                                     '<br><i class="fas fa-skull-crossbones"></i>')
                             }
                             if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i]
-                                    .country ==
-                                    'C' ||
-                                    optionAry[i].country == 'D')) {
+                                    .country == 'C' || optionAry[i].country == 'D')) {
                                 $(this).html('<i class="fas fa-skull-crossbones"></i><br>' +
-                                    optionAry[i]
-                                    .country)
+                                    optionAry[i].country)
                             }
                         });
                         for (let j = 0; j < optionAry[i].enemy.length; j = j + 1) {
@@ -1202,19 +1193,15 @@
                         }
                     } else if (optionAry[i].option == 'defense') {
                         $('#warStart').find('label').each(function (index, value) {
-                            if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i]
-                                    .country ==
-                                    'A' ||
-                                    optionAry[i].country == 'B')) {
+                            if ($(this).html().indexOf(optionAry[i].country) != -1 &&
+                                (optionAry[i].country == 'A' || optionAry[i].country == 'B')) {
                                 $(this).html(optionAry[i].country +
                                     '<br><i class="bi bi-shield-fill"></i>')
                             }
-                            if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i]
-                                    .country ==
-                                    'C' ||
-                                    optionAry[i].country == 'D')) {
-                                $(this).html('<i class="bi bi-shield-fill"></i><br>' + optionAry[i]
-                                    .country)
+                            if ($(this).html().indexOf(optionAry[i].country) != -1 &&
+                                (optionAry[i].country == 'C' || optionAry[i].country == 'D')) {
+                                $(this).html('<i class="bi bi-shield-fill"></i><br>' +
+                                    optionAry[i].country)
                             }
                         })
                     }

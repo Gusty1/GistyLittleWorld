@@ -69,19 +69,19 @@
         </div>
       </div>
       <div class="carousel-item active">
-        <img src="images/loading2.gif" class="d-block w-100 imgHeight lazy" alt="404 not found">
+        <img src="images/loading2.gif" class="d-block w-100 imgHeight" alt="404 not found">
       </div>
       <div class="carousel-item">
-        <img src="images/loading2.gif" class="d-block w-100 imgHeight lazy" alt="404 not found">
+        <img src="images/loading2.gif" class="d-block w-100 imgHeight" alt="404 not found">
       </div>
       <div class="carousel-item">
-        <img src="images/loading2.gif" class="d-block w-100 imgHeight lazy" alt="404 not found">
+        <img src="images/loading2.gif" class="d-block w-100 imgHeight" alt="404 not found">
       </div>
       <div class="carousel-item">
-        <img src="images/loading2.gif" class="d-block w-100 imgHeight lazy" alt="404 not found">
+        <img src="images/loading2.gif" class="d-block w-100 imgHeight" alt="404 not found">
       </div>
       <div class="carousel-item">
-        <img src="images/loading2.gif" class="d-block w-100 imgHeight lazy" alt="404 not found">
+        <img src="images/loading2.gif" class="d-block w-100 imgHeight" alt="404 not found">
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -201,8 +201,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
     integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- lazyload js -->
-  <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <!-- APlayer js -->
   <script async src="js/APlayer.min.js"></script>
   <!-- common js -->
@@ -242,10 +240,8 @@
         imgLength = imgsrcArray.length
         let random = randomsrcOrder(imgLength);
         $('#carouselExampleIndicators').find('img').each(function (index, value) {
-          $(this).attr('data-src', imgsrcArray[random[index]]);
-          $(this).data('src', imgsrcArray[random[index]]);
+          $(this).attr('src', imgsrcArray[random[index]]);
         });
-        new LazyLoad({});
       });
       if (isMobile) {
         $('#life-graph-container').css('margin-left', '0px');

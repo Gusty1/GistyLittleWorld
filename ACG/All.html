@@ -2,98 +2,99 @@
 <html lang="zh-Hant-TW">
 
 <head>
-  <title>GustyのACG心得</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- icon 路徑 -->
-  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-  <!-- jquery ui css -->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
-  <!-- pagination css -->
-  <link rel="stylesheet" href="../css/pagination.css">
-  <!-- animate headline css-->
-  <link rel="stylesheet" type="text/css" href="../css/animate_headline.css">
-  <style>
-    /* 卡片滑鼠切換 */
-    .card {
-      cursor: pointer;
-    }
+    <title>GustyのACG心得</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- icon 路徑 -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <!-- jquery ui css -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+    <!-- pagination css -->
+    <link rel="stylesheet" href="../css/pagination.css">
+    <!-- animate headline css-->
+    <link rel="stylesheet" type="text/css" href="../css/animate_headline.css">
+    <style>
+        /* 卡片滑鼠切換 */
+        .card {
+            cursor: pointer;
+        }
 
-    .marquee {
-      overflow: hidden;
-      background: #D9B300;
-      font-size: 1.1rem;
-      color: #8600FF;
-    }
-  </style>
+        .marquee {
+            overflow: hidden;
+            background: #D9B300;
+            font-size: 1.1rem;
+            color: #8600FF;
+        }
+    </style>
 </head>
 
 <body class="h-100">
-  <div w3-include-html="ACG_header.html"></div>
-  <br><br><br>
+    <div w3-include-html="ACG_header.html"></div>
+    <br><br><br>
 
-  <!-- <marquee class="bg-warning" direction="right" scrollamount="6" style="font-size:1.1rem;color:#8600FF;">
+    <!-- <marquee class="bg-warning" direction="right" scrollamount="6" style="font-size:1.1rem;color:#8600FF;">
   </marquee> -->
-  <div class="marquee"></div>
+    <div class="marquee"></div>
 
-  <div class="container-xl">
-    <div class='row justify-content-center text-primary' id="edit">
-      <h1 class="cd-headline letters scale display-2 font-weight-bold">
-        <span class="cd-words-wrapper" style="color:#FF8000;padding-right: 160px;">
-          <b class="is-visible" style="font:inherit;">動畫</b>
-          <b>遊戲</b>
-          <b>漫畫</b>
-        </span>
-        <span>心得</span>
-      </h1>
-    </div><br>
+    <div class="container-xl">
+        <div class='row justify-content-center text-primary' id="edit">
+            <h1 class="cd-headline letters scale display-2 font-weight-bold">
+                <span class="cd-words-wrapper" style="color:#FF8000;padding-right: 160px;">
+                    <b class="is-visible" style="font:inherit;">動畫</b>
+                    <b>遊戲</b>
+                    <b>漫畫</b>
+                </span>
+                <span>心得</span>
+            </h1>
+        </div><br>
 
-    <div class="row justify-content-between">
-      <div class="col-sm-4">
-        <div class="form-group row h5 justify-content-center">
-          <label for="subjectSearch" class="col-form-label"><i class="fas fa-search"></i>&nbsp標題搜尋</label>
-          <div class="col-sm-7">
-            <input type="text" class="form-control mt-1" id="subjectSearch" placeholder="請輸入關鍵字">
-          </div>
+        <div class="row justify-content-between">
+            <div class="col-sm-4">
+                <div class="form-group row h5 justify-content-center">
+                    <label for="subjectSearch" class="col-form-label"><i class="fas fa-search"></i>&nbsp標題搜尋</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control mt-1" id="subjectSearch" placeholder="請輸入關鍵字">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult"></div>
+            <div class="col-sm-4">
+                <div class="form-group row h5 justify-content-center">
+                    <label class="col-form-label"><i class="fas fa-sort"></i>&nbsp排序方式</label>
+                    <div class="col-sm-7 mt-1">
+                        <select class="form-control">
+                            <option value="newToOld">時間&nbsp新-->舊</option>
+                            <option value="oldToNew">時間&nbsp舊-->新</option>
+                            <option value="highToLow">評分&nbsp高-->低</option>
+                            <option value="lowToHigh">評分&nbsp低-->高</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult"></div>
-      <div class="col-sm-4">
-        <div class="form-group row h5 justify-content-center">
-          <label class="col-form-label"><i class="fas fa-sort"></i>&nbsp排序方式</label>
-          <div class="col-sm-7 mt-1">
-            <select class="form-control">
-              <option value="newToOld">時間&nbsp新-->舊</option>
-              <option value="oldToNew">時間&nbsp舊-->新</option>
-              <option value="highToLow">評分&nbsp高-->低</option>
-              <option value="lowToHigh">評分&nbsp低-->高</option>
-            </select>
-          </div>
+
+        <div class="row justify-content-center h2">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active text-info" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="#"></a>
+                </li>
+            </ul>
         </div>
-      </div>
-    </div>
 
-    <div class="row justify-content-center h2">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active text-info" href="#"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-info" href="#"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-info" href="#"></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-info" href="#"></a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="row justify-content-center mt-3 animate__animated animate__flipInX animate__delay-1s" id="cardBlock">
-      <!-- <div class="card mr-3" style="width: 21rem;">
+        <div class="row justify-content-center mt-3 animate__animated animate__flipInX animate__delay-1s"
+            id="cardBlock">
+            <!-- <div class="card mr-3" style="width: 21rem;">
         <img class="card-img-top rounded img-fluid" style="height:50vh;" src="../images/test.jpg" alt="Card image cap">
         <div class="card-body">
           <h1 class="h1 text-center text-success">我是標題</h1>
@@ -105,10 +106,10 @@
           </p>
         </div>
       </div> -->
-    </div>
+        </div>
 
-    <div class="row justify-content-center mt-3 h4" id='pageBlock'>
-      <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="row justify-content-center mt-3 h4" id='pageBlock'>
+            <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
           <button type="button" class="btn btn-secondary">1</button>
           <button type="button" class="btn btn-secondary">2</button>
@@ -116,506 +117,515 @@
           <button type="button" class="btn btn-secondary">4</button>
         </div>
       </div> -->
+        </div>
+
     </div>
 
-  </div>
-
-  <div id="dialog" title="禁忌之地" style="display: none;">
-    <div class="col-sm-12 form-group mt-3">
-      <form>
-        <label for="secret" class="h5">請輸入密碼:</label>
-        <input type="password" id="secret" class="form-control" maxlength="10"></input>
-        <button type="submit" class="btn btn-primary mt-2 float-right">確定</button>
-      </form>
+    <div id="dialog" title="禁忌之地" style="display: none;">
+        <div class="col-sm-12 form-group mt-3">
+            <form>
+                <label for="secret" class="h5">請輸入密碼:</label>
+                <input type="password" id="secret" class="form-control" maxlength="10"></input>
+                <button type="submit" class="btn btn-primary mt-2 float-right">確定</button>
+            </form>
+        </div>
     </div>
-  </div>
 
-  <div id="goTop">
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
-      class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
-      <path
-        d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
-    </svg>
-  </div>
+    <div id="goTop">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+            class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+            <path
+                d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+        </svg>
+    </div>
 
-  <div w3-include-html="../footer.html"></div>
+    <div w3-include-html="../footer.html"></div>
 
-  <!-- JQuery  -->
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"></script>
-  <!-- Bootstrap4 js -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-  </script>
-  <!-- w3school js -->
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <!-- live 2D js -->
-  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
-  <!-- jquery ui js -->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!-- Sweetalert2 js -->
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <!-- pagination js -->
-  <script src="../js/pagination.js"></script>
-  <!-- sha512 js -->
-  <script src="../js/sha512.min.js"></script>
-  <!-- cursor js -->
-  <script src="../js/fairyDustCursor.js"></script>
-  <!-- bubbly js -->
-  <script src="../js/bubbly-bg.js"></script>
-  <!-- animate head js -->
-  <script src="../js/animate_headline.js"></script>
-  <!-- socila share js -->
-  <script src="../js/social-share-kit.js"></script>
-  <!-- marquee js -->
-  <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
-  <!-- firebase realtimedatabase -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
-    integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- lazyload js -->
-  <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
-  <!-- blockUI js -->
-  <script src="../js/jquery.blockUI.js"></script>
-  <!-- common js -->
-  <script src="../js/common.js"></script>
+    <!-- JQuery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- Bootstrap4 js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+    <!-- w3school js -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <!-- live 2D js -->
+    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <!-- jquery ui js -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Sweetalert2 js -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- pagination js -->
+    <script src="../js/pagination.js"></script>
+    <!-- sha512 js -->
+    <script src="../js/sha512.min.js"></script>
+    <!-- cursor js -->
+    <script src="../js/fairyDustCursor.js"></script>
+    <!-- bubbly js -->
+    <script src="../js/bubbly-bg.js"></script>
+    <!-- animate head js -->
+    <script src="../js/animate_headline.js"></script>
+    <!-- socila share js -->
+    <script src="../js/social-share-kit.js"></script>
+    <!-- marquee js -->
+    <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
+    <!-- firebase realtimedatabase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
+        integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- lazyload js -->
+    <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
+    <!-- blockUI js -->
+    <script src="../js/jquery.blockUI.js"></script>
+    <!-- common js -->
+    <script src="../js/common.js"></script>
 
-  <script>
-    w3.includeHTML(); //引入html
-    var ACGArray = [];
-    var searchArray = [];
-    var _LAZYLOAD = '';
+    <script>
+        w3.includeHTML(); //引入html
+        var ACGArray = [];
+        var searchArray = [];
+        var _LAZYLOAD = '';
 
-    //雙擊標題出現禁忌之地
-    $('#edit').dblclick(function () {
-      $("#dialog").dialog({
-        resizable: false,
-      });
-    });
-
-    //各項初始設定
-    $(document).ready(function () {
-      let typeArrayCount = [0, 0, 0, 0];
-      let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
-      let adHtml = 'Gusty歷史上的今天看/玩完了&nbsp&nbsp'
-      $.blockUI({
-        message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status">' +
-          '<span class="sr-only"></span>' +
-          '</div>',
-        css: {
-          borderWidth: '0px',
-          backgroundColor: 'transparent'
-        },
-      });
-      database.ref('/ACG').on('value', function (result) {
-        // console.log(result.val())
-        ACGArray = result.val()
-        ACGArray.sort(function (a, b) {
-          if (new Date(a.time) > new Date(b.time)) {
-            return -1;
-          } else {
-            return 1;
-          }
+        //雙擊標題出現禁忌之地
+        $('#edit').dblclick(function () {
+            $("#dialog").dialog({
+                resizable: false,
+            });
         });
-        initCard(ACGArray)
-        typeArrayCount[0] = ACGArray.length;
-        for (let i = 0; i < ACGArray.length; i++) {
-          if (ACGArray[i].type == '遊戲') {
-            typeArrayCount[1]++;
-          }
-          if (ACGArray[i].type == '動畫') {
-            typeArrayCount[2]++;
-          }
-          if (ACGArray[i].type == '漫畫') {
-            typeArrayCount[3]++;
-          }
-          if (parseInt(new Date(ACGArray[i].time).getMonth()) + 1 + '-' + new Date(ACGArray[i].time)
-            .getDate() == today) {
-            adHtml +=
-              '<a class="font-weight-bold" style="margin-right:5px;color:#00FFFF;" href="javascript:window.open(\'Detail.html?order=' +
-              ACGArray[i].order + '\')">' + ACGArray[i].title + '</a>、'
-          }
-        }
-        if (adHtml != 'Gusty歷史上的今天看/玩完了&nbsp&nbsp') {
-          $('.marquee').html(adHtml).marquee({
-            duration: 25000,
-            gap: 50,
-            delayBeforeStart: 0,
-            direction: 'right',
-            duplicated: false,
-            pauseOnHover: true,
-          });
-        } else {
-          $('.marquee').html('Gusty歷史上的今天甚麼事都沒做。').marquee({
-            duration: 25000,
-            gap: 50,
-            delayBeforeStart: 0,
-            direction: 'right',
-            duplicated: false,
-            pauseOnHover: true,
-          });
-        }
-        $('.nav-tabs').find('a').each(function (index, value) {
-          if (index == 0) {
-            $(this).html('<i class="fas fa-khanda"></i>&nbspALL&nbsp' + typeArrayCount[index])
-          }
-          if (index == 1) {
-            $(this).html('<i class="fas fa-gamepad"></i>&nbsp遊戲&nbsp' + typeArrayCount[index]);
-          }
-          if (index == 2) {
-            $(this).html('<i class="fas fa-tv"></i>&nbsp動畫&nbsp' + typeArrayCount[index]);
-          }
-          if (index == 3) {
-            $(this).html('<i class="fas fa-book-open"></i>&nbsp漫畫&nbsp' + typeArrayCount[index]);
-          }
-        });
-        $.unblockUI();
-      });
-    });
 
-    //禁忌之地的密碼框和確認
-    $('#secret').next('button').click(function (e) {
-      e.preventDefault()
-      if (sha512($('#secret').val().trim()) ==
-        '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
-      ) {
-        window.open('Edit.html');
-        $('#secret').val('')
-        $("#dialog").dialog('close');
-      } else {
-        Swal.fire({
-          icon: 'error',
-          html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
-          showConfirmButton: false,
-        });
-        $('#secret').val('')
-        $("#dialog").dialog('close');
-      }
-    });
-
-    // 分類點擊和顯示
-    $('.nav-tabs').on('click', 'a', function (e) {
-      e.preventDefault();
-      let changeACGArray = [];
-      let isRepeat = '';
-      $('.nav-tabs').find('a').each(function () {
-        if ($(this).hasClass('active')) {
-          isRepeat = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'));
-        }
-      });
-      if (isRepeat == $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))) {
-        return false;
-      }
-      $('.nav-tabs').find('a').each(function () {
-        if ($(this).hasClass('active')) {
-          isRepeat = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'));
-        }
-        $(this).removeClass('active');
-      });
-      $(this).addClass('active');
-      if ($(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&')) == 'ALL') {
-        ACGArray.sort(function (a, b) {
-          if (new Date(a.time) > new Date(b.time)) {
-            return -1;
-          } else {
-            return 1;
-          }
-        });
-        initCard(ACGArray);
-      } else {
-        for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (ACGArray[i].type == $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html()
-              .lastIndexOf('&'))) {
-            changeACGArray.push(ACGArray[i]);
-          }
-        }
-        if (changeACGArray.length > 0) {
-          changeACGArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return -1;
-            } else {
-              return 1;
-            }
-          });
-          initCard(changeACGArray);
-        } else {
-          $('#cardBlock').html(
-            '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
-          );
-          $('#pageBlock').html('');
-        }
-      }
-      $('select').val('newToOld');
-      $('#subjectSearch').val('');
-    });
-
-    // 搜尋框
-    $('#subjectSearch').on('input', function () {
-      let type = '';
-      let searchACGArray = [];
-      $('.nav-tabs').find('a').each(function () {
-        if ($(this).hasClass('active')) {
-          type = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))
-        }
-      });
-      if (type == 'ALL') {
-        if ($('#subjectSearch').val() == '') {
-          initCard()
-        } else {
-          for (let i = 0; i < ACGArray.length; i++) {
-            if (ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
-              searchACGArray.push(ACGArray[i]);
-            }
-          }
-          if (searchACGArray.length > 0) {
-            initCard(searchACGArray);
-          } else {
-            $('#cardBlock').html(
-              '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp查無資料，換個關鍵字試試。</div>'
-            );
-            $('#pageBlock').html('');
-          }
-        }
-      } else if ($('#subjectSearch').val() == '') {
-        for (let i = 0; i < ACGArray.length; i++) {
-          if (ACGArray[i].type == type) {
-            searchACGArray.push(ACGArray[i]);
-          }
-        }
-        initCard(searchACGArray);
-      } else {
-        for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (ACGArray[i].type == type && ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
-            searchACGArray.push(ACGArray[i]);
-          }
-        }
-        if (searchACGArray.length > 0) {
-          initCard(searchACGArray);
-        } else {
-          $('#cardBlock').html(
-            '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp在' +
-            type + '裡查無資料，換個關鍵字或選其他類型試試。</div>');
-          $('#pageBlock').html('');
-        }
-      }
-      if ($('#subjectSearch').val() == '') {
-        $('#searchResult').html('')
-      } else if (searchACGArray.length > 0) {
-        $('#searchResult').html('共&nbsp' + searchACGArray.length + '&nbsp筆符合的資料')
-      } else {
-        $('#searchResult').html('')
-      }
-    });
-
-    //排序方式
-    $('select').on('change', function () {
-      let changeACGArray = [];
-      let type = '';
-      $('.nav-tabs').find('a').each(function () {
-        if ($(this).hasClass('active')) {
-          type = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))
-        }
-      });
-      if (type == 'ALL') {
-        changeACGArray = ACGArray;
-        if ($(this).val().trim() == 'newToOld') {
-          changeACGArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return -1;
-            } else {
-              return 1;
-            }
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'oldToNew') {
-          changeACGArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return 1;
-            } else {
-              return -1;
-            }
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'highToLow') {
-          //根據時間新舊和分數高低排序
-          changeACGArray.sort(function (a, b) {
-            return b.rate - a.rate || new Date(b.time) - new Date(a.time);
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'lowToHigh') {
-          changeACGArray.sort(function (a, b) {
-            return a.rate - b.rate || new Date(a.time) - new Date(b.time);
-          });
-          initCard(changeACGArray)
-        }
-      } else {
-        for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (ACGArray[i].type == type) {
-            changeACGArray.push(ACGArray[i]);
-          }
-        }
-        if ($(this).val().trim() == 'newToOld') {
-          changeACGArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return -1;
-            } else {
-              return 1;
-            }
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'oldToNew') {
-          changeACGArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return 1;
-            } else {
-              return -1;
-            }
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'highToLow') {
-          changeACGArray.sort(function (a, b) {
-            return b.rate - a.rate || new Date(b.time) - new Date(a.time);
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'lowToHigh') {
-          changeACGArray.sort(function (a, b) {
-            return a.rate - b.rate || new Date(a.time) - new Date(b.time);
-          });
-          initCard(changeACGArray)
-        }
-      }
-    });
-
-    //詳細頁超連結
-    $('#cardBlock').on('click', '.card', function () {
-      window.open('Detail.html?order=' + $(this).find('input').val().trim());
-    });
-
-    // 初始化卡片
-    function initCard(newACGArray, isPage) {
-      let cardHtml = '';
-      $('#cardBlock').html('');
-      if (newACGArray == null) {
-        newACGArray = ACGArray;
-      }
-      if (typeof isPage == 'undefined') {
-        isPage = false;
-      }
-      for (let i = 0; i < newACGArray.length; i++) {
-        cardHtml += '<div class="card m-3 hvr-grow" style="width: 20rem;">'
-        cardHtml +=
-          '<img class="card-img-top img-fluid lazy" style="height:350px;" src="../images/loading.gif" data-src="' +
-          newACGArray[i].coverImg + '" alt="not found img">'
-        cardHtml += '<div class="card-body">'
-        cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'
-        cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'
-        cardHtml += '<p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp' + newACGArray[i].time +
-          '</p>'
-        cardHtml += '<p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp&nbsp'
-        if (newACGArray[i].rate.toString().indexOf('.') != -1) {
-          for (let j = 0; j < 5; j = j + 1) {
-            if (j < parseInt(newACGArray[i].rate)) {
-              cardHtml += '<i class="fas fa-star"></i>';
-            } else {
-              cardHtml += '<i class="fas fa-star-half-alt"></i>';
-              j = j + 1;
-              if (j < 5) {
-                for (let k = j; k < 5; k++) {
-                  cardHtml += '<i class="far fa-star"></i>';
+        //各項初始設定
+        $(document).ready(function () {
+            let typeArrayCount = [0, 0, 0, 0];
+            let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
+            let adHtml = 'Gusty歷史上的今天看/玩完了&nbsp&nbsp'
+            $.blockUI({
+                message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only"></span></div>',
+                css: {
+                    borderWidth: '0px',
+                    backgroundColor: 'transparent'
+                },
+            });
+            database.ref('/ACG').on('value', function (result) {
+                // console.log(result.val())
+                ACGArray = result.val()
+                ACGArray.sort(function (a, b) {
+                    if (new Date(a.time) > new Date(b.time)) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                });
+                initCard(ACGArray)
+                typeArrayCount[0] = ACGArray.length;
+                for (let i = 0; i < ACGArray.length; i++) {
+                    if (ACGArray[i].type == '遊戲') {
+                        typeArrayCount[1]++;
+                    }
+                    if (ACGArray[i].type == '動畫') {
+                        typeArrayCount[2]++;
+                    }
+                    if (ACGArray[i].type == '漫畫') {
+                        typeArrayCount[3]++;
+                    }
+                    if (parseInt(new Date(ACGArray[i].time).getMonth()) + 1 + '-' +
+                        new Date(ACGArray[i].time).getDate() == today) {
+                        adHtml +=
+                            '<a class="font-weight-bold" style="margin-right:5px;color:#00FFFF;" href="javascript:window.open(\'Detail.html?order=' +
+                            ACGArray[i].order + '\')">' + ACGArray[i].title + '</a>、'
+                    }
                 }
-                break;
-              }
-            }
-          }
-        } else {
-          for (let j = 0; j < 5; j = j + 1) {
-            if (j < newACGArray[i].rate) {
-              cardHtml += '<i class="fas fa-star"></i>';
-            } else {
-              cardHtml += '<i class="far fa-star"></i>';
-            }
-          }
-        }
-        cardHtml += '</p>'
-        if (newACGArray[i].type == '遊戲') {
-          cardHtml += '<p class="h4">' + newACGArray[i].type + '、' + newACGArray[i].collect + '小時</p>'
-        } else {
-          cardHtml += '<p class="h4">' + newACGArray[i].type + '、' + newACGArray[i].collect + '集</p>'
-        }
-        cardHtml += '</div></div></div>'
-      }
-      if (cardHtml == '') {
-        $('#cardBlock').html(
-          '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
-        );
-        $('#pageBlock').html('');
-        return false;
-      }
-      $('#cardBlock').html(cardHtml);
-      if (_LAZYLOAD != '') {
-        _LAZYLOAD.update();
-      } else {
-        _LAZYLOAD = new LazyLoad({});
-      }
-      $("img").on("error", function (e) {
-        $(this).attr("src", "../images/error.gif");
-      });
-      if (isPage) {
-        return false
-      }
-      buildPage(newACGArray);
-    }
+                if (adHtml != 'Gusty歷史上的今天看/玩完了&nbsp&nbsp') {
+                    $('.marquee').html(adHtml).marquee({
+                        duration: 25000,
+                        gap: 50,
+                        delayBeforeStart: 0,
+                        direction: 'right',
+                        duplicated: false,
+                        pauseOnHover: true,
+                    });
+                } else {
+                    $('.marquee').html('Gusty歷史上的今天甚麼事都沒做。').marquee({
+                        duration: 25000,
+                        gap: 50,
+                        delayBeforeStart: 0,
+                        direction: 'right',
+                        duplicated: false,
+                        pauseOnHover: true,
+                    });
+                }
+                $('.nav-tabs').find('a').each(function (index, value) {
+                    if (index == 0) {
+                        $(this).html('<i class="fas fa-khanda"></i>&nbspALL&nbsp' +
+                            typeArrayCount[index])
+                    }
+                    if (index == 1) {
+                        $(this).html('<i class="fas fa-gamepad"></i>&nbsp遊戲&nbsp' +
+                            typeArrayCount[index]);
+                    }
+                    if (index == 2) {
+                        $(this).html('<i class="fas fa-tv"></i>&nbsp動畫&nbsp' +
+                            typeArrayCount[index]);
+                    }
+                    if (index == 3) {
+                        $(this).html('<i class="fas fa-book-open"></i>&nbsp漫畫&nbsp' +
+                            typeArrayCount[index]);
+                    }
+                });
+                $.unblockUI();
+            });
+        });
 
-    //產生頁數
-    function buildPage(newACGArray) {
-      let pagelength = [];
-      let pageAcgArray = [];
-      if (newACGArray.length > 6) {
-        if (newACGArray.length % 6 == 0) {
-          for (let i = 0; i < parseInt(newACGArray.length / 6); i = i + 1) {
-            pagelength.push(i)
-          }
-        } else {
-          for (let i = 0; i < parseInt(newACGArray.length / 6) + 1; i = i + 1) {
-            pagelength.push(i)
-          }
-        }
-      } else {
-        pagelength.push(1)
-      }
-      if (newACGArray.length > 6) {
-        $('#pageBlock').pagination({
-          dataSource: pagelength,
-          pageSize: 1,
-          showPrevious: false,
-          showNext: false,
-          className: 'paginationjs-theme-red paginationjs-big',
-          callback: function (data, pagination) {
-            // start: i*6
-            // end:   (i+1)*6-1
-            pageAcgArray = []
-            for (let i = 0; i < newACGArray.length; i = i + 1) {
-              if (i >= parseInt(data[0] * 6) && i <= parseInt((data[0] + 1) * 6 - 1)) {
-                pageAcgArray.push(newACGArray[i])
-              }
+        //禁忌之地的密碼框和確認
+        $('#secret').next('button').click(function (e) {
+            e.preventDefault()
+            if (sha512($('#secret').val().trim()) ==
+                '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
+            ) {
+                window.open('Edit.html');
+                $('#secret').val('')
+                $("#dialog").dialog('close');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
+                    showConfirmButton: false,
+                });
+                $('#secret').val('')
+                $("#dialog").dialog('close');
             }
-            initCard(pageAcgArray, true)
-            $('html').scrollTop(0);
-          }
         });
-      } else {
-        $('#pageBlock').pagination({
-          dataSource: pagelength,
-          pageSize: 1,
-          showPrevious: false,
-          showNext: false,
-          className: 'paginationjs-theme-red paginationjs-big',
-          callback: function (data, pagination) {}
+
+        // 分類點擊和顯示
+        $('.nav-tabs').on('click', 'a', function (e) {
+            e.preventDefault();
+            let changeACGArray = [];
+            let isRepeat = '';
+            $('.nav-tabs').find('a').each(function () {
+                if ($(this).hasClass('active')) {
+                    isRepeat = $(this).html().substring($(this).html().indexOf(';') + 1,
+                        $(this).html().lastIndexOf('&'));
+                }
+            });
+            if (isRepeat == $(this).html().substring($(this).html().indexOf(';') + 1,
+                    $(this).html().lastIndexOf('&'))) {
+                return false;
+            }
+            $('.nav-tabs').find('a').each(function () {
+                if ($(this).hasClass('active')) {
+                    isRepeat = $(this).html().substring($(this).html().indexOf(';') + 1,
+                        $(this).html().lastIndexOf('&'));
+                }
+                $(this).removeClass('active');
+            });
+            $(this).addClass('active');
+            if ($(this).html().substring($(this).html().indexOf(';') + 1,
+                    $(this).html().lastIndexOf('&')) == 'ALL') {
+                ACGArray.sort(function (a, b) {
+                    if (new Date(a.time) > new Date(b.time)) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                });
+                initCard(ACGArray);
+            } else {
+                for (let i = 0; i < ACGArray.length; i = i + 1) {
+                    if (ACGArray[i].type == $(this).html().substring($(this).html().indexOf(';') + 1,
+                            $(this).html().lastIndexOf('&'))) {
+                        changeACGArray.push(ACGArray[i]);
+                    }
+                }
+                if (changeACGArray.length > 0) {
+                    changeACGArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    });
+                    initCard(changeACGArray);
+                } else {
+                    $('#cardBlock').html(
+                        '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
+                    );
+                    $('#pageBlock').html('');
+                }
+            }
+            $('select').val('newToOld');
+            $('#subjectSearch').val('');
         });
-      }
-    }
-  </script>
+
+        // 搜尋框
+        $('#subjectSearch').on('input', function () {
+            let type = '';
+            let searchACGArray = [];
+            $('.nav-tabs').find('a').each(function () {
+                if ($(this).hasClass('active')) {
+                    type = $(this).html().substring($(this).html().indexOf(';') + 1,
+                        $(this).html().lastIndexOf('&'))
+                }
+            });
+            if (type == 'ALL') {
+                if ($('#subjectSearch').val() == '') {
+                    initCard()
+                } else {
+                    for (let i = 0; i < ACGArray.length; i++) {
+                        if (ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
+                            searchACGArray.push(ACGArray[i]);
+                        }
+                    }
+                    if (searchACGArray.length > 0) {
+                        initCard(searchACGArray);
+                    } else {
+                        $('#cardBlock').html(
+                            '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp查無資料，換個關鍵字試試。</div>'
+                        );
+                        $('#pageBlock').html('');
+                    }
+                }
+            } else if ($('#subjectSearch').val() == '') {
+                for (let i = 0; i < ACGArray.length; i++) {
+                    if (ACGArray[i].type == type) {
+                        searchACGArray.push(ACGArray[i]);
+                    }
+                }
+                initCard(searchACGArray);
+            } else {
+                for (let i = 0; i < ACGArray.length; i = i + 1) {
+                    if (ACGArray[i].type == type && ACGArray[i].title.indexOf($('#subjectSearch').val()
+                            .trim()) != -1) {
+                        searchACGArray.push(ACGArray[i]);
+                    }
+                }
+                if (searchACGArray.length > 0) {
+                    initCard(searchACGArray);
+                } else {
+                    $('#cardBlock').html(
+                        '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp在' +
+                        type + '裡查無資料，換個關鍵字或選其他類型試試。</div>');
+                    $('#pageBlock').html('');
+                }
+            }
+            if ($('#subjectSearch').val() == '') {
+                $('#searchResult').html('')
+            } else if (searchACGArray.length > 0) {
+                $('#searchResult').html('共&nbsp' + searchACGArray.length + '&nbsp筆符合的資料')
+            } else {
+                $('#searchResult').html('')
+            }
+        });
+
+        //排序方式
+        $('select').on('change', function () {
+            let changeACGArray = [];
+            let type = '';
+            $('.nav-tabs').find('a').each(function () {
+                if ($(this).hasClass('active')) {
+                    type = $(this).html().substring($(this).html().indexOf(';') + 1,
+                        $(this).html().lastIndexOf('&'))
+                }
+            });
+            if (type == 'ALL') {
+                changeACGArray = ACGArray;
+                if ($(this).val().trim() == 'newToOld') {
+                    changeACGArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    });
+                    initCard(changeACGArray)
+                } else if ($(this).val().trim() == 'oldToNew') {
+                    changeACGArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    });
+                    initCard(changeACGArray)
+                } else if ($(this).val().trim() == 'highToLow') {
+                    //根據時間新舊和分數高低排序
+                    changeACGArray.sort(function (a, b) {
+                        return b.rate - a.rate || new Date(b.time) - new Date(a.time);
+                    });
+                    initCard(changeACGArray)
+                } else if ($(this).val().trim() == 'lowToHigh') {
+                    changeACGArray.sort(function (a, b) {
+                        return a.rate - b.rate || new Date(a.time) - new Date(b.time);
+                    });
+                    initCard(changeACGArray)
+                }
+            } else {
+                for (let i = 0; i < ACGArray.length; i = i + 1) {
+                    if (ACGArray[i].type == type) {
+                        changeACGArray.push(ACGArray[i]);
+                    }
+                }
+                if ($(this).val().trim() == 'newToOld') {
+                    changeACGArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    });
+                    initCard(changeACGArray)
+                } else if ($(this).val().trim() == 'oldToNew') {
+                    changeACGArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    });
+                    initCard(changeACGArray)
+                } else if ($(this).val().trim() == 'highToLow') {
+                    changeACGArray.sort(function (a, b) {
+                        return b.rate - a.rate || new Date(b.time) - new Date(a.time);
+                    });
+                    initCard(changeACGArray)
+                } else if ($(this).val().trim() == 'lowToHigh') {
+                    changeACGArray.sort(function (a, b) {
+                        return a.rate - b.rate || new Date(a.time) - new Date(b.time);
+                    });
+                    initCard(changeACGArray)
+                }
+            }
+        });
+
+        //詳細頁超連結
+        $('#cardBlock').on('click', '.card', function () {
+            window.open('Detail.html?order=' + $(this).find('input').val().trim());
+        });
+
+        // 初始化卡片
+        function initCard(newACGArray, isPage) {
+            let cardHtml = '';
+            $('#cardBlock').html('');
+            if (newACGArray == null) {
+                newACGArray = ACGArray;
+            }
+            if (typeof isPage == 'undefined') {
+                isPage = false;
+            }
+            for (let i = 0; i < newACGArray.length; i++) {
+                cardHtml += '<div class="card m-3 hvr-grow" style="width: 20rem;">'
+                cardHtml +=
+                    '<img class="card-img-top img-fluid lazy" style="height:350px;" src="../images/loading.gif" data-src="' +
+                    newACGArray[i].coverImg + '" alt="not found img">'
+                cardHtml += '<div class="card-body">'
+                cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'
+                cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'
+                cardHtml += '<p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp' +
+                    newACGArray[i].time + '</p>'
+                cardHtml += '<p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp&nbsp'
+                if (newACGArray[i].rate.toString().indexOf('.') != -1) {
+                    for (let j = 0; j < 5; j = j + 1) {
+                        if (j < parseInt(newACGArray[i].rate)) {
+                            cardHtml += '<i class="fas fa-star"></i>';
+                        } else {
+                            cardHtml += '<i class="fas fa-star-half-alt"></i>';
+                            j = j + 1;
+                            if (j < 5) {
+                                for (let k = j; k < 5; k++) {
+                                    cardHtml += '<i class="far fa-star"></i>';
+                                }
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    for (let j = 0; j < 5; j = j + 1) {
+                        if (j < newACGArray[i].rate) {
+                            cardHtml += '<i class="fas fa-star"></i>';
+                        } else {
+                            cardHtml += '<i class="far fa-star"></i>';
+                        }
+                    }
+                }
+                cardHtml += '</p>'
+                if (newACGArray[i].type == '遊戲') {
+                    cardHtml += '<p class="h4">' + newACGArray[i].type + '、' + newACGArray[i].collect + '小時</p>'
+                } else {
+                    cardHtml += '<p class="h4">' + newACGArray[i].type + '、' + newACGArray[i].collect + '集</p>'
+                }
+                cardHtml += '</div></div></div>'
+            }
+            if (cardHtml == '') {
+                $('#cardBlock').html(
+                    '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
+                );
+                $('#pageBlock').html('');
+                return false;
+            }
+            $('#cardBlock').html(cardHtml);
+            if (_LAZYLOAD != '') {
+                _LAZYLOAD.update();
+            } else {
+                _LAZYLOAD = new LazyLoad({});
+            }
+            $("img").on("error", function (e) {
+                $(this).attr("src", "../images/error.gif");
+            });
+            if (isPage) {
+                return false
+            }
+            buildPage(newACGArray);
+        }
+
+        //產生頁數
+        function buildPage(newACGArray) {
+            let pagelength = [];
+            let pageAcgArray = [];
+            if (newACGArray.length > 6) {
+                if (newACGArray.length % 6 == 0) {
+                    for (let i = 0; i < parseInt(newACGArray.length / 6); i = i + 1) {
+                        pagelength.push(i)
+                    }
+                } else {
+                    for (let i = 0; i < parseInt(newACGArray.length / 6) + 1; i = i + 1) {
+                        pagelength.push(i)
+                    }
+                }
+            } else {
+                pagelength.push(1)
+            }
+            if (newACGArray.length > 6) {
+                $('#pageBlock').pagination({
+                    dataSource: pagelength,
+                    pageSize: 1,
+                    showPrevious: false,
+                    showNext: false,
+                    className: 'paginationjs-theme-red paginationjs-big',
+                    callback: function (data, pagination) {
+                        // start: i*6
+                        // end:   (i+1)*6-1
+                        pageAcgArray = []
+                        for (let i = 0; i < newACGArray.length; i = i + 1) {
+                            if (i >= parseInt(data[0] * 6) && i <= parseInt((data[0] + 1) * 6 - 1)) {
+                                pageAcgArray.push(newACGArray[i])
+                            }
+                        }
+                        initCard(pageAcgArray, true)
+                        $('html').scrollTop(0);
+                    }
+                });
+            } else {
+                $('#pageBlock').pagination({
+                    dataSource: pagelength,
+                    pageSize: 1,
+                    showPrevious: false,
+                    showNext: false,
+                    className: 'paginationjs-theme-red paginationjs-big',
+                    callback: function (data, pagination) {}
+                });
+            }
+        }
+    </script>
 
 </body>
 

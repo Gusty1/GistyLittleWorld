@@ -199,8 +199,6 @@
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <!-- cursor js -->
     <script src="../js/fairyDustCursor.js"></script>
-    <!-- live 2D js -->
-    <!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script> -->
     <!-- bubbly js -->
     <script src="../js/bubbly-bg.js"></script>
     <!-- Sweetalert2 js -->
@@ -257,9 +255,7 @@
                         }
                         delaultChatRoomID = userAry[i].chatRoomId
                         userhtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order +
-                            '" style="color:#FFFF37;">' + userAry[i]
-                            .name +
-                            '(我)</div>'
+                            '" style="color:#FFFF37;">' + userAry[i].name + '(我)</div>'
                     } else if (roomId == userAry[i].chatRoomId && roomId != '') {
                         $('#nameinit').hide()
                         $('#chatStart').hide()
@@ -267,11 +263,10 @@
                         $('#exportButton').show()
                         chatRoomShow(userAry[i].chatRoomId)
                         userhtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order +
-                            '" style="color:#8600FF;">' + userAry[i].name +
-                            '(他)</div>'
+                            '" style="color:#8600FF;">' + userAry[i].name + '(他)</div>'
                     } else {
-                        userhtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order +
-                            '">' + userAry[i].name + '</div>'
+                        userhtml += '<div class="col-sm-8 isMe" data-order="' +
+                            userAry[i].order + '">' + userAry[i].name + '</div>'
                     }
                     if (userAry[i].status == 'offline') {
                         userhtml +=
@@ -308,16 +303,16 @@
                     sessionStorage.setItem('user', user.name)
                     database.ref('/chat/user/' + user.order).update(user)
                 }
-            } else if (sessionStorage.getItem('user') != null && $(this).find('.userStatus').hasClass(
-                    'text-danger')) {
+            } else if (sessionStorage.getItem('user') != null &&
+                $(this).find('.userStatus').hasClass('text-danger')) {
                 Swal.fire({
                     icon: 'error',
                     title: '對方不在線上無法聊天',
                     showConfirmButton: false,
                 });
                 return false;
-            } else if (sessionStorage.getItem('user') != null && $(this).find('.userStatus').hasClass(
-                    'text-success')) {
+            } else if (sessionStorage.getItem('user') != null &&
+                $(this).find('.userStatus').hasClass('text-success')) {
                 if ($(this).find('.isMe').text().indexOf(sessionStorage.getItem('user')) != -1) {
                     Swal.fire({
                         icon: 'error',
@@ -496,8 +491,7 @@
         //隨機名字產生
         $('#nameinit').on('click', '.btn-info', function () {
             let nameRandom = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
-                'p',
-                'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+                'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
             ];
             let nameChar = []
             let name = ''
@@ -626,33 +620,29 @@
                                 chatHtml += '<div class="row mt-2 p-2">'
                                 chatHtml += '<div class="col-sm-12 h5">'
                                 chatHtml += '<span class="badge badge-pill badge-primary">' +
-                                    value
-                                    .name + '</span>'
+                                    value.name + '</span>'
                                 chatHtml += '</div>'
                                 chatHtml += '<div class="col-sm-8">'
                                 chatHtml +=
                                     '<div class="float-left rounded p-1" style="background-color:rgba(0,128,0,0.5);font-size: 18px;word-wrap:break-all;">'
                                 chatHtml += value.content
                                 chatHtml += '</div>'
-                                chatHtml += '<div class="float-left mt-3">&nbsp' + showMessageTime(value
-                                        .time) +
-                                    '</div>'
+                                chatHtml += '<div class="float-left mt-3">&nbsp' +
+                                    showMessageTime(value.time) + '</div>'
                                 chatHtml += '</div></div>'
                             } else {
                                 chatHtml += '<div class="row justify-content-end mt-2 p-2">'
                                 chatHtml += '<div class="col-sm-12 h5 text-right">'
-                                chatHtml += '<span class="badge badge-pill badge-info">' + value
-                                    .name +
-                                    '</span>'
+                                chatHtml += '<span class="badge badge-pill badge-info">' +
+                                    value.name + '</span>'
                                 chatHtml += '</div>'
                                 chatHtml += '<div class="col-sm-8 text-right">'
                                 chatHtml +=
                                     '<div class="float-right rounded p-1" style="background-color:rgba(255,0,255,0.5);font-size: 18px;word-wrap:break-all;">'
                                 chatHtml += value.content
                                 chatHtml += '</div>'
-                                chatHtml += '<div class="float-right mt-3">' + showMessageTime(value
-                                        .time) +
-                                    '&nbsp</div>'
+                                chatHtml += '<div class="float-right mt-3">' +
+                                    showMessageTime(value.time) + '&nbsp</div>'
                                 chatHtml += '</div></div>'
                             }
                         });
@@ -673,8 +663,7 @@
                     let user = {
                         status: "offline",
                         name: $(this).find('.isMe').text().substring(0, $(this).find('.isMe')
-                            .text()
-                            .indexOf('(')),
+                            .text().indexOf('(')),
                         chatRoomId: ''
                     }
                     sessionStorage.removeItem('user')

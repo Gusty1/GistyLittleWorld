@@ -2,85 +2,86 @@
 <html lang="zh-Hant-TW">
 
 <head>
-  <title>Gustyの生活日誌</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- icon 路徑 -->
-  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-  <!-- pagination css -->
-  <link rel="stylesheet" href="../css/pagination.css">
-  <!-- jquery ui css -->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
-  <style>
-    /* 標籤 */
-    .badge-pill {
-      cursor: pointer;
-    }
+    <title>Gustyの生活日誌</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- icon 路徑 -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <!-- pagination css -->
+    <link rel="stylesheet" href="../css/pagination.css">
+    <!-- jquery ui css -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+    <style>
+        /* 標籤 */
+        .badge-pill {
+            cursor: pointer;
+        }
 
-    /* 卡片滑鼠切換 */
-    .cardBlock {
-      cursor: pointer;
-    }
+        /* 卡片滑鼠切換 */
+        .cardBlock {
+            cursor: pointer;
+        }
 
-    /* label區域 */
-    #labelBlock {
-      background-color: #FFFFFF;
-      height: 70vh;
-      border-radius: 3%;
-      border: 1px solid #E0E0E0;
-      /* box-shadow: 3px 3px 5px 6px #cccccc; */
-    }
+        /* label區域 */
+        #labelBlock {
+            background-color: #FFFFFF;
+            height: 70vh;
+            border-radius: 3%;
+            border: 1px solid #E0E0E0;
+            /* box-shadow: 3px 3px 5px 6px #cccccc; */
+        }
 
-    .marquee {
-      overflow: hidden;
-      background: #D9B300;
-      font-size: 1.1rem;
-      color: #8600FF;
-    }
-  </style>
+        .marquee {
+            overflow: hidden;
+            background: #D9B300;
+            font-size: 1.1rem;
+            color: #8600FF;
+        }
+    </style>
 </head>
 
 <body class="h-100">
-  <div w3-include-html="life_header.html"></div>
-  <br><br><br>
+    <div w3-include-html="life_header.html"></div>
+    <br><br><br>
 
-  <div class="marquee"></div>
+    <div class="marquee"></div>
 
-  <div class="container-xl">
-    <div class='row justify-content-center text-primary font-weight-bold display-2' id="edit">
-      生活日誌
-    </div><br>
+    <div class="container-xl">
+        <div class='row justify-content-center text-primary font-weight-bold display-2' id="edit">
+            生活日誌
+        </div><br>
 
-    <div class="row justify-content-between">
-      <div class="col-sm-4">
-        <div class="form-group row h5 justify-content-center">
-          <label for="subjectSearch" class="col-form-label float-right"><i class="fas fa-search"></i>&nbsp標題搜尋</label>
-          <div class="col-sm-7">
-            <input type="text" class="form-control mt-1" id="subjectSearch" placeholder="請輸入關鍵字">
-          </div>
+        <div class="row justify-content-between">
+            <div class="col-sm-4">
+                <div class="form-group row h5 justify-content-center">
+                    <label for="subjectSearch" class="col-form-label float-right"><i
+                            class="fas fa-search"></i>&nbsp標題搜尋</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control mt-1" id="subjectSearch" placeholder="請輸入關鍵字">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult"></div>
+            <div class="col-sm-4">
+                <div class="form-group row h5 justify-content-end">
+                    <label class="col-form-label text-center"><i class="fas fa-sort"></i>&nbsp排序方式</label>
+                    <div class="col-sm-7 mt-1">
+                        <select class="form-control">
+                            <option value="newToOld">時間&nbsp新-->舊</option>
+                            <option value="oldToNew">時間&nbsp舊-->新</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult"></div>
-      <div class="col-sm-4">
-        <div class="form-group row h5 justify-content-end">
-          <label class="col-form-label text-center"><i class="fas fa-sort"></i>&nbsp排序方式</label>
-          <div class="col-sm-7 mt-1">
-            <select class="form-control">
-              <option value="newToOld">時間&nbsp新-->舊</option>
-              <option value="oldToNew">時間&nbsp舊-->新</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="row justify-content-between animate__animated animate__fadeInDownBig animate__delay-1s">
-      <div class="col-sm-9">
-        <div class="col-md-12" id="cardGroup">
-        </div>
-        <!-- <div class="card mb-3 cardBlock">
+        <div class="row justify-content-between animate__animated animate__fadeInDownBig animate__delay-1s">
+            <div class="col-sm-9">
+                <div class="col-md-12" id="cardGroup">
+                </div>
+                <!-- <div class="card mb-3 cardBlock">
           <div class="row no-gutters">
             <div class="col-md-4">
               <img src="../images/test.png" class="card-img" alt="...">
@@ -95,463 +96,462 @@
             </div>
           </div>
         </div> -->
-        <div class="row justify-content-center h4" id="page">
-        </div>
-      </div>
+                <div class="row justify-content-center h4" id="page">
+                </div>
+            </div>
 
-      <div class="col-sm-3 " id='labelBlock'>
-        <div class="col-sm-12 h4 my-2 text-info">標籤雲&nbsp<i class="fab fa-cloudversify"></i></div>
-        <div class="col-sm-12 h5 my-2">目前標籤:</div>
-        <div class="row m-1" id="labelGroup">
-          <!-- <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">ALL&nbsp<span
+            <div class="col-sm-3 " id='labelBlock'>
+                <div class="col-sm-12 h4 my-2 text-info">標籤雲&nbsp<i class="fab fa-cloudversify"></i></div>
+                <div class="col-sm-12 h5 my-2">目前標籤:</div>
+                <div class="row m-1" id="labelGroup">
+                    <!-- <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">ALL&nbsp<span
               class="badge badge-light"></span></span> -->
+                </div>
+            </div>
         </div>
-      </div>
+
     </div>
 
-  </div>
-
-  <div id="dialog" title="禁忌之地" style="display: none;">
-    <div class="col-sm-12 form-group mt-3">
-      <form>
-        <label for="secret" class="h5">請輸入密碼:</label>
-        <input type="password" id="secret" class="form-control" maxlength="10"></input>
-        <button type="submit" class="btn btn-primary mt-2 float-right">確定</button>
-      </form>
+    <div id="dialog" title="禁忌之地" style="display: none;">
+        <div class="col-sm-12 form-group mt-3">
+            <form>
+                <label for="secret" class="h5">請輸入密碼:</label>
+                <input type="password" id="secret" class="form-control" maxlength="10"></input>
+                <button type="submit" class="btn btn-primary mt-2 float-right">確定</button>
+            </form>
+        </div>
     </div>
-  </div>
 
-  <div id="goTop">
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
-      class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
-      <path
-        d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
-    </svg>
-  </div>
+    <div id="goTop">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+            class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+            <path
+                d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+        </svg>
+    </div>
 
-  <div w3-include-html="../footer.html"></div>
+    <div w3-include-html="../footer.html"></div>
 
-  <!-- JQuery  -->
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"></script>
-  <!-- Bootstrap4 js -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-  </script>
-  <!-- w3school js -->
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <!-- live 2D js -->
-  <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
-  <!-- jquery ui js -->
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!-- Sweetalert2 js -->
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <!-- sha512 js -->
-  <script src="../js/sha512.min.js"></script>
-  <!-- pagination js -->
-  <script src="../js/pagination.js"></script>
-  <!-- cursor js -->
-  <script src="../js/fairyDustCursor.js"></script>
-  <!-- bubbly js -->
-  <script src="../js/bubbly-bg.js"></script>
-  <!-- socila share js -->
-  <script src="../js/social-share-kit.js"></script>
-  <!-- blockUI js -->
-  <script src="../js/jquery.blockUI.js"></script>
-  <!-- marquee js -->
-  <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
-  <!-- firebase realtimedatabase -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
-    integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- lazyload js -->
-  <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
-  <!-- common js -->
-  <script src="../js/common.js"></script>
+    <!-- JQuery  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- Bootstrap4 js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+    <!-- w3school js -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <!-- live 2D js -->
+    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <!-- jquery ui js -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Sweetalert2 js -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- sha512 js -->
+    <script src="../js/sha512.min.js"></script>
+    <!-- pagination js -->
+    <script src="../js/pagination.js"></script>
+    <!-- cursor js -->
+    <script src="../js/fairyDustCursor.js"></script>
+    <!-- bubbly js -->
+    <script src="../js/bubbly-bg.js"></script>
+    <!-- socila share js -->
+    <script src="../js/social-share-kit.js"></script>
+    <!-- blockUI js -->
+    <script src="../js/jquery.blockUI.js"></script>
+    <!-- marquee js -->
+    <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
+    <!-- firebase realtimedatabase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
+        integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- lazyload js -->
+    <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
+    <!-- common js -->
+    <script src="../js/common.js"></script>
 
-  <script>
-    w3.includeHTML(); //引入html
-    var lifeArray = [];
-    var searchArray = [];
-    var clickLabel = '';
-    var _LAZYLOAD = ''
+    <script>
+        w3.includeHTML(); //引入html
+        var lifeArray = [];
+        var searchArray = [];
+        var clickLabel = '';
+        var _LAZYLOAD = ''
 
-    //判斷是否為移動設備，隱藏label區域
-    var isMobile = isMobileDevice();
-    if (isMobile) {
-      $('#labelBlock').hide();
-    } else {
-      $('#labelBlock').show();
-    }
+        //判斷是否為移動設備，隱藏label區域
+        var isMobile = isMobileDevice();
+        if (isMobile) {
+            $('#labelBlock').hide();
+        } else {
+            $('#labelBlock').show();
+        }
 
-    //雙擊標題出現禁忌之地
-    $('#edit').dblclick(function () {
-      $("#dialog").dialog({
-        resizable: false,
-      });
-    });
-
-    //標籤數量顏色+initcard
-    $(document).ready(function () {
-      $('#conversation').hide();
-      var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77', '#95CACA', '#B8B8DC'];
-      let labelCount = 0;
-      let labelArray = [];
-      let labelArrayCount = [];
-      let cardHtml = '';
-      let labelHtml = '';
-      let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
-      let adHtml = 'Gusty歷史上的今天發生了&nbsp&nbsp'
-      $.blockUI({
-        message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status">' +
-          '<span class="sr-only"></span>' +
-          '</div>',
-        css: {
-          borderWidth: '0px',
-          backgroundColor: 'transparent'
-        },
-      });
-      database.ref('/life').on('value', function (result) {
-        lifeArray = result.val()
-        lifeArray.sort(function (a, b) {
-          if (new Date(a.time) > new Date(b.time)) {
-            return -1;
-          } else {
-            return 1;
-          }
+        //雙擊標題出現禁忌之地
+        $('#edit').dblclick(function () {
+            $("#dialog").dialog({
+                resizable: false,
+            });
         });
-        initCard(lifeArray)
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (parseInt(new Date(lifeArray[i].time).getMonth()) + 1 + '-' + new Date(lifeArray[i].time)
-            .getDate() == today) {
-            adHtml +=
-              '<a class="font-weight-bold" style="margin-right:5px;color:#00FFFF;" href="javascript:window.open(\'Detail.html?order=' +
-              lifeArray[i].order + '\')">' + lifeArray[i].title +
-              '</a>、'
-          }
-        }
-        if (adHtml != 'Gusty歷史上的今天發生了&nbsp&nbsp') {
-          $('.marquee').html(adHtml).marquee({
-            duration: 25000,
-            gap: 50,
-            delayBeforeStart: 0,
-            direction: 'right',
-            duplicated: false,
-            pauseOnHover: true,
-          });
-        } else {
-          $('.marquee').html('Gusty歷史上的今天甚麼事都沒發生。').marquee({
-            duration: 25000,
-            gap: 50,
-            delayBeforeStart: 0,
-            direction: 'right',
-            duplicated: false,
-            pauseOnHover: true,
-          });
-        }
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          labelArray.push(lifeArray[i].label)
-        }
-        labelArray = labelArray.filter(function (element, index, arr) {
-          return arr.indexOf(element) == index;
+
+        //標籤數量顏色+initcard
+        $(document).ready(function () {
+            $('#conversation').hide();
+            var labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77',
+                '#95CACA', '#B8B8DC'
+            ];
+            let labelCount = 0;
+            let labelArray = [];
+            let labelArrayCount = [];
+            let cardHtml = '';
+            let labelHtml = '';
+            let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
+            let adHtml = 'Gusty歷史上的今天發生了&nbsp&nbsp'
+            $.blockUI({
+                message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only"></span></div>',
+                css: {
+                    borderWidth: '0px',
+                    backgroundColor: 'transparent'
+                },
+            });
+            database.ref('/life').on('value', function (result) {
+                lifeArray = result.val()
+                lifeArray.sort(function (a, b) {
+                    if (new Date(a.time) > new Date(b.time)) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                });
+                initCard(lifeArray)
+                for (let i = 0; i < lifeArray.length; i = i + 1) {
+                    if (parseInt(new Date(lifeArray[i].time).getMonth()) + 1 + '-' +
+                        new Date(lifeArray[i].time).getDate() == today) {
+                        adHtml +=
+                            '<a class="font-weight-bold" style="margin-right:5px;color:#00FFFF;" href="javascript:window.open(\'Detail.html?order=' +
+                            lifeArray[i].order + '\')">' + lifeArray[i].title + '</a>、'
+                    }
+                }
+                if (adHtml != 'Gusty歷史上的今天發生了&nbsp&nbsp') {
+                    $('.marquee').html(adHtml).marquee({
+                        duration: 25000,
+                        gap: 50,
+                        delayBeforeStart: 0,
+                        direction: 'right',
+                        duplicated: false,
+                        pauseOnHover: true,
+                    });
+                } else {
+                    $('.marquee').html('Gusty歷史上的今天甚麼事都沒發生。').marquee({
+                        duration: 25000,
+                        gap: 50,
+                        delayBeforeStart: 0,
+                        direction: 'right',
+                        duplicated: false,
+                        pauseOnHover: true,
+                    });
+                }
+                for (let i = 0; i < lifeArray.length; i = i + 1) {
+                    labelArray.push(lifeArray[i].label)
+                }
+                labelArray = labelArray.filter(function (element, index, arr) {
+                    return arr.indexOf(element) == index;
+                });
+                labelArrayCount = []
+                for (let i = 0; i < labelArray.length; i = i + 1) {
+                    let labelCount = 0;
+                    for (let j = 0; j < lifeArray.length; j = j + 1) {
+                        if (labelArray[i] == lifeArray[j].label) {
+                            labelCount = labelCount + 1;
+                        }
+                    }
+                    labelArrayCount.push(labelCount)
+                }
+                labelHtml = ''
+                labelHtml +=
+                    '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp' +
+                    lifeArray.length + '</span>';
+                for (let i = 0; i < labelArray.length; i = i + 1) {
+                    labelHtml +=
+                        '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' +
+                        labelColor[i] + '">' + labelArray[i] + '&nbsp' + labelArrayCount[i] + '</span>';
+                }
+                $('#labelGroup').prev().html('目前標籤:&nbspALL');
+                $('#labelGroup').html(labelHtml);
+                $.unblockUI();
+            })
         });
-        labelArrayCount = []
-        for (let i = 0; i < labelArray.length; i = i + 1) {
-          let labelCount = 0;
-          for (let j = 0; j < lifeArray.length; j = j + 1) {
-            if (labelArray[i] == lifeArray[j].label) {
-              labelCount = labelCount + 1;
-            }
-          }
-          labelArrayCount.push(labelCount)
-        }
-        labelHtml = ''
-        labelHtml +=
-          '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp<spanclass="badge badge-light">' +
-          lifeArray.length + '</span></span>';
-        for (let i = 0; i < labelArray.length; i = i + 1) {
-          labelHtml +=
-            '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' +
-            labelColor[i] + '">' + labelArray[i] + '&nbsp<spanclass="badge badge-light">' + labelArrayCount[i] +
-            '</span></span>';
-        }
-        $('#labelGroup').prev().html('目前標籤:&nbspALL');
-        $('#labelGroup').html(labelHtml);
-        $.unblockUI();
-      })
-    });
 
-    //禁忌之地的密碼框和確認
-    $('#secret').next('button').click(function (e) {
-      e.preventDefault()
-      if (sha512($('#secret').val().trim()) ==
-        '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
-      ) {
-        window.open('Edit.html');
-        $('#secret').val('')
-        $("#dialog").dialog('close');
-      } else {
-        Swal.fire({
-          icon: 'error',
-          html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
-          showConfirmButton: false,
+        //禁忌之地的密碼框和確認
+        $('#secret').next('button').click(function (e) {
+            e.preventDefault()
+            if (sha512($('#secret').val().trim()) ==
+                '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d'
+            ) {
+                window.open('Edit.html');
+                $('#secret').val('')
+                $("#dialog").dialog('close');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
+                    showConfirmButton: false,
+                });
+                $('#secret').val('')
+                $("#dialog").dialog('close');
+            }
         });
-        $('#secret').val('')
-        $("#dialog").dialog('close');
-      }
-    });
 
-    // 搜尋框
-    $('#subjectSearch').on('input', function () {
-      let cardHtml = '';
-      let pageCount = 0;
-      let changeLifeArray = [];
-      $('#cardGroup').html('');
-      if (clickLabel == '' || clickLabel == 'ALL') {
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (lifeArray[i].title.indexOf($(this).val()) != -1) {
-            changeLifeArray.push(lifeArray[i])
-          }
-        }
-        if (changeLifeArray.length == 0) {
-          $('#cardGroup').html(
-            '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp查無資料，換個關鍵字試試。</div>')
-          $('#page').html('')
-          return false;
-        } else {
-          initCard(changeLifeArray)
-        }
-      } else {
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (lifeArray[i].title.indexOf($(this).val()) != -1 && lifeArray[i].label == clickLabel) {
-            changeLifeArray.push(lifeArray[i])
-          }
-        }
-        if (changeLifeArray.length == 0) {
-          $('#cardGroup').html(
-            '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp此標籤內查無資料，換個關鍵字或標籤試試。</div>')
-          $('#page').html('')
-          return false;
-        } else {
-          initCard(changeLifeArray)
-        }
-      }
-      if ($(this).val() == '') {
-        $('#searchResult').html('')
-      } else if (changeLifeArray.length > 0) {
-        $('#searchResult').html('共&nbsp' + changeLifeArray.length + '&nbsp筆符合的結果')
-      } else {
-        $('#searchResult').html('')
-      }
-    });
-
-    // 詳細頁超連結
-    $('#cardGroup').on('click', '.cardBlock', function () {
-      window.open('Detail.html?order=' + $(this).find('input').val().trim());
-    });
-
-    //排序方式
-    $('select').on('change', function () {
-      let changeLifeArray = [];
-      changeLifeArray = lifeArray;
-      if (clickLabel != '' && clickLabel != 'ALL') {
-        let changeLabelLifeArray = [];
-        for (let i = 0; i < changeLifeArray.length; i = i + 1) {
-          if (changeLifeArray[i].label == clickLabel) {
-            changeLabelLifeArray.push(changeLifeArray[i]);
-          }
-        }
-        if ($(this).val().trim() == 'newToOld') {
-          changeLabelLifeArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return -1;
+        // 搜尋框
+        $('#subjectSearch').on('input', function () {
+            let cardHtml = '';
+            let pageCount = 0;
+            let changeLifeArray = [];
+            $('#cardGroup').html('');
+            if (clickLabel == '' || clickLabel == 'ALL') {
+                for (let i = 0; i < lifeArray.length; i = i + 1) {
+                    if (lifeArray[i].title.indexOf($(this).val()) != -1) {
+                        changeLifeArray.push(lifeArray[i])
+                    }
+                }
+                if (changeLifeArray.length == 0) {
+                    $('#cardGroup').html(
+                        '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp查無資料，換個關鍵字試試。</div>'
+                    )
+                    $('#page').html('')
+                    return false;
+                } else {
+                    initCard(changeLifeArray)
+                }
             } else {
-              return 1;
+                for (let i = 0; i < lifeArray.length; i = i + 1) {
+                    if (lifeArray[i].title.indexOf($(this).val()) != -1 && lifeArray[i].label == clickLabel) {
+                        changeLifeArray.push(lifeArray[i])
+                    }
+                }
+                if (changeLifeArray.length == 0) {
+                    $('#cardGroup').html(
+                        '<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp此標籤內查無資料，換個關鍵字或標籤試試。</div>'
+                    )
+                    $('#page').html('')
+                    return false;
+                } else {
+                    initCard(changeLifeArray)
+                }
             }
-          });
-          initCard(changeLabelLifeArray)
-        } else {
-          changeLabelLifeArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return 1;
+            if ($(this).val() == '') {
+                $('#searchResult').html('')
+            } else if (changeLifeArray.length > 0) {
+                $('#searchResult').html('共&nbsp' + changeLifeArray.length + '&nbsp筆符合的結果')
             } else {
-              return -1;
+                $('#searchResult').html('')
             }
-          });
-          initCard(changeLabelLifeArray)
-        }
-      } else {
-        if ($(this).val().trim() == 'newToOld') {
-          changeLifeArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return -1;
-            } else {
-              return 1;
-            }
-          });
-          initCard(changeLifeArray)
-        } else {
-          changeLifeArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return 1;
-            } else {
-              return -1;
-            }
-          });
-          initCard(changeLifeArray)
-        }
-      }
-    });
-
-    //標籤點擊
-    $('#labelGroup').on('click', '.badge-pill', function () {
-      if (clickLabel == $(this).html().substring(0, $(this).html().indexOf('&'))) {
-        return false;
-      }
-      clickLabel = $(this).html().substring(0, $(this).html().indexOf('&'))
-      $('#labelGroup').prev().html('目前標籤:&nbsp' + clickLabel);
-      $('select').val('newToOld');
-      $('#subjectSearch').val('');
-      if ($(this).html().substring(0, $(this).html().indexOf('&')) == 'ALL') {
-        lifeArray.sort(function (a, b) {
-          if (new Date(a.time) > new Date(b.time)) {
-            return -1;
-          } else {
-            return 1;
-          }
         });
-        initCard(lifeArray);
-        return false;
-      } else {
-        let changeLifeArray = []
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if ($(this).html().substring(0, $(this).html().indexOf('&')) == lifeArray[i].label) {
-            changeLifeArray.push(lifeArray[i]);
-          }
-        }
-        if (changeLifeArray.length > 0) {
-          changeLifeArray.sort(function (a, b) {
-            if (new Date(a.time) > new Date(b.time)) {
-              return -1;
+
+        // 詳細頁超連結
+        $('#cardGroup').on('click', '.cardBlock', function () {
+            window.open('Detail.html?order=' + $(this).find('input').val().trim());
+        });
+
+        //排序方式
+        $('select').on('change', function () {
+            let changeLifeArray = [];
+            changeLifeArray = lifeArray;
+            if (clickLabel != '' && clickLabel != 'ALL') {
+                let changeLabelLifeArray = [];
+                for (let i = 0; i < changeLifeArray.length; i = i + 1) {
+                    if (changeLifeArray[i].label == clickLabel) {
+                        changeLabelLifeArray.push(changeLifeArray[i]);
+                    }
+                }
+                if ($(this).val().trim() == 'newToOld') {
+                    changeLabelLifeArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    });
+                    initCard(changeLabelLifeArray)
+                } else {
+                    changeLabelLifeArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    });
+                    initCard(changeLabelLifeArray)
+                }
             } else {
-              return 1;
+                if ($(this).val().trim() == 'newToOld') {
+                    changeLifeArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    });
+                    initCard(changeLifeArray)
+                } else {
+                    changeLifeArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    });
+                    initCard(changeLifeArray)
+                }
             }
-          });
-          initCard(changeLifeArray)
-        }
-      }
+        });
 
-    });
+        //標籤點擊
+        $('#labelGroup').on('click', '.badge-pill', function () {
+            if (clickLabel == $(this).html().substring(0, $(this).html().indexOf('&'))) {
+                return false;
+            }
+            clickLabel = $(this).html().substring(0, $(this).html().indexOf('&'))
+            $('#labelGroup').prev().html('目前標籤:&nbsp' + clickLabel);
+            $('select').val('newToOld');
+            $('#subjectSearch').val('');
+            if ($(this).html().substring(0, $(this).html().indexOf('&')) == 'ALL') {
+                lifeArray.sort(function (a, b) {
+                    if (new Date(a.time) > new Date(b.time)) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                });
+                initCard(lifeArray);
+                return false;
+            } else {
+                let changeLifeArray = []
+                for (let i = 0; i < lifeArray.length; i = i + 1) {
+                    if ($(this).html().substring(0, $(this).html().indexOf('&')) == lifeArray[i].label) {
+                        changeLifeArray.push(lifeArray[i]);
+                    }
+                }
+                if (changeLifeArray.length > 0) {
+                    changeLifeArray.sort(function (a, b) {
+                        if (new Date(a.time) > new Date(b.time)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    });
+                    initCard(changeLifeArray)
+                }
+            }
 
-    // 初始化卡片
-    function initCard(newlifeArray, isPage) {
-      let cardHtml = '';
-      if (newlifeArray == null) {
-        newlifeArray = lifeArray;
-      }
-      if (typeof isPage == 'undefined') {
-        isPage = false
-      }
-      for (let i = 0; i < newlifeArray.length; i = i + 1) {
-        cardHtml += '<div class="card mb-3 cardBlock hvr-glow">'
-        cardHtml += '<div class="row no-gutters ">'
-        cardHtml += '<div class="col-md-4">'
-        cardHtml += '<img src="../images/loading.gif" data-src="' + newlifeArray[i].coverImg +
-          '" class="card-img img-fluid rounded lazy" alt="404 not found" style="height:225px;">'
-        cardHtml += '</div>'
-        cardHtml += '<div class="col-md-8">'
-        cardHtml += '<div class="card-body">'
-        cardHtml += '<h1 class="card-title h2 text-success">' + newlifeArray[i].title + '</h1>'
-        cardHtml += '<input type="hidden" value="' + newlifeArray[i].order + '">'
-        cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp' + newlifeArray[i]
-          .time +
-          '</p>'
-        cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp' + newlifeArray[i]
-          .label + '</p>'
-        cardHtml += '<p class="card-text h4">' + newlifeArray[i].summary + '</p>'
-        cardHtml += '</div></div></div></div>'
-      }
-      // cardHtml += '<div class="row justify-content-center h4" id="page"></div>'
-      $('#cardGroup').html(cardHtml);
-      if (_LAZYLOAD != '') {
-        _LAZYLOAD.update();
-      } else {
-        _LAZYLOAD = new LazyLoad({});
-      }
-      $("img").on("error", function (e) {
-        $(this).attr("src", "../images/error.gif");
-      });
-      //頁數
-      if (isPage) {
-        return false
-      }
-      buildPage(newlifeArray);
-    }
+        });
 
-    // 產生頁數
-    function buildPage(newlifeArray) {
-      let pagelength = [];
-      let pageLifeArray = [];
-      if (newlifeArray.length > 5) {
-        if (newlifeArray.length % 5 == 0) {
-          for (let i = 0; i < parseInt(newlifeArray.length / 5); i = i + 1) {
-            pagelength.push(i);
-          }
-        } else {
-          for (let i = 0; i < parseInt(newlifeArray.length / 5) + 1; i = i + 1) {
-            pagelength.push(i);
-          }
-        }
-      } else {
-        pagelength.push(1)
-      }
-      if (newlifeArray.length > 5) {
-        $('#page').pagination({
-          dataSource: pagelength,
-          pageSize: 1,
-          showPrevious: false,
-          showNext: false,
-          className: 'paginationjs-theme-red paginationjs-big',
-          callback: function (data, pagination) {
-            // start: i*5
-            // end:   (i+1)*5-1
-            pageLifeArray = [];
+        // 初始化卡片
+        function initCard(newlifeArray, isPage) {
+            let cardHtml = '';
+            if (newlifeArray == null) {
+                newlifeArray = lifeArray;
+            }
+            if (typeof isPage == 'undefined') {
+                isPage = false
+            }
             for (let i = 0; i < newlifeArray.length; i = i + 1) {
-              if (i >= parseInt(data[0] * 5) && i <= parseInt((data[0] + 1) * 5 - 1)) {
-                pageLifeArray.push(newlifeArray[i])
-              }
+                cardHtml += '<div class="card mb-3 cardBlock hvr-glow">'
+                cardHtml += '<div class="row no-gutters ">'
+                cardHtml += '<div class="col-md-4">'
+                cardHtml += '<img src="../images/loading.gif" data-src="' + newlifeArray[i].coverImg +
+                    '" class="card-img img-fluid rounded lazy" alt="404 not found" style="height:225px;">'
+                cardHtml += '</div>'
+                cardHtml += '<div class="col-md-8">'
+                cardHtml += '<div class="card-body">'
+                cardHtml += '<h1 class="card-title h2 text-success">' + newlifeArray[i].title + '</h1>'
+                cardHtml += '<input type="hidden" value="' + newlifeArray[i].order + '">'
+                cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp' +
+                    newlifeArray[i]
+                    .time +
+                    '</p>'
+                cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp' + newlifeArray[i]
+                    .label + '</p>'
+                cardHtml += '<p class="card-text h4">' + newlifeArray[i].summary + '</p>'
+                cardHtml += '</div></div></div></div>'
             }
-            initCard(pageLifeArray, true)
-            $('html').scrollTop(0);
-          }
-        });
-      } else {
-        $('#page').pagination({
-          dataSource: pagelength,
-          pageSize: 1,
-          showPrevious: false,
-          showNext: false,
-          className: 'paginationjs-theme-red paginationjs-big',
-          callback: function (data, pagination) {
-
-          }
-        });
-      }
-    }
-
-    //判斷是否為移動設備
-    function isMobileDevice() {
-      var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
-      var isMobileDevice = false
-      for (var i = 0; i < mobileDevices.length; i++) {
-        if (navigator.userAgent.match(mobileDevices[i])) {
-          isMobileDevice = true
+            // cardHtml += '<div class="row justify-content-center h4" id="page"></div>'
+            $('#cardGroup').html(cardHtml);
+            if (_LAZYLOAD != '') {
+                _LAZYLOAD.update();
+            } else {
+                _LAZYLOAD = new LazyLoad({});
+            }
+            $("img").on("error", function (e) {
+                $(this).attr("src", "../images/error.gif");
+            });
+            //頁數
+            if (isPage) {
+                return false
+            }
+            buildPage(newlifeArray);
         }
-      }
-      return isMobileDevice
-    }
-  </script>
+
+        // 產生頁數
+        function buildPage(newlifeArray) {
+            let pagelength = [];
+            let pageLifeArray = [];
+            if (newlifeArray.length > 5) {
+                if (newlifeArray.length % 5 == 0) {
+                    for (let i = 0; i < parseInt(newlifeArray.length / 5); i = i + 1) {
+                        pagelength.push(i);
+                    }
+                } else {
+                    for (let i = 0; i < parseInt(newlifeArray.length / 5) + 1; i = i + 1) {
+                        pagelength.push(i);
+                    }
+                }
+            } else {
+                pagelength.push(1)
+            }
+            if (newlifeArray.length > 5) {
+                $('#page').pagination({
+                    dataSource: pagelength,
+                    pageSize: 1,
+                    showPrevious: false,
+                    showNext: false,
+                    className: 'paginationjs-theme-red paginationjs-big',
+                    callback: function (data, pagination) {
+                        // start: i*5
+                        // end:   (i+1)*5-1
+                        pageLifeArray = [];
+                        for (let i = 0; i < newlifeArray.length; i = i + 1) {
+                            if (i >= parseInt(data[0] * 5) && i <= parseInt((data[0] + 1) * 5 - 1)) {
+                                pageLifeArray.push(newlifeArray[i])
+                            }
+                        }
+                        initCard(pageLifeArray, true)
+                        $('html').scrollTop(0);
+                    }
+                });
+            } else {
+                $('#page').pagination({
+                    dataSource: pagelength,
+                    pageSize: 1,
+                    showPrevious: false,
+                    showNext: false,
+                    className: 'paginationjs-theme-red paginationjs-big',
+                    callback: function (data, pagination) {}
+                });
+            }
+        }
+
+        //判斷是否為移動設備
+        function isMobileDevice() {
+            var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
+            var isMobileDevice = false
+            for (var i = 0; i < mobileDevices.length; i++) {
+                if (navigator.userAgent.match(mobileDevices[i])) {
+                    isMobileDevice = true
+                }
+            }
+            return isMobileDevice
+        }
+    </script>
 
 </body>
 

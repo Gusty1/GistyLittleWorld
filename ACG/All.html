@@ -372,7 +372,7 @@
                     initCard()
                 } else {
                     for (let i = 0; i < ACGArray.length; i++) {
-                        if (ACGArray[i].title.indexOf($('#subjectSearch').val().trim()) != -1) {
+                        if (ACGArray[i].title.indexOf($('#subjectSearch').val().trim().toUpperCase()) != -1) {
                             searchACGArray.push(ACGArray[i]);
                         }
                     }
@@ -395,7 +395,7 @@
             } else {
                 for (let i = 0; i < ACGArray.length; i = i + 1) {
                     if (ACGArray[i].type == type && ACGArray[i].title.indexOf($('#subjectSearch').val()
-                            .trim()) != -1) {
+                            .trim().toUpperCase()) != -1) {
                         searchACGArray.push(ACGArray[i]);
                     }
                 }

@@ -758,6 +758,17 @@
     "time" : "2021-11-09",
     "title" : "銀河騎士傳",
     "type" : "動畫"
+  }, {
+    "collect" : "11",
+    "content" : "<p><strong><span style=\"color:#e74c3c\"><span style=\"font-size:24px\">劇情介紹:</span></span></strong><span style=\"font-size:22px\">超能力拯救世界。</span></p>\n\n<p><span style=\"font-size:22px\">大型AR手遊廣告，通常這種手遊的動畫不是那種很特別我都不會看，因為通常都很難看，看看完整體就普普通通還帶有一小驚訝，手機遊戲我也有去下載來玩，介面搞得我好像是真的特工一樣，我覺得做得很厲害，然後因為是跟PEKEMON GO差不多的遊戲，所以要走路然後我就不玩了。</span></p>\n\n<p><span style=\"font-size:22px\">第一集有個特工打架的畫面，我覺得那個特工的動作很厲害，總之就是第一集的打鬥做得很帥，但後面就都變超能力亂鬥了；前期我覺得很拖戲，就2個超能力者然後用一堆人去抓過了3/2以上的集數都還沒抓到，真的拖得很刻意，所以前期觀看體驗很差，後面就跟你講最終計畫的真相，反正就是靈魂網路其他作品都用到爛掉的東西；可是在最後一集的最後有一個畫面真的有讓我驚訝到，就她怎麼還活者阿前面是誰在打架之類的，然後還跟你說TO BE CONTINUED，高機率會有第2季，但不知道有生之年看不看得到。</span></p>\n",
+    "coverImg" : "https://i.imgur.com/UDmskL1.jpg",
+    "order" : 70,
+    "rate" : 2.5,
+    "say" : "肉體雖滅，靈魂不死。",
+    "say_author" : "布蘭特",
+    "time" : "2021-11-14",
+    "title" : "虛擬入口",
+    "type" : "動畫"
   } ],
   "chat" : {
     "chatRoom" : [ {
@@ -955,6 +966,14 @@
     "summary" : "又、又、又過了一年的11111",
     "time" : "2021-11-11",
     "title" : "又一年的1111"
+  }, {
+    "content" : "<p><span style=\"font-size:22px\">1111說要去拜月老，然後我就真的去了，雖然最近工作上遇到很多鳥事還有外面很冷，但為了我的幸福著想我還是出門了還找了跟一個跟我一樣臭的兄弟一起去，那個兄弟我一直覺得他長得比我還人模人樣但不知道為甚麼他就是跟我一樣臭，那為什麼會去那間呢?一開始我也不知道桃園哪裡有月老廟就問GOOGLE，結果好像只有中壢跟這間而已，中壢那間平常好像不開放，所以就去桃園那間-景福宮。</span></p>\n\n<p><span style=\"font-size:22px\">去是真的去了但很不巧他好像剛好在辦活動不能進去，所以就拜不到月老了，變成一種我到了月老廟卻拜不到月老的窘境了，但都來了就順便拜拜外面的神明，土地公之類的；雖然沒拜到月老，但月老看到我犧牲自己的假日還在風雨交加的日子出門應該會多少給我一點BUFF吧，人家都說機會是自己創造的，我這樣應該有創造一半了吧，剩下一半就...隨便拉，總之就是有拜有保佑拉。</span></p>\n\n<p style=\"text-align:center\"><span style=\"color:#ff0000\"><span style=\"font-size:24px\"><span style=\"background-color:#f1c40f\">不給進...</span></span></span></p>\n\n<p style=\"text-align:center\"><span style=\"font-size:22px\"><img src=\"https://i.imgur.com/kpEM1h9.jpg\" style=\"width:70%\" /></span></p>\n\n<p>&nbsp;</p>\n",
+    "coverImg" : "https://i.imgur.com/LbrLody.jpg",
+    "label" : "垃圾話",
+    "order" : 20,
+    "summary" : "主動出擊-拜月老",
+    "time" : "2021-11-13",
+    "title" : "拜月老"
   } ],
   "war" : {
     "players" : [ {

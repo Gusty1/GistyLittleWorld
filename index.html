@@ -218,8 +218,6 @@
                 setInterval(function () {
                     let left = $('#viewCount').offset().left
                     let top = $('#viewCount').offset().top
-                    console.log(left)
-                    console.log(top)
                     if (left <= 20) {
                         $('#viewCount').offset({
                             left: 20,
@@ -236,12 +234,6 @@
                         $('#viewCount').offset({
                             left: left,
                             top: 7,
-                        })
-                    }
-                    if (top >= 2230) {
-                        $('#viewCount').offset({
-                            left: left,
-                            top: 2230,
                         })
                     }
                 }, 100)

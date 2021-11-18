@@ -41,7 +41,6 @@
             cursor: help;
         }
 
-        /*隱藏X軸 瀏覽量隨便亂拖會拖出去*/
         body {
             overflow-x: hidden;
         }
@@ -215,6 +214,37 @@
         $(window).on('load', function () {
             setTimeout(function () {
                 $('#viewCount').easydrag();
+
+                setInterval(function () {
+                    let left = $('#viewCount').offset().left
+                    let top = $('#viewCount').offset().top
+                    console.log(left)
+                    console.log(top)
+                    if (left <= 20) {
+                        $('#viewCount').offset({
+                            left: 20,
+                            top: top,
+                        })
+                    }
+                    if (left >= 1263) {
+                        $('#viewCount').offset({
+                            left: 1263,
+                            top: top,
+                        })
+                    }
+                    if (top <= 7) {
+                        $('#viewCount').offset({
+                            left: left,
+                            top: 7,
+                        })
+                    }
+                    if (top >= 2230) {
+                        $('#viewCount').offset({
+                            left: left,
+                            top: 2230,
+                        })
+                    }
+                }, 100)
             }, 1500)
 
             $.get('data/musicList.json', function (musicList) {
@@ -291,18 +321,6 @@
             } else {
                 return random
             }
-        }
-
-        //驗證裝置是否為移動設備
-        function isMobileDevice() {
-            var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
-            var isMobileDevice = false
-            for (var i = 0; i < mobileDevices.length; i++) {
-                if (navigator.userAgent.match(mobileDevices[i])) {
-                    isMobileDevice = true
-                }
-            }
-            return isMobileDevice
         }
 
         //人生流程圖

@@ -41,6 +41,18 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
+//判斷是否為移動設備
+function isMobileDevice() {
+    var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
+    var isMobileDevice = false
+    for (var i = 0; i < mobileDevices.length; i++) {
+        if (navigator.userAgent.match(mobileDevices[i])) {
+            isMobileDevice = true
+        }
+    }
+    return isMobileDevice
+}
+
 // toastr工具範例 以後如果有用到的話...
 // toastr.options = {
 //     "closeButton": true,

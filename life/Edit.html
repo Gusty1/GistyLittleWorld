@@ -220,6 +220,9 @@
             });
 
             database.ref('/life').once('value', function (result) {
+                if (!checkUser()) {
+                    $('#authModal').modal('toggle')
+                }
                 lifeArray = result.val()
 
                 for (let i = 0; i < lifeArray.length; i = i + 1) {
@@ -259,14 +262,6 @@
                 }, 400);
             });
         });
-
-        //進入時沒登入就先登入
-        $(window).on('load', () => {
-            let user = firebase.auth().currentUser
-            if (user == null || user == '') {
-                $('#authModal').modal('toggle');
-            }
-        })
 
         //確定預覽
         $('#preview').click(function () {

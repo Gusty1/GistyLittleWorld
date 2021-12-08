@@ -53,6 +53,16 @@ function isMobileDevice() {
     return isMobileDevice
 }
 
+//檢查是否登入
+function checkUser() {
+    let user = firebase.auth().currentUser
+    if (user == null || user == '') {
+        return false
+    } else {
+        return true
+    }
+}
+
 // toastr工具範例 以後如果有用到的話...
 // toastr.options = {
 //     "closeButton": true,

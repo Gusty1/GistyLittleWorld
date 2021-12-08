@@ -268,6 +268,9 @@
             }
             $(".rating").rate(options);
             database.ref('/ACG').on('value', function (result) {
+                if (!checkUser()) {
+                    $('#authModal').modal('toggle')
+                }
                 ACGArray = result.val()
                 for (let i = 0; i < ACGArray.length; i = i + 1) {
                     if (urlOrder == ACGArray[i].order) {
@@ -284,14 +287,6 @@
                 }
             })
         });
-
-        //進入時沒登入就先登入
-        $(window).on('load', function () {
-            let user = firebase.auth().currentUser
-            if (user == null || user == '') {
-                $('#authModal').modal('toggle')
-            }
-        })
 
         //取得rate的值
         $(".rating").on("change", function (ev, data) {

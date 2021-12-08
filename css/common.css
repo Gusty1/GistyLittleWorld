@@ -32,11 +32,7 @@ body::-webkit-scrollbar-thumb:hover {
     background:	#FF9224;
 }
 
-/* 禁止時變換鼠標 */
-button:disabled {
-	cursor: not-allowed !important;
-}
-
-input:disabled {
+/* 全部東西禁止時變換鼠標 */
+*:disabled {
 	cursor: not-allowed !important;
 }

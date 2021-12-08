@@ -144,12 +144,9 @@
             <div class="modal-content">
                 <div class="modal-header bg-primary">
                     <h5 class="modal-title" id="staticBackdropLabel">Auth Modal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form>
+                    <div class="modal-body">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user-secret"></i></span>
@@ -162,11 +159,10 @@
                             </div>
                             <input type="password" class="form-control" placeholder="請輸入密碼">
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-                    <button type="submit" class="btn btn-primary">確定</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">確定</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -292,12 +288,10 @@
 
         //進入時沒登入就先登入
         $(window).on('load', function () {
-            setTimeout(() => {
-                let user = firebase.auth().currentUser
-                if (user == null || user == '') {
-                    $('#authModal').modal('toggle')
-                }
-            }, 3000)
+            let user = firebase.auth().currentUser
+            if (user == null || user == '') {
+                $('#authModal').modal('toggle')
+            }
         })
 
         //取得rate的值
@@ -442,6 +436,14 @@
             e.preventDefault()
             let email = $('#authModal').find('input').eq(0).val().trim()
             let password = $('#authModal').find('input').eq(1).val().trim()
+            if (email == '' || password == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: '請輸入電子郵件和密碼',
+                    showConfirmButton: false,
+                });
+                return false
+            }
             firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
                 let user = firebase.auth().currentUser;
                 if (user != null && user != '') {
@@ -451,7 +453,6 @@
                 Swal.fire({
                     icon: 'error',
                     title: '登入失敗',
-                    html: '可能帳號或密碼錯誤',
                     showConfirmButton: false,
                 });
             });

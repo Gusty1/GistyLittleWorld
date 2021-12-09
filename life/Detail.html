@@ -6,11 +6,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- icon 路徑 -->
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-    <!-- jquery ui css -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
 </head>
 
 <body class="h-100">
@@ -59,41 +58,40 @@
         </svg>
     </div>
 
+    <div style="position:fixed;left:2%;top:50vh;">
+        <button class="btn btn-default btn-block" disabled id="leftBtn" style="color:#8600FF;">
+            <i class="fas fa-chevron-left h1 font-weight-bold"></i>
+        </button>
+    </div>
+    <div style="position:fixed;right:2%;top:50vh;">
+        <button class="btn btn-default" disabled id="rightBtn" style="color:#8600FF;">
+            <i class="fas fa-chevron-right h1 font-weight-bold"></i>
+        </button>
+    </div>
+
     <div w3-include-html="../footer.html"></div>
 
-    <!-- JQuery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <!-- Bootstrap4 js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
     </script>
-    <!-- w3school js -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <!-- Sweetalert2 js -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- sha512 js -->
     <script src="../js/sha512.min.js"></script>
-    <!-- jquery ui js -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- cursor js -->
     <script src="../js/fairyDustCursor.js"></script>
-    <!-- bubbly js -->
     <script src="../js/bubbly-bg.js"></script>
-    <!-- socila share js -->
     <script src="../js/social-share-kit.js"></script>
-    <!-- blockUI js -->
     <script src="../js/jquery.blockUI.js"></script>
-    <!-- firebase realtimedatabase -->
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
         integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- disqus js -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <script id="dsq-count-scr" src="//gustylittleworld.disqus.com/count.js" async></script>
-    <!-- lazyload js -->
     <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
-    <!-- common js -->
     <script src="../js/common.js"></script>
 
     <script>
@@ -125,6 +123,8 @@
                     backgroundColor: 'transparent'
                 },
             });
+            let nextTitle = ''
+            let prevTitle = ''
             database.ref('/life').once('value', function (result) {
                 lifeArray = result.val()
                 for (let i = 0; i < lifeArray.length; i = i + 1) {
@@ -137,8 +137,33 @@
                         $('#coverImg').data('src', lifeArray[i].coverImg);
                         $('#content').html(lifeArray[i].content);
                         new LazyLoad();
-                        break;
                     }
+                    if (parseInt(urlOrder) + parseInt(1) == lifeArray[i].order) {
+                        $('#leftBtn').data('order', lifeArray[i].order).
+                        attr('data-order', lifeArray[i].order).
+                        addClass('hvr-backward')
+                        nextTitle = lifeArray[i].title
+                    }
+                    if (parseInt(urlOrder) - 1 == lifeArray[i].order) {
+                        $('#rightBtn').data('order', lifeArray[i].order).
+                        attr('data-order', lifeArray[i].order).
+                        addClass('hvr-forward')
+                        prevTitle = lifeArray[i].title
+                    }
+                }
+                if (nextTitle != '') {
+                    $('#leftBtn').attr('disabled', false)
+                    tippy('#leftBtn', {
+                        animation: 'scale',
+                        content: '下一篇: 『' + nextTitle + '』',
+                    });
+                }
+                if (prevTitle != '') {
+                    $('#rightBtn').attr('disabled', false)
+                    tippy('#rightBtn', {
+                        animation: 'scale',
+                        content: '上一篇: 『' + prevTitle + '』',
+                    });
                 }
                 $("img").on("error", function (e) {
                     $(this).attr("src", "../images/error.gif");
@@ -146,6 +171,14 @@
                 $.unblockUI();
             });
         });
+
+        //上下一篇切換
+        $('#leftBtn').click(function () {
+            location.href = 'Detail.html?order=' + $(this).data('order')
+        })
+        $('#rightBtn').click(function () {
+            location.href = 'Detail.html?order=' + $(this).data('order')
+        })
 
         //雙擊標題出現封印之地
         $('#edit').dblclick(function () {

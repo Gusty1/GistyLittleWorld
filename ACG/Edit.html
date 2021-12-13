@@ -102,35 +102,38 @@
                     <textarea id="content" class="form-control" name="content"></textarea>
                 </div>
             </div>
-
-            <button type="button" class="btn btn-primary float-right" id="preview">預覽</button>
-            <br>
+            <div class="col-12 text-right">
+                <button type="button" class="btn btn-primary" id="preview">預覽</button>
+            </div>
         </div>
 
-        <div id="previewBlock" style="background-color: #FFFFFF;">
-            <div class="media">
-                <img class="align-self-center m-3 img-fluid rounded" src="../images/ACG/404.jpg"
-                    style="height: 460px;width: 350px;" alt="Generic placeholder image">
-                <div class="media-body ml-3">
-                    <div class="row justify-content-center text-primary font-weight-bold display-2"></div>
-                    <div class="row justify-content-center h1 mt-2 text-danger"></div>
-                    <div class="row justify-content-center h1 mt-2 text-success"></div>
-                    <div class="row justify-content-center h1 mt-2 text-warning"></div>
-                    <div class="col-sm-12 h1 mt-2 text-center">
-                        <span></span><br>
-                        <p class="float-right text-muted h3 mr-3"></p>
+        <div class="container-fluid" id="previewBlock">
+            <div class="card my-3 w-100" style="background-color:transparent;border:none;">
+                <div class="row no-gutters">
+                    <div class="col-4">
+                        <img class="img-fluid rounded lazy" src="../images/loading.gif">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body text-center">
+                            <div class="col-12 text-primary font-weight-bold display-2" id="edit"></div>
+                            <div class="col-12 h1 mt-2 text-danger"></div>
+                            <div class="col-12 h1 mt-2 text-success"></div>
+                            <div class="col-12 h1 mt-2 text-warning"></div>
+                            <div class="col-12 mt-2 h1 text-center">
+                                <span></span><br>
+                                <p class="float-right text-muted h3 mr-3"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <br>
             <div class="col-sm-12 mx-3 container-xl" id="previewContent">
                 我是內容
             </div>
-            <div class="row justify-content-end mr-3">
+            <div class="col-12 mb-3 text-right">
                 <button type="button" class="btn btn-danger mr-3" id="back">返回</button>
                 <button type="button" class="btn btn-primary mr-3" id="define">確認</button>
             </div>
-            <br>
         </div>
     </div>
 
@@ -343,8 +346,8 @@
                 ACGObject.say_author = say_author;
                 ACGObject.content = content;
 
-                $('.media').find('img').attr('src', ACGObject.coverImg);
-                $('.media-body').find('div').each(function (index, value) {
+                $('.card').find('img').eq(0).attr('src', ACGObject.coverImg);
+                $('.card-body').find('div').each(function (index, value) {
                     if (index == 0) {
                         $(this).html(ACGObject.title);
                     }
@@ -388,8 +391,8 @@
                         $(this).html(rateHtml);
                     }
                 });
-                $('.media-body').find('span').html(ACGObject.say);
-                $('.media-body').find('p').html('-' + ACGObject.say_author);
+                $('.card-body').find('span').eq(0).html(ACGObject.say);
+                $('.card-body').find('p').eq(0).html('-' + ACGObject.say_author);
                 $('#previewContent').html(ACGObject.content);
                 $('html').animate({
                     scrollTop: 0,

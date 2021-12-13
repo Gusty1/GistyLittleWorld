@@ -74,27 +74,25 @@
                     <textarea id="content" class="form-control" name="content"></textarea>
                 </div>
             </div>
-
-            <button type="button" class="btn btn-primary float-right" id="preview">預覽</button>
-            <br>
+            <div class="col-12 text-right mb-3">
+                <button type="button" class="btn btn-primary" id="preview">預覽</button>
+            </div>
         </div>
 
-        <div id="previewBlock" style="background-color: #FFFFFF;">
-            <div class='row justify-content-center text-primary display-2 font-weight-bold' id='previewTitle'>
+        <div class="container-fluid" id="previewBlock">
+            <div class='col-12 text-primary display-2 text-center font-weight-bold' id='previewTitle'>
             </div>
-            <div class='row justify-content-center h2 mt-1 text-danger' id="previewTime">
+            <div class='col-12 h2 mt-1 text-danger text-center' id="previewTime">
             </div>
-            <div class='row justify-content-center h2 mt-1 text-success' id="previewLabel">
+            <div class='col-12 h2 mt-1 text-success text-center' id="previewLabel">
             </div>
-            <div class='row justify-content-center h2 mt-3'>
+            <div class='col-12 h2 mt-3 text-center'>
                 <img src="" id="previewImg2" style="width: 550px;height: 400px;"
                     onError="this.onerror=null;this.src='../images/life/404.jpg'" class="rounded img-fluid">
             </div>
-            <div class='row justify-content-center mt-3'>
-                <div class="col-sm-8 mt-3" id="previewContent">
-                </div>
+            <div class='col-12 mt-3' id="previewContent">
             </div>
-            <div class="row justify-content-end my-3 mr-3">
+            <div class="col-12 my-3 text-right">
                 <button type="button" class="btn btn-info mr-3" id="back">返回</button>
                 <button type="button" class="btn btn-primary mr-3" id="define">確定</button>
             </div>
@@ -206,7 +204,7 @@
 
             database.ref('/life').once('value', function (result) {
                 if (!checkUser()) {
-                    $('#authModal').modal('toggle')
+                    // $('#authModal').modal('toggle')
                 }
                 lifeArray = result.val()
 

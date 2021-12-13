@@ -90,28 +90,29 @@
         <div class="row justify-content-center mt-3 animate__animated animate__flipInX animate__delay-1s"
             id="cardBlock">
             <!-- <div class="card mr-3" style="width: 21rem;">
-        <img class="card-img-top rounded img-fluid" style="height:50vh;" src="../images/test.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h1 class="h1 text-center text-success">我是標題</h1>
-          <p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp2021-04-05</p>
-          <p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp&nbsp★★★★★</p>
-          <p class="h4">
-            我是名言
-            <p class="h5 text-muted float-right">-XXX</p>
-          </p>
-        </div>
-      </div> -->
+                <img class="card-img-top rounded img-fluid" style="height:50vh;" src="../images/test.jpg"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h1 class="h1 text-center text-success">我是標題</h1>
+                    <p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp2021-04-05</p>
+                    <p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp&nbsp★★★★★</p>
+                    <p class="h4">
+                        我是名言
+                        <p class="h5 text-muted float-right">-XXX</p>
+                    </p>
+                </div>
+            </div> -->
         </div>
 
         <div class="row justify-content-center mt-3 h4" id='pageBlock'>
             <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button type="button" class="btn btn-secondary">1</button>
-          <button type="button" class="btn btn-secondary">2</button>
-          <button type="button" class="btn btn-secondary">3</button>
-          <button type="button" class="btn btn-secondary">4</button>
-        </div>
-      </div> -->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-secondary">1</button>
+                    <button type="button" class="btn btn-secondary">2</button>
+                    <button type="button" class="btn btn-secondary">3</button>
+                    <button type="button" class="btn btn-secondary">4</button>
+                </div>
+            </div> -->
         </div>
 
     </div>
@@ -491,7 +492,8 @@
                 isPage = false;
             }
             for (let i = 0; i < newACGArray.length; i++) {
-                cardHtml += '<div class="card m-3 hvr-grow" style="width: 20rem;">'
+                cardHtml += '<div class="col-4">'
+                cardHtml += '<div class="card my-2 mx-1 hvr-grow">'
                 cardHtml +=
                     '<img class="card-img-top img-fluid lazy" style="height:350px;" src="../images/loading.gif" data-src="' +
                     newACGArray[i].coverImg + '" alt="not found img">'
@@ -531,7 +533,7 @@
                 } else {
                     cardHtml += '<p class="h4">' + newACGArray[i].type + '、' + newACGArray[i].collect + '集</p>'
                 }
-                cardHtml += '</div></div></div>'
+                cardHtml += '</div></div></div></div>'
             }
             if (cardHtml == '') {
                 $('#cardBlock').html(

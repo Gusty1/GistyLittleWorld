@@ -38,7 +38,7 @@
     </style>
 </head>
 
-<body class="h-100">
+<body>
     <div w3-include-html="life_header.html"></div>
     <br><br><br>
 
@@ -49,21 +49,24 @@
             生活日誌
         </div><br>
 
-        <div class="row justify-content-between">
+        <div class="row">
             <div class="col-sm-4">
-                <div class="form-group row h5 justify-content-center">
-                    <label for="subjectSearch" class="col-form-label float-right"><i
-                            class="fas fa-search"></i>&nbsp標題搜尋</label>
-                    <div class="col-sm-7">
+                <div class="form-group row h5">
+                    <label for="subjectSearch" class="col-form-label col-5 text-center">
+                        <i class="fas fa-search"></i>&nbsp標題搜尋
+                    </label>
+                    <div class="col-7">
                         <input type="text" class="form-control mt-1" id="subjectSearch" placeholder="請輸入關鍵字">
                     </div>
                 </div>
             </div>
             <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult"></div>
             <div class="col-sm-4">
-                <div class="form-group row h5 justify-content-end">
-                    <label class="col-form-label text-center"><i class="fas fa-sort"></i>&nbsp排序方式</label>
-                    <div class="col-sm-7 mt-1">
+                <div class="form-group row h5">
+                    <label class="col-form-label col-5 text-center">
+                        <i class="fas fa-sort"></i>&nbsp排序方式
+                    </label>
+                    <div class="col-7">
                         <select class="form-control">
                             <option value="newToOld">時間&nbsp新-->舊</option>
                             <option value="oldToNew">時間&nbsp舊-->新</option>
@@ -78,20 +81,20 @@
                 <div class="col-md-12" id="cardGroup">
                 </div>
                 <!-- <div class="card mb-3 cardBlock">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img src="../images/test.png" class="card-img" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h1 class="card-title h2">標題</h1>
-                <p class="card-text h4">時間</p>
-                <p class="card-text h4 text-primary">標籤</p>
-                <p class="card-text h4">摘要</p>
-              </div>
-            </div>
-          </div>
-        </div> -->
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="../images/test.png" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h1 class="card-title h2">標題</h1>
+                                <p class="card-text h4">時間</p>
+                                <p class="card-text h4 text-primary">標籤</p>
+                                <p class="card-text h4">摘要</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
                 <div class="row justify-content-center h4" id="page">
                 </div>
             </div>
@@ -101,7 +104,7 @@
                 <div class="col-sm-12 h5 my-2">目前標籤:</div>
                 <div class="row m-1" id="labelGroup">
                     <!-- <span class="badge badge-pill border border-dark my-1" style="font-size: 12pt;">ALL&nbsp<span
-              class="badge badge-light"></span></span> -->
+                            class="badge badge-light"></span></span> -->
                 </div>
             </div>
         </div>
@@ -447,9 +450,7 @@
                 cardHtml += '<h1 class="card-title h2 text-success">' + newlifeArray[i].title + '</h1>'
                 cardHtml += '<input type="hidden" value="' + newlifeArray[i].order + '">'
                 cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp' +
-                    newlifeArray[i]
-                    .time +
-                    '</p>'
+                    newlifeArray[i].time + '</p>'
                 cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp' + newlifeArray[i]
                     .label + '</p>'
                 cardHtml += '<p class="card-text h4">' + newlifeArray[i].summary + '</p>'

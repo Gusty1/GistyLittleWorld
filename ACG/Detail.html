@@ -11,27 +11,28 @@
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
 </head>
 
-<body class="h-100">
+<body>
     <div w3-include-html="ACG_header.html"></div>
     <br><br><br>
 
     <div class="container-xl animate__animated animate__rollIn animate__delay-1s">
         <div class="card my-3 w-100" style="background-color:transparent;border:none;">
             <div class="row no-gutters">
-                <div class="col-4">
-                    <!-- <img src="..." alt="..."> -->
-                    <img class="img-fluid rounded lazy" src="../images/loading.gif">
+                <div class="col-sm-4 col-xs-12">
+                    <img class="img-fluid rounded lazy w-100 h-100" src="../images/loading.gif">
                 </div>
-                <div class="col-8">
-                    <div class="card-body text-center">
-                        <div class="col-12 text-primary font-weight-bold display-2" id="edit"></div>
-                        <div class="col-12 h1 mt-2 text-danger"></div>
-                        <div class="col-12 h1 mt-2 text-success"></div>
-                        <div class="col-12 h1 mt-2 text-warning"></div>
-                        <div class="col-12 mt-2 h1 text-center">
-                            <span></span><br>
-                            <p class="float-right text-muted h3 mr-3"></p>
-                        </div>
+                <div class="col-sm-8 col-xs-12">
+                    <div class="card-body">
+                        <div class="col-12 text-primary font-weight-bold display-3" id="edit"></div>
+                        <div class="col-12 h2 mt-2 text-success"></div>
+                        <div class="col-12 h2 mt-2 text-danger"></div>
+                        <div class="col-12 h2 mt-2 text-warning"></div>
+                        <div class="col-12 h2"></div>
+                        <blockquote class="blockquote col-12">
+                            <footer class="blockquote-footer text-muted text-right" style="font-size:1.5rem;">
+                            </footer>
+                        </blockquote>
+                        <br>
                     </div>
                 </div>
             </div>
@@ -136,7 +137,8 @@
                 for (let i = 0; i < ACGArray.length; i = i + 1) {
                     if (urlOrder == ACGArray[i].order) {
                         document.title = ACGArray[i].title;
-                        $('.card').find('img').eq(0).data('data-src', ACGArray[i].coverImg);
+                        $('.card').find('img').eq(0).data('src', ACGArray[i].coverImg).
+                        attr('data-src', ACGArray[i].coverImg)
                         $('.card-body').find('div').each(function (index, value) {
                             if (index == 0) {
                                 $(this).html(ACGArray[i].title)
@@ -182,9 +184,11 @@
                                 }
                                 $(this).html(rateHtml);
                             }
+                            if (index == 4) {
+                                $(this).html(ACGArray[i].say);
+                            }
                         });
-                        $('.card-body').find('span').eq(0).html(ACGArray[i].say);
-                        $('.card-body').find('p').eq(0).html('-' + ACGArray[i].say_author);
+                        $('.card-body').find('footer').eq(0).html(ACGArray[i].say_author);
                         $('#content').html(ACGArray[i].content);
                     }
                     if (parseInt(urlOrder) + parseInt(1) == ACGArray[i].order) {

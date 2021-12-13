@@ -25,7 +25,7 @@
     </style>
 </head>
 
-<body class="h-100">
+<body>
     <div w3-include-html="ACG_header.html"></div>
     <br><br><br>
 
@@ -43,7 +43,7 @@
                 </span>
                 <span>心得</span>
             </h1>
-        </div><br>
+        </div>
 
         <div class="row justify-content-between">
             <div class="col-sm-4">
@@ -87,7 +87,7 @@
             </ul>
         </div>
 
-        <div class="row justify-content-center mt-3 animate__animated animate__flipInX animate__delay-1s"
+        <div class="card-deck mt-3 animate__animated animate__flipInX animate__delay-1s"
             id="cardBlock">
             <!-- <div class="card mr-3" style="width: 21rem;">
                 <img class="card-img-top rounded img-fluid" style="height:50vh;" src="../images/test.jpg"
@@ -492,8 +492,7 @@
                 isPage = false;
             }
             for (let i = 0; i < newACGArray.length; i++) {
-                cardHtml += '<div class="col-4">'
-                cardHtml += '<div class="card my-2 mx-1 hvr-grow">'
+                cardHtml += '<div class="card m-3 hvr-grow" style="min-width: 20rem;max-width: 20rem;">'
                 cardHtml +=
                     '<img class="card-img-top img-fluid lazy" style="height:350px;" src="../images/loading.gif" data-src="' +
                     newACGArray[i].coverImg + '" alt="not found img">'
@@ -533,7 +532,7 @@
                 } else {
                     cardHtml += '<p class="h4">' + newACGArray[i].type + '、' + newACGArray[i].collect + '集</p>'
                 }
-                cardHtml += '</div></div></div></div>'
+                cardHtml += '</div></div></div>'
             }
             if (cardHtml == '') {
                 $('#cardBlock').html(

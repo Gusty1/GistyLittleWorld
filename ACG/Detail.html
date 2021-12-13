@@ -16,21 +16,6 @@
     <br><br><br>
 
     <div class="container-xl animate__animated animate__rollIn animate__delay-1s">
-        <!-- <div class="media">
-            <img class="img-fluid rounded lazy" src="../images/loading.gif">
-            <div class="media-body ml-3">
-                <div class="row justify-content-center text-primary font-weight-bold display-2" id="edit"></div>
-                <div class="row justify-content-center h1 mt-2 text-danger"></div>
-                <div class="row justify-content-center h1 mt-2 text-success"></div>
-                <div class="row justify-content-center h1 mt-2 text-warning"></div>
-                <div class="col-sm-12 mt-2 h1 text-center">
-                    <span></span><br>
-                    <p class="float-right text-muted h3 mr-3"></p>
-                </div>
-            </div>
-        </div>
-        <br> -->
-
         <div class="card my-3 w-100" style="background-color:transparent;border:none;">
             <div class="row no-gutters">
                 <div class="col-4">
@@ -151,8 +136,7 @@
                 for (let i = 0; i < ACGArray.length; i = i + 1) {
                     if (urlOrder == ACGArray[i].order) {
                         document.title = ACGArray[i].title;
-                        $('.card').find('img').attr('data-src', ACGArray[i].coverImg);
-                        $('.card').find('img').data('data-src', ACGArray[i].coverImg);
+                        $('.card').find('img').eq(0).data('data-src', ACGArray[i].coverImg);
                         $('.card-body').find('div').each(function (index, value) {
                             if (index == 0) {
                                 $(this).html(ACGArray[i].title)

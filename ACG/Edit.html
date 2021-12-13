@@ -111,18 +111,19 @@
             <div class="card my-3 w-100" style="background-color:transparent;border:none;">
                 <div class="row no-gutters">
                     <div class="col-4">
-                        <img class="img-fluid rounded lazy" src="../images/loading.gif">
+                        <img class="img-fluid rounded lazy" src="../images/loading.gif" style="height:450px;">
                     </div>
                     <div class="col-8">
-                        <div class="card-body text-center">
-                            <div class="col-12 text-primary font-weight-bold display-2" id="edit"></div>
-                            <div class="col-12 h1 mt-2 text-danger"></div>
-                            <div class="col-12 h1 mt-2 text-success"></div>
-                            <div class="col-12 h1 mt-2 text-warning"></div>
-                            <div class="col-12 mt-2 h1 text-center">
-                                <span></span><br>
-                                <p class="float-right text-muted h3 mr-3"></p>
-                            </div>
+                        <div class="card-body">
+                            <div class="col-12 text-primary font-weight-bold display-3" id="edit"></div>
+                            <div class="col-12 h2 mt-2 text-success"></div>
+                            <div class="col-12 h2 mt-2 text-danger"></div>
+                            <div class="col-12 h2 mt-2 text-warning"></div>
+                            <div class="col-12 h2"></div>
+                            <blockquote class="blockquote col-12">
+                                <footer class="blockquote-footer text-muted text-right" style="font-size:1.5rem;">
+                                </footer>
+                            </blockquote>
                         </div>
                     </div>
                 </div>
@@ -390,9 +391,11 @@
                         }
                         $(this).html(rateHtml);
                     }
+                    if (index == 4) {
+                        $(this).html(ACGObject.say);
+                    }
                 });
-                $('.card-body').find('span').eq(0).html(ACGObject.say);
-                $('.card-body').find('p').eq(0).html('-' + ACGObject.say_author);
+                $('.card-body').find('footer').eq(0).html(ACGObject.say_author);
                 $('#previewContent').html(ACGObject.content);
                 $('html').animate({
                     scrollTop: 0,

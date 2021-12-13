@@ -16,9 +16,8 @@
     <br><br><br>
 
     <div class="container-xl animate__animated animate__rollIn animate__delay-1s">
-        <div class="media">
-            <img class="align-self-center m-3 img-fluid rounded lazy" src="../images/loading.gif"
-                style="height: 460px;width: 350px;" alt="Generic placeholder image">
+        <!-- <div class="media">
+            <img class="img-fluid rounded lazy" src="../images/loading.gif">
             <div class="media-body ml-3">
                 <div class="row justify-content-center text-primary font-weight-bold display-2" id="edit"></div>
                 <div class="row justify-content-center h1 mt-2 text-danger"></div>
@@ -30,9 +29,31 @@
                 </div>
             </div>
         </div>
-        <br>
-        <div class="col-sm-12 mx-3" id="content">
-        </div><br>
+        <br> -->
+
+        <div class="card my-3 w-100" style="background-color:transparent;border:none;">
+            <div class="row no-gutters">
+                <div class="col-4">
+                    <!-- <img src="..." alt="..."> -->
+                    <img class="img-fluid rounded lazy" src="../images/loading.gif">
+                </div>
+                <div class="col-8">
+                    <div class="card-body text-center">
+                        <div class="col-12 text-primary font-weight-bold display-2" id="edit"></div>
+                        <div class="col-12 h1 mt-2 text-danger"></div>
+                        <div class="col-12 h1 mt-2 text-success"></div>
+                        <div class="col-12 h1 mt-2 text-warning"></div>
+                        <div class="col-12 mt-2 h1 text-center">
+                            <span></span><br>
+                            <p class="float-right text-muted h3 mr-3"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mt-3" id="content">
+        </div>
 
         <div class="row justify-content-center h1 text-center" style="color:#AE57A4">
             <u>留言</u>
@@ -59,12 +80,12 @@
     </div>
 
     <div style="position:fixed;left:2%;top:50vh;">
-        <button class="btn btn-default btn-block" disabled id="leftBtn" style="color:#8600FF;">
+        <button class="btn btn-default btn-block" disabled id="leftBtn" style="color:#4F9D9D;">
             <i class="fas fa-chevron-left h1 font-weight-bold"></i>
         </button>
     </div>
     <div style="position:fixed;right:2%;top:50vh;">
-        <button class="btn btn-default" disabled id="rightBtn" style="color:#8600FF;">
+        <button class="btn btn-default" disabled id="rightBtn" style="color:#4F9D9D;">
             <i class="fas fa-chevron-right h1 font-weight-bold"></i>
         </button>
     </div>
@@ -130,9 +151,9 @@
                 for (let i = 0; i < ACGArray.length; i = i + 1) {
                     if (urlOrder == ACGArray[i].order) {
                         document.title = ACGArray[i].title;
-                        $('.media').find('img').attr('data-src', ACGArray[i].coverImg);
-                        $('.media').find('img').data('data-src', ACGArray[i].coverImg);
-                        $('.media-body').find('div').each(function (index, value) {
+                        $('.card').find('img').attr('data-src', ACGArray[i].coverImg);
+                        $('.card').find('img').data('data-src', ACGArray[i].coverImg);
+                        $('.card-body').find('div').each(function (index, value) {
                             if (index == 0) {
                                 $(this).html(ACGArray[i].title)
                             }
@@ -178,8 +199,8 @@
                                 $(this).html(rateHtml);
                             }
                         });
-                        $('.media-body').find('span').eq(0).html(ACGArray[i].say);
-                        $('.media-body').find('p').eq(0).html('-' + ACGArray[i].say_author);
+                        $('.card-body').find('span').eq(0).html(ACGArray[i].say);
+                        $('.card-body').find('p').eq(0).html('-' + ACGArray[i].say_author);
                         $('#content').html(ACGArray[i].content);
                     }
                     if (parseInt(urlOrder) + parseInt(1) == ACGArray[i].order) {

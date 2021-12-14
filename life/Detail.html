@@ -172,7 +172,7 @@
                 $('body').find('iframe').each(function () {
                     if (typeof $(this).attr("src") != 'undefined' &&
                         $(this).attr("src").indexOf("youtube") != -1) {
-                        $(this).wrap('<div class="video-container w-75"></div>')
+                        $(this).wrap('<div class="video-container"></div>')
                     }
                 })
                 $.unblockUI();

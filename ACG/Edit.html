@@ -300,6 +300,7 @@
             coverImg = $('#previewImg').attr('src');
             say = $('#say').val().trim();
             say_author = $('#say_author').val().trim();
+            content = CKEDITOR.instances.content.getData()
             if (title == '') {
                 check = 1;
                 errorMsg = '請寫好標題'

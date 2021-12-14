@@ -220,6 +220,12 @@
                 $("img").on("error", function (e) {
                     $(this).attr("src", "../images/error.gif");
                 });
+                $('body').find('iframe').each(function () {
+                    if (typeof $(this).attr("src") != 'undefined' &&
+                        $(this).attr("src").indexOf("youtube") != -1) {
+                        $(this).wrap('<div class="video-container w-75"></div>')
+                    }
+                })
                 $.unblockUI();
                 new LazyLoad();
             });

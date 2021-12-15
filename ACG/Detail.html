@@ -83,6 +83,8 @@
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
     </script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../js/sha512.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -93,8 +95,6 @@
         integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../js/jquery.blockUI.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
     <script id="dsq-count-scr" src="//gustylittleworld.disqus.com/count.js" async></script>
     <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
     <script src="../js/social-share-kit.js"></script>
@@ -203,20 +203,7 @@
                         prevTitle = ACGArray[i].title
                     }
                 }
-                if (nextTitle != '') {
-                    $('#leftBtn').attr('disabled', false)
-                    tippy('#leftBtn', {
-                        animation: 'scale',
-                        content: '下一篇: 『' + nextTitle + '』',
-                    });
-                }
-                if (prevTitle != '') {
-                    $('#rightBtn').attr('disabled', false)
-                    tippy('#rightBtn', {
-                        animation: 'scale',
-                        content: '上一篇: 『' + prevTitle + '』',
-                    });
-                }
+                buildTip(nextTitle, prevTitle)
                 $("img").on("error", function (e) {
                     $(this).attr("src", "../images/error.gif");
                 });
@@ -265,6 +252,24 @@
                 $("#dialog").dialog('close');
             }
         });
+
+        //建造提示文字
+        function buildTip(nextTitle, prevTitle) {
+            if (nextTitle != '') {
+                $('#leftBtn').attr('disabled', false)
+                tippy('#leftBtn', {
+                    animation: 'scale',
+                    content: '下一篇: 『' + nextTitle + '』',
+                });
+            }
+            if (prevTitle != '') {
+                $('#rightBtn').attr('disabled', false)
+                tippy('#rightBtn', {
+                    animation: 'scale',
+                    content: '上一篇: 『' + prevTitle + '』',
+                });
+            }
+        }
     </script>
 
 </body>

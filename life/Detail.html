@@ -152,20 +152,7 @@
                         prevTitle = lifeArray[i].title
                     }
                 }
-                if (nextTitle != '') {
-                    $('#leftBtn').attr('disabled', false)
-                    tippy('#leftBtn', {
-                        animation: 'scale',
-                        content: '下一篇: 『' + nextTitle + '』',
-                    });
-                }
-                if (prevTitle != '') {
-                    $('#rightBtn').attr('disabled', false)
-                    tippy('#rightBtn', {
-                        animation: 'scale',
-                        content: '上一篇: 『' + prevTitle + '』',
-                    });
-                }
+                buildTip(nextTitle, prevTitle)
                 $("img").on("error", function (e) {
                     $(this).attr("src", "../images/error.gif");
                 });
@@ -213,6 +200,24 @@
                 $("#dialog").dialog('close');
             }
         });
+
+        //建造提示文字
+        function buildTip(nextTitle, prevTitle) {
+            if (nextTitle != '') {
+                $('#leftBtn').attr('disabled', false)
+                tippy('#leftBtn', {
+                    animation: 'scale',
+                    content: '下一篇: 『' + nextTitle + '』',
+                });
+            }
+            if (prevTitle != '') {
+                $('#rightBtn').attr('disabled', false)
+                tippy('#rightBtn', {
+                    animation: 'scale',
+                    content: '上一篇: 『' + prevTitle + '』',
+                });
+            }
+        }
     </script>
 
 </body>

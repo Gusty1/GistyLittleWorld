@@ -92,6 +92,7 @@
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script id="dsq-count-scr" src="//gustylittleworld.disqus.com/count.js" async></script>
     <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
+    <script src="../js/jquery.elevatezoom.js"></script>
     <script src="../js/common.js"></script>
 
     <script>
@@ -165,6 +166,21 @@
                 $.unblockUI();
             });
         });
+
+        //內容圖片放大
+        $(window).bind("load", function () {
+            // data-zoom-image
+            $('#content').find('img').each(function () {
+                $(this).data('zoom-image', $(this).attr('src'))
+                    .attr('data-zoom-image', $(this).attr('src'))
+            })
+            if ($('#content').find('img').length > 0) {
+                $("#content img").elevateZoom({
+                    zoomType: "inner",
+                    cursor: "crosshair"
+                });
+            }
+        })
 
         //上下一篇切換
         $('#leftBtn').click(function () {

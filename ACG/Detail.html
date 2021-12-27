@@ -9,6 +9,8 @@
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/igorlino/fancybox-plus/1.3.7/css/jquery.fancybox-plus.css"
+        type="text/css" media="screen" />
 </head>
 
 <body>
@@ -98,6 +100,8 @@
     <script id="dsq-count-scr" src="//gustylittleworld.disqus.com/count.js" async></script>
     <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
     <script src="../js/social-share-kit.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.rawgit.com/igorlino/fancybox-plus/1.3.7/src/jquery.fancybox-plus.js"></script>
     <script src="../js/common.js"></script>
 
     <script>
@@ -213,6 +217,13 @@
                         $(this).wrap('<div class="video-container"></div>')
                     }
                 })
+                $('#content').find('img').each(function () {
+                    $(this).wrap('<a class="contentImg" href="' + $(this).attr('src') +
+                        '"></a>')
+                })
+                $("a.contentImg").fancyboxPlus();
+                $("a#inline").fancyboxPlus();
+                $("a.group").fancyboxPlus();
                 $.unblockUI();
                 new LazyLoad();
             });

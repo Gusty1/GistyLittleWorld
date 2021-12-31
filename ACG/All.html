@@ -190,12 +190,9 @@
                 // console.log(result.val())
                 ACGArray = result.val()
                 ACGArray.sort(function (a, b) {
-                    if (new Date(a.time) > new Date(b.time)) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
+                    return new Date(a.time) > new Date(b.time) ? -1 : 1
                 });
+                console.log(ACGArray)
                 initCard(ACGArray)
                 typeArrayCount[0] = ACGArray.length;
                 for (let i = 0; i < ACGArray.length; i++) {
@@ -302,11 +299,7 @@
             if ($(this).html().substring($(this).html().indexOf(';') + 1,
                     $(this).html().lastIndexOf('&')) == 'ALL') {
                 ACGArray.sort(function (a, b) {
-                    if (new Date(a.time) > new Date(b.time)) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
+                    return new Date(a.time) > new Date(b.time) ? -1 : 1
                 });
                 initCard(ACGArray);
             } else {
@@ -318,11 +311,7 @@
                 }
                 if (changeACGArray.length > 0) {
                     changeACGArray.sort(function (a, b) {
-                        if (new Date(a.time) > new Date(b.time)) {
-                            return -1;
-                        } else {
-                            return 1;
-                        }
+                        return new Date(a.time) > new Date(b.time) ? -1 : 1
                     });
                     initCard(changeACGArray);
                 } else {
@@ -409,21 +398,15 @@
             if (type == 'ALL') {
                 changeACGArray = ACGArray;
                 if ($(this).val().trim() == 'newToOld') {
+                    console.log('qq')
                     changeACGArray.sort(function (a, b) {
-                        if (new Date(a.time) > new Date(b.time)) {
-                            return -1;
-                        } else {
-                            return 1;
-                        }
+                        return new Date(a.time) > new Date(b.time) ? -1 : 1
                     });
                     initCard(changeACGArray)
                 } else if ($(this).val().trim() == 'oldToNew') {
+                    console.log('aa')
                     changeACGArray.sort(function (a, b) {
-                        if (new Date(a.time) > new Date(b.time)) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
+                        return new Date(a.time) > new Date(b.time) ? 1 : -1
                     });
                     initCard(changeACGArray)
                 } else if ($(this).val().trim() == 'highToLow') {
@@ -446,20 +429,12 @@
                 }
                 if ($(this).val().trim() == 'newToOld') {
                     changeACGArray.sort(function (a, b) {
-                        if (new Date(a.time) > new Date(b.time)) {
-                            return -1;
-                        } else {
-                            return 1;
-                        }
+                        return new Date(a.time) > new Date(b.time) ? -1 : 1
                     });
                     initCard(changeACGArray)
                 } else if ($(this).val().trim() == 'oldToNew') {
                     changeACGArray.sort(function (a, b) {
-                        if (new Date(a.time) > new Date(b.time)) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
+                        return new Date(a.time) > new Date(b.time) ? 1 : -1
                     });
                     initCard(changeACGArray)
                 } else if ($(this).val().trim() == 'highToLow') {

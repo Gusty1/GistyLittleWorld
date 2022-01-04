@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <title>拼圖遊戲</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <style>
+        .circular-slider {
+            width: 580px;
+            height: 440px;
+            margin: auto;
+            perspective: 4000px;
+        }
+
+        .slider-content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 10s infinite;
+        }
+
+        .slider-item {
+            width: 540px;
+            height: 380px;
+            position: absolute;
+            cursor: pointer;
+            background: rgba(255, 255, 255, .5);
+            -webkit-box-reflect: below 15px -webkit-gradient(linear, left top, left bottom, from(transparent),
+                    color-stop(0.5, transparent), to(rgba(255, 255, 255, .5)));
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-item:nth-child(1) {
+            transform: rotateY(0deg) translateZ(216px);
+        }
+
+        .slider-item:nth-child(2) {
+            transform: rotateY(120deg) translateZ(216px);
+        }
+
+        .slider-item:nth-child(3) {
+            transform: rotateY(240deg) translateZ(216px);
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: translateZ(-216px) rotateY(0deg);
+            }
+
+            33.33% {
+                transform: translateZ(-216px) rotateY(-120deg);
+            }
+
+            66.67% {
+                transform: translateZ(-216px) rotateY(-240deg);
+            }
+
+            100% {
+                transform: translateZ(-216px) rotateY(-360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div w3-include-html="other_header.html"></div>
+    <br><br><br>
+    <div class="container-fluid">
+        <div class="col-12 text-center mt-3" style="color:#2894FF;">
+            <h1 class="display-4 font-weight-bold" style="color:#2894FF;">
+                <i class="fas fa-puzzle-piece"></i>&nbsp拼圖遊戲
+            </h1>
+        </div>
+        <div class="row justify-content-center mt-3" id="slideArea">
+            <div class="circular-slider">
+                <div class="slider-content">
+                    <div class="slider-item">
+                        <img class="img-fluid border border-dark" src="../images/other/puzzle/puzzle1.png">
+                    </div>
+                    <div class="slider-item">
+                        <img class="img-fluid border border-dark" src="../images/other/puzzle/puzzle2.jpg">
+                    </div>
+                    <div class="slider-item">
+                        <img class="img-fluid border border-dark" src="../images/other/puzzle/puzzle3.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="accordion" id="authorGGYY">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#description1" aria-expanded="true" aria-controls="description1">
+                                    創作動機
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="description1" class="collapse" data-parent="#authorGGYY">
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#description2" aria-expanded="false" aria-controls="description2">
+                                    功能說明
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="description2" class="collapse" data-parent="#authorGGYY">
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                    data-target="#description3" aria-expanded="false" aria-controls="description3">
+                                    心得感想
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="description3" class="collapse" aria-labelledby="headingThree"
+                            data-parent="#authorGGYY">
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+
+    </div>
+
+    <div id="goTop">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+            class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+            <path
+                d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+        </svg>
+    </div>
+
+    <div w3-include-html="../footer.html"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script src="../js/fairyDustCursor.js"></script>
+    <script src="../js/bubbly-bg.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
+        integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../js/social-share-kit.js"></script>
+    <script src='../js/jquery.keyframes.js'></script>
+    <script src="../js/common.js"></script>
+
+    <script>
+        w3.includeHTML(); //引入html
+
+        $('.slider-item').mouseenter(() => {
+            $(".slider-content").pauseKeyframe();
+        }).mouseout(() => {
+            $(".slider-content").resumeKeyframe();
+        })
+    </script>
+
+</body>
+
+</html>

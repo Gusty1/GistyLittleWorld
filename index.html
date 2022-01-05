@@ -286,18 +286,19 @@
 
         //亂數產生網址順序 不重複
         function randomsrcOrder(length) {
-            let random = [];
-            for (let i = 0; i < 5; i = i + 1) {
-                random.push(Math.floor(Math.random() * length + 1))
+            let arr = []; //原有陣列放全部數字
+            let result = []; //開另一個空陣列
+            for (let i = 0; i < length; i++) {
+                arr.push(i)
             }
-            random.filter(function (element, index, arr) {
-                return arr.indexOf(element) != index;
+            for (let i = 0; i < 5; i++) {
+                let ran = Math.floor(Math.random() * arr.length);
+                result.push(arr.splice(ran, 1)[0]); //舊陣列去除數字轉移到新陣列 }; }
+            }
+            result = result.filter(function (element, index, arr) {
+                return arr.indexOf(element) == index;
             });
-            if (random.length < 5) {
-                return randomsrcOrder(length)
-            } else {
-                return random
-            }
+            return result
         }
 
         //人生流程圖

@@ -7,9 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../css/cropper.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha.2/cropper.min.css"
+        integrity="sha512-6QxSiaKfNSQmmqwqpTNyhHErr+Bbm8u8HHSiinMEz0uimy9nu7lc/2NaXJiUJj2y4BApd5vgDjSHyLzC8nP6Ng=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/dragula.css">
     <style>
+        .puzzleBlock {
+            cursor: grab;
+        }
+
         .circular-slider {
             width: 580px;
             height: 440px;
@@ -98,7 +104,7 @@
                         <img class="img-fluid border border-dark" src="../images/other/puzzle/puzzle1.png">
                     </div>
                     <div class="slider-item">
-                        <img class="img-fluid border border-dark" src="../images/other/puzzle/puzzle2.jpg">
+                        <img class="img-fluid border border-dark" src="../images/other/puzzle/puzzle2.png">
                     </div>
                     <div class="slider-item">
                         <img class="img-fluid border border-dark" src="../images/other/puzzle/puzzle3.jpg">
@@ -107,15 +113,20 @@
             </div>
         </div>
 
-        <div class="col-12">
-            <img class="img-fluid" src="../images/other/loading.gif" id="puzzleImg" style="display:none;">
+        <div class="col-12 my-3">
+            <img class="img-fluid" src="../images/loading.gif" id="puzzleImg" style="display:none;">
         </div>
 
-        <div class="row" id="puzzleArea">
-            <!-- <img src="../images/other/loading.gif" id="aa"> -->
+        <div class="col-12 my-3" style="display:none;">
+            <div class="row">
+                <button class="btn btn-primary ml-3" id="originImgBtn">原圖</button>
+                <button class="btn btn-info ml-3" id="changeImgBtn">切換圖片</button>
+            </div>
+            <div class="row justify-content-center mt-3" id="puzzleArea">
+            </div>
         </div>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-3">
             <div class="col-sm-8">
                 <div class="accordion" id="authorGGYY">
                     <div class="card">
@@ -129,7 +140,8 @@
                         </div>
                         <div id="description1" class="collapse" data-parent="#authorGGYY">
                             <div class="card-body">
-
+                                又是在某天，找到<a href="https://dsmorse.github.io/gridster.js/">gridster</a>，
+                                然後就又靈感爆炸。
                             </div>
                         </div>
                     </div>
@@ -144,7 +156,8 @@
                         </div>
                         <div id="description2" class="collapse" data-parent="#authorGGYY">
                             <div class="card-body">
-
+                                就拼圖遊戲，拚完會跟你說&nbsp(露西亞的那個窗簾有點困難)<br>
+                                螢幕小於一般電腦螢幕(1920*1080)應該會爆炸。
                             </div>
                         </div>
                     </div>
@@ -160,14 +173,34 @@
                         <div id="description3" class="collapse" aria-labelledby="headingThree"
                             data-parent="#authorGGYY">
                             <div class="card-body">
-
+                                雖然說靈感爆炸，但製作過程卻異常複雜，首先<a href="https://dsmorse.github.io/gridster.js/">gridster</a>
+                                用在拼圖遊戲上完全沒有遊戲體驗可言，然後我再去找發現他還有出<a
+                                    href="https://tiberiuzuld.github.io/angular-gridster2/">gridster2</a>，
+                                但是他只能用Angular，我不會所以放棄，最後決定就用原生JS寫個交換而已。<br>
+                                再來就是那個環狀圖片輪播，一開始只是覺得單純選圖片很無聊，想弄個炫泡一點的東西，最後就變成這樣，
+                                當然這是我多方收集資料的成果；總之就是前端3D視覺效果真的很難，一堆神奇的CSS我都沒看過，
+                                真心佩服那些可以做出3D特效的人。<br>
+                                最後就是圖片切割，好險剛好讓我找到<a
+                                    href="https://fengyuanchen.github.io/cropperjs/">工具</a>可以用，然後經過我不斷努力的專研終於弄出來了，就醬。
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><br>
+        </div>
+    </div>
 
+    <div id="previewImg" class="modal-content"
+        style="position:fixed;left:30px;top:150px;height:50vh;width:30vw;display:none;">
+        <div class="modal-header bg-primary">
+            <h5 class="modal-title">原圖視窗</h5>
+            <button type="button" class="close" data-dismiss="modal" id="closeBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img class="img-fluid" src="">
+        </div>
     </div>
 
     <div id="goTop">
@@ -193,15 +226,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
         integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../js/easydrag.js"></script>
     <script src="../js/jquery.blockUI.js"></script>
     <script src="../js/social-share-kit.js"></script>
     <script src='../js/dragula.js'></script>
     <script src='../js/jquery.keyframes.js'></script>
-    <script src="../js/cropper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha.2/cropper.js"
+        integrity="sha512-witv14AEvG3RlvqCAtVxAqply8BjTpbWaWheEZqOohL5pxLq3AtIwrihgz7SsxihwAZkhUixj171yQCZsUG8kw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../js/common.js"></script>
 
     <script>
         w3.includeHTML(); //引入html
+
+        //原圖可隨便拖曳
+        $(document).ready(() => {
+            $('#previewImg').easydrag();
+        })
 
         //環狀圖片滑鼠移上去暫停，移出繼續
         $('.slider-item').mouseenter(() => {
@@ -229,7 +270,6 @@
                 });
                 return false
             }
-            $(event.currentTarget).children().attr('src')
             $('#sheetArea').hide()
             $('#slideArea').hide()
             $('#puzzleImg').attr('src', $(event.currentTarget).children().attr('src')).show()
@@ -240,7 +280,33 @@
             } else {
                 sheet = 7
             }
+            $('#previewImg').find('img').eq(0).attr('src', $(event.currentTarget).children().attr('src'))
             buildPuzzle(sheet)
+        })
+
+        //切換圖片
+        $('#changeImgBtn').click(() => {
+            $('#sheetArea').find('.btn').each((index, value) => {
+                $(value).removeClass('btn-success').addClass('btn-outline-success')
+            })
+            $('#previewImg').hide()
+            $('#sheetArea').show()
+            $('#slideArea').show()
+            $('#puzzleImg').hide()
+            $('#puzzleArea').parent().hide()
+        })
+
+        //檢視原圖
+        $('#originImgBtn').click(() => {
+            $('#previewImg').show('fast')
+        })
+        //關閉原圖
+        $('#closeBtn').click(() => {
+            $('#previewImg').hide('fast')
+            setTimeout(() => {
+                $('#previewImg').css('left', '30px')
+                $('#previewImg').css('top', '100px')
+            }, 1000)
         })
 
         //建造拼圖
@@ -255,18 +321,19 @@
                 },
             });
             let puzzleHtml = ''
-            console.log($('#puzzleImg').width())
-            console.log($('#puzzleImg').height())
             let width = parseInt($('#puzzleImg').width() / sheet)
             let height = parseInt($('#puzzleImg').height() / sheet)
             let cropper = ''
             let moveX = 15
             let moveY = 0
-            for (let i = 0; i < sheet * sheet; i++) {
-                puzzleHtml += '<span class="puzzleBlock"><img src=""></span>'
+            let randomAry = createRandomAry(sheet)
+            for (let i = 0; i < randomAry.length; i++) {
+                puzzleHtml += `<span class="puzzleBlock" draggable="true" data-order="${randomAry[i]}">
+                    <img src=""></span>`
             }
             $('#puzzleArea').html(puzzleHtml)
-            let loop = setInterval(() => {
+            let order = 0
+            let puzzleLoop = setInterval(() => {
                 if (cropper != '') {
                     cropper.destroy()
                     if (moveX >= width * (sheet - 1) + 15) {
@@ -277,12 +344,14 @@
                     }
                 }
                 if (moveY >= height * sheet) {
-                    clearInterval(loop)
+                    clearInterval(puzzleLoop)
+                    $('#puzzleImg').hide()
+                    $('#puzzleArea').parent().show()
+                    movePuzzle()
                     $.unblockUI();
                     return false
                 }
                 cropper = new Cropper(document.getElementById('puzzleImg'), {
-                    // aspectRatio: 1 / 1,
                     zoomable: false,
                     zoomOnTouch: false,
                     zoomOnWheel: false,
@@ -295,25 +364,77 @@
                         })
                     },
                     crop() {
-                        console.log(cropper.getCroppedCanvas())
-                        if ($(cropper.getCroppedCanvas()).attr('width') == 864) {
+                        if ($(cropper.getCroppedCanvas()).attr('width') >= (width * 3) / 2) {
                             return false
                         }
                         $('#puzzleArea').find('.puzzleBlock').each((index, value) => {
-                            if ($(value).children().attr('src') != '') {
-                                return
-                            } else {
+                            if (parseInt($(value).data('order')) == order) {
                                 $(value).children().attr('src', cropper.getCroppedCanvas({
                                     width,
                                     height
                                 }).toDataURL('image/jpeg'))
+                                order++
                                 return false
                             }
                         })
                     }
                 })
-            }, 2000)
+            }, 500)
+        }
 
+        //拼圖隨機排序
+        function createRandomAry(sheet) {
+            let arr = []; //原有陣列放全部數字
+            let result = []; //開另一個空陣列
+            for (let i = 0; i < sheet * sheet; i++) {
+                arr.push(i)
+            }
+            for (let i = 0; i < sheet * sheet; i++) {
+                let ran = Math.floor(Math.random() * arr.length);
+                result.push(arr.splice(ran, 1)[0]); //舊陣列去除數字轉移到新陣列 };
+            }
+            return result
+        }
+
+        //拼圖拖動(2個位置互換)
+        function movePuzzle() {
+            let div = document.getElementsByClassName('puzzleBlock')
+            let container = null
+            for (let i = 0; i < div.length; i = i + 1) {
+                div[i].ondragstart = function () {
+                    if (!$(div[i]).hasClass('puzzleBlock')) {
+                        return false
+                    }
+                    container = this
+                }
+                div[i].ondragover = function (event) {
+                    event.preventDefault()
+                }
+                div[i].ondrop = function () {
+                    if (container != null && container != this) {
+                        let temp = document.createElement('div')
+                        document.getElementById('puzzleArea').replaceChild(temp, this)
+                        document.getElementById('puzzleArea').replaceChild(this, container)
+                        document.getElementById('puzzleArea').replaceChild(container, temp)
+                    }
+                    let isSuccess = true
+                    $('#puzzleArea').find('.puzzleBlock').each((index, value) => {
+                        if (parseInt($(value).data('order')) != index) {
+                            isSuccess = false
+                        }
+                    })
+                    if (isSuccess) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '恭喜完成',
+                            showConfirmButton: false,
+                        });
+                        $('#puzzleArea').find('.puzzleBlock').each((index, value) => {
+                            $(value).removeClass('puzzleBlock')
+                        })
+                    }
+                }
+            }
         }
     </script>
 

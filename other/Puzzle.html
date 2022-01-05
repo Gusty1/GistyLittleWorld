@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/cropper.css" />
+    <link rel="stylesheet" href="../css/dragula.css">
     <style>
         .circular-slider {
             width: 580px;
@@ -74,11 +76,20 @@
 
     <div w3-include-html="other_header.html"></div>
     <br><br><br>
-    <div class="container-fluid">
+    <div class="container">
         <div class="col-12 text-center mt-3" style="color:#2894FF;">
             <h1 class="display-4 font-weight-bold" style="color:#2894FF;">
                 <i class="fas fa-puzzle-piece"></i>&nbsp拼圖遊戲
             </h1>
+        </div>
+
+        <div class="row justify-content-center" id="sheetArea">
+            <div class="col-12 text-center text-danger mt-3 h4">
+                請先選擇拼圖片數再選擇圖片
+            </div>
+            <button class="btn btn-outline-success btn-lg">3*3</button>
+            <button class="btn btn-outline-success mx-3 btn-lg">5*5</button>
+            <button class="btn btn-outline-success btn-lg">7*7</button>
         </div>
         <div class="row justify-content-center mt-3" id="slideArea">
             <div class="circular-slider">
@@ -94,6 +105,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="col-12">
+            <img class="img-fluid" src="../images/other/loading.gif" id="puzzleImg" style="display:none;">
+        </div>
+
+        <div class="row" id="puzzleArea">
+            <!-- <img src="../images/other/loading.gif" id="aa"> -->
         </div>
 
         <div class="row justify-content-center">
@@ -169,22 +188,133 @@
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script src="../js/fairyDustCursor.js"></script>
     <script src="../js/bubbly-bg.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
         integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../js/jquery.blockUI.js"></script>
     <script src="../js/social-share-kit.js"></script>
+    <script src='../js/dragula.js'></script>
     <script src='../js/jquery.keyframes.js'></script>
+    <script src="../js/cropper.js"></script>
     <script src="../js/common.js"></script>
 
     <script>
         w3.includeHTML(); //引入html
 
+        //環狀圖片滑鼠移上去暫停，移出繼續
         $('.slider-item').mouseenter(() => {
             $(".slider-content").pauseKeyframe();
         }).mouseout(() => {
             $(".slider-content").resumeKeyframe();
         })
+
+        //拼圖片數選擇
+        $('#sheetArea').on('click', '.btn', (event) => {
+            $('#sheetArea').find('.btn').each((index, value) => {
+                $(value).removeClass('btn-success').addClass('btn-outline-success')
+            })
+            $(event.currentTarget).addClass('btn-success').removeClass('btn-outline-success')
+        })
+
+        //確認拼圖圖片
+        $('.slider-item').click((event) => {
+            let sheet = 0
+            if ($('#sheetArea').find('.btn-success').length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '請先選擇拼圖片數',
+                    showConfirmButton: false,
+                });
+                return false
+            }
+            $(event.currentTarget).children().attr('src')
+            $('#sheetArea').hide()
+            $('#slideArea').hide()
+            $('#puzzleImg').attr('src', $(event.currentTarget).children().attr('src')).show()
+            if ($('#sheetArea').find('.btn-success').eq(0).text().indexOf('3') != -1) {
+                sheet = 3
+            } else if ($('#sheetArea').find('.btn-success').eq(0).text().indexOf('5') != -1) {
+                sheet = 5
+            } else {
+                sheet = 7
+            }
+            buildPuzzle(sheet)
+        })
+
+        //建造拼圖
+        function buildPuzzle(sheet) {
+            $.blockUI({
+                message: '<span class="h4 text-warning">拼圖生成中...</span><div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status">' +
+                    '<span class="sr-only"></span>' +
+                    '</div>',
+                css: {
+                    borderWidth: '0px',
+                    backgroundColor: 'transparent'
+                },
+            });
+            let puzzleHtml = ''
+            console.log($('#puzzleImg').width())
+            console.log($('#puzzleImg').height())
+            let width = parseInt($('#puzzleImg').width() / sheet)
+            let height = parseInt($('#puzzleImg').height() / sheet)
+            let cropper = ''
+            let moveX = 15
+            let moveY = 0
+            for (let i = 0; i < sheet * sheet; i++) {
+                puzzleHtml += '<span class="puzzleBlock"><img src=""></span>'
+            }
+            $('#puzzleArea').html(puzzleHtml)
+            let loop = setInterval(() => {
+                if (cropper != '') {
+                    cropper.destroy()
+                    if (moveX >= width * (sheet - 1) + 15) {
+                        moveY += height
+                        moveX = 15
+                    } else {
+                        moveX += width
+                    }
+                }
+                if (moveY >= height * sheet) {
+                    clearInterval(loop)
+                    $.unblockUI();
+                    return false
+                }
+                cropper = new Cropper(document.getElementById('puzzleImg'), {
+                    // aspectRatio: 1 / 1,
+                    zoomable: false,
+                    zoomOnTouch: false,
+                    zoomOnWheel: false,
+                    ready() {
+                        cropper.setCropBoxData({
+                            left: moveX,
+                            top: moveY,
+                            width,
+                            height
+                        })
+                    },
+                    crop() {
+                        console.log(cropper.getCroppedCanvas())
+                        if ($(cropper.getCroppedCanvas()).attr('width') == 864) {
+                            return false
+                        }
+                        $('#puzzleArea').find('.puzzleBlock').each((index, value) => {
+                            if ($(value).children().attr('src') != '') {
+                                return
+                            } else {
+                                $(value).children().attr('src', cropper.getCroppedCanvas({
+                                    width,
+                                    height
+                                }).toDataURL('image/jpeg'))
+                                return false
+                            }
+                        })
+                    }
+                })
+            }, 2000)
+
+        }
     </script>
 
 </body>

@@ -1,3 +1,2 @@
-Gusty 個人網站<br>
-放些垃圾東西和GGYY<br>
-https://gusty1.github.io/GustyLittleWorld/
+<h1>GustyのLittleWorld</h1>
+<p>Gusty的個人網站想到甚麼就放甚麼</p>

@@ -16,26 +16,22 @@
     <div w3-include-html="life_header.html"></div>
     <br><br><br>
     <div class="container-xl">
-        <div class='row justify-content-center text-primary display-2 font-weight-bold'>
+        <div class='row justify-content-center text-primary display-2 font-weight-bold mb-3'>
             生活日誌&nbsp新增/編輯
         </div>
-        <br>
         <div class="col-sm-12 h3" id='editBlock'>
-
             <div class="form-group row">
                 <label for="title" class="col-sm-2 col-form-label text-info">標題</label>
                 <div class="col-sm-6 mt-2">
                     <input type="text" class="form-control" id="title">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label for="time" class="col-sm-2 col-form-label text-info">時間</label>
                 <div class="col-sm-6 mt-2">
                     <input type="text" class="form-control" id="time" readonly='true'>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label for="label" class="col-sm-2 col-form-label text-info">標籤</label>
                 <div class="col-sm-4 mt-2">
@@ -47,27 +43,23 @@
                     <input type="text" class="form-control">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label text-info">封面圖</label>
                 <div class="col-sm-10 mt-2">
                     <div class="dropzone"></div>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-2 text-info">預覽圖</label>
                 <img src="" id="previewImg" onError="this.onerror=null;this.src='../images/life/404.jpg'"
                     class="rounded img-fluid" alt="尚未上傳" style="width: 550px;height: 400px;">
             </div>
-
             <div class="form-group row">
                 <label for="summary" class="col-sm-2 col-form-label text-info">摘要</label>
                 <div class="col-sm-12 mt-2">
                     <textarea id="summary" class="form-control" style="resize: none;"></textarea>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label for="content" class="col-sm-2 col-form-label text-info">內容</label>
                 <div class="col-sm-12 mt-2">
@@ -78,7 +70,6 @@
                 <button type="button" class="btn btn-primary" id="preview">預覽</button>
             </div>
         </div>
-
         <div class="container-fluid" id="previewBlock">
             <div class='col-12 text-primary display-2 text-center font-weight-bold' id='previewTitle'>
             </div>
@@ -93,12 +84,10 @@
             <div class='col-12 mt-3' id="previewContent">
             </div>
             <div class="col-12 my-3 text-right">
-                <button type="button" class="btn btn-info mr-3" id="back">返回</button>
+                <button type="button" class="btn btn-danger mr-3" id="back">返回</button>
                 <button type="button" class="btn btn-primary mr-3" id="define">確定</button>
             </div>
-            <br>
         </div>
-
     </div>
 
     <div class="modal fade" id="authModal" data-backdrop="static" data-keyboard="false" tabindex="-1"

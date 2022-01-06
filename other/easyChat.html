@@ -13,8 +13,8 @@
 
     <div w3-include-html="other_header.html"></div>
     <br><br><br>
-    <div class="container-xl animate__animated animate__wobble">
 
+    <div class="container-xl animate__animated animate__wobble">
         <div class="row justify-content-center text-center mt-3">
             <h1 class="display-4 font-weight-bold" style="color:#2894FF;">
                 <i class="fas fa-comments"></i>&nbsp簡陋聊天室
@@ -34,7 +34,6 @@
                         <span class="sr-only"></span>
                     </div>
                 </div>
-
                 <!-- <div class="row mt-3 h4 rounded p-3 mr-1 ml-1 hvbuzz"
                     style="background-color: #ACD6FF;cursor: pointer;">
                     <div class="col-sm-4 border rounded-pill text-center" style="background-color: mediumturquoise;">
@@ -43,7 +42,6 @@
                     <div class="col-sm-5">7414</div>
                     <div class="col-sm-3"><i class="fas fa-signal"></i></div>
                 </div> -->
-
             </div>
             <div class="col-sm-8 border border-dark"
                 style="height: 70vh;overflow:hidden;background-color:ivory;padding: 0px;">
@@ -112,68 +110,61 @@
                 </div>
             </div>
         </div>
-
-        <div class="row justify-content-center">
-            <div class="col-sm-8">
-                <div class="accordion" id="authorGGYY">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
-                                <button class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#description1" aria-expanded="true" aria-controls="description1">
-                                    創作動機
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description1" class="collapse" data-parent="#authorGGYY">
-                            <div class="card-body">
-                                某天不知道在做啥，突然找到firebase的資料庫，然後靈感爆炸，就醬。
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                    data-target="#description2" aria-expanded="false" aria-controls="description2">
-                                    功能說明
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description2" class="collapse" data-parent="#authorGGYY">
-                            <div class="card-body">
-                                1.先給自己取一個名稱，不然就從旁邊選一個要是紅的，不能選綠的那是別人了<br>
-                                2.開始選聊天對象，對方必須也要是綠的<br>
-                                3.開始聊天<br>
-                                <span class="text-danger">***選好一個使用者就無法切換，只能關掉重開***</span><br>
-                                <span class="text-danger">***聊天功能只能在雙方都在該網頁(都是綠色)的情況下才能開始***</span><br>
-                                <span class="text-danger">***聊天開始就不能跟其他人聊天，一樣只能關掉重開或是其中一方離開***</span><br>
-                                <span class="text-danger">***聊天紀錄不會保存，即使是同一組人每次開始聊天訊息也都會清空***</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                    data-target="#description3" aria-expanded="false" aria-controls="description3">
-                                    心得感想
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description3" class="collapse" aria-labelledby="headingThree"
-                            data-parent="#authorGGYY">
-                            <div class="card-body">
-                                整體來說是不難拉，但在設計上我想很久，邏輯要很清晰，原本還想說弄已讀跟打字中、其他頁也可以跳出訊息通知；
-                                但是試過了有問題做不到...<br>
-                                總而言之就是醬拉，至少可以聊天ㄏㄏ。
-                            </div>
-                        </div>
+        <div class="accordion mb-3" id="authorGGYY">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#description1"
+                            aria-expanded="true" aria-controls="description1">
+                            創作動機
+                        </button>
+                    </h2>
+                </div>
+                <div id="description1" class="collapse" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        某天不知道在做啥，突然找到firebase的資料庫，然後靈感爆炸，就醬。
                     </div>
                 </div>
             </div>
-        </div><br>
-
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#description2" aria-expanded="false" aria-controls="description2">
+                            功能說明
+                        </button>
+                    </h2>
+                </div>
+                <div id="description2" class="collapse" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        1.先給自己取一個名稱，不然就從旁邊選一個要是紅的，不能選綠的那是別人了<br>
+                        2.開始選聊天對象，對方必須也要是綠的<br>
+                        3.開始聊天<br>
+                        <span class="text-danger">***選好一個使用者就無法切換，只能關掉重開***</span><br>
+                        <span class="text-danger">***聊天功能只能在雙方都在該網頁(都是綠色)的情況下才能開始***</span><br>
+                        <span class="text-danger">***聊天開始就不能跟其他人聊天，一樣只能關掉重開或是其中一方離開***</span><br>
+                        <span class="text-danger">***聊天紀錄不會保存，即使是同一組人每次開始聊天訊息也都會清空***</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#description3" aria-expanded="false" aria-controls="description3">
+                            心得感想
+                        </button>
+                    </h2>
+                </div>
+                <div id="description3" class="collapse" aria-labelledby="headingThree" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        整體來說是不難拉，但在設計上我想很久，邏輯要很清晰，原本還想說弄已讀跟打字中、其他頁也可以跳出訊息通知；
+                        但是試過了有問題做不到...<br>
+                        總而言之就是醬拉，至少可以聊天ㄏㄏ。
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="goTop">

@@ -22,26 +22,22 @@
     <div w3-include-html="ACG_header.html"></div>
     <br><br><br>
     <div class="container-xl">
-        <div class='row justify-content-center text-primary display-2 font-weight-bold'>
+        <div class='row justify-content-center text-primary display-2 font-weight-bold mb-3'>
             ACG心得&nbsp新增/編輯
         </div>
-        <br>
         <div class="col-sm-12 h3" id='editBlock'>
-
             <div class="form-group row">
                 <label for="title" class="col-sm-2 col-form-label text-info">標題</label>
                 <div class="col-sm-6 mt-2">
                     <input type="text" class="form-control" id="title">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label for="time" class="col-sm-2 col-form-label text-info">時間</label>
                 <div class="col-sm-6 mt-2">
                     <input type="text" class="form-control" id="time" readonly='true'>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label text-info">類型</label>
                 <div class="col-sm-4 mt-2">
@@ -53,34 +49,29 @@
                     </select>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label for="collect" id="collectLabel" class="col-sm-2 col-form-label text-info">集數</label>
                 <div class="col-sm-4 mt-2">
                     <input type="number" class="form-control" id="collect">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label for="rate" class="col-sm-2 col-form-label text-info">評分</label>
                 <div class="col-sm-4 mt-2">
                     <div class="rating"></div>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label text-info">封面圖</label>
                 <div class="col-sm-10 mt-2">
                     <div class="dropzone"></div>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-2 text-info">預覽圖</label>
                 <img src="" id="previewImg" onError="this.onerror=null;this.src='../images/ACG/404.jpg'" class="rounded"
                     alt="尚未上傳" style="height: 460px;width: 350px;">
             </div>
-
             <div class="form-group row">
                 <label for="say" class="col-sm-2 col-form-label text-info">名言</label>
                 <div class="col-sm-10 mt-2">
@@ -95,7 +86,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label for="content" class="col-sm-2 col-form-label text-info">內容</label>
                 <div class="col-sm-12 mt-2">
@@ -106,7 +96,6 @@
                 <button type="button" class="btn btn-primary" id="preview">預覽</button>
             </div>
         </div>
-
         <div class="container-fluid" id="previewBlock">
             <div class="card my-3 w-100" style="background-color:transparent;border:none;">
                 <div class="row no-gutters">

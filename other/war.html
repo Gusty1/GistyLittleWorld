@@ -19,14 +19,13 @@
 <body>
     <div w3-include-html="other_header.html"></div>
     <br><br><br>
-    <div class="container-xl">
 
+    <div class="container-xl">
         <div class="row justify-content-center text-center mt-3 rounded">
             <h1 class="display-3 font-weight-bold" style="color:#2894FF;">
                 戰爭
             </h1>
         </div>
-
         <div class="row rounded" style="border:2px solid #FF5809;background-color: #C4E1FF;">
             <div class="col-sm-3 rounded-right h5 mb-0" style="border-right: 2px solid #FF5809;">
                 <div class="col-sm-12">
@@ -110,10 +109,8 @@
                             </div>
                         </div>
                     </div>
-
                     <canvas id="warGround" width="540" height="400" style="position: absolute;">
                     </canvas>
-
                     <div class="row justify-content-between mt-4 mx-2">
                         <label class="badge badge-secondary mt-3" style="transform: rotate(-45deg);width:15%;">A</label>
                         <label class="badge badge-secondary mt-3" style="transform: rotate(45deg);width:15%;">B</label>
@@ -143,87 +140,140 @@
                     </div>
                 </div>
             </div>
-        </div><br>
-
-        <!-- 規則說明 Modal -->
-        <div class="modal fade" id="rule" data-backdrop="static" data-keyboard="false" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-lg modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h5 class="modal-title h4">規則說明</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="accordion my-3" id="authorGGYY">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#description1"
+                            aria-expanded="true" aria-controls="description1">
+                            創作動機
                         </button>
+                    </h2>
+                </div>
+                <div id="description1" class="collapse" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        看到漫畫，突然覺得好像我也可以做到，就試試看。
                     </div>
-                    <div class="modal-body h5">
-                        <p>跟據漫畫「狂賭之淵」 58話 的遊戲改編</p>
-                        <p>1. 玩家人數4人，分別選擇ABCD國，起始分數都是0分，遊戲7回合結束，分數多的一方勝利。</p>
-                        <p>2. 每回合玩家可以選擇「攻擊」、「防禦」。</p>
-                        <p> 3. 攻擊:選擇攻擊的國家，攻擊的國家多少都可以選擇。</p>
-                        <p>4. 防禦:加固防守，不會被攻擊影響；防禦需要-5分，0分也可以防禦。</p>
-                        <p>5. 每回合的選擇時間沒有限制，等到所有玩家都決定好才會開始交戰。</p>
-                        <p>6. 交戰結果:攻擊攻擊國家，攻擊方+10分，被攻擊方-10分；攻擊防禦國家，防禦方+10分，攻擊方-10。</p>
-                        <p>7.
-                            外交:玩家無論甚麼時候都可以和其他國家進行外交，不限次數，請求其他國家防禦或是攻擊其他國家，被請求方可以選擇YES、NO，即使選擇YES被請求方也可以不按照請求的內容去做也不會有任何懲罰。
-                        </p>
-                        <p>8. 當玩家都操作完會進行開火，此時到下一回合開始前無法操作任何功能，只可以看規則。</p>
-                        <p>9. 有玩家中離遊戲會強制結束和重置。</p>
-                        <p>10. 假設已經有4人在玩，第5人進來「應該」會只能看，不能做任何事。</p>
-                        <div class="row justify-content-center text-center">
-                            <p class="text-danger">***在國家間沒有真正的朋友，互相欺騙的遊戲***</p>
-                            <div class="col-sm-8">
-                                <img src='../images/other/war/rule.jpg' alt="sorry not found"
-                                    class="rounded w-100 h-100">
-                            </div>
-                        </div>
-                        <div class="mt-2 col-sm-12 alert alert-warning h5">
-                            <p><i class="fas fa-exclamation-triangle"></i>以下是可能會遇到的問題:</p>
-                            <p>
-                                1.如果螢幕比例太小，開火畫的線會跑掉。<br>
-                                2.每一回合新的開始，戰場上可能還是會留有殘線。<br>
-                                3.外交的回覆或請求時間太接近的話，新的會蓋掉舊的。<br>
-                                4.其他我還沒有看到先這樣...<br>
-                                我沒有辦法~~~<i class="fas fa-sad-cry"></i>
-                            </p>
-                        </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#description2" aria-expanded="false" aria-controls="description2">
+                            功能說明
+                        </button>
+                    </h2>
+                </div>
+                <div id="description2" class="collapse" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        太長了我都寫在規則裡。
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#description3" aria-expanded="false" aria-controls="description3">
+                            心得感想
+                        </button>
+                    </h2>
+                </div>
+                <div id="description3" class="collapse" aria-labelledby="headingThree" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        好累~~~，沒事自己找事做ㄟ，假日都不見了；<br>
+                        總而言之，一定還是有BUG，但應該沒有太大的問題了吧...<br>
+                        其實當初看到漫畫就有一股衝動，只是當時可能技術不好(現在也沒多好)<br>
+                        いま，我突然覺得自己好像做得到了，就開始做了，最後就長這樣。<br>
+                        最難的東西我覺得是那個開火的畫布(canvas)搞了我好多時間，其他東西勉強可以解決。<br>
+                        這是我目前能力所及作的最後一個東西，之後的等到我去學些新技術，想到什麼再開始發病吧。<br>
+                        因為是最後的東西，所以就紀錄一下時間「2021/07/18」<i class="fas fa-tired"></i>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- 最終結果 Modal -->
-        <div class="modal fade" id="finalResult" data-backdrop="static" data-keyboard="false" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-lg modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h5 class="modal-title h4">遊戲結束，分數結算</h5>
-                        <button type="button" class="close resultClose" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                        </button>
+    <!-- 規則說明 Modal -->
+    <div class="modal fade" id="rule" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-lg modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title h4">規則說明</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body h5">
+                    <p>跟據漫畫「狂賭之淵」 58話 的遊戲改編</p>
+                    <p>1. 玩家人數4人，分別選擇ABCD國，起始分數都是0分，遊戲7回合結束，分數多的一方勝利。</p>
+                    <p>2. 每回合玩家可以選擇「攻擊」、「防禦」。</p>
+                    <p> 3. 攻擊:選擇攻擊的國家，攻擊的國家多少都可以選擇。</p>
+                    <p>4. 防禦:加固防守，不會被攻擊影響；防禦需要-5分，0分也可以防禦。</p>
+                    <p>5. 每回合的選擇時間沒有限制，等到所有玩家都決定好才會開始交戰。</p>
+                    <p>6. 交戰結果:攻擊攻擊國家，攻擊方+10分，被攻擊方-10分；攻擊防禦國家，防禦方+10分，攻擊方-10。</p>
+                    <p>7.
+                        外交:玩家無論甚麼時候都可以和其他國家進行外交，不限次數，請求其他國家防禦或是攻擊其他國家，被請求方可以選擇YES、NO，即使選擇YES被請求方也可以不按照請求的內容去做也不會有任何懲罰。
+                    </p>
+                    <p>8. 當玩家都操作完會進行開火，此時到下一回合開始前無法操作任何功能，只可以看規則。</p>
+                    <p>9. 有玩家中離遊戲會強制結束和重置。</p>
+                    <p>10. 假設已經有4人在玩，第5人進來「應該」會只能看，不能做任何事。</p>
+                    <div class="row justify-content-center text-center">
+                        <p class="text-danger">***在國家間沒有真正的朋友，互相欺騙的遊戲***</p>
+                        <div class="col-sm-8">
+                            <img src='../images/other/war/rule.jpg' alt="sorry not found" class="rounded w-100 h-100">
+                        </div>
                     </div>
-                    <div class="modal-body h5"
-                        style="background-image: url('../images/other/war/result.gif');background-size: cover;background-repeat: repeat;z-index: 10;">
-                        <p>最終排名:
-                            <button type="button" class="mb-2 float-right btn btn-warning" id="exportDiplomatic">
-                                <i class="fas fa-file-export"></i>匯出外交紀錄(JSON)
-                            </button>
+                    <div class="mt-2 col-sm-12 alert alert-warning h5">
+                        <p><i class="fas fa-exclamation-triangle"></i>以下是可能會遇到的問題:</p>
+                        <p>
+                            1.如果螢幕比例太小，開火畫的線會跑掉。<br>
+                            2.每一回合新的開始，戰場上可能還是會留有殘線。<br>
+                            3.外交的回覆或請求時間太接近的話，新的會蓋掉舊的。<br>
+                            4.其他我還沒有看到先這樣...<br>
+                            我沒有辦法~~~<i class="fas fa-sad-cry"></i>
                         </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                        <table class="table table-bordered table-hover text-center">
-                            <tr>
-                                <thead>
-                                    <th>名次</th>
-                                    <th>國家</th>
-                                    <th>分數</th>
-                                </thead>
-                            </tr>
-                            <tbody id="finalResultTable">
-                                <!-- <tr>
+    <!-- 最終結果 Modal -->
+    <div class="modal fade" id="finalResult" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-lg modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title h4">遊戲結束，分數結算</h5>
+                    <button type="button" class="close resultClose" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body h5"
+                    style="background-image: url('../images/other/war/result.gif');background-size: cover;background-repeat: repeat;z-index: 10;">
+                    <p>最終排名:
+                        <button type="button" class="mb-2 float-right btn btn-warning" id="exportDiplomatic">
+                            <i class="fas fa-file-export"></i>匯出外交紀錄(JSON)
+                        </button>
+                    </p>
+
+                    <table class="table table-bordered table-hover text-center">
+                        <tr>
+                            <thead>
+                                <th>名次</th>
+                                <th>國家</th>
+                                <th>分數</th>
+                            </thead>
+                        </tr>
+                        <tbody id="finalResultTable">
+                            <!-- <tr>
                                     <td>1</td>
                                     <td>A</td>
                                     <td>40</td>
@@ -243,156 +293,95 @@
                                     <td>D</td>
                                     <td>10</td>
                                 </tr> -->
-                            </tbody>
-                        </table>
-                        <div class="alert alert-success col-sm-12">
-                            <p>感謝遊玩，關閉本視窗遊戲就會重製了。<i class="fas fa-smile-wink"></i></p>
-                        </div>
+                        </tbody>
+                    </table>
+                    <div class="alert alert-success col-sm-12">
+                        <p>感謝遊玩，關閉本視窗遊戲就會重製了。<i class="fas fa-smile-wink"></i></p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="resultClose btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="resultClose btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- 操作 Modal -->
-        <div class="modal fade" id="option" data-backdrop="static" data-keyboard="false" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h5 class="modal-title h4">操作選項</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                        </button>
+    <!-- 操作 Modal -->
+    <div class="modal fade" id="option" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title h4">操作選項</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body h5">
+                    <div class="col-sm-12 text-center mb-2" style="color: #FF5809;display: none;" id="optionInfo">
                     </div>
-                    <div class="modal-body h5">
-                        <div class="col-sm-12 text-center mb-2" style="color: #FF5809;display: none;" id="optionInfo">
+                    <div class="row justify-content-center mt-2">
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-danger w-50" id="attack">
+                                <i class="fas fa-skull-crossbones"></i>&nbspATTACK
+                            </button>
                         </div>
-                        <div class="row justify-content-center mt-2">
-                            <div class="col-sm-12 text-center">
-                                <button class="btn btn-danger w-50" id="attack">
-                                    <i class="fas fa-skull-crossbones"></i>&nbspATTACK
-                                </button>
-                            </div>
+                    </div>
+                    <div class="row justify-content-center mt-2">
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-primary w-50" id="defense">
+                                <i class="bi bi-shield-fill"></i>&nbspDEFENSE
+                            </button>
                         </div>
-                        <div class="row justify-content-center mt-2">
-                            <div class="col-sm-12 text-center">
-                                <button class="btn btn-primary w-50" id="defense">
-                                    <i class="bi bi-shield-fill"></i>&nbspDEFENSE
-                                </button>
-                            </div>
+                    </div>
+                    <div class="row justify-content-center mt-2">
+                        <div class="col-sm-12 text-center" id="diplomatic">
+                            <button class="btn btn-secondary w-50"><i class="fas fa-handshake"></i>&nbsp外交</button>
                         </div>
-                        <div class="row justify-content-center mt-2">
-                            <div class="col-sm-12 text-center" id="diplomatic">
-                                <button class="btn btn-secondary w-50"><i class="fas fa-handshake"></i>&nbsp外交</button>
-                            </div>
+                    </div>
+                    <div class="row justify-content-center mt-5" id="selectAttack_area" style="display: none;">
+                        <div class="col-sm-12 text-center">
+                            請選擇要攻擊的國家
                         </div>
-                        <div class="row justify-content-center mt-5" id="selectAttack_area" style="display: none;">
-                            <div class="col-sm-12 text-center">
-                                請選擇要攻擊的國家
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" value="" id="attack_1">
-                                <label class="form-check-label mr-4" for="attack_1">A</label>
-                                <input class="form-check-input" type="checkbox" value="" id="attack_2">
-                                <label class="form-check-label mr-4" for="attack_2">B</label>
-                                <input class="form-check-input" type="checkbox" value="" id="attack_3">
-                                <label class="form-check-label mr-4" for="attack_3">C</label>
-                            </div>
-                            <div class="col-sm-8 text-right mt-3">
-                                <button type="button" class="btn btn-warning" id="sentAttack">攻擊</button>
-                            </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="" id="attack_1">
+                            <label class="form-check-label mr-4" for="attack_1">A</label>
+                            <input class="form-check-input" type="checkbox" value="" id="attack_2">
+                            <label class="form-check-label mr-4" for="attack_2">B</label>
+                            <input class="form-check-input" type="checkbox" value="" id="attack_3">
+                            <label class="form-check-label mr-4" for="attack_3">C</label>
                         </div>
-                        <div class="row justify-content-center mt-5" id="selectdiplomatic_area" style="display: none;">
-                            <div class="col-sm-12 text-center">
-                                請選擇要外交的國家
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" value="" id="diplomatic_1">
-                                <label class="form-check-label mr-4" for="diplomatic_1">A</label>
-                                <input class="form-check-input" type="checkbox" value="" id="diplomatic_2">
-                                <label class="form-check-label mr-4" for="diplomatic_2">B</label>
-                                <input class="form-check-input" type="checkbox" value="" id="diplomatic_3">
-                                <label class="form-check-label mr-4" for="diplomatic_3">C</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <textarea class="w-100 form-control" placeholder="請輸入外交內容"
-                                    style="height: 20vh; resize: none;">
+                        <div class="col-sm-8 text-right mt-3">
+                            <button type="button" class="btn btn-warning" id="sentAttack">攻擊</button>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-5" id="selectdiplomatic_area" style="display: none;">
+                        <div class="col-sm-12 text-center">
+                            請選擇要外交的國家
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="" id="diplomatic_1">
+                            <label class="form-check-label mr-4" for="diplomatic_1">A</label>
+                            <input class="form-check-input" type="checkbox" value="" id="diplomatic_2">
+                            <label class="form-check-label mr-4" for="diplomatic_2">B</label>
+                            <input class="form-check-input" type="checkbox" value="" id="diplomatic_3">
+                            <label class="form-check-label mr-4" for="diplomatic_3">C</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="w-100 form-control" placeholder="請輸入外交內容"
+                                style="height: 20vh; resize: none;">
                                 </textarea>
-                            </div>
-                            <div class="col-sm-8 text-right mt-3">
-                                <button type="button" class="btn btn-warning" id="sentDiplomatic">送出</button>
-                            </div>
+                        </div>
+                        <div class="col-sm-8 text-right mt-3">
+                            <button type="button" class="btn btn-warning" id="sentDiplomatic">送出</button>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-
-        <div class="row justify-content-center">
-            <div class="col-sm-8">
-                <div class="accordion" id="authorGGYY">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
-                                <button class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#description1" aria-expanded="true" aria-controls="description1">
-                                    創作動機
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description1" class="collapse" data-parent="#authorGGYY">
-                            <div class="card-body">
-                                看到漫畫，突然覺得好像我也可以做到，就試試看。
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                    data-target="#description2" aria-expanded="false" aria-controls="description2">
-                                    功能說明
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description2" class="collapse" data-parent="#authorGGYY">
-                            <div class="card-body">
-                                太長了我都寫在規則裡。
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                    data-target="#description3" aria-expanded="false" aria-controls="description3">
-                                    心得感想
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description3" class="collapse" aria-labelledby="headingThree"
-                            data-parent="#authorGGYY">
-                            <div class="card-body">
-                                好累~~~，沒事自己找事做ㄟ，假日都不見了；<br>
-                                總而言之，一定還是有BUG，但應該沒有太大的問題了吧...<br>
-                                其實當初看到漫畫就有一股衝動，只是當時可能技術不好(現在也沒多好)<br>
-                                いま，我突然覺得自己好像做得到了，就開始做了，最後就長這樣。<br>
-                                最難的東西我覺得是那個開火的畫布(canvas)搞了我好多時間，其他東西勉強可以解決。<br>
-                                這是我目前能力所及作的最後一個東西，之後的等到我去學些新技術，想到什麼再開始發病吧。<br>
-                                因為是最後的東西，所以就紀錄一下時間「2021/07/18」<i class="fas fa-tired"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><br>
-
     </div>
 
     <div id="goTop">

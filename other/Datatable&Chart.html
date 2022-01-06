@@ -58,9 +58,7 @@
                 https://apiservice.mol.gov.tw/OdService/download/A17030000J-000049-mdw<br>
             </div>
         </div>
-
         <div class='row justify-content-center alert alert-warning my-3'></div>
-
         <div class='col-sm-12 my-3' id='successStepBlock'>
             <div class='col-sm-12 text-center h1'>
                 獲取JSON資料成功
@@ -68,7 +66,7 @@
             <div class='row justify-content-start' id='successStep1'>
                 <div class='col-sm-12 text-center text-success h2'>
                     Step1: 請選擇要顯示的欄位和順序(由上往下)，最多8個
-                </div><br>
+                </div>
                 <div class='col-sm-4 text-center h4'>
                     資料的欄位
                     <div class='col-sm-12 border border-primary mt-3' id='dataColnum'>
@@ -92,12 +90,12 @@
                     <div class='col-sm-12 border border-danger mt-3' id='selectColnum'>
                     </div>
                 </div>
-            </div><br>
+            </div>
             <div class='col-sm-12' id='successStep2'>
                 <div class='col-sm-12 text-center text-success h2'>
                     Step2: 請選擇要有搜尋功能的欄位，最多2個
                 </div>
-                <div class='col-sm-12 mt-3 h4' id='selectSearchButton'>
+                <div class='row mt-3 h4' id='selectSearchButton'>
                 </div>
             </div>
             <div class='col-sm-12 my-3' id='successStep3'>
@@ -119,7 +117,6 @@
                     aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:33%">33%</div>
             </div>
         </div>
-
         <div class='col-sm-12 my-3' id='tableShowBlock'>
             <div class='col-sm-12 text-center display-4 mb-3 font-weight-bold'></div>
             <table class="table table-hover table-striped table table-bordered" id='yourTable'
@@ -131,7 +128,6 @@
                 </tbody>
             </table>
         </div>
-
         <div class='col-sm-12' id='chartShowBlock'>
             <button class='btn btn-primary' data-toggle="collapse" data-target="#chartShowOption">新增圖表</button>
             <div class='collapse my-3 col-sm-12' id='chartShowOption'>
@@ -153,66 +149,58 @@
                 </div>
             </div>
         </div>
-
-        <br>
-        <div class="row justify-content-center mt-3 mb-3">
-            <div class="col-sm-8">
-                <div class="accordion" id="authorGGYY">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
-                                <button class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#description1" aria-expanded="true" aria-controls="description1">
-                                    創作動機
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description1" class="collapse" data-parent="#authorGGYY">
-                            <div class="card-body">
-                                某天上班用到Datatable想說就順便練習一下。<br>
-                                又想說都有Datatable那順便也練習一下Chart。就醬。
-                            </div>
-                        </div>
+        <div class="accordion my-3" id="authorGGYY">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#description1"
+                            aria-expanded="true" aria-controls="description1">
+                            創作動機
+                        </button>
+                    </h2>
+                </div>
+                <div id="description1" class="collapse" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        某天上班用到Datatable想說就順便練習一下。<br>
+                        又想說都有Datatable那順便也練習一下Chart。就醬。
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                    data-target="#description2" aria-expanded="false" aria-controls="description2">
-                                    功能說明
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description2" class="collapse" data-parent="#authorGGYY">
-                            <div class="card-body">
-                                就只能讀JSON格式，網址有限定http開頭，資料過長我有做處理；看起來比較好看一點。<br>
-                                圖表部分，資料不是數字會被過濾；匯出圖片沒有很清晰。<br>
-                                一定要先弄出table才可以產生圖表。<br>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#description2" aria-expanded="false" aria-controls="description2">
+                            功能說明
+                        </button>
+                    </h2>
+                </div>
+                <div id="description2" class="collapse" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        就只能讀JSON格式，網址有限定http開頭，資料過長我有做處理；看起來比較好看一點。<br>
+                        圖表部分，資料不是數字會被過濾；匯出圖片沒有很清晰。<br>
+                        一定要先弄出table才可以產生圖表。<br>
                     </div>
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                    data-target="#description3" aria-expanded="false" aria-controls="description3">
-                                    心得感想
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description3" class="collapse" aria-labelledby="headingThree"
-                            data-parent="#authorGGYY">
-                            <div class="card-body">
-                                這2個東西以前在資策會都有用過，但用的不多，現在回來寫一大堆問題...。<br>
-                                尤其是那個圖表匯出，花了我超多時間，明明就沒幾行程式，可惡。<br>
-                                圖表這工具就真的很強，差別就是這次處理資料很複雜；還好最後還想得出來。
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#description3" aria-expanded="false" aria-controls="description3">
+                            心得感想
+                        </button>
+                    </h2>
+                </div>
+                <div id="description3" class="collapse" aria-labelledby="headingThree" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        這2個東西以前在資策會都有用過，但用的不多，現在回來寫一大堆問題...。<br>
+                        尤其是那個圖表匯出，花了我超多時間，明明就沒幾行程式，可惡。<br>
+                        圖表這工具就真的很強，差別就是這次處理資料很複雜；還好最後還想得出來。
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div id="goTop">

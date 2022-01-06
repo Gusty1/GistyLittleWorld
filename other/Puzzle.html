@@ -125,64 +125,59 @@
             </div>
         </div>
 
-        <div class="row justify-content-center mb-3">
-            <div class="col-sm-8">
-                <div class="accordion" id="authorGGYY">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
-                                <button class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#description1" aria-expanded="true" aria-controls="description1">
-                                    創作動機
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description1" class="collapse" data-parent="#authorGGYY">
-                            <div class="card-body">
-                                又是在某天，找到<a href="https://dsmorse.github.io/gridster.js/">gridster</a>，
-                                然後就又靈感爆炸。
-                            </div>
-                        </div>
+        <div class="accordion mb-3" id="authorGGYY">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#description1"
+                            aria-expanded="true" aria-controls="description1">
+                            創作動機
+                        </button>
+                    </h2>
+                </div>
+                <div id="description1" class="collapse" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        又是在某天，找到<a href="https://dsmorse.github.io/gridster.js/">gridster</a>，
+                        然後就又靈感爆炸。
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                    data-target="#description2" aria-expanded="false" aria-controls="description2">
-                                    功能說明
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description2" class="collapse" data-parent="#authorGGYY">
-                            <div class="card-body">
-                                就拼圖遊戲，拚完會跟你說&nbsp(露西亞的那個窗簾有點困難)<br>
-                                螢幕小於一般電腦螢幕(1920*1080)應該會爆炸。
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#description2" aria-expanded="false" aria-controls="description2">
+                            功能說明
+                        </button>
+                    </h2>
+                </div>
+                <div id="description2" class="collapse" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        就拼圖遊戲，拚完會跟你說，螢幕小於1140px應該會爆炸。
                     </div>
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                    data-target="#description3" aria-expanded="false" aria-controls="description3">
-                                    心得感想
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="description3" class="collapse" aria-labelledby="headingThree"
-                            data-parent="#authorGGYY">
-                            <div class="card-body">
-                                雖然說靈感爆炸，但製作過程卻異常複雜，首先<a href="https://dsmorse.github.io/gridster.js/">gridster</a>
-                                用在拼圖遊戲上完全沒有遊戲體驗可言，然後我再去找發現他還有出<a
-                                    href="https://tiberiuzuld.github.io/angular-gridster2/">gridster2</a>，
-                                但是他只能用Angular，我不會所以放棄，最後決定就用原生JS寫個交換而已。<br>
-                                再來就是那個環狀圖片輪播，一開始只是覺得單純選圖片很無聊，想弄個炫泡一點的東西，最後就變成這樣，
-                                當然這是我多方收集資料的成果；總之就是前端3D視覺效果真的很難，一堆神奇的CSS我都沒看過，
-                                真心佩服那些可以做出3D特效的人。<br>
-                                最後就是圖片切割，好險剛好讓我找到<a
-                                    href="https://fengyuanchen.github.io/cropperjs/">工具</a>可以用，然後經過我不斷努力的專研終於弄出來了，就醬。
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                            data-target="#description3" aria-expanded="false" aria-controls="description3">
+                            心得感想
+                        </button>
+                    </h2>
+                </div>
+                <div id="description3" class="collapse" aria-labelledby="headingThree" data-parent="#authorGGYY">
+                    <div class="card-body">
+                        雖說靈感爆炸，但製作過程卻一直碰壁，首先<a href="https://dsmorse.github.io/gridster.js/">gridster</a>
+                        用在拼圖遊戲上完全沒有遊戲體驗可言，然後我再去找發現他還有出<a
+                            href="https://tiberiuzuld.github.io/angular-gridster2/">gridster2</a>，
+                        但是他只能用Angular，我不會所以放棄，最後決定就用JS寫個交換而已。<br>
+                        再來就是那個環狀圖片輪播，一開始只是覺得單純選圖片很無聊，想弄個炫泡一點的東西，最後就變成這樣，
+                        當然這是我多方收集資料的成果；總之就是3D視覺效果真的很難，一堆神奇的CSS我都沒看過，
+                        真心佩服那些可以做出3D特效的人。<br>
+                        最後就是圖片切割，好險剛好讓我找到<a
+                            href="https://fengyuanchen.github.io/cropperjs/">工具</a>可以用，然後經過我不斷努力的專研終於弄出來了，就醬。<br>
+                        BTW&nbsp7*7好像有那麼點困難...
                     </div>
                 </div>
             </div>
@@ -190,7 +185,7 @@
     </div>
 
     <div id="previewImg" class="modal-content"
-        style="position:fixed;left:30px;top:150px;height:50vh;width:30vw;display:none;">
+        style="position:fixed;left:30px;top:150px;height:350px;width:450px;display:none;">
         <div class="modal-header bg-primary">
             <h5 class="modal-title">原圖視窗</h5>
             <button type="button" class="close" data-dismiss="modal" id="closeBtn">
@@ -242,7 +237,7 @@
             $('#previewImg').easydrag();
         })
 
-        //環狀圖片滑鼠移上去暫停，移出繼續
+        //環狀圖片滑鼠移上去暫停動畫，移出繼續
         $('.slider-item').mouseenter(() => {
             $(".slider-content").pauseKeyframe();
         }).mouseout(() => {
@@ -326,7 +321,7 @@
             let moveY = 0
             let randomAry = createRandomAry(sheet)
             for (let i = 0; i < randomAry.length; i++) {
-                puzzleHtml += `<span class="puzzleBlock" draggable="true" data-order="${randomAry[i]}">
+                puzzleHtml += `<span class="puzzleBlock border border-dark" draggable="true" data-order="${randomAry[i]}">
                     <img src=""></span>`
             }
             $('#puzzleArea').html(puzzleHtml)
@@ -377,7 +372,7 @@
                         })
                     }
                 })
-            }, 500)
+            }, 400)
         }
 
         //拼圖隨機排序
@@ -389,7 +384,7 @@
             }
             for (let i = 0; i < sheet * sheet; i++) {
                 let ran = Math.floor(Math.random() * arr.length);
-                result.push(arr.splice(ran, 1)[0]); //舊陣列去除數字轉移到新陣列 };
+                result.push(arr.splice(ran, 1)[0]); //舊陣列去除數字轉移到新陣列
             }
             return result
         }
@@ -428,7 +423,7 @@
                             showConfirmButton: false,
                         });
                         $('#puzzleArea').find('.puzzleBlock').each((index, value) => {
-                            $(value).removeClass('puzzleBlock')
+                            $(value).removeClass('puzzleBlock border border-dark')
                         })
                     }
                 }

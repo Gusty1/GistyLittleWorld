@@ -101,7 +101,7 @@
                 </div>
             </div> -->
         </div>
-        
+
         <div class="row justify-content-center mt-3 h4" id='pageBlock'>
             <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -184,12 +184,10 @@
                 },
             });
             database.ref('/ACG').on('value', function (result) {
-                // console.log(result.val())
                 ACGArray = result.val()
                 ACGArray.sort(function (a, b) {
                     return new Date(a.time) > new Date(b.time) ? -1 : 1
                 });
-                console.log(ACGArray)
                 initCard(ACGArray)
                 typeArrayCount[0] = ACGArray.length;
                 for (let i = 0; i < ACGArray.length; i++) {
@@ -395,13 +393,11 @@
             if (type == 'ALL') {
                 changeACGArray = ACGArray;
                 if ($(this).val().trim() == 'newToOld') {
-                    console.log('qq')
                     changeACGArray.sort(function (a, b) {
                         return new Date(a.time) > new Date(b.time) ? -1 : 1
                     });
                     initCard(changeACGArray)
                 } else if ($(this).val().trim() == 'oldToNew') {
-                    console.log('aa')
                     changeACGArray.sort(function (a, b) {
                         return new Date(a.time) > new Date(b.time) ? 1 : -1
                     });
@@ -464,12 +460,26 @@
                 isPage = false;
             }
             for (let i = 0; i < newACGArray.length; i++) {
+                let shortTitle = ''
+                if (newACGArray[i].title.length > 5) {
+                    for (let j = 0; j < newACGArray[i].title.length; j++) {
+                        if (j > 5) {
+                            shortTitle += '...'
+                            break
+                        }
+                        shortTitle += newACGArray[i].title[j]
+                    }
+                }
                 cardHtml += '<div class="card m-3 hvr-grow" style="min-width: 20rem;max-width: 20rem;">'
                 cardHtml +=
                     '<img class="card-img-top img-fluid lazy" style="height:350px;" src="../images/loading.gif" data-src="' +
                     newACGArray[i].coverImg + '" alt="not found img">'
                 cardHtml += '<div class="card-body">'
-                cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'
+                if (shortTitle != '') {
+                    cardHtml += '<h1 class="h1 text-center text-success">' + shortTitle + '</h1>'
+                } else {
+                    cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'
+                }
                 cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'
                 cardHtml += '<p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp' +
                     newACGArray[i].time + '</p>'

@@ -126,7 +126,7 @@
             <div class="row justify-content-center mt-3" id="puzzleArea">
             </div>
         </div>
-        
+
         <div class="accordion mb-3" id="authorGGYY">
             <div class="card">
                 <div class="card-header">
@@ -284,11 +284,11 @@
             $('#sheetArea').find('.btn').each((index, value) => {
                 $(value).removeClass('btn-success').addClass('btn-outline-success')
             })
-            $('#previewImg').hide()
-            $('#sheetArea').show()
-            $('#slideArea').show()
-            $('#puzzleImg').hide()
-            $('#puzzleArea').parent().hide()
+            $('#previewImg').hide('fast')
+            $('#puzzleArea').parent().hide('slow', () => {
+                $('#sheetArea').show('slow')
+                $('#slideArea').show('slow')
+            })
         })
 
         //檢視原圖

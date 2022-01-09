@@ -13,9 +13,9 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.11.4/gitgraph.css" />
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/gh/greghub/green-audio-player/dist/css/green-audio-player.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.15.2/gitgraph.css"
+        integrity="sha512-Tfj6C0r3iOkXjJANEkjgAQtjqaXy1ZpKpp987LkEFKtORsDZokrvOXGEco1608NQTIDSx77tm2umR18GSMZtTg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/APlayer.min.css" />
     <style>
         /* 油圖高度控制 */
@@ -130,7 +130,7 @@
             <label class='mx-3 h5' style="color:#984B4B;"><i class="fas fa-circle"></i></label><span>其它</span>
         </div>
         <div class="col-sm-12" style="overflow-x: hidden;">
-            <canvas id='life-graph-container' style="margin-left: 20vw;"></canvas>
+            <canvas class="mt-3" id='life-graph-container' style="margin-left: 20vw;"></canvas>
         </div>
     </div>
 
@@ -169,7 +169,9 @@
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.11.4/gitgraph.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.15.2/gitgraph.js"
+        integrity="sha512-XWzwM94oWkH2q9v8h1OWAjyjYjkw+cAfMG539XBR2VsuEBQCwrhOM3B+OsZBA2NA1UprFAUTVndAfubgYBEReQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <script src="js/easydrag.js"></script>
     <script src="js/fairyDustCursor.js"></script>
@@ -305,13 +307,13 @@
             branch: {
                 dotStrokeWidth: 5,
                 lineWidth: 5,
-                spacingX: 30,
+                spacingX: 40,
                 labelRotation: 0
             },
             commit: {
                 spacingY: 40,
                 dot: {
-                    size: 15
+                    size: 13.5
                 },
                 message: {
                     strokeWidth: 5,

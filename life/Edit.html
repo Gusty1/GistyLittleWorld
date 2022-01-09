@@ -195,7 +195,7 @@
 
             database.ref('/life').once('value', function (result) {
                 if (!checkUser()) {
-                    // $('#authModal').modal('toggle')
+                    $('#authModal').modal('toggle')
                 }
                 lifeArray = result.val()
 

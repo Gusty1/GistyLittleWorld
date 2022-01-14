@@ -159,12 +159,6 @@
                 $("img").on("error", function (e) {
                     $(this).attr("src", "../images/error.gif");
                 });
-                $('body').find('iframe').each(function () {
-                    if (typeof $(this).attr("src") != 'undefined' &&
-                        $(this).attr("src").indexOf("youtube") != -1) {
-                        $(this).wrap('<div class="video-container"></div>')
-                    }
-                })
                 $('#content').find('img').each(function () {
                     $(this).wrap('<a class="contentImg" href="' + $(this).attr('src') +
                         '" data-fancybox="gallery" data-caption=""></a>')

@@ -63,7 +63,15 @@ function checkUser() {
     }
 }
 
-// toastr工具範例 以後如果有用到的話...
+// firebase auth 登出，以後可能有G會用到
+// firebase.auth().signOut().then(function () {
+//     var user = firebase.auth().currentUser;
+//     console.log(user)
+// })
+
+// 下面是可能有用到的東西...
+
+// toastr工具範例
 // toastr.options = {
 //     "closeButton": true,
 //     "debug": false,
@@ -86,8 +94,20 @@ function checkUser() {
 //     window.location.href = 'other/easyChat.html'
 // });
 
-// firebase auth 登出，以後可能有G會用到
-// firebase.auth().signOut().then(function () {
-//     var user = firebase.auth().currentUser;
-//     console.log(user)
+//建立leaflet地圖
+// var map = L.map('mapid', {
+//     center: [22.992, 120.239], //初始經緯度
+//     zoom: 8, //初始比例
+//     layers: new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'), //地圖圖源
+// });
+
+//cors anywhere使用，上面是範例，下面是測試(無法頻繁送請求會擋)
+// $.ajaxPrefilter(function (options) {
+//     if (options.crossDomain && jQuery.support.cors) {
+//         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+//     }
+// });
+
+// $.get('https://www.lceb.gov.tw/OpenData.aspx?SN=1FFBB23423F4336E', (result) => {
+//     console.log(result)
 // })

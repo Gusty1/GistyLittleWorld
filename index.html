@@ -185,41 +185,6 @@
         //判斷是否為移動裝置
         var isMobile = isMobileDevice();
 
-        $(document).ready(() => {
-            $.get('data/timeline.json', (result) => {
-                let timelineHtml = ''
-                for (value of result) {
-                    let date = ''
-                    let color = ''
-                    if (value.endDate == '') {
-                        date = value.startDate
-                    } else {
-                        date = value.startDate + '~' + value.endDate
-                    }
-                    if (value.type == '工作') {
-                        color = '#949449'
-                    } else if (value.type == '學習') {
-                        color = '#5A5AAD'
-                    } else if (value.type == '其它') {
-                        color = '#984B4B'
-                    }
-                    timelineHtml += ` <div class="timeline__item">
-                        <div class="timeline__content text-light h5 timelineBorder" style="background-color:${color};">
-                            ${date}<br>${value.content}
-                        </div>
-                    </div>`
-                }
-
-                $('.timeline').eq(0).find('.timeline__items').eq(0).html(timelineHtml)
-
-                $('.timeline').timeline({
-                    forceVerticalMode: 800,
-                    mode: 'horizontal',
-                    visibleItems: 4
-                });
-            })
-        })
-
         // 訪問量隨意拖動+音樂初始化
         $(window).on('load', function () {
             setTimeout(function () {
@@ -263,6 +228,36 @@
                     // autoplay: true,
                     volume: 0.5,
                     audio: musicList,
+                });
+            })
+
+            $.get('data/timeline.json', (result) => {
+                let timelineHtml = ''
+                for (value of result) {
+                    let date = ''
+                    let color = ''
+                    if (value.endDate == '') {
+                        date = value.startDate
+                    } else {
+                        date = value.startDate + '~' + value.endDate
+                    }
+                    if (value.type == '工作') {
+                        color = '#949449'
+                    } else if (value.type == '學習') {
+                        color = '#5A5AAD'
+                    } else if (value.type == '其它') {
+                        color = '#984B4B'
+                    }
+                    timelineHtml += ` <div class="timeline__item">
+                                        <div class="timeline__content text-light h5 timelineBorder" style="background-color:${color};">
+                                            ${date}<br>${value.content}
+                                        </div></div>`
+                }
+                $('.timeline').eq(0).find('.timeline__items').eq(0).html(timelineHtml)
+                $('.timeline').timeline({
+                    forceVerticalMode: 800,
+                    mode: 'horizontal',
+                    visibleItems: 4
                 });
             })
         });

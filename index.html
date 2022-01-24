@@ -13,10 +13,8 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.15.2/gitgraph.css"
-        integrity="sha512-Tfj6C0r3iOkXjJANEkjgAQtjqaXy1ZpKpp987LkEFKtORsDZokrvOXGEco1608NQTIDSx77tm2umR18GSMZtTg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/APlayer.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/timeline.min.css">
+    <link rel="stylesheet" type="text/css" href="css/APlayer.min.css">
     <style>
         /* 油圖高度控制 */
         .imgHeight {
@@ -32,12 +30,12 @@
         }
 
         /* 資訊icon變鼠標 */
-        i {
+        #viewCount i {
             cursor: help;
         }
 
-        body {
-            overflow-x: hidden;
+        .timelineBorder {
+            border: 2px solid black;
         }
     </style>
 </head>
@@ -47,8 +45,7 @@
     <div w3-include-html="header.html"></div>
     <br><br><br>
 
-    <div id="carouselExampleIndicators" class="carousel slide animate__animated animate__rotateInDownLeft"
-        data-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide animate__animated animate__rotateInDownLeft" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -124,54 +121,52 @@
         </div>
         <h1 class='display-4 text-center text-danger my-3'>人生重要紀錄</h1>
         <div class='row justify-content-center'>
-            <label class='text-primary mx-3 h5'><i class="fas fa-circle"></i></label><span>時間線</span>
-            <label class='mx-3 h5' style="color:#949449;"><i class="fas fa-circle"></i></label><span>工作</span>
-            <label class='mx-3 h5' style="color:#5A5AAD;"><i class="fas fa-circle"></i></label><span>學習</span>
-            <label class='mx-3 h5' style="color:#984B4B;"><i class="fas fa-circle"></i></label><span>其它</span>
+            <label class='mx-3 h5' style="color:#949449;"><i class="fas fa-square"></i></label><span>工作</span>
+            <label class='mx-3 h5' style="color:#5A5AAD;"><i class="fas fa-square"></i></label><span>學習</span>
+            <label class='mx-3 h5' style="color:#984B4B;"><i class="fas fa-square"></i></label><span>其它</span>
         </div>
-        <div class="col-sm-12" style="overflow-x: hidden;">
-            <canvas class="mt-3" id='life-graph-container' style="margin-left: 20vw;"></canvas>
+        <div class="timeline my-3 col-12">
+            <div class="timeline__wrap">
+                <div class="timeline__items">
+                    <!-- <div class="timeline__item">
+                        <div class="timeline__content bordered border-dark text-light">
+                            Your content / markup
+                        </div>
+                    </div> -->
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="goTop">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
-            class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
-            <path
-                d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
         </svg>
     </div>
 
     <div id="player"></div>
 
-    <div id="viewCount" style="background-color:#C4E1FF;"
-        class="border text-center rounded-lg border-secondary animate__animated animate__backInDown animate__delay-1s">
+    <div id="viewCount" style="background-color:#C4E1FF;" class="border text-center rounded-lg border-secondary animate__animated animate__backInDown animate__delay-1s">
         <span id="busuanzi_container_site_pv" class="row">
             <i class="fas fa-info-circle" id="PV"></i>
             本站訪問量(PV):&nbsp
-            <span id="busuanzi_value_site_pv" style="width: 25px;color:#F75000;font-size: 14pt;"
-                class="font-weight-bold"></span>
+            <span id="busuanzi_value_site_pv" style="width: 25px;color:#F75000;font-size: 14pt;" class="font-weight-bold"></span>
         </span><br>
         <span id="busuanzi_container_site_uv" class="row">
             <i class="fas fa-info-circle" id="UV"></i>
             本站訪客數(UV):&nbsp
-            <span id="busuanzi_value_site_uv" style="width: 25px;color:#F75000;font-size: 14pt;"
-                class="font-weight-bold"></span>
+            <span id="busuanzi_value_site_uv" style="width: 25px;color:#F75000;font-size: 14pt;" class="font-weight-bold"></span>
         </span>
     </div>
 
     <div w3-include-html="footer.html"></div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous">
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gitgraph.js/1.15.2/gitgraph.js"
-        integrity="sha512-XWzwM94oWkH2q9v8h1OWAjyjYjkw+cAfMG539XBR2VsuEBQCwrhOM3B+OsZBA2NA1UprFAUTVndAfubgYBEReQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <script src="js/easydrag.js"></script>
     <script src="js/fairyDustCursor.js"></script>
@@ -179,9 +174,9 @@
     <script src="js/social-share-kit.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
-        integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script async src="js/APlayer.min.js"></script>
+    <script type="text/javascript" src="js/timeline.min.js"></script>
     <script src="js/common.js"></script>
 
     <script>
@@ -189,6 +184,41 @@
         var _AP
         //判斷是否為移動裝置
         var isMobile = isMobileDevice();
+
+        $(document).ready(() => {
+            $.get('data/timeline.json', (result) => {
+                let timelineHtml = ''
+                for (value of result) {
+                    let date = ''
+                    let color = ''
+                    if (value.endDate == '') {
+                        date = value.startDate
+                    } else {
+                        date = value.startDate + '~' + value.endDate
+                    }
+                    if (value.type == '工作') {
+                        color = '#949449'
+                    } else if (value.type == '學習') {
+                        color = '#5A5AAD'
+                    } else if (value.type == '其它') {
+                        color = '#984B4B'
+                    }
+                    timelineHtml += ` <div class="timeline__item">
+                        <div class="timeline__content text-light h5 timelineBorder" style="background-color:${color};">
+                            ${date}<br>${value.content}
+                        </div>
+                    </div>`
+                }
+
+                $('.timeline').eq(0).find('.timeline__items').eq(0).html(timelineHtml)
+
+                $('.timeline').timeline({
+                    forceVerticalMode: 800,
+                    mode: 'horizontal',
+                    visibleItems: 4
+                });
+            })
+        })
 
         // 訪問量隨意拖動+音樂初始化
         $(window).on('load', function () {
@@ -268,7 +298,6 @@
                 showConfirmButton: false,
             });
         });
-
         $('#UV').click(function (e) {
             e.stopPropagation();
             Swal.fire({
@@ -300,82 +329,6 @@
             });
             return result
         }
-
-        //人生流程圖
-        var myTemplateConfig = {
-            colors: ["#0080FF", "#984B4B", "#949449", "#5A5AAD", "#AE57A4"],
-            branch: {
-                dotStrokeWidth: 5,
-                lineWidth: 5,
-                spacingX: 40,
-                labelRotation: 0
-            },
-            commit: {
-                spacingY: 40,
-                dot: {
-                    size: 13.5
-                },
-                message: {
-                    strokeWidth: 5,
-                    displayAuthor: false,
-                    displayBranch: false,
-                    displayHash: false,
-                    font: "normal 16pt 微軟正黑體"
-                }
-            }
-        };
-        var myTemplate = new GitGraph.Template(myTemplateConfig);
-
-        var graph = new GitGraph({
-            template: "metro", // or blackarrow
-            orientation: "vertical-reverse",
-            author: "Gusty",
-            elementId: 'life-graph-container',
-            mode: "extended", // or compact if you don't want the messages  
-            template: myTemplate
-        });
-
-        var master = graph.branch("master");
-        master.commit({
-            message: "2019/06 大學畢業"
-        });
-
-        var other = graph.branch("other");
-        other.commit({
-            message: "2019/09 國家需要我"
-        });
-        other.commit({
-            message: "2019/12 國家不要我"
-        });
-        other.merge(master, {
-            message: "   "
-        });
-
-        var work = graph.branch("work");
-        work.commit({
-            message: "2020/02 當作業員"
-        });
-        work.commit({
-            message: "2020/08 不當作業員"
-        });
-        work.merge(master, {
-            message: "   "
-        });
-
-        var study = graph.branch("study");
-        study.commit({
-            message: "2020/09 去資策會上課"
-        });
-        study.commit({
-            message: "2021/01 資策會結業"
-        });
-        study.merge(master, {
-            message: "   "
-        });
-
-        master.merge(work, {
-            message: "2021/02 當工程師"
-        });
     </script>
 
 </body>

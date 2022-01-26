@@ -177,6 +177,7 @@
         integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script async src="js/APlayer.min.js"></script>
     <script type="text/javascript" src="js/timeline.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lf0JjseAAAAAGyRwkGun5ZsK1MibXM-coiE3PEg"></script>
     <script src="js/common.js"></script>
 
     <script>
@@ -193,6 +194,12 @@
                     $(this).attr('src', imgAry[random[index]]);
                 });
             })
+            //cros anywhere 的設定 google recaptcha會用到
+            $.ajaxPrefilter((options) => {
+                if (options.crossDomain && $.support.cors) {
+                    options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+                }
+            });
         });
 
         // 訪問量隨意拖動+音樂初始化
@@ -271,6 +278,38 @@
                 });
             })
         });
+
+        //點擊a、button會觸發google驗證，分數低於0.5就會跳出GG人。
+        //基本就放好玩的認證網址會被cros檔，就算用cros anywhere也有次數限制，有成功就成功沒成功就算了。
+        $('body').on('click', 'a,button', (event) => {
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6Lf0JjseAAAAAGyRwkGun5ZsK1MibXM-coiE3PEg', {
+                    action: 'verify'
+                }).then(function (token) {
+                    $.ajax({
+                        url: 'https://www.google.com/recaptcha/api/siteverify',
+                        method: 'post',
+                        dataType: 'json',
+                        data: {
+                            response: token,
+                            secret: '6Lf0JjseAAAAAMK6BSQy65MH13FnRFACoq6_Ha8v',
+                        },
+                        success: (result) => {
+                            if (result.score < 0.5) {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: '<i class="fas fa-robot"></i><i class="fas fa-robot mx-2"></i><i class="fas fa-robot"></i>',
+                                    showConfirmButton: false,
+                                });
+                            }
+                        },
+                        error: (jqXHR) => {
+                            console.log('request fail')
+                        }
+                    })
+                });
+            });
+        })
 
         //PV UV 介紹
         $('#PV').click(function (e) {

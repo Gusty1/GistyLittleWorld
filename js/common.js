@@ -63,13 +63,13 @@ function checkUser() {
     }
 }
 
+// 下面是可能有用到的東西...
+
 // firebase auth 登出，以後可能有G會用到
 // firebase.auth().signOut().then(function () {
 //     var user = firebase.auth().currentUser;
 //     console.log(user)
 // })
-
-// 下面是可能有用到的東西...
 
 // toastr工具範例
 // toastr.options = {
@@ -102,8 +102,8 @@ function checkUser() {
 // });
 
 //cors anywhere使用，上面是範例，下面是測試(無法頻繁送請求會擋)
-// $.ajaxPrefilter(function (options) {
-//     if (options.crossDomain && jQuery.support.cors) {
+// $.ajaxPrefilter((options)=> {
+//     if (options.crossDomain && $.support.cors) {
 //         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
 //     }
 // });

@@ -1011,6 +1011,28 @@
     "time" : "2022-01-25",
     "title" : "我們的重製人生",
     "type" : "動畫"
+  }, {
+    "collect" : "12",
+    "content" : "<p><span style=\"color:#e74c3c\"><strong><span style=\"font-size:22px\">劇情介紹:</span></strong></span><span style=\"font-size:20px\">有機甲、有唱歌、有怪物。</span></p>\n\n<p><span style=\"font-size:20px\">劇情的設定上感覺是很有趣的，融合了美式搖滾、機甲、怪物，就感覺很厲害，但演出來卻是4不像。</span></p>\n\n<p><span style=\"font-size:20px\">裡面很多名稱都是用7、80年代左右的美國樂隊的名稱，就算是致敬吧，人設應該也是配合那些美式搖滾風格設計的，有些還蠻奇特的，機甲倒是都長得很怪，沒有駕駛艙，大家就直接站在機甲上打架，一點安全措施都沒有；劇情上就真的是爛到不行，他有很明確的主線故事，但是在敘事上卻完全是蝦G8演，每一集的連貫性感覺有夠差的，重要的轉折和設定也是被模糊帶過，模糊到完全不知道發生什麼了；我覺得他應該是想要做一部像是超時空要塞那樣有機甲和唱歌的，作一作可能發現自己能力不足，就變成大便了。</span></p>\n\n<p><span style=\"font-size:20px\">每一集的ED都是一首獨立的歌曲，12集就有12首歌，而且都是高橋李依唱的，可以說完全是高橋李依唱的主場，有些歌還蠻好聽的，至少音樂部分多少還有加點分。</span></p>\n\n<div class=\"youtube-embed-wrapper\" style=\"height:0; overflow:hidden; padding-bottom:56.25%; padding-top:30px; position:relative\"><iframe allowfullscreen=\"\" frameborder=\"0\" height=\"360\" src=\"https://www.youtube.com/embed/28fgsXicBZw\" style=\"position:absolute;top:0;left:0;width:100%;height:100%\" width=\"640\"></iframe></div>\n\n<p>&nbsp;</p>\n",
+    "coverImg" : "https://i.imgur.com/klyN3Dh.jpg",
+    "order" : 93,
+    "rate" : 2,
+    "say" : "與其消散，不如燃燒殆盡。",
+    "say_author" : "凱文",
+    "time" : "2022-01-29",
+    "title" : "LISTENERS",
+    "type" : "動畫"
+  }, {
+    "collect" : "12",
+    "content" : "<p><span style=\"font-size:20px\"><strong><span style=\"color:#e74c3c\">劇情介紹:</span></strong>2個妹子的異世界冒險。</span></p>\n\n<p><span style=\"font-size:20px\">題材說不上很有創意，可能最近這幾年很少這種題材的動畫，所以感覺就蠻新鮮的；妹子很香，但主線故事沒有很明確，就差強人意吧。</span></p>\n\n<p><span style=\"font-size:20px\">一開始進異世界就為了找人，然後找到百合小夥伴，之後遇到很多危險的事，但最後都有逃出來，逃出來之後還是一直進去裡面冒險，明明就遇到一堆很可怕的事，每次都是死裡逃生，不知道該說心臟很大還是怎樣，我覺得進入異世界的動機可以再加強一點，不然感覺每次都是動機不明的在玩命；靈異部分的緊張感和BGM每次都鋪陳得不錯，就真的是會有身歷其境的可怕感覺，敘事方面我覺得不夠好，感覺每集都是零碎的碎片，雖然最後是可以把那些碎片拼成一塊，但總是會有些缺少的細小碎片，總之就是故事的完整性不夠好。</span></p>\n",
+    "coverImg" : "https://i.imgur.com/RcMQVvo.jpg",
+    "order" : 94,
+    "rate" : 2.5,
+    "say" : "\"共犯\"是這個世界上最親密的關係。",
+    "say_author" : "仁科鳥子",
+    "time" : "2022-02-01",
+    "title" : "裏世界遠足",
+    "type" : "動畫"
   } ],
   "chat" : {
     "chatRoom" : [ {
@@ -1221,6 +1243,14 @@
     "summary" : "考過N4了，又往夢想前進了一點。",
     "time" : "2022-01-24",
     "title" : "考過N4啦"
+  }, {
+    "content" : "<p><span style=\"font-size:20px\">就要過年了，給自己一些目標(騙騙自己)看看年終的時候能不能做到；因為工作大部分都在弄前端畫面，所以程式方面我想先弄好前端，還有試作看看一些Arduino的東西，以前腦袋常常一直想一些Arduino的東西，最後什麼都沒作...；再來就是玩遊戲，長大以後玩遊戲真的變一件很奢侈的事，也不希望以後只剩下買遊戲這個惡性循環，最後就是減肥，雖然我是個肥宅，我希望我可以把肥這個字去掉只剩下宅就好了，總之目標清單大概如下。</span></p>\n\n<ol>\n\t<li><span style=\"font-size:20px\">學習React，然後用Recat作個什麼東西出來。</span></li>\n\t<li><span style=\"font-size:20px\">學習React Native，然後用React Nativet作個什麼東西出來。</span></li>\n\t<li><span style=\"font-size:20px\">考過N2。</span></li>\n\t<li><span style=\"font-size:20px\">用Arduino作個什麼東西出來。</span></li>\n\t<li><span style=\"font-size:20px\">至少玩完自己買的2款遊戲。</span></li>\n\t<li><span style=\"font-size:20px\">減肥，至少BMI能變成過重就好，而不是超重(哭阿)。</span></li>\n\t<li><span style=\"font-size:20px\">有時間的話，希望能學個畫畫或吉他。</span></li>\n\t<li><s><span style=\"font-size:8px\">交女朋友...</span></s></li>\n</ol>\n\n<p style=\"text-align:center\"><strong><span style=\"color:#e74c3c\"><span style=\"font-size:22px\">新年おめでとうございます!!!</span></span></strong></p>\n",
+    "coverImg" : "https://i.imgur.com/AENGoNa.jpg",
+    "label" : "年度目標",
+    "order" : 22,
+    "summary" : "要過年了，給自己一些目標...",
+    "time" : "2022-01-30",
+    "title" : "2022年度目標"
   } ],
   "war" : {
     "players" : [ {

@@ -111,3 +111,18 @@ function checkUser() {
 // $.get('https://www.lceb.gov.tw/OpenData.aspx?SN=1FFBB23423F4336E', (result) => {
 //     console.log(result)
 // })
+
+//爬蟲的js，記得chrome工具要開
+// $.ajax({
+//     url: '',
+//     method: 'get',
+//     dataType: 'text',
+//     success: (result) => {
+//         let html = $.parseHTML(result)
+//         $.each(html, function (i, el) {
+//             $(el).find('img').each((index, value) => {
+//                 //    $(value)...
+//             })
+//         });
+//     },
+// })

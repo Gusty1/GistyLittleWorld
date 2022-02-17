@@ -275,6 +275,7 @@
 
         //點擊a、button會觸發google驗證，分數低於0.5就會跳出GG人。
         //基本就放好玩的認證網址會被cros檔，就算用cros anywhere也有次數限制，有成功就成功沒成功就算了。
+        //拜託看到不要用我的金鑰，好人一生平安，謝謝
         $('body').on('click', 'a,button', (event) => {
             grecaptcha.ready(function () {
                 grecaptcha.execute('6Lf0JjseAAAAAGyRwkGun5ZsK1MibXM-coiE3PEg', {

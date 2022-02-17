@@ -27,6 +27,7 @@ $(window).on('load', function () {
 });
 
 // firebase realtimedatabase 設定
+//拜託看到不要用我的金鑰，好人一生平安，謝謝
 var firebaseConfig = {
     apiKey: "AIzaSyAK6h_Ar0tHjBKpyAswltO7AYRsJqasiBc",
     authDomain: "gusty-little-world.firebaseapp.com",

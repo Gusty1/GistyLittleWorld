@@ -464,16 +464,12 @@
       for (let i = 0; i < players.length; i = i + 1) {
         playersHtml += '<div class="col-sm-3">'
         if (players[i].status == 'offline') {
-          playersHtml += '<button type="button" class="btn btn-success w-100">' + players[i]
-            .country + '</button>'
+          playersHtml += '<button type="button" class="btn btn-success w-100">' + players[i].country + '</button>'
         } else if (players[i].country == sessionStorage.getItem('country')) {
           playersHtml +=
-            '<button type="button" class="btn btn-danger w-100" disabled><i class="fas fa-flag"></i>&nbsp' +
-            players[i]
-            .country + '</button>'
+            '<button type="button" class="btn btn-danger w-100" disabled><i class="fas fa-flag"></i>&nbsp' + players[i].country + '</button>'
         } else {
-          playersHtml += '<button type="button" class="btn btn-danger w-100" disabled>' + players[i]
-            .country + '</button>'
+          playersHtml += '<button type="button" class="btn btn-danger w-100" disabled>' + players[i].country + '</button>'
         }
         playersHtml += '</div>'
         if (players[i].status == 'online') {
@@ -558,8 +554,7 @@
             if (optionAry[i].country == sessionStorage.getItem('country')) {
               optionAry[i].option = 'attack'
               optionAry[i].enemy = attackCountry
-              database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(
-                optionAry[i].order)).update(optionAry[i])
+              database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(optionAry[i].order)).update(optionAry[i])
             }
           }
         });
@@ -584,8 +579,7 @@
           if (optionAry[i].country == sessionStorage.getItem('country')) {
             optionAry[i].option = 'defense'
             optionAry[i].enemy = []
-            database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(
-              optionAry[i].order)).update(optionAry[i])
+            database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(optionAry[i].order)).update(optionAry[i])
           }
         }
       });
@@ -632,8 +626,7 @@
             content: diplomaticContent,
             answer: ""
           }
-          database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/diplomatic/' +
-            parseInt(diplomaticObject.order)).update(diplomaticObject)
+          database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/diplomatic/' + parseInt(diplomaticObject.order)).update(diplomaticObject)
         });
         $('#selectdiplomatic_area').hide('fast')
       }
@@ -762,20 +755,15 @@
                         if (answerValue.answer == 'YES') {
                           Swal.fire({
                             icon: 'success',
-                            title: '國家' + answerValue.country +
-                              '同意你的外交請求',
+                            title: '國家' + answerValue.country + '同意你的外交請求',
                             allowOutsideClick: false,
                             showConfirmButton: true,
                             focusConfirm: false,
                           }).then((result) => {
                             if (result.isConfirmed) {
-                              for (let l = 0; l < _DIPLOMATICARY
-                                .length; l = l + 1) {
-                                if (answerValue.country ==
-                                  _DIPLOMATICARY[l]
-                                  .requestCountry) {
-                                  _DIPLOMATICARY[l]
-                                    .requestAnswer = 'YES'
+                              for (let l = 0; l < _DIPLOMATICARY.length; l = l + 1) {
+                                if (answerValue.country == _DIPLOMATICARY[l].requestCountry) {
+                                  _DIPLOMATICARY[l].requestAnswer = 'YES'
                                 }
                               }
                             }
@@ -783,21 +771,15 @@
                         } else {
                           Swal.fire({
                             icon: 'error',
-                            title: '國家' + answerValue.country +
-                              '拒絕你的外交請求',
+                            title: '國家' + answerValue.country + '拒絕你的外交請求',
                             allowOutsideClick: false,
                             showConfirmButton: true,
                             focusConfirm: false,
                           }).then((result) => {
                             if (result.isConfirmed) {
-                              for (let l = 0; l < _DIPLOMATICARY
-                                .length; l =
-                                l + 1) {
-                                if (answerValue.country ==
-                                  _DIPLOMATICARY[l]
-                                  .requestCountry) {
-                                  _DIPLOMATICARY[l]
-                                    .requestAnswer = 'NO'
+                              for (let l = 0; l < _DIPLOMATICARY.length; l = l + 1) {
+                                if (answerValue.country == _DIPLOMATICARY[l].requestCountry) {
+                                  _DIPLOMATICARY[l].requestAnswer = 'NO'
                                 }
                               }
                             }
@@ -862,8 +844,7 @@
           if (optionAry[i].option != '') {
             $('#warStart').find('label').each(function () {
               if ($(this).text().indexOf(optionAry[i].country) != -1) {
-                $(this).removeClass('badge-secondary').removeClass('badge-success')
-                  .addClass('badge-success')
+                $(this).removeClass('badge-secondary').removeClass('badge-success').addClass('badge-success')
               }
             })
             allReady = allReady + 1;
@@ -935,8 +916,7 @@
       $('#playersRank').html(rankHtml)
       for (let i = 0; i < optionAry.length; i = i + 1) {
         if (optionAry[i].country == sessionStorage.getItem('country') && _TURN < 7) {
-          database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(optionAry[i].order))
-            .update(optionAry[i])
+          database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(optionAry[i].order)).update(optionAry[i])
           // if (_TURN < 7) {
           //     optionAry[i].option = ''
           //     optionAry[i].enemy = [""]
@@ -1298,8 +1278,7 @@
             gameDataAry.option[j].option = ''
             gameDataAry.option[j].enemy = [""]
             gameDataAry.option[j].point = 0
-            database.ref('/war/warInfo/' + i + '/option/' + gameDataAry.option[j].order).update(
-              gameDataAry.option[j])
+            database.ref('/war/warInfo/' + i + '/option/' + gameDataAry.option[j].order).update(gameDataAry.option[j])
           }
           database.ref('/war/warInfo/' + i + '/diplomatic').set([newDiplomatic])
         });

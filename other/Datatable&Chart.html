@@ -225,7 +225,7 @@
   <script src="../js/jquery.blockUI.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-  <script src="../js/html2canvas.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="../js/dragula.js"></script>
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <script src="../js/fairyDustCursor.js"></script>
@@ -418,13 +418,10 @@
         },
         revertOnSpill: true,
       }).on('drop', function () {
-        if ($('#selectColnum').find('label').length == 8 || $('#dataColnum').find('label').length ==
-          0) {
-          $('#colnumCheck').append(
-            '已選滿，請調整並確認右邊欄位順序後按下<button class="btn btn-warning id="step1OK">確定</button>')
+        if ($('#selectColnum').find('label').length == 8 || $('#dataColnum').find('label').length == 0) {
+          $('#colnumCheck').append('已選滿，請調整並確認右邊欄位順序後按下<button class="btn btn-warning id="step1OK">確定</button>')
           $('#selectColnum').find('label').each(function () {
-            $(this).html('<i class="fas fa-arrows-alt-v float-left mx-3 text-light"></i>' +
-              $(this).html())
+            $(this).html('<i class="fas fa-arrows-alt-v float-left mx-3 text-light"></i>' + $(this).html())
           });
         } else {
           $('#colnumCheck').html('');
@@ -444,11 +441,9 @@
           $('#selectColnum').append($(this));
         }
       });
-      $('#colnumCheck').append(
-        '<br>已選滿，請調整並確認右邊欄位順序後按下<button class="btn btn-warning" id="step1OK">確定</button>')
+      $('#colnumCheck').append('<br>已選滿，請調整並確認右邊欄位順序後按下<button class="btn btn-warning" id="step1OK">確定</button>')
       $('#selectColnum').find('label').each(function () {
-        $(this).html('<i class="fas fa-arrows-alt-v float-left mx-3 text-light"></i>' + $(this)
-          .html())
+        $(this).html('<i class="fas fa-arrows-alt-v float-left mx-3 text-light"></i>' + $(this).html())
       });
     });
 
@@ -496,9 +491,7 @@
       $('#clearSelectColnum').attr('disabled', true);
       $("#autoDrag").attr('disabled', true);
       $('#selectColnum').find('label').each(function () {
-        $("#selectSearchButton").append(
-          '<button type="button" class="btn btn-outline-info m-2">' + $(this).text() +
-          '</button>')
+        $("#selectSearchButton").append('<button type="button" class="btn btn-outline-info m-2">' + $(this).text() + '</button>')
       });
       $('#selectSearchButton').append('<span class="mx-3"></span>');
       $("#successStep2").show('fast');
@@ -682,12 +675,10 @@
             if ($(this).hasClass('btn-dark')) {
               searchIndex = searchIndex + 1;
               $('.searchBar').append('<div class="form-group row ml-3">' +
-                '<label class= "col-form-label" for="search' + searchIndex +
-                '">' + $(this).text() + ':</label>' +
+                '<label class= "col-form-label" for="search' + searchIndex + '">' + $(this).text() + ':</label>' +
                 '<div class="col-sm-8">' +
                 '<input type="text" id="search' + searchIndex +
-                '" class="form-control" placeholder=搜尋"' + $(this).text() +
-                '">' +
+                '" class="form-control" placeholder=搜尋"' + $(this).text() + '">' +
                 '</div></div>');
             }
           });
@@ -828,17 +819,13 @@
         for (let i = 0; i < label.length; i = i + 1) {
           if (i == label.length - 1) {
             graphicSetHtml += '<div class="custom-control custom-checkbox mt-1">';
-            graphicSetHtml += '<input type="checkbox" class="custom-control-input" id="' + label[
-              i] + '" data-value="' + label[i] + '">';
-            graphicSetHtml += '<label class="custom-control-label" for="' + label[i] + '">' + label[
-              i] + '</label>';
+            graphicSetHtml += '<input type="checkbox" class="custom-control-input" id="' + label[i] + '" data-value="' + label[i] + '">';
+            graphicSetHtml += '<label class="custom-control-label" for="' + label[i] + '">' + label[i] + '</label>';
             graphicSetHtml += '</div>';
           } else {
             graphicSetHtml += '<div class="custom-control custom-checkbox mt-1">';
-            graphicSetHtml += '<input type="checkbox" class="custom-control-input" id="' + label[
-              i] + '" data-value="' + label[i] + '">';
-            graphicSetHtml += '<label class="custom-control-label" for="' + label[i] + '">' + label[
-              i] + '</label>';
+            graphicSetHtml += '<input type="checkbox" class="custom-control-input" id="' + label[i] + '" data-value="' + label[i] + '">';
+            graphicSetHtml += '<label class="custom-control-label" for="' + label[i] + '">' + label[i] + '</label>';
             graphicSetHtml += '</div>';
           }
         }
@@ -1110,27 +1097,17 @@
           });
         }
       }
-
     });
 
     // 匯出圖表
     $('#chartShowBlock').on('click', '.btn-info', function () {
       var chartType = $("#chartShowBlock").find('select').eq(0).find("option:selected").val();
-      html2canvas(document.getElementById('finalChart'), {
-        scrollX: 0,
-        scrollY: -window.scrollY,
-        type: 'view',
-        scale: 3,
-        background: '#FFFFFF',
-        onrendered: function (canvas) {
-          // console.log(canvas.toDataURL());//這是截圖的base64
-          var link = document.createElement("a");
-          link.download = chartType + ".png";
-          link.href = canvas.toDataURL("image/png");
-          link.target = '_blank';
-          link.click();
-          // document.body.appendChild(canvas);//這是有截圖的畫布
-        },
+      html2canvas(document.querySelector("#finalChart")).then(canvas => {
+        let link = document.createElement("a");
+        link.download = chartType + ".png";
+        link.href = canvas.toDataURL("image/png");
+        link.target = '_blank';
+        link.click();
       });
     });
 
@@ -1145,25 +1122,20 @@
       }
 
       var graphicBarSetHtml = '';
-      graphicBarSetHtml +=
-        '<div class="col-sm-4 mt-3">請選擇長條/折線圖要顯示資料的欄位:&nbsp</div><div class="col mt-3">';
+      graphicBarSetHtml += '<div class="col-sm-4 mt-3">請選擇長條/折線圖要顯示資料的欄位:&nbsp</div><div class="col mt-3">';
       for (let i = 0; i < numLabel.length; i = i + 1) {
         if (numLabel[i] == $(this).find("option:selected").text()) {
           continue;
         }
         if (i == numLabel.length - 1) {
           graphicBarSetHtml += '<div class="custom-control custom-checkbox mt-1">';
-          graphicBarSetHtml += '<input type="checkbox" class="custom-control-input" id="' + numLabel[
-            i] + '" data-value="' + numLabel[i] + '">';
-          graphicBarSetHtml += '<label class="custom-control-label" for="' + numLabel[i] + '">' +
-            numLabel[i] + '</label>';
+          graphicBarSetHtml += '<input type="checkbox" class="custom-control-input" id="' + numLabel[i] + '" data-value="' + numLabel[i] + '">';
+          graphicBarSetHtml += '<label class="custom-control-label" for="' + numLabel[i] + '">' + numLabel[i] + '</label>';
           graphicBarSetHtml += '</div>';
         } else {
           graphicBarSetHtml += '<div class="custom-control custom-checkbox mt-1">';
-          graphicBarSetHtml += '<input type="checkbox" class="custom-control-input" id="' + numLabel[
-            i] + '" data-value="' + numLabel[i] + '">';
-          graphicBarSetHtml += '<label class="custom-control-label" for="' + numLabel[i] + '">' +
-            numLabel[i] + '</label>';
+          graphicBarSetHtml += '<input type="checkbox" class="custom-control-input" id="' + numLabel[i] + '" data-value="' + numLabel[i] + '">';
+          graphicBarSetHtml += '<label class="custom-control-label" for="' + numLabel[i] + '">' + numLabel[i] + '</label>';
           graphicBarSetHtml += '</div>';
         }
       }

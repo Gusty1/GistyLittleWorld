@@ -1,21 +1,21 @@
 // 回最上層 js
 $("#goTop").click(function () {
-    $("html").animate({
-        scrollTop: 0
-    }, 1000);
+  $("html").animate({
+    scrollTop: 0
+  }, 1000);
 });
 $("#goTop").fadeOut('fast');
 $(window).scroll(function () {
-    if ($(this).scrollTop() > 300) {
-        $('#goTop').fadeIn("fast");
-    } else {
-        $('#goTop').stop().fadeOut("fast");
-    }
+  if ($(this).scrollTop() > 300) {
+    $('#goTop').fadeIn("fast");
+  } else {
+    $('#goTop').stop().fadeOut("fast");
+  }
 });
 
 // 滑鼠特效
 new fairyDustCursor({
-    colors: ["#ff0000", "#00ff00", "#0000ff"]
+  colors: ["#ff0000", "#00ff00", "#0000ff"]
 });
 
 //背景泡泡特效
@@ -23,20 +23,20 @@ bubbly({});
 
 //social share tool init
 $(window).on('load', function () {
-    SocialShareKit.init();
+  SocialShareKit.init();
 });
 
 // firebase realtimedatabase 設定
 //拜託看到不要用我的金鑰，好人一生平安，謝謝
 var firebaseConfig = {
-    apiKey: "AIzaSyAK6h_Ar0tHjBKpyAswltO7AYRsJqasiBc",
-    authDomain: "gusty-little-world.firebaseapp.com",
-    projectId: "gusty-little-world",
-    storageBucket: "gusty-little-world.appspot.com",
-    messagingSenderId: "367454470907",
-    appId: "1:367454470907:web:0b7d3f6c8cdea053da265e",
-    measurementId: "G-H3LJ64Y0HB",
-    databaseURL: "https://gusty-little-world-default-rtdb.firebaseio.com/"
+  apiKey: "AIzaSyAK6h_Ar0tHjBKpyAswltO7AYRsJqasiBc",
+  authDomain: "gusty-little-world.firebaseapp.com",
+  projectId: "gusty-little-world",
+  storageBucket: "gusty-little-world.appspot.com",
+  messagingSenderId: "367454470907",
+  appId: "1:367454470907:web:0b7d3f6c8cdea053da265e",
+  measurementId: "G-H3LJ64Y0HB",
+  databaseURL: "https://gusty-little-world-default-rtdb.firebaseio.com/"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -44,24 +44,24 @@ var database = firebase.database();
 
 //判斷是否為移動設備
 function isMobileDevice() {
-    var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
-    var isMobileDevice = false
-    for (var i = 0; i < mobileDevices.length; i++) {
-        if (navigator.userAgent.match(mobileDevices[i])) {
-            isMobileDevice = true
-        }
+  var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
+  var isMobileDevice = false
+  for (var i = 0; i < mobileDevices.length; i++) {
+    if (navigator.userAgent.match(mobileDevices[i])) {
+      isMobileDevice = true
     }
-    return isMobileDevice
+  }
+  return isMobileDevice
 }
 
 //檢查是否登入
 function checkUser() {
-    let user = firebase.auth().currentUser
-    if (user == null || user == '') {
-        return false
-    } else {
-        return true
-    }
+  let user = firebase.auth().currentUser
+  if (user == null || user == '') {
+    return false
+  } else {
+    return true
+  }
 }
 
 // 下面是可能有用到的東西...

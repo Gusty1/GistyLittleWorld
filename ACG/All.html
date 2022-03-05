@@ -261,6 +261,8 @@
     // 分類點擊和顯示
     $('.nav-tabs').on('click', 'a', function (e) {
       e.preventDefault();
+      $('#subjectSearch').val('')
+      $('#searchResult').html('')
       let changeACGArray = [];
       let isRepeat = '';
       $('.nav-tabs').find('a').each(function () {
@@ -307,7 +309,6 @@
         }
       }
       $('select').val('newToOld');
-      $('#subjectSearch').val('');
     });
 
     // 搜尋框
@@ -325,7 +326,7 @@
           initCard()
         } else {
           for (let i = 0; i < ACGArray.length; i++) {
-            if (ACGArray[i].title.indexOf($('#subjectSearch').val().trim().toUpperCase()) != -1) {
+            if (ACGArray[i].title.toLowerCase().indexOf($('#subjectSearch').val().trim().toLowerCase()) != -1) {
               searchACGArray.push(ACGArray[i]);
             }
           }
@@ -346,9 +347,10 @@
         }
         initCard(searchACGArray);
       } else {
+        console.log('aa')
         for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (ACGArray[i].type == type && ACGArray[i].title.indexOf($('#subjectSearch').val()
-              .trim().toUpperCase()) != -1) {
+          if (ACGArray[i].type == type && ACGArray[i].title.toLowerCase().indexOf($('#subjectSearch').val()
+              .trim().toLowerCase()) != -1) {
             searchACGArray.push(ACGArray[i]);
           }
         }
@@ -372,6 +374,8 @@
 
     //排序方式
     $('select').on('change', function () {
+      $('#subjectSearch').val('')
+      $('#searchResult').html('')
       let changeACGArray = [];
       let type = '';
       $('.nav-tabs').find('a').each(function () {

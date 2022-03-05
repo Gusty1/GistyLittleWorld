@@ -277,7 +277,7 @@
       $('#cardGroup').html('');
       if (clickLabel == '' || clickLabel == 'ALL') {
         for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (lifeArray[i].title.indexOf($(this).val().trim().toUpperCase()) != -1) {
+          if (lifeArray[i].title.toLowerCase().indexOf($(this).val().trim().toLowerCase()) != -1) {
             changeLifeArray.push(lifeArray[i])
           }
         }
@@ -292,7 +292,7 @@
         }
       } else {
         for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (lifeArray[i].title.indexOf($(this).val().trim().toUpperCase()) != -1 &&
+          if (lifeArray[i].title.toLowerCase().indexOf($(this).val().trim().toLowerCase()) != -1 &&
             lifeArray[i].label == clickLabel) {
             changeLifeArray.push(lifeArray[i])
           }
@@ -323,6 +323,8 @@
 
     //排序方式
     $('select').on('change', function () {
+      $('#subjectSearch').val('')
+       $('#searchResult').html('')
       let changeLifeArray = [];
       changeLifeArray = lifeArray;
       if (clickLabel != '' && clickLabel != 'ALL') {
@@ -367,6 +369,7 @@
       $('#labelGroup').prev().html('目前標籤:&nbsp' + clickLabel);
       $('select').val('newToOld');
       $('#subjectSearch').val('');
+       $('#searchResult').html('')
       if ($(this).html().substring(0, $(this).html().indexOf('&')) == 'ALL') {
         lifeArray.sort(function (a, b) {
           return new Date(a.time) > new Date(b.time) ? -1 : 1

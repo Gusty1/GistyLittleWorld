@@ -260,9 +260,10 @@
             color = '#984B4B'
           }
           timelineHtml += ` <div class="timeline__item">
-                                        <div class="timeline__content text-light h5 timelineBorder" style="background-color:${color};">
-                                            ${date}<br>${value.content}
-                                        </div></div>`
+                              <div class="timeline__content text-light h5 timelineBorder" style="background-color:${color};">
+                                ${date}<br>${value.content}
+                              </div>
+                            </div>`
         }
         $('.timeline').eq(0).find('.timeline__items').eq(0).html(timelineHtml)
         $('.timeline').timeline({
@@ -290,6 +291,7 @@
               secret: '6Lf0JjseAAAAAMK6BSQy65MH13FnRFACoq6_Ha8v',
             },
             success: (result) => {
+              console.log('你的分數:' + result.score)
               if (result.score < 0.5) {
                 Swal.fire({
                   icon: 'warning',

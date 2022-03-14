@@ -115,101 +115,112 @@
       });
       let nextTitle = ''
       let prevTitle = ''
-      database.ref('/ACG').on('value', function (result) {
-        ACGArray = result.val()
-        for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (urlOrder == ACGArray[i].order) {
-            document.title = ACGArray[i].title;
-            $('.card').find('img').eq(0).data('src', ACGArray[i].coverImg).
-            attr('data-src', ACGArray[i].coverImg)
-            $('.card-body').find('div').each(function (index, value) {
-              if (index == 0) {
-                $(this).html(ACGArray[i].title)
-              }
-              if (index == 1) {
-                if (ACGArray[i].type == '動畫' || ACGArray[i].type == '漫畫') {
-                  $(this).html(ACGArray[i].type + '、' + ACGArray[i].collect +
-                    '集');
-                } else {
-                  $(this).html(ACGArray[i].type + '、' + ACGArray[i].collect +
-                    '小時');
+      new Promise((resolve, reject) => {
+        database.ref('/ACG').on('value', function (result) {
+          let thisTitle = ''
+          ACGArray = result.val()
+          for (let i = 0; i < ACGArray.length; i = i + 1) {
+            if (urlOrder == ACGArray[i].order) {
+              document.title = ACGArray[i].title;
+              thisTitle = ACGArray[i].title
+              $('.card').find('img').eq(0).data('src', ACGArray[i].coverImg).
+              attr('data-src', ACGArray[i].coverImg)
+              $('.card-body').find('div').each(function (index, value) {
+                if (index == 0) {
+                  $(this).html(ACGArray[i].title)
                 }
-              }
-              if (index == 2) {
-                $(this).html(ACGArray[i].time)
-              }
-              if (index == 3) {
-                let rateHtml = '';
-                if (ACGArray[i].rate.toString().indexOf('.') != -1) {
-                  // $(this).append('<i class="fas fa-star-half-alt"></i>');
-                  for (let j = 0; j < 5; j = j + 1) {
-                    if (j < parseInt(ACGArray[i].rate)) {
-                      rateHtml += '<i class="fas fa-star"></i>';
-                    } else {
-                      rateHtml += '<i class="fas fa-star-half-alt"></i>';
-                      j = j + 1;
-                      if (j < 5) {
-                        for (let k = j; k < 5; k++) {
-                          rateHtml += '<i class="far fa-star"></i>';
+                if (index == 1) {
+                  if (ACGArray[i].type == '動畫' || ACGArray[i].type == '漫畫') {
+                    $(this).html(ACGArray[i].type + '、' + ACGArray[i].collect +
+                      '集');
+                  } else {
+                    $(this).html(ACGArray[i].type + '、' + ACGArray[i].collect +
+                      '小時');
+                  }
+                }
+                if (index == 2) {
+                  $(this).html(ACGArray[i].time)
+                }
+                if (index == 3) {
+                  let rateHtml = '';
+                  if (ACGArray[i].rate.toString().indexOf('.') != -1) {
+                    // $(this).append('<i class="fas fa-star-half-alt"></i>');
+                    for (let j = 0; j < 5; j = j + 1) {
+                      if (j < parseInt(ACGArray[i].rate)) {
+                        rateHtml += '<i class="fas fa-star"></i>';
+                      } else {
+                        rateHtml += '<i class="fas fa-star-half-alt"></i>';
+                        j = j + 1;
+                        if (j < 5) {
+                          for (let k = j; k < 5; k++) {
+                            rateHtml += '<i class="far fa-star"></i>';
+                          }
+                          break;
                         }
-                        break;
+                      }
+                    }
+                  } else {
+                    for (let j = 0; j < 5; j = j + 1) {
+                      if (j < ACGArray[i].rate) {
+                        rateHtml += '<i class="fas fa-star"></i>';
+                      } else {
+                        rateHtml += '<i class="far fa-star"></i>';
                       }
                     }
                   }
-                } else {
-                  for (let j = 0; j < 5; j = j + 1) {
-                    if (j < ACGArray[i].rate) {
-                      rateHtml += '<i class="fas fa-star"></i>';
-                    } else {
-                      rateHtml += '<i class="far fa-star"></i>';
-                    }
-                  }
+                  $(this).html(rateHtml);
                 }
-                $(this).html(rateHtml);
-              }
-              if (index == 4) {
-                $(this).html('『' + ACGArray[i].say + '』');
-              }
-            });
-            $('.card-body').find('footer').eq(0).html(ACGArray[i].say_author);
-            $('#content').html(ACGArray[i].content);
+                if (index == 4) {
+                  $(this).html('『' + ACGArray[i].say + '』');
+                }
+              });
+              $('.card-body').find('footer').eq(0).html(ACGArray[i].say_author);
+              $('#content').html(ACGArray[i].content);
+            }
+            if (parseInt(urlOrder) + parseInt(1) == ACGArray[i].order) {
+              $('#leftBtn').data('order', ACGArray[i].order).
+              attr('data-order', ACGArray[i].order).
+              addClass('hvr-backward')
+              nextTitle = ACGArray[i].title
+            }
+            if (parseInt(urlOrder) - 1 == ACGArray[i].order) {
+              $('#rightBtn').data('order', ACGArray[i].order).
+              attr('data-order', ACGArray[i].order).
+              addClass('hvr-forward')
+              prevTitle = ACGArray[i].title
+            }
           }
-          if (parseInt(urlOrder) + parseInt(1) == ACGArray[i].order) {
-            $('#leftBtn').data('order', ACGArray[i].order).
-            attr('data-order', ACGArray[i].order).
-            addClass('hvr-backward')
-            nextTitle = ACGArray[i].title
-          }
-          if (parseInt(urlOrder) - 1 == ACGArray[i].order) {
-            $('#rightBtn').data('order', ACGArray[i].order).
-            attr('data-order', ACGArray[i].order).
-            addClass('hvr-forward')
-            prevTitle = ACGArray[i].title
-          }
-        }
+          resolve(thisTitle)
+        })
+      }).then((resolve) => {
         buildTip(nextTitle, prevTitle)
-        $("img").on("error", function (e) {
-          $(this).attr("src", "../images/error.gif");
-        });
         $('#content').find('img').each(function () {
           $(this).wrap('<a class="contentImg" href="' + $(this).attr('src') +
             '" data-fancybox="gallery" data-caption=""></a>')
         })
         Fancybox.bind("a.contentImg", {});
+        $('body').find("img").each((index, value) => {
+          $(value).on('error', function () {
+            console.log('mm')
+            $(this).attr("src", "../images/error.gif");
+          })
+        })
         $.unblockUI();
         new LazyLoad();
-      });
-      const gitalk = new Gitalk({
-        clientID: 'db818b2dc056c96e75aa',
-        clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
-        repo: 'GustyLittleWorld',
-        owner: 'Gusty1',
-        admin: ['Gusty1'],
-        id: 'ACG_' + urlOrder.toString(),
-        distractionFreeMode: false,
+        const gitalk = new Gitalk({
+          clientID: 'db818b2dc056c96e75aa',
+          clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
+          repo: 'GustyLittleWorld',
+          owner: 'Gusty1',
+          admin: ['Gusty1'],
+          id: 'ACG_' + urlOrder.toString(),
+          title: resolve,
+          distractionFreeMode: false,
+        })
+        gitalk.render('gitalk-container')
+      }).catch((reject) => {
+        alert('發生錯誤了')
       })
-
-      gitalk.render('gitalk-container')
     });
 
     //上下一篇切換

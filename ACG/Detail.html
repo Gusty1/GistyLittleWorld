@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/Start/jquery-ui.css">
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 </head>
 
 <body>
@@ -45,7 +46,7 @@
       <u>留言</u>
     </div>
 
-    <div class="my-3" id="disqus_thread"></div>
+    <div id="gitalk-container" class="my-3"></div>
   </div>
 
   <div id="dialog" title="封印之地" style="display: none;">
@@ -89,10 +90,10 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js" integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="../js/jquery.blockUI.js"></script>
-  <script id="dsq-count-scr" src="//gustylittleworld.disqus.com/count.js" async></script>
   <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <script src="../js/social-share-kit.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
   <script src="../js/common.js"></script>
 
   <script>
@@ -100,19 +101,6 @@
     var url = new URL(getUrlString);
     var urlOrder = url.searchParams.get('order');
     var ACGArray = [];
-
-    //disqus留言設定
-    // var disqus_config = function () {
-    //   this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-    //   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    // };
-    (function () { // DON'T EDIT BELOW THIS LINE
-      var d = document,
-        s = d.createElement('script');
-      s.src = 'https://gustylittleworld.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
 
     // 抓網頁參數資料+顯示
     $(document).ready(function () {
@@ -211,6 +199,18 @@
         $.unblockUI();
         new LazyLoad();
       });
+      const gitalk = new Gitalk({
+        clientID: 'db818b2dc056c96e75aa',
+        clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
+        repo: 'Gusty1GustyLittleWorld',
+        owner: 'Gusty1',
+        admin: ['Gusty1'],
+        labels:['test'],
+        id:'test',
+        distractionFreeMode: false,
+      })
+
+      gitalk.render('gitalk-container')
     });
 
     //上下一篇切換

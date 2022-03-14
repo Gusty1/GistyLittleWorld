@@ -201,7 +201,6 @@
         Fancybox.bind("a.contentImg", {});
         $('body').find("img").each((index, value) => {
           $(value).on('error', function () {
-            console.log('mm')
             $(this).attr("src", "../images/error.gif");
           })
         })
@@ -218,8 +217,6 @@
           distractionFreeMode: false,
         })
         gitalk.render('gitalk-container')
-      }).catch((reject) => {
-        alert('發生錯誤了')
       })
     });
 

@@ -39,5 +39,5 @@ body::-webkit-scrollbar-thumb:hover {
 
 /*自訂滑鼠樣式*/
 body {
-	cursor: url("/images/cursor_noel.ico"), default;
+	cursor: url("https://gusty1.github.io/GustyLittleWorld/images/cursor_noel.ico"), default;
 }

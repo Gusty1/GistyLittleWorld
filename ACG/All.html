@@ -167,7 +167,7 @@
       $('footer').load('../footer.html')
       let typeArrayCount = [0, 0, 0, 0];
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
-      let adHtml = 'Gusty歷史上的今天看/玩完了&nbsp&nbsp'
+      let adHtml = 'Gusty歷史上的今天看/玩完了:&nbsp'
       $.blockUI({
         message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only"></span></div>',
         css: {
@@ -198,7 +198,7 @@
               ACGArray[i].order + '\')">' + ACGArray[i].title + '</a>、'
           }
         }
-        if (adHtml != 'Gusty歷史上的今天看/玩完了&nbsp&nbsp') {
+        if (adHtml != 'Gusty歷史上的今天看/玩完了:&nbsp') {
           adHtml = adHtml.substring(0,adHtml.lastIndexOf('、'))
           $('.marquee').html(adHtml).marquee({
             duration: 25000,

@@ -30,8 +30,8 @@
     <div class="row rounded" style="border:2px solid #FF5809;background-color: #C4E1FF;">
       <div class="col-sm-3 rounded-right h5 mb-0" style="border-right: 2px solid #FF5809;">
         <div class="col-sm-12">
-          <p class="mt-4">您的國家:&nbsp<span id='myCountry'>?</span></p>
-          <p class="mt-4">您的分數:&nbsp<span id='myPoint'>0</span></p>
+          <p class="mt-4">您的國家:&nbsp;<span id='myCountry'>?</span></p>
+          <p class="mt-4">您的分數:&nbsp;<span id='myPoint'>0</span></p>
         </div>
         <hr class="part">
         <div class="col-sm-12">
@@ -312,20 +312,20 @@
           <div class="row justify-content-center mt-2">
             <div class="col-sm-12 text-center">
               <button class="btn btn-danger w-50" id="attack">
-                <i class="fas fa-skull-crossbones"></i>&nbspATTACK
+                <i class="fas fa-skull-crossbones"></i>&nbsp;ATTACK
               </button>
             </div>
           </div>
           <div class="row justify-content-center mt-2">
             <div class="col-sm-12 text-center">
               <button class="btn btn-primary w-50" id="defense">
-                <i class="bi bi-shield-fill"></i>&nbspDEFENSE
+                <i class="bi bi-shield-fill"></i>&nbsp;DEFENSE
               </button>
             </div>
           </div>
           <div class="row justify-content-center mt-2">
             <div class="col-sm-12 text-center" id="diplomatic">
-              <button class="btn btn-secondary w-50"><i class="fas fa-handshake"></i>&nbsp外交</button>
+              <button class="btn btn-secondary w-50"><i class="fas fa-handshake"></i>&nbsp;外交</button>
             </div>
           </div>
           <div class="row justify-content-center mt-5" id="selectAttack_area" style="display: none;">
@@ -467,7 +467,7 @@
           playersHtml += '<button type="button" class="btn btn-success w-100">' + players[i].country + '</button>'
         } else if (players[i].country == sessionStorage.getItem('country')) {
           playersHtml +=
-            '<button type="button" class="btn btn-danger w-100" disabled><i class="fas fa-flag"></i>&nbsp' + players[i].country + '</button>'
+            '<button type="button" class="btn btn-danger w-100" disabled><i class="fas fa-flag"></i>&nbsp;' + players[i].country + '</button>'
         } else {
           playersHtml += '<button type="button" class="btn btn-danger w-100" disabled>' + players[i].country + '</button>'
         }

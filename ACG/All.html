@@ -46,7 +46,7 @@
     <div class="row justify-content-between">
       <div class="col-sm-4">
         <div class="form-group row h5 justify-content-center">
-          <label for="subjectSearch" class="col-form-label"><i class="fas fa-search"></i>&nbsp標題搜尋</label>
+          <label for="subjectSearch" class="col-form-label"><i class="fas fa-search"></i>&nbsp;標題搜尋</label>
           <div class="col-sm-7">
             <input type="text" class="form-control mt-1" id="subjectSearch" placeholder="請輸入關鍵字">
           </div>
@@ -55,13 +55,13 @@
       <div class="col-sm-4 h4 mt-2 text-danger" id="searchResult"></div>
       <div class="col-sm-4">
         <div class="form-group row h5 justify-content-center">
-          <label class="col-form-label"><i class="fas fa-sort"></i>&nbsp排序方式</label>
+          <label class="col-form-label"><i class="fas fa-sort"></i>&nbsp;排序方式</label>
           <div class="col-sm-7 mt-1">
             <select class="form-control">
-              <option value="newToOld">時間&nbsp新-->舊</option>
-              <option value="oldToNew">時間&nbsp舊-->新</option>
-              <option value="highToLow">評分&nbsp高-->低</option>
-              <option value="lowToHigh">評分&nbsp低-->高</option>
+              <option value="newToOld">時間&nbsp;新-->舊</option>
+              <option value="oldToNew">時間&nbsp;舊-->新</option>
+              <option value="highToLow">評分&nbsp;高-->低</option>
+              <option value="lowToHigh">評分&nbsp;低-->高</option>
             </select>
           </div>
         </div>
@@ -91,8 +91,8 @@
                     alt="Card image cap">
                 <div class="card-body">
                     <h1 class="h1 text-center text-success">我是標題</h1>
-                    <p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp2021-04-05</p>
-                    <p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp&nbsp★★★★★</p>
+                    <p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;2021-04-05</p>
+                    <p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp;&nbsp;★★★★★</p>
                     <p class="h4">
                         我是名言
                         <p class="h5 text-muted float-right">-XXX</p>
@@ -167,7 +167,7 @@
       $('footer').load('../footer.html')
       let typeArrayCount = [0, 0, 0, 0];
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
-      let adHtml = 'Gusty歷史上的今天看/玩完了:&nbsp'
+      let adHtml = 'Gusty歷史上的今天看/玩完了:&nbsp;'
       $.blockUI({
         message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only"></span></div>',
         css: {
@@ -198,7 +198,7 @@
               ACGArray[i].order + '\')">' + ACGArray[i].title + '</a>、'
           }
         }
-        if (adHtml != 'Gusty歷史上的今天看/玩完了:&nbsp') {
+        if (adHtml != 'Gusty歷史上的今天看/玩完了:&nbsp;') {
           adHtml = adHtml.substring(0,adHtml.lastIndexOf('、'))
           $('.marquee').html(adHtml).marquee({
             duration: 25000,
@@ -220,19 +220,19 @@
         }
         $('.nav-tabs').find('a').each(function (index, value) {
           if (index == 0) {
-            $(this).html('<i class="fas fa-khanda"></i>&nbspALL&nbsp' +
+            $(this).html('<i class="fas fa-khanda"></i>&nbsp;ALL&nbsp;' +
               typeArrayCount[index])
           }
           if (index == 1) {
-            $(this).html('<i class="fas fa-gamepad"></i>&nbsp遊戲&nbsp' +
+            $(this).html('<i class="fas fa-gamepad"></i>&nbsp;遊戲&nbsp;' +
               typeArrayCount[index]);
           }
           if (index == 2) {
-            $(this).html('<i class="fas fa-tv"></i>&nbsp動畫&nbsp' +
+            $(this).html('<i class="fas fa-tv"></i>&nbsp;動畫&nbsp;' +
               typeArrayCount[index]);
           }
           if (index == 3) {
-            $(this).html('<i class="fas fa-book-open"></i>&nbsp漫畫&nbsp' +
+            $(this).html('<i class="fas fa-book-open"></i>&nbsp;漫畫&nbsp;' +
               typeArrayCount[index]);
           }
         });
@@ -334,7 +334,7 @@
             initCard(searchACGArray);
           } else {
             $('#cardBlock').html(
-              '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp查無資料，換個關鍵字試試。</div>'
+              '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp;查無資料，換個關鍵字試試。</div>'
             );
             $('#pageBlock').html('');
           }
@@ -357,7 +357,7 @@
           initCard(searchACGArray);
         } else {
           $('#cardBlock').html(
-            '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp在' +
+            '<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp;在' +
             type + '裡查無資料，換個關鍵字或選其他類型試試。</div>');
           $('#pageBlock').html('');
         }
@@ -365,7 +365,7 @@
       if ($('#subjectSearch').val() == '') {
         $('#searchResult').html('')
       } else if (searchACGArray.length > 0) {
-        $('#searchResult').html('共&nbsp' + searchACGArray.length + '&nbsp筆符合的資料')
+        $('#searchResult').html('共&nbsp;' + searchACGArray.length + '&nbsp;筆符合的資料')
       } else {
         $('#searchResult').html('')
       }
@@ -474,9 +474,9 @@
           cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'
         }
         cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'
-        cardHtml += '<p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp&nbsp' +
+        cardHtml += '<p class="h4 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;' +
           newACGArray[i].time + '</p>'
-        cardHtml += '<p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp&nbsp'
+        cardHtml += '<p class="h4 text-warning"><i class="fas fa-medal"></i>&nbsp;&nbsp;'
         if (newACGArray[i].rate.toString().indexOf('.') != -1) {
           for (let j = 0; j < 5; j = j + 1) {
             if (j < parseInt(newACGArray[i].rate)) {

@@ -21,11 +21,6 @@ new fairyDustCursor({
 //背景泡泡特效
 bubbly({});
 
-//social share tool init
-$(window).on('load', function () {
-  SocialShareKit.init();
-});
-
 // firebase realtimedatabase 設定
 //拜託看到不要用我的金鑰，好人一生平安，謝謝
 var firebaseConfig = {

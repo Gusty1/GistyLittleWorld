@@ -198,7 +198,7 @@
           }
         }
         if (adHtml != 'Gusty歷史上的今天看/玩完了:&nbsp;') {
-          adHtml = adHtml.substring(0,adHtml.lastIndexOf('、'))
+          adHtml = adHtml.substring(0, adHtml.lastIndexOf('、'))
           $('.marquee').html(adHtml).marquee({
             duration: 25000,
             gap: 50,
@@ -463,8 +463,7 @@
           }
         }
         cardHtml += '<div class="card m-3 hvr-grow" style="min-width: 20rem;max-width: 20rem;">'
-        cardHtml +=
-          '<img class="card-img-top img-fluid lazy" style="height:350px;" src="../images/loading.gif" data-src="' +
+        cardHtml += '<img class="card-img-top img-fluid lazy" style="height:350px;" src="../images/loading.gif" data-src="' +
           newACGArray[i].coverImg + '" alt="not found img">'
         cardHtml += '<div class="card-body">'
         if (shortTitle != '') {
@@ -509,9 +508,7 @@
         cardHtml += '</div></div></div>'
       }
       if (cardHtml == '') {
-        $('#cardBlock').html(
-          '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
-        );
+        $('#cardBlock').html('<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>');
         $('#pageBlock').html('');
         return false;
       }
@@ -532,34 +529,34 @@
 
     //產生頁數
     function buildPage(newACGArray) {
-      let pagelength = [];
+      let pageLength = [];
       let pageAcgArray = [];
-      if (newACGArray.length > 6) {
-        if (newACGArray.length % 6 == 0) {
-          for (let i = 0; i < parseInt(newACGArray.length / 6); i = i + 1) {
-            pagelength.push(i)
+      if (newACGArray.length > 12) {
+        if (newACGArray.length % 12 == 0) {
+          for (let i = 0; i < parseInt(newACGArray.length / 12); i = i + 1) {
+            pageLength.push(i)
           }
         } else {
-          for (let i = 0; i < parseInt(newACGArray.length / 6) + 1; i = i + 1) {
-            pagelength.push(i)
+          for (let i = 0; i < parseInt(newACGArray.length / 12) + 1; i = i + 1) {
+            pageLength.push(i)
           }
         }
       } else {
-        pagelength.push(1)
+        pageLength.push(1)
       }
-      if (newACGArray.length > 6) {
+      if (newACGArray.length > 12) {
         $('#pageBlock').pagination({
-          dataSource: pagelength,
+          dataSource: pageLength,
           pageSize: 1,
           showPrevious: false,
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
           callback: function (data, pagination) {
-            // start: i*6
-            // end:   (i+1)*6-1
+            // start: i*12
+            // end:   (i+1)*12-1
             pageAcgArray = []
             for (let i = 0; i < newACGArray.length; i = i + 1) {
-              if (i >= parseInt(data[0] * 6) && i <= parseInt((data[0] + 1) * 6 - 1)) {
+              if (i >= parseInt(data[0] * 12) && i <= parseInt((data[0] + 1) * 12 - 1)) {
                 pageAcgArray.push(newACGArray[i])
               }
             }
@@ -569,7 +566,7 @@
         });
       } else {
         $('#pageBlock').pagination({
-          dataSource: pagelength,
+          dataSource: pageLength,
           pageSize: 1,
           showPrevious: false,
           showNext: false,

@@ -437,24 +437,24 @@
 
     // 產生頁數
     function buildPage(newlifeArray) {
-      let pagelength = [];
+      let pageLength = [];
       let pageLifeArray = [];
       if (newlifeArray.length > 5) {
         if (newlifeArray.length % 5 == 0) {
           for (let i = 0; i < parseInt(newlifeArray.length / 5); i = i + 1) {
-            pagelength.push(i);
+            pageLength.push(i);
           }
         } else {
           for (let i = 0; i < parseInt(newlifeArray.length / 5) + 1; i = i + 1) {
-            pagelength.push(i);
+            pageLength.push(i);
           }
         }
       } else {
-        pagelength.push(1)
+        pageLength.push(1)
       }
       if (newlifeArray.length > 5) {
         $('#page').pagination({
-          dataSource: pagelength,
+          dataSource: pageLength,
           pageSize: 1,
           showPrevious: false,
           showNext: false,
@@ -474,7 +474,7 @@
         });
       } else {
         $('#page').pagination({
-          dataSource: pagelength,
+          dataSource: pageLength,
           pageSize: 1,
           showPrevious: false,
           showNext: false,

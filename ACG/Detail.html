@@ -17,7 +17,7 @@
   <header></header>
   <br><br><br>
 
-  <div class="container-xl animate__animated animate__rollIn animate__delay-1s">
+  <div class="container-xl">
     <div class="card my-3 w-100" style="background-color:transparent;border:none;">
       <div class="row no-gutters">
         <div class="col-sm-4 col-xs-12">
@@ -216,6 +216,7 @@
           distractionFreeMode: false,
         })
         gitalk.render('gitalk-container')
+        $('.container-xl').addClass('animate__animated animate__rollIn')
       })
     });
 

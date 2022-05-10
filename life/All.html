@@ -76,7 +76,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-between animate__animated animate__fadeInDownBig animate__delay-1s">
+    <div class="row justify-content-between" id="animeArea">
       <div class="col-sm-9">
         <div class="col-md-12" id="cardGroup">
         </div>
@@ -186,68 +186,73 @@
           backgroundColor: 'transparent'
         },
       });
-      database.ref('/life').on('value', function (result) {
-        lifeArray = result.val()
-        lifeArray.sort(function (a, b) {
-          return new Date(a.time) > new Date(b.time) ? -1 : 1
-        });
-        initCard(lifeArray)
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (parseInt(new Date(lifeArray[i].time).getMonth()) + 1 + '-' +
-            new Date(lifeArray[i].time).getDate() == today) {
-            adHtml +=
-              '<a class="font-weight-bold" style="margin-right:5px;color:#00FFFF;" href="javascript:window.open(\'Detail.html?order=' +
-              lifeArray[i].order + '\')">' + lifeArray[i].title + '</a>、'
-          }
-        }
-        if (adHtml != 'Gusty歷史上的今天發生了:&nbsp;') {
-          adHtml = adHtml.substring(0, adHtml.lastIndexOf('、'))
-          $('.marquee').html(adHtml).marquee({
-            duration: 25000,
-            gap: 50,
-            delayBeforeStart: 0,
-            direction: 'right',
-            duplicated: false,
-            pauseOnHover: true,
+      new Promise((resolve, reject) => {
+        database.ref('/life').on('value', function (result) {
+          lifeArray = result.val()
+          lifeArray.sort(function (a, b) {
+            return new Date(a.time) > new Date(b.time) ? -1 : 1
           });
-        } else {
-          $('.marquee').html('Gusty歷史上的今天甚麼事都沒發生。').marquee({
-            duration: 25000,
-            gap: 50,
-            delayBeforeStart: 0,
-            direction: 'right',
-            duplicated: false,
-            pauseOnHover: true,
-          });
-        }
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          labelArray.push(lifeArray[i].label)
-        }
-        labelArray = labelArray.filter(function (element, index, arr) {
-          return arr.indexOf(element) == index;
-        });
-        labelArrayCount = []
-        for (let i = 0; i < labelArray.length; i = i + 1) {
-          let labelCount = 0;
-          for (let j = 0; j < lifeArray.length; j = j + 1) {
-            if (labelArray[i] == lifeArray[j].label) {
-              labelCount = labelCount + 1;
+          initCard(lifeArray)
+          for (let i = 0; i < lifeArray.length; i = i + 1) {
+            if (parseInt(new Date(lifeArray[i].time).getMonth()) + 1 + '-' +
+              new Date(lifeArray[i].time).getDate() == today) {
+              adHtml +=
+                '<a class="font-weight-bold" style="margin-right:5px;color:#00FFFF;" href="javascript:window.open(\'Detail.html?order=' +
+                lifeArray[i].order + '\')">' + lifeArray[i].title + '</a>、'
             }
           }
-          labelArrayCount.push(labelCount)
-        }
-        labelHtml = ''
-        labelHtml +=
-          '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp;' +
-          lifeArray.length + '</span>';
-        for (let i = 0; i < labelArray.length; i = i + 1) {
+          if (adHtml != 'Gusty歷史上的今天發生了:&nbsp;') {
+            adHtml = adHtml.substring(0, adHtml.lastIndexOf('、'))
+            $('.marquee').html(adHtml).marquee({
+              duration: 25000,
+              gap: 50,
+              delayBeforeStart: 0,
+              direction: 'right',
+              duplicated: false,
+              pauseOnHover: true,
+            });
+          } else {
+            $('.marquee').html('Gusty歷史上的今天甚麼事都沒發生。').marquee({
+              duration: 25000,
+              gap: 50,
+              delayBeforeStart: 0,
+              direction: 'right',
+              duplicated: false,
+              pauseOnHover: true,
+            });
+          }
+          for (let i = 0; i < lifeArray.length; i = i + 1) {
+            labelArray.push(lifeArray[i].label)
+          }
+          labelArray = labelArray.filter(function (element, index, arr) {
+            return arr.indexOf(element) == index;
+          });
+          labelArrayCount = []
+          for (let i = 0; i < labelArray.length; i = i + 1) {
+            let labelCount = 0;
+            for (let j = 0; j < lifeArray.length; j = j + 1) {
+              if (labelArray[i] == lifeArray[j].label) {
+                labelCount = labelCount + 1;
+              }
+            }
+            labelArrayCount.push(labelCount)
+          }
+          labelHtml = ''
           labelHtml +=
-            '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' +
-            labelColor[i] + '">' + labelArray[i] + '&nbsp;' + labelArrayCount[i] + '</span>';
-        }
-        $('#labelGroup').prev().html('目前標籤:&nbsp;ALL');
-        $('#labelGroup').html(labelHtml);
-        $.unblockUI();
+            '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp;' +
+            lifeArray.length + '</span>';
+          for (let i = 0; i < labelArray.length; i = i + 1) {
+            labelHtml +=
+              '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' +
+              labelColor[i] + '">' + labelArray[i] + '&nbsp;' + labelArrayCount[i] + '</span>';
+          }
+          $('#labelGroup').prev().html('目前標籤:&nbsp;ALL');
+          $('#labelGroup').html(labelHtml);
+          $.unblockUI();
+          resolve(lifeArray)
+        })
+      }).then((resolve) => {
+        $('#animeArea').addClass('animate__animated animate__fadeInDownBig')
       })
     });
 

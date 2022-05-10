@@ -17,7 +17,7 @@
   <header></header>
   <br><br><br>
 
-  <div class="container-xl animate__animated animate__rotateIn animate__delay-1s">
+  <div class="container-xl">
     <div class='row justify-content-center text-primary display-2 font-weight-bold' id="edit"></div>
 
     <div class="row mt-3 justify-content-center">
@@ -163,6 +163,7 @@
           distractionFreeMode: false,
         })
         gitalk.render('gitalk-container')
+        $('.container-xl').addClass('animate__animated animate__rotateIn')
       })
     });
 

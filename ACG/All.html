@@ -173,6 +173,7 @@
           borderWidth: '0px',
           backgroundColor: 'transparent'
         },
+        baseZ: 1000,
       });
       new Promise((resolve, reject) => {
         database.ref('/ACG').on('value', function (result) {

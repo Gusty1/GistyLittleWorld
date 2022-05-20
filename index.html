@@ -94,7 +94,6 @@
           <img src='images/index/noel_face.png' alt="sorry not found" class="rounded img-fluid">
         </div>
       </div>
-      <div id="weather-temperature" class="bg-light" style="height: 500px;width: 300px;"></div>
       <h1 class='display-4 text-center text-danger my-3'>連結介紹</h1>
       <div class='row justify-content-start'>
         <h1 class='h2 text-info col-sm-2'>生活日誌:&nbsp;</h1>
@@ -170,7 +169,6 @@
   <script async src="js/APlayer.min.js"></script>
   <script type="text/javascript" src="js/timeline.min.js"></script>
   <script src="https://www.google.com/recaptcha/api.js?render=6Lf0JjseAAAAAGyRwkGun5ZsK1MibXM-coiE3PEg"></script>
-  <script src="js/openweather.min.js"></script>
   <script src="js/common.js"></script>
 
   <script>
@@ -192,20 +190,6 @@
       $.ajaxPrefilter((options) => {
         if (options.crossDomain && $.support.cors) {
           options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-        }
-      });
-      $('#weather-temperature').openWeather({
-        key: 'c9d49310f8023ee2617a7634de23c2aa',
-        lang: 'zh_tw',
-        city: 'Taipei',
-        units: 'c',
-        windSpeedUnit: 'Mps',
-        success: function () {
-          $('#weather-temperature').show();
-          console.log('dd')
-        },
-        error: function (message) {
-          console.log(message);
         }
       });
     });

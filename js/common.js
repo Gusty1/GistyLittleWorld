@@ -59,6 +59,12 @@ function checkUser() {
   }
 }
 
+//隨機load動畫
+function randomLoader() {
+  let loadAry = ['spinner-loader', 'throbber-loader', 'refreshing-loader', 'heartbeat-loader', 'gauge-loader', 'three-quarters-loader', 'wobblebar-loader', 'atebits-loader', 'whirly-loader', 'flower-loader', 'dots-loader', 'circles-loader', 'plus-loader', 'ball-loader', 'hexdots-loader', 'inner-circles-loader', 'pong-loader', 'pulse-loader', 'spinning-pixels-loader']
+  return '<div class="' + loadAry[Math.floor(Math.random() * loadAry.length)] + '"></div>'
+}
+
 // 下面是可能有用到的東西...
 
 // firebase auth 登出，以後可能有G會用到

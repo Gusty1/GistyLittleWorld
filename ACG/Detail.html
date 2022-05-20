@@ -106,11 +106,12 @@
       $('header').load('ACG_header.html')
       $('footer').load('../footer.html')
       $.blockUI({
-        message: '<div class="spinner-border text-primary h1" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only"></span></div>',
+        message: randomLoader(),
         css: {
           borderWidth: '0px',
           backgroundColor: 'transparent'
         },
+        baseZ: 1000,
       });
       let nextTitle = ''
       let prevTitle = ''

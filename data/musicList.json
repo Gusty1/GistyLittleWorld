@@ -22,10 +22,16 @@
   "url": "music/mp3/Happy Synthesizer.mp3",
   "lrc": "music/lrc/Happy Synthesizer.lrc",
   "cover": "music/coverImg/Happy Synthesizer.jpg"
-},{
+}, {
   "name": "Letter",
   "artist": "SHE'S",
   "url": "music/mp3/letter.mp3",
   "lrc": "music/lrc/letter.lrc",
   "cover": "music/coverImg/letter.jpg"
+}, {
+  "name": "世界に一つだけの花",
+  "artist": "SMAP",
+  "url": "music/mp3/世界に一つだけの花.mp3",
+  "lrc": "music/lrc/世界に一つだけの花.lrc",
+  "cover": "music/coverImg/世界に一つだけの花.jpg"
 }]

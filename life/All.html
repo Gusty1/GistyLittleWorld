@@ -226,9 +226,8 @@
             labelArray.push(lifeArray[i].label)
           }
           labelArray = labelArray.filter(function (element, index, arr) {
-            return arr.indexOf(element) == index;
+            return arr.indexOf(element) === index;
           });
-          labelArrayCount = []
           for (let i = 0; i < labelArray.length; i = i + 1) {
             let labelCount = 0;
             for (let j = 0; j < lifeArray.length; j = j + 1) {
@@ -238,14 +237,23 @@
             }
             labelArrayCount.push(labelCount)
           }
-          labelHtml = ''
+          let finalAry = []
+          for (let i = 0; i < labelArray.length; i = i + 1) {
+            finalAry.push({
+              label: labelArray[i],
+              sum: labelArrayCount[i]
+            })
+          }
+          finalAry = finalAry.sort((a, b) => {
+            return parseInt(a.sum) > parseInt(b.sum) ? -1 : 1
+          })
           labelHtml +=
             '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp;' +
             lifeArray.length + '</span>';
-          for (let i = 0; i < labelArray.length; i = i + 1) {
+          for (let i = 0; i < finalAry.length; i = i + 1) {
             labelHtml +=
               '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' +
-              labelColor[i] + '">' + labelArray[i] + '&nbsp;' + labelArrayCount[i] + '</span>';
+              labelColor[i] + '">' + finalAry[i].label + '&nbsp;' + finalAry[i].sum + '</span>';
           }
           $('#labelGroup').prev().html('目前標籤:&nbsp;ALL');
           $('#labelGroup').html(labelHtml);

@@ -128,3 +128,80 @@ function randomLoader() {
 //         });
 //     },
 // })
+
+//陣列物件過濾重復，originalArray:物件陣列，prop:要過濾的key值
+// function removeDuplicates(originalArray, prop) {
+//   let newArray = [];
+//   let lookupObject = {};
+//   for (let i in originalArray) {
+//     lookupObject[originalArray[i][prop]] = originalArray[i];
+//   }
+//   for (let i in lookupObject) {
+//     newArray.push(lookupObject[i]);
+//   }
+//   return newArray;
+// }
+
+//取各種時間的前後
+// function getSpecialDate(type, number) {
+//   //number -是指前的時間 例 -2 2天前
+//   let nowdate = new Date();
+//   let y = ''
+//   let m = ''
+//   let d = ''
+//   let h = ''
+//   let min = ''
+//   let sec = ''
+//   let retrundate = ''
+//   switch (type) {
+//     case "day": //取number天前、後的時間
+//       nowdate.setTime(nowdate.getTime() + (24 * 3600 * 1000) * number);
+//       y = nowdate.getFullYear();
+//       m = nowdate.getMonth() + 1;
+//       d = nowdate.getDate();
+//       h = nowdate.getHours();
+//       min = nowdate.getMinutes();
+//       sec = nowdate.getSeconds();
+//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
+//       break;
+//     case "week": //取number周前、後的時間
+//       weekdate = new Date(nowdate.getTime() + (7 * 24 * 3600 * 1000) * number);
+//       y = weekdate.getFullYear();
+//       m = weekdate.getMonth() + 1;
+//       d = weekdate.getDate();
+//       h = nowdate.getHours();
+//       min = nowdate.getMinutes();
+//       sec = nowdate.getSeconds();
+//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
+//       break;
+//     case "month": //取number月前、後的時間
+//       nowdate.setMonth(nowdate.getMonth() + number);
+//       y = nowdate.getFullYear();
+//       m = nowdate.getMonth() + 1;
+//       d = nowdate.getDate();
+//       h = nowdate.getHours();
+//       min = nowdate.getMinutes();
+//       sec = nowdate.getSeconds();
+//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
+//       break;
+//     case "year": //取number年前、後的時間
+//       nowdate.setFullYear(nowdate.getFullYear() + number);
+//       y = nowdate.getFullYear();
+//       m = nowdate.getMonth() + 1;
+//       d = nowdate.getDate();
+//       h = nowdate.getHours();
+//       min = nowdate.getMinutes();
+//       sec = nowdate.getSeconds();
+//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
+//       break;
+//     default: //取當前時間
+//       y = nowdate.getFullYear();
+//       m = nowdate.getMonth() + 1;
+//       d = nowdate.getDate();
+//       h = nowdate.getHours();
+//       min = nowdate.getMinutes();
+//       sec = nowdate.getSeconds();
+//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
+//   }
+//   return retrundate;
+// }

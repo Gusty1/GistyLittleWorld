@@ -53,8 +53,8 @@ function checkUser() {
 
 //隨機load動畫
 function randomLoader() {
-  let loadAry = ['spinner-loader', 'throbber-loader', 'refreshing-loader', 'heartbeat-loader', 'gauge-loader', 'three-quarters-loader', 'wobblebar-loader', 'atebits-loader', 'whirly-loader', 'flower-loader', 'dots-loader', 'circles-loader', 'plus-loader', 'ball-loader', 'hexdots-loader', 'inner-circles-loader', 'pong-loader', 'pulse-loader', 'spinning-pixels-loader']
-  return '<div class="' + loadAry[Math.floor(Math.random() * loadAry.length)] + '"></div>'
+  let randomNum = Math.floor(Math.random() * 19) + 1
+  return '<div style="margin:auto;"><img style="height:30vh;width:20vw;" src="../images/loading_gif/load_' + randomNum + '.gif"></div>'
 }
 
 //陣列物件過濾重復，originalArray:物件陣列，prop:要過濾的key值

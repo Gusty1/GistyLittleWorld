@@ -41,3 +41,16 @@ body::-webkit-scrollbar-thumb:hover {
 body {
 	cursor: url("https://gusty1.github.io/GustyLittleWorld/images/cursor_noel.ico"), default;
 }
+
+/*header標題的icon*/
+#headerIcon {
+	height: 6vh;
+	width: 4vw;
+}
+
+@media (max-width: 700px), print {
+	#headerIcon {
+		height: 6vh;
+		width: 10vw;
+	}
+}

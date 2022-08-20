@@ -64,7 +64,7 @@
     </div>
 
     <div class="col-12 text-center">
-      <img src="https://fgo.wiki/images/thumb/3/3d/%E5%A4%A7%E7%8E%8B%E6%8A%BD%E5%8D%A1%E8%88%9E_%E9%80%8F%E6%98%8E%E5%BA%95.gif/200px-%E5%A4%A7%E7%8E%8B%E6%8A%BD%E5%8D%A1%E8%88%9E_%E9%80%8F%E6%98%8E%E5%BA%95.gif">
+      <img src="../images/other/data_analyze/divider.gif">
     </div>
 
     <div class="col-12 my-3">
@@ -84,7 +84,10 @@
           <div class="form-group row justify-content-center h5">
             <label for="" class="col-sm-4 col-form-label font-weight-bold text-center">分類</label>
             <div class="col-sm-8">
-              <select class="form-control" id=""></select>
+              <select class="form-control" id="sumRate">
+                <option value="rate" selected>評分</option>
+                <option value="count">數量</option>
+              </select>
             </div>
           </div>
         </div>
@@ -148,7 +151,8 @@
         </div>
         <div id="description2" class="collapse" data-parent="#authorGGYY">
           <div class="card-body">
-            就一堆圖表；因為我找不到Radar和Polar的icon，所以我隨便找2個感覺很帥的圖。
+            就一堆圖表，因為我找不到Radar和Polar的icon，所以我隨便找2個感覺很帥的圖。<br>
+            X軸都固定是月份，Y軸都是數量，其他的就自己按看看。
           </div>
         </div>
       </div>
@@ -162,7 +166,9 @@
         </div>
         <div id="description3" class="collapse" aria-labelledby="headingThree" data-parent="#authorGGYY">
           <div class="card-body">
-            123456
+            生活的可能因為有些數量差異都不大，所以就算用成圖表也看不出甚麼變化；果然垃圾話極多。<br>
+            ACG的用評分去看，分的項目太多反而很亂；動畫的比例極高，然後1分的也不少，難道我沒有看動畫的眼光嗎?<br>
+            線性圖或其他有節點的圖因為滑鼠圖標不是正常的，所以很難滑到點上，但我還是不會換回來的，這是阿宅的堅持。
           </div>
         </div>
       </div>
@@ -192,31 +198,38 @@
     var LifeData = ''
     var ACGData = ''
     var LifeChart = ''
+    var ACGChart = ''
 
     var MonthAry = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     var BackgroundColor = [
-      'rgba(255, 99, 132,0.2)',
-      'rgba(54, 162, 235,0.2)',
-      'rgba(255, 206, 86,0.2)',
-      'rgba(75, 192, 192,0.2)',
-      'rgba(153, 102, 255,0.2)',
-      'rgba(255, 159, 64,0.2)',
-      'rgba(0, 100, 0,0.2)',
-      'rgba(255, 215, 0,0.2)',
-      'rgba(32, 178, 170,0.2)',
-      'rgba(95, 158, 160,0.2)'
+      'rgba(139,0,0,0.6)',
+      'rgba(54, 162, 235,0.6)',
+      'rgba(255, 206, 86,0.6)',
+      'rgba(255,0,0,0.6)',
+      'rgba(47,79,79,0.6)',
+      'rgba(255,20,147,0.6)',
+      'rgba(0, 100, 0,0.6)',
+      'rgba(148, 0, 211,0.6)',
+      'rgba(250,128,114,0.6)',
+      'rgba(124,252,0,0.6)',
+      'rgba(233,150,122,0.6)',
+      'rgba(0,255,255,0.6)',
+      'rgba(210,105,30,0.6)'
     ]
     var BorderColor = [
-      'rgba(255, 99, 132)',
+      'rgba(139,0,0)',
       'rgba(54, 162, 235)',
       'rgba(255, 206, 86)',
-      'rgba(75, 192, 192)',
-      'rgba(153, 102, 255)',
-      'rgba(255, 159, 64)',
+      'rgba(255,0,0)',
+      'rgba(47,79,79)',
+      'rgba(255,20,147)',
       'rgba(0, 100, 0)',
-      'rgba(255, 215, 0)',
-      'rgba(32, 178, 170)',
-      'rgba(95, 158, 160)'
+      'rgba(148, 0, 211)',
+      'rgba(250,128,114)',
+      'rgba(124,252,0)',
+      'rgba(233,150,122)',
+      'rgba(0,255,255)',
+      'rgba(210,105,30)'
     ]
 
     //取得初始資料
@@ -232,17 +245,24 @@
       $('header').load("header.html")
       $("footer").load("../footer.html");
       setYear()
-      // LifeData = await getFirebaseData('life')
-      // ACGData = await getFirebaseData('ACG')
-      console.log(LifeData)
-      console.log(ACGData)
-      // setLifeChart($('#lifeYear').val(), $('input[name="life_type"]:checked').val())
+      LifeData = await getFirebaseData('life')
+      ACGData = await getFirebaseData('ACG')
+      // console.log(LifeData)
+      // console.log(ACGData)
+      setLifeChart($('#lifeYear').val(), $('input[name="life_type"]:checked').val())
+      setACGChart($('#ACGYear').val(), $('input[name="ACG_type"]:checked').val(), $('#sumRate').val())
       $.unblockUI();
     })
 
     //生活日誌選項切換
     $('body').on('change', '#lifeYear,input[name="life_type"]', () => {
       setLifeChart($('#lifeYear').val(), $('input[name="life_type"]:checked').val())
+    })
+
+    //ACG心得選項切換
+    $('body').on('change', '#ACGYear,input[name="ACG_type"],#sumRate', () => {
+      console.log('ii')
+      setACGChart($('#ACGYear').val(), $('input[name="ACG_type"]:checked').val(), $('#sumRate').val())
     })
 
     //取得資料
@@ -256,17 +276,20 @@
 
     //設定年分
     function setYear() {
-      let optionHtml = ''
+      let life_optionHtml = ''
+      let ACG_optionHtmlG = ''
       let nowYear = new Date().getFullYear()
       for (let i = 2020; i <= nowYear; i++) {
-        optionHtml += '<option value="' + i + '">' + i + '</option>'
+        life_optionHtml += '<option value="' + i + '">' + i + '</option>'
+        if (i !== 2020) ACG_optionHtmlG += '<option value="' + i + '">' + i + '</option>'
       }
-      $('#lifeYear').html(optionHtml)
-      $('#ACGYear').html(optionHtml)
+      $('#lifeYear').html(life_optionHtml)
+      $('#ACGYear').html(ACG_optionHtmlG)
     }
 
     //設定生活日誌的圖表
     function setLifeChart(year, chartType) {
+      console.log('cc')
       let scales = {}
       let data = {}
       let max = 0
@@ -278,15 +301,14 @@
       labelAry = labelAry.map((item) => {
         return item.label
       })
+
       if (chartType === 'pie' || chartType === 'polarArea') {
         let countAry = []
         let singleDataObj = {}
         for (let i = 0; i < labelAry.length; i++) {
           countAry[i] = 0
           for (let j = 0; j < thisYearData.length; j++) {
-            if (thisYearData[j].label === labelAry[i]) {
-              countAry[i]++
-            }
+            if (thisYearData[j].label === labelAry[i]) countAry[i]++
           }
           if (countAry[i] > max) max = countAry[i]
         }
@@ -305,7 +327,11 @@
             borderColor: BorderColor[i],
             borderWidth: 1,
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            fill: true
+            fill: true,
+            pointStyle: 'circle',
+            pointRadius: 6,
+            pointHoverRadius: 9,
+            tension: 0.4
           }
           for (let m = 1; m <= 12; m++) {
             for (let j = 0; j < thisYearData.length; j++) {
@@ -328,7 +354,7 @@
               stepSize: 1,
             },
             beginAtZero: true,
-            max: max + 3,
+            max: max + 2,
           },
           x: {
             beginAtZero: true,
@@ -341,14 +367,145 @@
               stepSize: 1,
             },
             beginAtZero: true,
-            max: max + 3,
+            max: max + 2,
           },
         }
-      } else {
-        scales = {}
-      }
+      } else scales = {}
+
       if (LifeChart !== '') LifeChart.destroy()
       LifeChart = new Chart(document.getElementById('lifeChart'), {
+        type: chartType,
+        data: data,
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+              labels: {
+                font: {
+                  size: 18
+                }
+              }
+            },
+            title: {
+              display: false,
+            }
+          },
+          scales,
+        },
+      });
+    }
+
+    //設定ACG的圖表
+    function setACGChart(year, chartType, type) {
+      console.log('vv')
+      let scales = {}
+      let data = {}
+      let max = 0
+      let datasets = []
+      let typeAry = []
+      let thisYearData = ACGData.filter((item) => {
+        return new Date(item.time).getFullYear() === parseInt(year)
+      })
+
+      if (type === 'rate') {
+        typeAry = removeDuplicates(thisYearData, 'rate')
+        typeAry = typeAry.sort((a, b) => {
+          return a.rate - b.rate
+        })
+        typeAry = typeAry.map((item) => {
+          return item.rate
+        })
+      } else {
+        typeAry = removeDuplicates(thisYearData, 'type')
+        typeAry = typeAry.map((item) => {
+          return item.type
+        })
+      }
+
+      if (chartType === 'pie' || chartType === 'polarArea') {
+        let countAry = []
+        let singleDataObj = {}
+        for (let i = 0; i < typeAry.length; i++) {
+          countAry[i] = 0
+          if (type === 'rate') {
+            for (let j = 0; j < thisYearData.length; j++) {
+              if (thisYearData[j].rate === typeAry[i]) countAry[i]++
+            }
+          } else {
+            for (let j = 0; j < thisYearData.length; j++) {
+              if (thisYearData[j].type === typeAry[i]) countAry[i]++
+            }
+          }
+          if (countAry[i] > max) max = countAry[i]
+        }
+        singleDataObj.label = '數量'
+        if (chartType === 'polarArea') singleDataObj.backgroundColor = BackgroundColor
+        else singleDataObj.backgroundColor = BorderColor
+        singleDataObj.data = countAry
+        datasets.push(singleDataObj)
+        data.labels = typeAry
+        data.datasets = datasets
+      } else {
+        for (let i = 0; i < typeAry.length; i++) {
+          let dataObj = {
+            label: typeAry[i],
+            backgroundColor: BackgroundColor[i],
+            borderColor: BorderColor[i],
+            borderWidth: 1,
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            fill: true,
+            pointStyle: 'circle',
+            pointRadius: 6,
+            pointHoverRadius: 9,
+            tension: 0.4
+          }
+          for (let m = 1; m <= 12; m++) {
+            for (let j = 0; j < thisYearData.length; j++) {
+              if (type === 'rate') {
+                if (thisYearData[j].rate === typeAry[i] && new Date(thisYearData[j].time).getMonth() + 1 === m) {
+                  dataObj.data[m - 1]++
+                }
+              } else {
+                if (thisYearData[j].type === typeAry[i] && new Date(thisYearData[j].time).getMonth() + 1 === m) {
+                  dataObj.data[m - 1]++
+                }
+              }
+            }
+            if (dataObj.data[m - 1] > max) max = dataObj.data[m - 1]
+          }
+          datasets.push(dataObj)
+        }
+        data.labels = MonthAry
+        data.datasets = datasets
+      }
+      if (chartType === 'bar' || chartType === 'line') {
+        scales = {
+          y: {
+            ticks: {
+              stepSize: 1,
+            },
+            beginAtZero: true,
+            max: max + 2,
+          },
+          x: {
+            beginAtZero: true,
+          },
+        }
+      } else if (chartType === 'radar' || chartType === 'polarArea') {
+        scales = {
+          r: {
+            ticks: {
+              stepSize: 1,
+            },
+            beginAtZero: true,
+            max: max + 2,
+          },
+        }
+      } else scales = {}
+      if (ACGChart !== '') ACGChart.destroy()
+      ACGChart = new Chart(document.getElementById('ACGChart'), {
         type: chartType,
         data: data,
         options: {

@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <title>簡陋聊天室</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+
+  <header></header>
+  <br><br><br>
+
+  <div class="container-xl animate__animated animate__wobble">
+    <div class="row justify-content-center text-center mt-3">
+      <h1 class="display-4 font-weight-bold" style="color:#2894FF;">
+        <i class="fas fa-comments"></i>&nbsp;簡陋聊天室
+      </h1>
+    </div>
+
+    <div class="row mt-3" id="exportButton" style="display: none;">
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-success"><i class="fas fa-file-export"></i>&nbsp;(JSON)</button>
+      </div>
+    </div>
+
+    <div class="row mt-1 mb-3 justify-content-center">
+      <div id="user" class="col-sm-4 border border-dark" style="height: 70vh;overflow-y: auto;background-color:ivory;">
+        <div class="row justify-content-center">
+          <div class="spinner-border text-danger" role="status" style="margin-top: 50%;width: 3rem; height: 3rem;">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+        <!-- <div class="row mt-3 h4 rounded p-3 mr-1 ml-1 hvbuzz"
+                    style="background-color: #ACD6FF;cursor: pointer;">
+                    <div class="col-sm-4 border rounded-pill text-center" style="background-color: mediumturquoise;">
+                        74
+                    </div>
+                    <div class="col-sm-5">7414</div>
+                    <div class="col-sm-3"><i class="fas fa-signal"></i></div>
+                </div> -->
+      </div>
+      <div class="col-sm-8 border border-dark" style="height: 70vh;overflow:hidden;background-color:ivory;padding: 0px;">
+        <div class="d-flex align-items-center justify-content-center" style="width: 100%;height: 100%;">
+          <div class="row justify-content-center" id="nameinit">
+            <div class="col-sm-12 text-center">
+              <h4>請先幫自己取一個暱稱，或從左邊隨便選一個暱稱</h4>
+              <span class="text-success">(不限中英文數字，長度&gt;=2、&lt;=10，隨機產生都是「隨機」英文名字)</span> <br>
+              <span class="text-danger">詳細說明看下面</span>
+            </div>
+            <div class="col-sm-8 text-center mt-2">
+              <input type="text" class="form-control" placeholder="請輸入暱稱" maxlength="10" minlength="2">
+            </div>
+            <div class="col-sm-8 text-center mt-2">
+              <button type="button" class="btn btn-info"><i class="fas fa-dice"></i></button>
+              <button type="button" class="btn btn-primary">確定</button>
+            </div>
+          </div>
+          <div class="row justify-content-center" style="display: none;" id="chatStart">
+            <div class="col-sm-12 h4">您已經有暱稱了，找個人開始聊天吧。</div>
+          </div>
+          <div class="row w-100" style="padding: 0px;display: none;" id="chatRoom">
+            <div class="col-sm-12" style="height:55vh;overflow-y: auto;overflow-x: hidden;" id="chatRoomContent">
+              <!-- <div class="row mt-2 p-2">
+                                <div class="col-sm-12 h5">
+                                    <span class="badge badge-pill badge-primary">Primary</span>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="float-left rounded p-1"
+                                        style="background-color:rgba(0,128,0,0.5);font-size: 18px;word-wrap:break-all;">
+                                        我我我我我我我我我我
+                                    </div>
+                                    <div class="mt-3">&nbsp;12:05</div>
+                                </div>
+                                
+                            </div>
+                            <div class="row justify-content-end mt-2 p-2">
+                                <div class="col-sm-12 h5 text-right">
+                                    <span class="badge badge-pill badge-info">Primary</span>
+                                </div>
+                                <div class="col-sm-8 text-right">
+                                    
+                                    <div class="float-right rounded p-1"
+                                        style="background-color:rgba(255,0,255,0.5);font-size: 18px;word-wrap:break-all;">
+                                        我我我我我我我我
+                                    </div>
+                                    <div class="mt-3 mr-2">12:05&nbsp;</div>
+                                </div>
+                            </div> -->
+
+            </div>
+            <div class="col-sm-12" style="height:15vh;padding: 0px;overflow: hidden;">
+              <form class="row h-100 p-0">
+                <div class="col-sm-9 h-100" style="padding-right:0px;">
+                  <textarea class="w-100 h-100 form-control" placeholder="說點什麼" style="resize: none;overflow: auto;" id="message"></textarea>
+                </div>
+                <div class="col-sm-3 h-100" style="padding-left:0px;">
+                  <button type="button" class="btn btn-primary h-100 w-100" style="font-size: 28px;" id="submitMessage">傳送</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion mb-3" id="authorGGYY">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="mb-0 text-center"><i class="fas fa-skull"></i>
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#description1" aria-expanded="true" aria-controls="description1">
+              創作動機
+            </button>
+          </h2>
+        </div>
+        <div id="description1" class="collapse" data-parent="#authorGGYY">
+          <div class="card-body">
+            某天不知道在做啥，突然找到firebase的資料庫，然後靈感爆炸，就醬。
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="mb-0 text-center"><i class="fas fa-meteor"></i>
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#description2" aria-expanded="false" aria-controls="description2">
+              功能說明
+            </button>
+          </h2>
+        </div>
+        <div id="description2" class="collapse" data-parent="#authorGGYY">
+          <div class="card-body">
+            1.先給自己取一個名稱，不然就從旁邊選一個要是紅的，不能選綠的那是別人了<br>
+            2.開始選聊天對象，對方必須也要是綠的<br>
+            3.開始聊天<br>
+            <span class="text-danger">***選好一個使用者就無法切換，只能關掉重開***</span><br>
+            <span class="text-danger">***聊天功能只能在雙方都在該網頁(都是綠色)的情況下才能開始***</span><br>
+            <span class="text-danger">***聊天開始就不能跟其他人聊天，一樣只能關掉重開或是其中一方離開***</span><br>
+            <span class="text-danger">***聊天紀錄不會保存，即使是同一組人每次開始聊天訊息也都會清空***</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingThree">
+          <h2 class="mb-0 text-center"><i class="fas fa-ghost"></i>
+            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#description3" aria-expanded="false" aria-controls="description3">
+              心得感想
+            </button>
+          </h2>
+        </div>
+        <div id="description3" class="collapse" aria-labelledby="headingThree" data-parent="#authorGGYY">
+          <div class="card-body">
+            整體來說是不難拉，但在設計上我想很久，邏輯要很清晰，原本還想說弄已讀跟打字中、其他頁也可以跳出訊息通知之類的，<br>
+            試了但有問題做不到╮(╯_╰)╭ 。總而言之就是可以聊天。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="goTop">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+      <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    </svg>
+  </div>
+
+  <footer></footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="../js/fairyDustCursor.js"></script>
+  <script src="../js/bubbly-bg.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="../js/FileSaver.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js" integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../js/tool.js"></script>
+
+  <script>
+    var delaultChatRoomID = '';
+
+    //初始化加載user
+    $(document).ready(function () {
+      $('header').load("header.html")
+      $("footer").load("../footer.html");
+      if (sessionStorage.getItem('user') != null) {
+        $('#nameinit').hide()
+        $('#chatStart').html('<div class="col-sm-12 h4">您已經有暱稱了，找個人開始聊天吧。</div>').show()
+        $('#chatRoom').hide()
+      }
+      database.ref('/chat/user').on('value', function (result) {
+        $('#user').html('')
+        let userAry = result.val()
+        let userHtml = ''
+        userHtml = ''
+        let roomId;
+        for (let i = 0; i < userAry.length; i = i + 1) {
+          if (sessionStorage.getItem('user') == userAry[i].name) roomId = userAry[i].chatRoomId
+        }
+        for (let i = 0; i < userAry.length; i = i + 1) {
+          userHtml += '<div class="row mt-3 h4 rounded p-2 mr-1 ml-1 userBlock" style="background-color: #ACD6FF;cursor: pointer;">'
+          userHtml += '<div class="col-sm-2 rounded-circle text-center">'
+          userHtml += '<div class="badge badge-warning rounded-circle border border-dark p-1">'
+          userHtml += '<i class="fas fa-user-circle" style="font-size:1.5rem"></i>'
+          userHtml += '</div></div>'
+          if (sessionStorage.getItem('user') == userAry[i].name) {
+            if (delaultChatRoomID != userAry[i].chatRoomId && delaultChatRoomID != '') {
+              $('#nameinit').hide()
+              $('#chatStart').hide()
+              $('#chatRoom').show()
+              $('#exportButton').show()
+              chatRoomShow(userAry[i].chatRoomId)
+            }
+            delaultChatRoomID = userAry[i].chatRoomId
+            userHtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order + '" style="color:#FFFF37;">' + userAry[i].name + '(我)</div>'
+          } else if (roomId == userAry[i].chatRoomId && roomId != '') {
+            $('#nameinit').hide()
+            $('#chatStart').hide()
+            $('#chatRoom').show()
+            $('#exportButton').show()
+            chatRoomShow(userAry[i].chatRoomId)
+            userHtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order + '" style="color:#8600FF;">' + userAry[i].name + '(他)</div>'
+          } else userHtml += '<div class="col-sm-8 isMe" data-order="' + userAry[i].order + '">' + userAry[i].name + '</div>'
+          if (userAry[i].status == 'offline') userHtml += '<div class="w-100 col-sm-2 text-right text-danger userStatus"><i class="fas fa-signal"></i></div>'
+          else userHtml += '<div class="w-100 col-sm-2 text-right text-success userStatus"><i class="fas fa-signal"></i></div>'
+          userHtml += '</div>'
+        }
+        $('#user').html(userHtml)
+      });
+    });
+
+    //點擊使用者準備聊天
+    $('#user').on('click', '.userBlock', function () {
+      if (sessionStorage.getItem('user') == null) {
+        if ($(this).find('.userStatus').hasClass('text-success')) {
+          Swal.fire({
+            icon: 'error',
+            title: '該使用者已在線無法使用',
+            showConfirmButton: false,
+          });
+          return false;
+        } else { //成為使用者
+          $('#nameinit').hide()
+          $('#chatStart').html('<div class="col-sm-12 h4">您已經有暱稱了，找個人開始聊天吧。</div>').show()
+          $('#chatRoom').hide()
+          let user = {
+            status: "online",
+            name: $(this).find('.isMe').text()
+          }
+          user.order = $(this).find('.isMe').data('order')
+          sessionStorage.setItem('user', user.name)
+          database.ref('/chat/user/' + user.order).update(user)
+        }
+      } else if (sessionStorage.getItem('user') != null &&
+        $(this).find('.userStatus').hasClass('text-danger')) {
+        Swal.fire({
+          icon: 'error',
+          title: '對方不在線上無法聊天',
+          showConfirmButton: false,
+        });
+        return false;
+      } else if (sessionStorage.getItem('user') != null &&
+        $(this).find('.userStatus').hasClass('text-success')) {
+        if ($(this).find('.isMe').text().indexOf(sessionStorage.getItem('user')) != -1) {
+          Swal.fire({
+            icon: 'error',
+            title: '請不要嘗試跟自己聊天',
+            showConfirmButton: false,
+          });
+          return false;
+        } else { //開始聊天
+          let isOnline = 0;
+          isOnline = 0;
+          $('#user').find('.userBlock').each(function () {
+            if ($(this).find('.isMe').text().indexOf('(他)') != -1) isOnline++
+          });
+          if (isOnline > 0) {
+            Swal.fire({
+              icon: 'error',
+              title: '你已經在跟別人聊天中了',
+              showConfirmButton: false,
+            });
+            return false
+          }
+          let name = $(this).find('.isMe').text()
+          let chatIng = false
+          chatIng = false
+          database.ref('/chat/user').on('value', function (result) {
+            let userAry = result.val()
+            for (let i = 0; i < userAry.length; i = i + 1) {
+              if (userAry[i].name == name) {
+                if (userAry[i].chatRoomId != '') {
+                  chatIng = true
+                  return false
+                }
+              }
+            }
+          });
+          if (chatIng) {
+            Swal.fire({
+              icon: 'error',
+              title: '對方已經在跟別人聊天中',
+              showConfirmButton: false,
+            });
+            return false
+          }
+          let chatRoomId = uuid()
+          database.ref('/chat/user').once('value', function (result) {
+            let userAry = result.val()
+            for (let i = 0; i < userAry.length; i = i + 1) {
+              if (userAry[i].name == name) {
+                userAry[i].chatRoomId = chatRoomId
+                database.ref('/chat/user/' + userAry[i].order).update(userAry[i])
+              }
+              if (userAry[i].name == sessionStorage.getItem('user')) {
+                userAry[i].chatRoomId = chatRoomId
+                database.ref('/chat/user/' + userAry[i].order).update(userAry[i])
+              }
+            }
+          });
+          $('#nameinit').hide()
+          $('#chatStart').hide()
+          $('#chatRoom').show()
+          database.ref('/chat/chatRoom').once('value', function (result) {
+            let chatRoomAry = result.val()
+            let chatRoom = {
+              order: chatRoomAry.length,
+              ID: chatRoomId,
+              content: '',
+            }
+            database.ref('/chat/chatRoom/' + chatRoomAry.length).set(chatRoom)
+          });
+          $('#exportButton').show()
+          chatRoomShow(chatRoomId)
+        }
+      }
+    });
+
+    //enter 送出訊息
+    $('#message').keydown(function (event) { //讀取鍵盤的值
+      if (event.keyCode == 13 && event.altKey) $('#message').val($('#message').val().trim() + '\n')
+      else if (event.keyCode == 13) {
+        event.preventDefault()
+        let isOnline = 0;
+        isOnline = 0;
+        if ($('#message').val().trim() == '') return false
+        $('#user').find('.userBlock').each(function () {
+          if ($(this).find('.isMe').text().indexOf('(他)') == -1) isOnline++
+        });
+        if (isOnline == $('#user').find('.userBlock').length) {
+          $('#chatStart').html('<div class="col-sm-12 text-danger h4">對方已經不再線上，聊天結束。<br>聊天紀錄還是可以匯出，或是可以找其他人聊天。</div>').show()
+          $('#chatRoom').hide()
+          return false
+        }
+        let message = ''
+        if ($('#message').val().trim().indexOf('\n') != -1) message = $('#message').val().toString().trim().replaceAll('\n', '<br>')
+        else message = $('#message').val().trim()
+        let content = {
+          content: message,
+          name: sessionStorage.getItem('user'),
+          time: nowDay(),
+        }
+        database.ref('/chat/user').once('value', function (result) {
+          let userAry = result.val();
+          for (let i = 0; i < userAry.length; i = i + 1) {
+            if (content.name == userAry[i].name) {
+              database.ref('/chat/chatRoom').once('value', function (roomResult) {
+                let chatRoomAry = roomResult.val()
+                for (let j = 0; j < chatRoomAry.length; j = j + 1) {
+                  if (chatRoomAry[j].ID == userAry[i].chatRoomId) {
+                    database.ref('/chat/chatRoom/' + chatRoomAry[j].order +
+                      '/content').push(content)
+                    $('#message').val('').focus()
+                    $('#exportButton').show()
+                    chatRoomShow(chatRoomAry[j].ID)
+                    break;
+                  }
+                }
+              });
+              break;
+            }
+          }
+        });
+      }
+    });
+
+    //匯出聊天紀錄
+    $('#exportButton').on('click', '.btn-success', function () {
+      if (sessionStorage.getItem('user') == null) {
+        return false
+      }
+      database.ref('/chat/user').once('value', function (result) {
+        let userAry = result.val();
+        for (let i = 0; i < userAry.length; i = i + 1) {
+          if (sessionStorage.getItem('user') == userAry[i].name) {
+            database.ref('/chat/chatRoom').once('value', function (roomResult) {
+              let chatRoomAry = roomResult.val()
+              for (let j = 0; j < chatRoomAry.length; j = j + 1) {
+                if (chatRoomAry[j].ID == userAry[i].chatRoomId) {
+                  let messageAry = []
+                  messageAry = []
+                  $.each(chatRoomAry[j].content, function (index, value) {
+                    messageAry.push(value)
+                  });
+                  if (messageAry.length == 0) {
+                    Swal.fire({
+                      icon: 'error',
+                      title: '沒有訊息無法匯出',
+                      showConfirmButton: false,
+                    });
+                    return false
+                  }
+                  let blob = new Blob([JSON.stringify(messageAry)], {
+                    type: ""
+                  });
+                  saveAs(blob, "chatHistory.json");
+                  break;
+                }
+              }
+            });
+            break;
+          }
+        }
+      });
+    });
+
+    //隨機名字產生
+    $('#nameinit').on('click', '.btn-info', function () {
+      let nameRandom = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+        'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+      ];
+      let nameChar = []
+      let name = ''
+      let nameLength;
+      nameLength = Math.floor(Math.random() * 5 + 5)
+      name = ''
+      for (let i = 0; i < parseInt(nameLength); i = i + 1) {
+        nameChar.push(Math.floor(Math.random() * nameRandom.length))
+        if (i == 0) {
+          name += nameRandom[nameChar[i]].toUpperCase()
+        } else {
+          name += nameRandom[nameChar[i]]
+        }
+      }
+      $('#nameinit').find('input').val(name)
+    });
+
+    //確定送出名稱
+    $('#nameinit').on('click', '.btn-primary', function () {
+      let user = {
+        chatRoomId: "",
+        status: "online"
+      }
+      let name = $('#nameinit').find('input').val()
+      if (name == '' || name.length < 2) {
+        Swal.fire({
+          icon: 'error',
+          title: '暱稱為空或是長度不足',
+          showConfirmButton: false,
+        });
+        return false
+      }
+      user.name = name
+      database.ref('/chat/user').once('value', function (result) {
+        let userAry = result.val()
+        userAry.sort(function (a, b) {
+          if (a.order > b.order) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
+        for (let i = 0; i < userAry.length; i = i + 1) {
+          if (name == userAry[i].name) {
+            Swal.fire({
+              icon: 'error',
+              title: '暱稱重複',
+              showConfirmButton: false,
+            });
+            return false
+          }
+        }
+        sessionStorage.setItem('user', name)
+        user.order = parseInt(userAry[0].order) + 1
+        database.ref('/chat/user/' + user.order).set(user)
+        $('#nameinit').find('input').val('')
+        $('#nameinit').hide()
+        $('#chatStart').html('<div class="col-sm-12 h4">您已經有暱稱了，找個人開始聊天吧。</div>').show()
+        $('#chatRoom').hide()
+      });
+    });
+
+    //送出聊天訊息
+    $('#submitMessage').click(function () {
+      let isOnline = 0;
+      isOnline = 0;
+      if ($('#message').val().trim() == '') return false
+      $('#user').find('.userBlock').each(function () {
+        if ($(this).find('.isMe').text().indexOf('(他)') == -1) isOnline++
+      });
+      if (isOnline == $('#user').find('.userBlock').length) {
+        $('#chatStart').html('<div class="col-sm-12 text-danger h4">對方已經不再線上，聊天結束。<br>聊天紀錄還是可以匯出，或是可以找其他人聊天。</div>').show()
+        $('#chatRoom').hide()
+        return false
+      }
+      let message = ''
+      if ($('#message').val().trim().indexOf('\n') != -1) message = $('#message').val().toString().trim().replaceAll('\n', '<br>')
+      else message = $('#message').val().trim()
+      let content = {
+        content: message,
+        name: sessionStorage.getItem('user'),
+        time: nowDay(),
+      }
+      database.ref('/chat/user').once('value', function (result) {
+        let userAry = result.val();
+        for (let i = 0; i < userAry.length; i = i + 1) {
+          if (content.name == userAry[i].name) {
+            database.ref('/chat/chatRoom').once('value', function (roomResult) {
+              let chatRoomAry = roomResult.val()
+              for (let j = 0; j < chatRoomAry.length; j = j + 1) {
+                if (chatRoomAry[j].ID == userAry[i].chatRoomId) {
+                  database.ref('/chat/chatRoom/' + chatRoomAry[j].order + '/content').push(content)
+                  $('#message').val('').focus()
+                  $('#exportButton').show()
+                  chatRoomShow(chatRoomAry[j].ID)
+                  break;
+                }
+              }
+            });
+            break;
+          }
+        }
+      });
+    });
+
+    //顯示聊天訊息
+    function chatRoomShow(chatRoomId) {
+      database.ref('/chat/chatRoom').on('value', function (result) {
+        let chatAry = result.val()
+        let chatHtml = ''
+        chatHtml = ''
+        for (let i = 0; i < chatAry.length; i = i + 1) {
+          if (chatAry[i].ID == chatRoomId) {
+            $.each(chatAry[i].content, function (index, value) {
+              if (sessionStorage.getItem('user') == value.name) {
+                chatHtml += '<div class="row mt-2 p-2">'
+                chatHtml += '<div class="col-sm-12 h5">'
+                chatHtml += '<span class="badge badge-pill badge-primary">' + value.name + '</span>'
+                chatHtml += '</div>'
+                chatHtml += '<div class="col-sm-8">'
+                chatHtml += '<div class="float-left rounded p-1" style="background-color:rgba(0,128,0,0.5);font-size: 18px;word-wrap:break-all;">'
+                chatHtml += value.content
+                chatHtml += '</div>'
+                chatHtml += '<div class="float-left mt-3">&nbsp;' + showMessageTime(value.time) + '</div>'
+                chatHtml += '</div></div>'
+              } else {
+                chatHtml += '<div class="row justify-content-end mt-2 p-2">'
+                chatHtml += '<div class="col-sm-12 h5 text-right">'
+                chatHtml += '<span class="badge badge-pill badge-info">' + value.name + '</span>'
+                chatHtml += '</div>'
+                chatHtml += '<div class="col-sm-8 text-right">'
+                chatHtml += '<div class="float-right rounded p-1" style="background-color:rgba(255,0,255,0.5);font-size: 18px;word-wrap:break-all;">'
+                chatHtml += value.content
+                chatHtml += '</div>'
+                chatHtml += '<div class="float-right mt-3">' + showMessageTime(value.time) + '&nbsp;</div>'
+                chatHtml += '</div></div>'
+              }
+            });
+            $('#chatRoomContent').html(chatHtml)
+            $('#chatRoomContent').animate({
+              scrollTop: 100000
+            });
+          }
+        }
+      });
+    }
+
+    //關閉網頁登出
+    $(window).on('beforeunload', function (event) {
+      $('#user').find('.userBlock').each(function () {
+        if ($(this).find('.isMe').text().substring(0, $(this).find('.isMe').text().indexOf('(我)')) == sessionStorage.getItem('user')) {
+          let user = {
+            status: "offline",
+            name: $(this).find('.isMe').text().substring(0, $(this).find('.isMe').text().indexOf('(')),
+            chatRoomId: ''
+          }
+          sessionStorage.removeItem('user')
+          user.order = $(this).find('.isMe').data('order')
+          database.ref('/chat/user/' + user.order).update(user)
+        }
+      });
+    });
+
+    //取得現在時間
+    function nowDay() {
+      let today = new Date()
+      let date = ''
+      date = ''
+      date += today.getFullYear() + '/'
+      date += parseInt(today.getMonth()) + parseInt(1) + '/'
+      date += today.getDate() + ' '
+      date += today.getHours() + ':'
+      date += today.getMinutes() + ':'
+      date += today.getSeconds()
+      return date
+    }
+
+    //訊息顯示時間
+    function showMessageTime(date) {
+      let showTime = new Date(date)
+      let returnTime = ''
+      returnTime = ''
+      returnTime += showTime.getHours() + ":"
+      returnTime += showTime.getMinutes() + ":"
+      returnTime += showTime.getSeconds()
+      return returnTime
+    }
+
+    //生成uuid
+    function uuid() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+          v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+  </script>
+
+</body>
+
+</html>

@@ -42,6 +42,11 @@ body {
 	cursor: url("https://gusty1.github.io/GustyLittleWorld/images/cursor_noel.ico"), default;
 }
 
+/*header的其他連結的顏色*/
+.otherColor {
+	color: #ff00ff;
+}
+
 /*header標題的icon*/
 #headerIcon {
 	height: 6vh;

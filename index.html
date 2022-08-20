@@ -170,7 +170,7 @@
   <script async src="js/APlayer.min.js"></script>
   <script type="text/javascript" src="js/timeline.min.js"></script>
   <script src="https://www.google.com/recaptcha/api.js?render=6Lf0JjseAAAAAGyRwkGun5ZsK1MibXM-coiE3PEg"></script>
-  <script src="js/common.js"></script>
+  <script src="js/tool.js"></script>
 
   <script>
     var _AP = ''
@@ -246,18 +246,11 @@
         for (value of result) {
           let date = ''
           let color = ''
-          if (value.endDate == '') {
-            date = value.startDate
-          } else {
-            date = value.startDate + '~' + value.endDate
-          }
-          if (value.type == '工作') {
-            color = '#949449'
-          } else if (value.type == '學習') {
-            color = '#5A5AAD'
-          } else if (value.type == '其它') {
-            color = '#984B4B'
-          }
+          if (value.endDate == '') date = value.startDate
+          else date = value.startDate + '~' + value.endDate
+          if (value.type == '工作') color = '#949449'
+          else if (value.type == '學習') color = '#5A5AAD'
+          else if (value.type == '其它') color = '#984B4B'
           timelineHtml += ` <div class="timeline__item">
                               <div class="timeline__content text-light h5 timelineBorder" style="background-color:${color};">
                                 ${date}<br>${value.content}

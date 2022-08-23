@@ -156,7 +156,7 @@
     });
 
     //標籤數量顏色+initcard
-    $(document).ready(function () {
+    $(document).ready(() => {
       $('header').load('header.html')
       $('footer').load('../footer.html')
 
@@ -296,7 +296,7 @@
       if (clickLabel !== '' && clickLabel !== 'ALL') {
         let changeLabelLifeArray = [];
         for (let i = 0; i < changeLifeArray.length; i = i + 1) {
-          if (changeLifeArray[i].label == clickLabel) changeLabelLifeArray.push(changeLifeArray[i])
+          if (changeLifeArray[i].label === clickLabel) changeLabelLifeArray.push(changeLifeArray[i])
         }
         if ($(this).val().trim() === 'newToOld') {
           changeLabelLifeArray.sort((a, b) => {

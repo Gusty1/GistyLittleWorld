@@ -176,7 +176,7 @@
     var _AP = ''
 
     //油圖初始化
-    $(document).ready(function () {
+    $(document).ready(() => {
       $('header').load("header.html")
       $("footer").load("footer.html");
       $.get('data/indexImg.json', (result) => {
@@ -270,7 +270,7 @@
     //基本就放好玩的認證網址會被cros檔，就算用cros anywhere也有次數限制，有成功就成功沒成功就算了。
     //拜託看到不要用我的金鑰，好人一生平安，謝謝
     $('body').on('click', 'a,button', (event) => {
-      grecaptcha.ready(function () {
+      grecaptcha.ready(() => {
         grecaptcha.execute('6Lf0JjseAAAAAGyRwkGun5ZsK1MibXM-coiE3PEg', {
           action: 'verify'
         }).then(function (token) {
@@ -336,7 +336,7 @@
         let ran = Math.floor(Math.random() * arr.length);
         result.push(arr.splice(ran, 1)[0]); //舊陣列去除數字轉移到新陣列
       }
-      result = result.filter(function (element, index, arr) {
+      result = result.filter((element, index, arr) => {
         return arr.indexOf(element) == index;
       });
       return result

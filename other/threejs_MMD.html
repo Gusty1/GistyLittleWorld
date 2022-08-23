@@ -38,7 +38,7 @@
   <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/MMDPhysics.js"></script>
 
   <script>
-    $(document).ready(function () {
+    $(document).ready(() => {
       $('header').load("header.html")
       $("footer").load("../footer.html");
       $.blockUI({
@@ -48,6 +48,7 @@
           borderWidth: '0px',
           backgroundColor: 'transparent'
         },
+        baseZ: 1000,
       });
     })
 

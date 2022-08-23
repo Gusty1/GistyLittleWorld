@@ -279,9 +279,8 @@
       let life_optionHtml = ''
       let ACG_optionHtmlG = ''
       let nowYear = new Date().getFullYear()
-      for (let i = 2020; i <= nowYear; i++) {
+      for (let i = 2021; i <= nowYear; i++) {
         life_optionHtml += '<option value="' + i + '">' + i + '</option>'
-        if (i !== 2020) ACG_optionHtmlG += '<option value="' + i + '">' + i + '</option>'
       }
       $('#lifeYear').html(life_optionHtml)
       $('#ACGYear').html(ACG_optionHtmlG)

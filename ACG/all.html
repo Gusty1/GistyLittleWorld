@@ -150,7 +150,6 @@
 
   <script>
     var ACGArray = [];
-    var searchArray = [];
     var _LAZYLOAD = '';
 
     //雙擊標題出現禁忌之地
@@ -167,6 +166,7 @@
     $(document).ready(function () {
       $('header').load('header.html')
       $('footer').load('../footer.html')
+
       let typeArrayCount = [0, 0, 0, 0];
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
       let adHtml = 'Gusty歷史上的今天看/玩完了:&nbsp;'
@@ -179,9 +179,9 @@
         baseZ: 1000,
       });
       new Promise((resolve, reject) => {
-        database.ref('/ACG').on('value', function (result) {
+        database.ref('/ACG').on('value', (result) => {
           ACGArray = result.val()
-          ACGArray.sort(function (a, b) {
+          ACGArray.sort((a, b) => {
             return new Date(a.time) > new Date(b.time) ? -1 : 1
           });
           initCard(ACGArray)
@@ -214,11 +214,11 @@
               pauseOnHover: true,
             });
           }
-          $('.nav-tabs').find('a').each(function (index, value) {
-            if (index == 0) $(this).html('<i class="fas fa-khanda"></i>&nbsp;ALL&nbsp;' + typeArrayCount[index])
-            if (index == 1) $(this).html('<i class="fas fa-gamepad"></i>&nbsp;遊戲&nbsp;' + typeArrayCount[index]);
-            if (index == 2) $(this).html('<i class="fas fa-tv"></i>&nbsp;動畫&nbsp;' + typeArrayCount[index]);
-            if (index == 3) $(this).html('<i class="fas fa-book-open"></i>&nbsp;漫畫&nbsp;' + typeArrayCount[index]);
+          $('.nav-tabs').find('a').each((index, value) => {
+            if (index == 0) $(value).html('<i class="fas fa-khanda"></i>&nbsp;ALL&nbsp;' + typeArrayCount[index])
+            if (index == 1) $(value).html('<i class="fas fa-gamepad"></i>&nbsp;遊戲&nbsp;' + typeArrayCount[index]);
+            if (index == 2) $(value).html('<i class="fas fa-tv"></i>&nbsp;動畫&nbsp;' + typeArrayCount[index]);
+            if (index == 3) $(value).html('<i class="fas fa-book-open"></i>&nbsp;漫畫&nbsp;' + typeArrayCount[index]);
           });
           $.unblockUI();
           resolve(ACGArray)
@@ -263,7 +263,7 @@
       });
       $(this).addClass('active');
       if ($(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&')) == 'ALL') {
-        ACGArray.sort(function (a, b) {
+        ACGArray.sort((a, b) => {
           return new Date(a.time) > new Date(b.time) ? -1 : 1
         });
         initCard(ACGArray);
@@ -274,7 +274,7 @@
           }
         }
         if (changeACGArray.length > 0) {
-          changeACGArray.sort(function (a, b) {
+          changeACGArray.sort((a, b) => {
             return new Date(a.time) > new Date(b.time) ? -1 : 1
           });
           initCard(changeACGArray);
@@ -321,9 +321,8 @@
             searchACGArray.push(ACGArray[i]);
           }
         }
-        if (searchACGArray.length > 0) {
-          initCard(searchACGArray);
-        } else {
+        if (searchACGArray.length > 0) initCard(searchACGArray)
+        else {
           $('#cardBlock').html('<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp;在' + type + '裡查無資料，換個關鍵字或選其他類型試試。</div>');
           $('#pageBlock').html('');
         }
@@ -347,23 +346,23 @@
       if (type == 'ALL') {
         changeACGArray = ACGArray;
         if ($(this).val().trim() == 'newToOld') {
-          changeACGArray.sort(function (a, b) {
+          changeACGArray.sort((a, b) => {
             return new Date(a.time) > new Date(b.time) ? -1 : 1
           });
           initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'oldToNew') {
-          changeACGArray.sort(function (a, b) {
+        } else if ($(this).val().trim() === 'oldToNew') {
+          changeACGArray.sort((a, b) => {
             return new Date(a.time) > new Date(b.time) ? 1 : -1
           });
           initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'highToLow') {
+        } else if ($(this).val().trim() === 'highToLow') {
           //根據時間新舊和分數高低排序
-          changeACGArray.sort(function (a, b) {
+          changeACGArray.sort((a, b) => {
             return b.rate - a.rate || new Date(b.time) - new Date(a.time);
           });
           initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'lowToHigh') {
-          changeACGArray.sort(function (a, b) {
+        } else if ($(this).val().trim() === 'lowToHigh') {
+          changeACGArray.sort((a, b) => {
             return a.rate - b.rate || new Date(a.time) - new Date(b.time);
           });
           initCard(changeACGArray)
@@ -373,23 +372,23 @@
           if (ACGArray[i].type == type) changeACGArray.push(ACGArray[i]);
 
         }
-        if ($(this).val().trim() == 'newToOld') {
-          changeACGArray.sort(function (a, b) {
+        if ($(this).val().trim() === 'newToOld') {
+          changeACGArray.sort( (a, b)=> {
             return new Date(a.time) > new Date(b.time) ? -1 : 1
           });
           initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'oldToNew') {
-          changeACGArray.sort(function (a, b) {
+        } else if ($(this).val().trim() === 'oldToNew') {
+          changeACGArray.sort( (a, b)=> {
             return new Date(a.time) > new Date(b.time) ? 1 : -1
           });
           initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'highToLow') {
-          changeACGArray.sort(function (a, b) {
+        } else if ($(this).val().trim() === 'highToLow') {
+          changeACGArray.sort( (a, b)=> {
             return b.rate - a.rate || new Date(b.time) - new Date(a.time);
           });
           initCard(changeACGArray)
         } else if ($(this).val().trim() == 'lowToHigh') {
-          changeACGArray.sort(function (a, b) {
+          changeACGArray.sort( (a, b)=> {
             return a.rate - b.rate || new Date(a.time) - new Date(b.time);
           });
           initCard(changeACGArray)

@@ -316,7 +316,7 @@
       if (urlOrder != null) edit = true
       if (!edit) { //新增
         life.order = parseInt(lifeArray.length - 1);
-        database.ref('/life/' + parseInt(life.order) + 1).set(life)
+        database.ref('/life/' + parseInt(life.order + 1)).set(life)
         window.location.href = 'all.html';
       } else { //編輯
         life.order = parseInt(urlOrder);

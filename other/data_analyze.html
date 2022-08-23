@@ -276,14 +276,13 @@
 
     //設定年分
     function setYear() {
-      let life_optionHtml = ''
-      let ACG_optionHtmlG = ''
+      let optionHtml = ''
       let nowYear = new Date().getFullYear()
       for (let i = 2021; i <= nowYear; i++) {
-        life_optionHtml += '<option value="' + i + '">' + i + '</option>'
+        optionHtml += '<option value="' + i + '">' + i + '</option>'
       }
-      $('#lifeYear').html(life_optionHtml)
-      $('#ACGYear').html(ACG_optionHtmlG)
+      $('#lifeYear').html(optionHtml)
+      $('#ACGYear').html(optionHtml)
     }
 
     //設定生活日誌的圖表

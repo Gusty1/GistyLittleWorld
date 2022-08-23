@@ -264,6 +264,7 @@
         if (changeLifeArray.length == 0) {
           $('#cardGroup').html('<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp;查無資料，換個關鍵字試試。</div>')
           $('#page').html('')
+          $('#searchResult').html('')
           return
         } else initCard(changeLifeArray)
       } else {
@@ -275,11 +276,14 @@
         if (changeLifeArray.length == 0) {
           $('#cardGroup').html('<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp;此標籤內查無資料，換個關鍵字或標籤試試。</div>')
           $('#page').html('')
+          $('#searchResult').html('')
           return
         } else initCard(changeLifeArray)
       }
-      if ($(this).val().trim() === '') $('#searchResult').html('')
-      else if (changeLifeArray.length > 0) $('#searchResult').html('共&nbsp;' + changeLifeArray.length + '&nbsp;筆符合的結果')
+      if ($(this).val().trim() === '') {
+        $('select').val('newToOld');
+        $('#searchResult').html('')
+      } else if (changeLifeArray.length > 0) $('#searchResult').html('共&nbsp;' + changeLifeArray.length + '&nbsp;筆符合的結果')
       else $('#searchResult').html('')
     });
 
@@ -290,13 +294,16 @@
 
     //排序方式
     $('select').on('change', function () {
-      $('#subjectSearch').val('')
-      $('#searchResult').html('')
       let changeLifeArray = [...lifeArray]
       if (clickLabel !== '' && clickLabel !== 'ALL') {
         let changeLabelLifeArray = [];
         for (let i = 0; i < changeLifeArray.length; i = i + 1) {
           if (changeLifeArray[i].label === clickLabel) changeLabelLifeArray.push(changeLifeArray[i])
+        }
+        if ($('#subjectSearch').val().trim() !== '') {
+          changeLabelLifeArray = changeLabelLifeArray.filter(item => {
+            return item.title.indexOf($('#subjectSearch').val().trim()) !== -1
+          })
         }
         if ($(this).val().trim() === 'newToOld') {
           changeLabelLifeArray.sort((a, b) => {
@@ -310,6 +317,11 @@
           initCard(changeLabelLifeArray)
         }
       } else {
+        if ($('#subjectSearch').val().trim() !== '') {
+          changeLifeArray = changeLifeArray.filter(item => {
+            return item.title.indexOf($('#subjectSearch').val().trim()) !== -1
+          })
+        }
         if ($(this).val().trim() === 'newToOld') {
           changeLifeArray.sort((a, b) => {
             return new Date(a.time) > new Date(b.time) ? -1 : 1

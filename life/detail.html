@@ -119,9 +119,9 @@
           $('#coverImg').data('src', lifeArray[urlOrder].coverImg).attr('data-src', lifeArray[urlOrder].coverImg)
           $('#content').html(lifeArray[urlOrder].content)
           new LazyLoad();
-          if (lifeArray.length - 1 >= urlOrder + 1) {
-            $('#leftBtn').data('order', urlOrder + 1).attr('data-order', urlOrder + 1).addClass('hvr-backward')
-            nextTitle = lifeArray[urlOrder + 1].title
+          if (lifeArray.length - 1 >= (urlOrder + 1)) {
+            $('#leftBtn').data('order', (urlOrder + 1)).attr('data-order', (urlOrder + 1)).addClass('hvr-backward')
+            nextTitle = lifeArray[(urlOrder + 1)].title
           }
           if (urlOrder - 1 > 0) {
             $('#rightBtn').data('order', urlOrder - 1).attr('data-order', urlOrder - 1).addClass('hvr-forward')

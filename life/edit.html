@@ -142,14 +142,6 @@
 
   <script>
     var lifeArray = [];
-    var life = {};
-    // var title = '';
-    // var time = '';
-    // var label = '';
-    // var summary = '';
-    // var content = '';
-    var coverImg = '';
-    var labelArray = [];
 
     //初始化ckeditor和dropzone 編輯抓取的資料
     $(document).ready(() => {
@@ -163,6 +155,9 @@
         dateFormat: 'yy-mm-dd',
       });
 
+      CKEDITOR.editorConfig = (config) => {
+        extraPlugins = 'youtube';
+      };
       CKEDITOR.replace('content', {
         height: '75vh',
         uiColor: '#95CACA'
@@ -178,14 +173,12 @@
         }
       });
 
-      database.ref('/life').once('value', function (result) {
-        if (!checkUser()) {
-          $('#authModal').modal('toggle')
-          return
-        }
-        lifeArray = result.val()
-        labelArray = removeDuplicates(result.val(), 'label')
+      database.ref('/life').once('value', (result) => {
+        if (!checkUser()) $('#authModal').modal('toggle')
 
+        lifeArray = result.val()
+
+        let labelArray = removeDuplicates(result.val(), 'label')
         labelArray = labelArray.map(item => {
           return item.label
         })
@@ -315,8 +308,8 @@
 
       if (urlOrder != null) edit = true
       if (!edit) { //新增
-        life.order = parseInt(lifeArray.length - 1);
-        database.ref('/life/' + parseInt(life.order + 1)).set(life)
+        life.order = parseInt(lifeArray.length);
+        database.ref('/life/' + parseInt(lifeArray.length)).set(life)
         window.location.href = 'all.html';
       } else { //編輯
         life.order = parseInt(urlOrder);

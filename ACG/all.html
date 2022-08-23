@@ -480,9 +480,7 @@
             pageLength.push(i)
           }
         }
-      } else {
-        pageLength.push(1)
-      }
+      } else pageLength.push(1)
       if (newACGArray.length > 12) {
         $('#pageBlock').pagination({
           dataSource: pageLength,

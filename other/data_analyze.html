@@ -261,7 +261,6 @@
 
     //ACG心得選項切換
     $('body').on('change', '#ACGYear,input[name="ACG_type"],#sumRate', () => {
-      console.log('ii')
       setACGChart($('#ACGYear').val(), $('input[name="ACG_type"]:checked').val(), $('#sumRate').val())
     })
 
@@ -397,7 +396,6 @@
 
     //設定ACG的圖表
     function setACGChart(year, chartType, type) {
-      console.log('vv')
       let scales = {}
       let data = {}
       let max = 0

@@ -90,15 +90,12 @@
   <script src="../js/tool.js"></script>
 
   <script>
-    var getUrlString = location.href;
-    var url = new URL(getUrlString);
-    var urlOrder = url.searchParams.get('order');
-    var lifeArray = [];
-
     // 抓網頁參數資料+顯示
     $(document).ready(function () {
       $('header').load('header.html')
       $('footer').load('../footer.html')
+
+      let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       $.blockUI({
         message: randomLoader(),
         css: {
@@ -107,34 +104,30 @@
         },
         baseZ: 1000,
       });
+
       let nextTitle = ''
       let prevTitle = ''
       new Promise((resolve, reject) => {
-        database.ref('/life').once('value', function (result) {
+        database.ref('/life').once('value', (result) => {
           let thisTitle = ''
           lifeArray = result.val()
-          for (let i = 0; i < lifeArray.length; i = i + 1) {
-            if (lifeArray[i].order == urlOrder) {
-              thisTitle = lifeArray[i].title
-              document.title = lifeArray[i].title
-              $('#edit').html(lifeArray[i].title)
-              $('#time').append(lifeArray[i].time)
-              $('#label').append(lifeArray[i].label)
-              $('#coverImg').attr('data-src', lifeArray[i].coverImg)
-              $('#coverImg').data('src', lifeArray[i].coverImg).attr('data-src', lifeArray[i].coverImg)
-              $('#content').html(lifeArray[i].content)
-              new LazyLoad();
-            }
-            if (parseInt(urlOrder) + parseInt(1) == lifeArray[i].order) {
-              $('#leftBtn').data('order', lifeArray[i].order).attr('data-order', lifeArray[i].order).addClass('hvr-backward')
-              nextTitle = lifeArray[i].title
-            }
-            if (parseInt(urlOrder) - 1 == lifeArray[i].order) {
-              $('#rightBtn').data('order', lifeArray[i].order).attr('data-order', lifeArray[i].order).addClass('hvr-forward')
-              prevTitle = lifeArray[i].title
-            }
+          document.title = lifeArray[urlOrder].title
+          $('#edit').html(lifeArray[urlOrder].title)
+          $('#time').append(lifeArray[urlOrder].time)
+          $('#label').append(lifeArray[urlOrder].label)
+          $('#coverImg').attr('data-src', lifeArray[urlOrder].coverImg)
+          $('#coverImg').data('src', lifeArray[urlOrder].coverImg).attr('data-src', lifeArray[urlOrder].coverImg)
+          $('#content').html(lifeArray[urlOrder].content)
+          new LazyLoad();
+          if (lifeArray.length - 1 >= urlOrder + 1) {
+            $('#leftBtn').data('order', urlOrder + 1).attr('data-order', urlOrder + 1).addClass('hvr-backward')
+            nextTitle = lifeArray[urlOrder + 1].title
           }
-          resolve(thisTitle)
+          if (urlOrder - 1 > 0) {
+            $('#rightBtn').data('order', urlOrder - 1).attr('data-order', urlOrder - 1).addClass('hvr-forward')
+            prevTitle = lifeArray[urlOrder - 1].title
+          }
+          resolve(lifeArray[urlOrder].title)
         })
       }).then((resolve) => {
         buildTip(nextTitle, prevTitle)
@@ -165,7 +158,6 @@
 
     //內容圖片放大
     $(window).on("load", function () {
-      // data-zoom-image
       $('#content').find('img').each(function () {
         $(this).data('zoom-image', $(this).attr('src')).attr('data-zoom-image', $(this).attr('src'))
       })
@@ -195,6 +187,7 @@
     //封印之地的密碼框和確認
     $('#secret').next('button').click(function (e) {
       e.preventDefault()
+      let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       if (sha512($('#secret').val().trim()) == '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d') {
         location.href = 'edit.html?order=' + urlOrder
       } else {
@@ -210,14 +203,14 @@
 
     //建造提示文字
     function buildTip(nextTitle, prevTitle) {
-      if (nextTitle != '') {
+      if (nextTitle !== '') {
         $('#leftBtn').attr('disabled', false)
         tippy('#leftBtn', {
           animation: 'scale',
           content: '下一篇: 『' + nextTitle + '』',
         });
       }
-      if (prevTitle != '') {
+      if (prevTitle !== '') {
         $('#rightBtn').attr('disabled', false)
         tippy('#rightBtn', {
           animation: 'scale',

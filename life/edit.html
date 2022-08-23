@@ -37,7 +37,7 @@
         <label for="label" class="col-sm-2 col-form-label text-info">標籤</label>
         <div class="col-sm-4 mt-2">
           <select class="form-control" id="label">
-            <option>請選擇</option>
+            <option value="">請選擇</option>
           </select>
         </div>
         <div class="col-sm-4 mt-2">
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="row" id="previewBlock">
+    <div class="row" id="previewBlock" style="display:none;">
       <div class='col-12 text-primary display-2 text-center font-weight-bold' id='previewTitle'>
       </div>
       <div class='col-12 h2 mt-1 text-danger text-center' id="previewTime">
@@ -143,112 +143,99 @@
   <script>
     var lifeArray = [];
     var life = {};
-    var title = '';
-    var time = '';
-    var label = '';
-    var summary = '';
-    var content = '';
+    // var title = '';
+    // var time = '';
+    // var label = '';
+    // var summary = '';
+    // var content = '';
     var coverImg = '';
-    var getUrlString = location.href;
-    var url = new URL(getUrlString);
-    var urlOrder = url.searchParams.get('order');
     var labelArray = [];
 
-    //datepicker時間格式
-    $("#time").datepicker({
-      dateFormat: 'yy-mm-dd',
-    });
-
     //初始化ckeditor和dropzone 編輯抓取的資料
-    $(document).ready(function () {
+    $(document).ready(() => {
       $('header').load('header.html')
       $('footer').load('../footer.html')
+
       let editLabel = '';
-      $('#previewBlock').hide();
+      let urlOrder = new URL(location.href).searchParams.get('order');
+
+      $("#time").datepicker({
+        dateFormat: 'yy-mm-dd',
+      });
+
       CKEDITOR.replace('content', {
         height: '75vh',
         uiColor: '#95CACA'
       });
 
-      let callback = function (res) {
-        if (res.success === true) {
-          $('#previewImg').attr('src', res.data.link);
-          $('#previewImg2').attr('src', res.data.link)
-        }
-      };
-
       new Imgur({
         clientid: '0a4c1d7727faf54',
-        callback: callback
+        callback: (res) => {
+          if (res.success === true) {
+            $('#previewImg').attr('src', res.data.link);
+            $('#previewImg2').attr('src', res.data.link)
+          }
+        }
       });
 
       database.ref('/life').once('value', function (result) {
-        if (!checkUser()) $('#authModal').modal('toggle')
-        lifeArray = result.val()
-
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          labelArray.push(lifeArray[i].label)
+        if (!checkUser()) {
+          $('#authModal').modal('toggle')
+          return
         }
-        labelArray = labelArray.filter(function (element, index, arr) {
-          return arr.indexOf(element) == index;
-        });
+        lifeArray = result.val()
+        labelArray = removeDuplicates(result.val(), 'label')
+
+        labelArray = labelArray.map(item => {
+          return item.label
+        })
 
         if (urlOrder != null) {
-          for (let i = 0; i < lifeArray.length; i = i + 1) {
-            if (lifeArray[i].order == urlOrder) {
-              document.title = lifeArray[i].title;
-              editLabel = lifeArray[i].label;
-              $('#title').val(lifeArray[i].title);
-              $('#time').val(lifeArray[i].time);
-              $('#previewImg').attr('src', lifeArray[i].coverImg);
-              $('#previewImg2').attr('src', lifeArray[i].coverImg);
-              $('#summary').val(lifeArray[i].summary);
-              CKEDITOR.instances.content.setData(lifeArray[i].content)
-              break;
-            }
+          let urlOrderInt = parseInt(urlOrder)
+          document.title = lifeArray[urlOrderInt].title;
+          editLabel = lifeArray[urlOrderInt].label;
+          $('#title').val(lifeArray[urlOrderInt].title);
+          $('#time').val(lifeArray[urlOrderInt].time);
+          $('#previewImg').attr('src', lifeArray[urlOrderInt].coverImg);
+          $('#previewImg2').attr('src', lifeArray[urlOrderInt].coverImg);
+          $('#summary').val(lifeArray[urlOrderInt].summary);
+          CKEDITOR.instances.content.setData(lifeArray[urlOrderInt].content)
+        }
+        for (let i = 0; i < labelArray.length; i = i + 1) {
+          if (editLabel === labelArray[i]) {
+            $('#label').append('<option value="' + labelArray[i] + '" selected>' + labelArray[i] + '</option>')
+          } else {
+            $('#label').append('<option value="' + labelArray[i] + '">' + labelArray[i] + '</option>')
           }
         }
-        setTimeout(function () {
-          for (let i = 0; i < labelArray.length; i = i + 1) {
-            $('#label').append('<option>' + labelArray[i] + '</option>')
-          }
-        }, 200);
-
-        setTimeout(function () {
-          $('select').find('option').each(function (index, value) {
-            if ($(this).text().trim() == editLabel) $('select').val(editLabel)
-          });
-        }, 400);
-      });
+      })
     });
 
     //確定預覽
     $('#preview').click(function () {
-      title = $('#title').val().trim();
-      time = $('#time').val().trim();
-      label = $('#label').val().trim();
-      summary = $('#summary').val().trim();
-      content = CKEDITOR.instances.content.getData()
+      let title = $('#title').val().trim();
+      let time = $('#time').val().trim();
+      let label = $('#label').val().trim();
+      let summary = $('#summary').val().trim();
+      let content = CKEDITOR.instances.content.getData().trim()
 
-      if (label == '請選擇') {
-        label = $('#label').parent().parent().find('input').val().trim();
-        if (label == '') {
-          Swal.fire({
-            icon: 'error',
-            html: '<span class="h3">label請寫好</span>',
-            showConfirmButton: false,
-          });
-          return false;
-        }
+      if (label === '') label = $('#label').parent().parent().find('input').val().trim();
+      if (label === '') {
+        Swal.fire({
+          icon: 'error',
+          html: '<span class="h3">label請寫好</span>',
+          showConfirmButton: false,
+        });
+        return
       }
 
-      if (title == '' || time == '' || summary == '' || content == '') {
+      if (title === '' || time === '' || summary === '' || content === '') {
         Swal.fire({
           icon: 'error',
           html: '<span class="h3">請填寫完整資料</span>',
           showConfirmButton: false,
         });
-        return false;
+        return
       }
 
       if ($('#previewImg').attr('src').trim() == '../images/life/404.jpg') {
@@ -257,7 +244,7 @@
           html: '<span class="h3">請確認圖片是否上傳</span>',
           showConfirmButton: false,
         });
-        return false;
+        return
       }
 
       $('#previewTitle').text(title);
@@ -285,7 +272,7 @@
       e.preventDefault()
       let email = $('#authModal').find('input').eq(0).val().trim()
       let password = $('#authModal').find('input').eq(1).val().trim()
-      if (email == '' || password == '') {
+      if (email === '' || password === '') {
         Swal.fire({
           icon: 'error',
           title: '請輸入電子郵件和密碼',
@@ -295,7 +282,7 @@
       }
       firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
         let user = firebase.auth().currentUser;
-        if (user != null && user != '') $('#authModal').modal('toggle');
+        if (user !== null && user !== '') $('#authModal').modal('toggle');
       }).catch((error) => {
         Swal.fire({
           icon: 'error',
@@ -309,39 +296,31 @@
     //預覽後確定送出，沒有登入就去登入
     $('#define').click(function () {
       let user = firebase.auth().currentUser
-      if (user == null || user == '') $('#authModal').modal('toggle');
+      if (user === null || user === '') $('#authModal').modal('toggle');
       else updateData()
     });
 
     //更新或新增資料
     function updateData() {
-      //舊時代的產物
-      // saveAs(blob, "life.json");
-      // var blob = new Blob([JSON.stringify(lifeArray)], {
-      //   type: ""
-      // });
-      let edit;
+      let urlOrder = new URL(location.href).searchParams.get('order');
+      let edit = false;
+      let life = {
+        title: $('#title').val().trim(),
+        time: $('#time').val().trim(),
+        label: $('#label').val().trim(),
+        summary: $('#summary').val().trim(),
+        content: CKEDITOR.instances.content.getData().trim(),
+        coverImg: $('#previewImg').attr('src')
+      }
+
       if (urlOrder != null) edit = true
-      else edit = false
       if (!edit) { //新增
-        life.order = parseInt(lifeArray[lifeArray.length - 1].order + 1);
-        life.title = title;
-        life.time = time;
-        life.label = label;
-        life.coverImg = $('#previewImg').attr('src');
-        life.summary = summary;
-        life.content = content;
-        database.ref('/life/' + parseInt(lifeArray[lifeArray.length - 1].order)).set(life)
+        life.order = parseInt(lifeArray.length - 1);
+        database.ref('/life/' + parseInt(life.order) + 1).set(life)
         window.location.href = 'all.html';
       } else { //編輯
         life.order = parseInt(urlOrder);
-        life.title = title;
-        life.time = time;
-        life.label = label;
-        life.coverImg = $('#previewImg').attr('src');
-        life.summary = summary;
-        life.content = content;
-        database.ref('/life/' + parseInt(urlOrder - 1)).update(life)
+        database.ref('/life/' + parseInt(urlOrder)).update(life)
         window.location.href = 'all.html';
       }
     }

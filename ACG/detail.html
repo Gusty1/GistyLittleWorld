@@ -5,18 +5,19 @@
   <title>untitled</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://gusty1.github.io/GustyLittleWorld/css/hover.css" />
+  <link rel="stylesheet" type="text/css" href="https://gusty1.github.io/GustyLittleWorld/css/social-share-kit.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://gusty1.github.io/GustyLittleWorld/css/tool.css" />
   <link rel="stylesheet" href="../css/jquery-ui.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 </head>
 
 <body>
-  <header></header>
-  <br><br><br>
-
   <div class="container-xl">
     <div class="card my-3 w-100" style="background-color:transparent;border:none;">
       <div class="row no-gutters">
@@ -26,10 +27,10 @@
         <div class="col-sm-8 col-xs-12">
           <div class="card-body">
             <div class="col-12 text-primary font-weight-bold display-3" id="edit"></div>
-            <div class="col-12 h2 mt-2 text-success"></div>
-            <div class="col-12 h2 mt-2 text-danger"></div>
-            <div class="col-12 h2 mt-2 text-warning"></div>
-            <div class="col-12 h2 ml-3" style="border-left:0.4rem solid #3C3C3C"></div>
+            <div class="col-12 h3 mt-2 text-success"></div>
+            <div class="col-12 h3 mt-2 text-danger"></div>
+            <div class="col-12 h3 mt-2 text-warning"></div>
+            <div class="col-12 h3 ml-3" style="border-left:0.4rem solid #3C3C3C"></div>
             <blockquote class="blockquote col-12">
               <footer class="blockquote-footer text-muted text-right" style="font-size:1.5rem;">
               </footer>
@@ -65,23 +66,8 @@
     </svg>
   </div>
 
-  <div style="position:fixed;left:5vw;top:50vh;">
-    <button class="close" disabled id="leftBtn" style="color:#4F9D9D;">
-      <i class="fas fa-chevron-left h1 font-weight-bold"></i>
-    </button>
-  </div>
-  <div style="position:fixed;right:5vw;top:50vh;">
-    <button class="close" disabled id="rightBtn" style="color:#4F9D9D;">
-      <i class="fas fa-chevron-right h1 font-weight-bold"></i>
-    </button>
-  </div>
-
-  <footer></footer>
-
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/tippy.js@6"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="../js/sha512.min.js"></script>
   <script src="../js/jquery-ui.min.js"></script>
@@ -98,9 +84,6 @@
   <script>
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
-      $('header').load('header.html')
-      $('footer').load('../footer.html')
-
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'));
 
       $.blockUI({
@@ -111,26 +94,24 @@
         },
         baseZ: 1000,
       });
-      let nextTitle = ''
-      let prevTitle = ''
       new Promise((resolve, reject) => {
-        database.ref('/ACG').once('value', (result) => {
-          let ACGArray = result.val()
-          document.title = ACGArray[urlOrder].title;
-          $('.card').find('img').eq(0).data('src', ACGArray[urlOrder].coverImg).attr('data-src', ACGArray[urlOrder].coverImg)
+        database.ref('/ACG/' + urlOrder).once('value', (result) => {
+          let orderObj = result.val()
+          document.title = orderObj.title;
+          $('.card').find('img').eq(0).data('src', orderObj.coverImg).attr('data-src', orderObj.coverImg)
           $('.card-body').find('div').each((index, value) => {
-            if (index === 0) $(value).html(ACGArray[urlOrder].title)
+            if (index === 0) $(value).html(orderObj.title)
             if (index === 1) {
-              if (ACGArray[urlOrder].type === '動畫' || ACGArray[urlOrder].type === '漫畫') {
-                $(value).html(ACGArray[urlOrder].type + '，' + ACGArray[urlOrder].collect + '集');
-              } else $(value).html(ACGArray[urlOrder].type + '，' + ACGArray[urlOrder].collect + '小時');
+              if (orderObj.type === '動畫' || orderObj.type === '漫畫') {
+                $(value).html(orderObj.type + '，' + orderObj.collect + '集');
+              } else $(value).html(orderObj.type + '，' + orderObj.collect + '小時');
             }
-            if (index === 2) $(value).html(ACGArray[urlOrder].time)
+            if (index === 2) $(value).html(orderObj.time)
             if (index === 3) {
               let rateHtml = '';
-              if (ACGArray[urlOrder].rate.toString().indexOf('.') != -1) {
+              if (orderObj.rate.toString().indexOf('.') != -1) {
                 for (let j = 0; j < 5; j = j + 1) {
-                  if (j < parseInt(ACGArray[urlOrder].rate)) rateHtml += '<i class="fas fa-star"></i>';
+                  if (j < parseInt(orderObj.rate)) rateHtml += '<i class="fas fa-star"></i>';
                   else {
                     rateHtml += '<i class="fas fa-star-half-alt"></i>';
                     j++
@@ -144,28 +125,19 @@
                 }
               } else {
                 for (let j = 0; j < 5; j = j + 1) {
-                  if (j < ACGArray[urlOrder].rate) rateHtml += '<i class="fas fa-star"></i>'
+                  if (j < orderObj.rate) rateHtml += '<i class="fas fa-star"></i>'
                   else rateHtml += '<i class="far fa-star"></i>'
                 }
               }
               $(value).html(rateHtml);
             }
-            if (index === 4) $(value).html('『' + ACGArray[urlOrder].say + '』');
+            if (index === 4) $(value).html('『' + orderObj.say + '』');
           });
-          $('.card-body').find('footer').eq(0).html(ACGArray[urlOrder].say_author);
-          $('#content').html(ACGArray[urlOrder].content);
-          if (ACGArray.length - 1 >= parseInt((urlOrder + 1))) {
-            $('#leftBtn').data('order', ACGArray[(urlOrder + 1)].order).attr('data-order', ((urlOrder + 1))).addClass('hvr-backward')
-            nextTitle = ACGArray[(urlOrder + 1)].title
-          }
-          if (parseInt(urlOrder - 1) > 0) {
-            $('#rightBtn').data('order', ACGArray[urlOrder - 1].order).attr('data-order', urlOrder - 1).addClass('hvr-forward')
-            prevTitle = ACGArray[urlOrder - 1].title
-          }
-          resolve(ACGArray[urlOrder].title)
+          $('.card-body').find('footer').eq(0).html(orderObj.say_author);
+          $('#content').html(orderObj.content);
+          resolve(orderObj.title)
         })
       }).then((resolve) => {
-        buildTip(nextTitle, prevTitle)
         $('#content').find('img').each(function () {
           $(this).wrap('<a class="contentImg" href="' + $(this).attr('src') + '" data-fancybox="gallery" data-caption=""></a>')
         })
@@ -192,14 +164,6 @@
       })
     });
 
-    //上下一篇切換
-    $('#leftBtn').click(function () {
-      location.href = 'detail.html?order=' + $(this).data('order')
-    })
-    $('#rightBtn').click(function () {
-      location.href = 'detail.html?order=' + $(this).data('order')
-    })
-
     //雙擊標題出現封印之地
     $('#edit').dblclick(function () {
       $("#dialog").dialog({
@@ -210,37 +174,19 @@
     //封印之地的密碼框和確認
     $('#secret').next('button').click(function (e) {
       e.preventDefault()
-      let urlOrder = new URL(location.href).searchParams.get('order');
+      let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       if (sha512($('#secret').val().trim()) == '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d') {
-        location.href = 'edit.html?order=' + urlOrder
+        window.open('edit.html?order=' + urlOrder)
       } else {
         Swal.fire({
           icon: 'error',
           html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
           showConfirmButton: false,
         });
-        $('#secret').val('')
-        $("#dialog").dialog('close');
       }
+      $('#secret').val('')
+      $("#dialog").dialog('close');
     });
-
-    //建造提示文字
-    function buildTip(nextTitle, prevTitle) {
-      if (nextTitle != '') {
-        $('#leftBtn').attr('disabled', false)
-        tippy('#leftBtn', {
-          animation: 'scale',
-          content: '下一篇: 『' + nextTitle + '』',
-        });
-      }
-      if (prevTitle != '') {
-        $('#rightBtn').attr('disabled', false)
-        tippy('#rightBtn', {
-          animation: 'scale',
-          content: '上一篇: 『' + prevTitle + '』',
-        });
-      }
-    }
   </script>
 
 </body>

@@ -109,8 +109,7 @@
       let prevTitle = ''
       new Promise((resolve, reject) => {
         database.ref('/life').once('value', (result) => {
-          let thisTitle = ''
-          lifeArray = result.val()
+          let lifeArray = result.val()
           document.title = lifeArray[urlOrder].title
           $('#edit').html(lifeArray[urlOrder].title)
           $('#time').append(lifeArray[urlOrder].time)
@@ -188,7 +187,7 @@
     $('#secret').next('button').click(function (e) {
       e.preventDefault()
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
-      if (sha512($('#secret').val().trim()) == '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d') {
+      if (sha512($('#secret').val().trim()) === '3f9b890fb564b973251f8c85f5dd542b7c09065975e7e3a4cde08162d06402cb552d53f70d47c65895031e248b3ef37713d13b23f49c67ea9d2e58531d064e6d') {
         location.href = 'edit.html?order=' + urlOrder
       } else {
         Swal.fire({

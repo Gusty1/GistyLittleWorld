@@ -379,6 +379,7 @@
               if (i >= parseInt(data[0] * 5) && i <= parseInt((data[0] + 1) * 5 - 1)) newLifeAry.push(changeLifeArray[i])
             }
             buildCardHtml(newLifeAry)
+            $('html').scrollTop(0);
           }
         });
       } else {

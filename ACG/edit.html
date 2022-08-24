@@ -223,7 +223,7 @@
 
       let urlOrder = new URL(location.href).searchParams.get('order');
 
-      database.ref('/ACG').on('value', (result) => {
+      database.ref('/ACG').once('value', (result) => {
         if (!checkUser()) $('#authModal').modal('toggle')
 
         ACGArray = result.val()

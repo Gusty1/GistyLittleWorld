@@ -401,13 +401,13 @@
       }
       if (urlOrder != null) isEdit = true
       if (isEdit) { //修改
-        ACGObject.order = parseInt(ACGArray.length);
-        database.ref('/ACG/' + parseInt(ACGArray.length)).update(ACGObject).then((result) => {
+        ACGObject.order = parseInt(urlOrder);
+        database.ref('/ACG/' + parseInt(urlOrder)).update(ACGObject).then((result) => {
           window.close()
         })
       } else { //新增
-        ACGObject.order = parseInt(urlOrder);
-        database.ref('/ACG/' + parseInt(urlOrder)).set(ACGObject).then((result) => {
+        ACGObject.order = parseInt(ACGArray.length);
+        database.ref('/ACG/' + parseInt(ACGArray.length)).set(ACGObject).then((result) => {
           window.close()
         })
       }

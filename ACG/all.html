@@ -57,7 +57,7 @@
         <div class="form-group row h5 justify-content-center">
           <label class="col-form-label"><i class="fas fa-sort"></i>&nbsp;排序方式</label>
           <div class="col-sm-7 mt-1">
-            <select class="form-control">
+            <select class="form-control" id="sortSelect">
               <option value="newToOld">時間&nbsp;新-->舊</option>
               <option value="oldToNew">時間&nbsp;舊-->新</option>
               <option value="highToLow">評分&nbsp;高-->低</option>
@@ -179,12 +179,9 @@
         baseZ: 1000,
       });
       new Promise((resolve, reject) => {
-        database.ref('/ACG').on('value', (result) => {
+        database.ref('/ACG').once('value', (result) => {
           ACGArray = result.val()
-          ACGArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? -1 : 1
-          });
-          initCard(ACGArray)
+          buildPage('', 'ALL', 'newToOld')
           typeArrayCount[0] = ACGArray.length;
           for (let i = 0; i < ACGArray.length; i++) {
             if (ACGArray[i].type == '遊戲') typeArrayCount[1]++
@@ -247,161 +244,25 @@
     // 分類點擊和顯示
     $('.nav-tabs').on('click', 'a', function (e) {
       e.preventDefault();
-      $('#subjectSearch').val('')
-      $('#searchResult').html('')
-      let changeACGArray = [];
-      let isRepeat = '';
-      $('.nav-tabs').find('a').each(function () {
-        if ($(this).hasClass('active')) {
-          isRepeat = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))
-        }
-      });
-      if (isRepeat == $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))) return false;
-      $('.nav-tabs').find('a').each(function () {
-        if ($(this).hasClass('active')) isRepeat = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'));
-        $(this).removeClass('active');
-      });
-      $(this).addClass('active');
-      if ($(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&')) == 'ALL') {
-        ACGArray.sort((a, b) => {
-          return new Date(a.time) > new Date(b.time) ? -1 : 1
-        });
-        initCard(ACGArray);
-      } else {
-        for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (ACGArray[i].type == $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))) {
-            changeACGArray.push(ACGArray[i]);
-          }
-        }
-        if (changeACGArray.length > 0) {
-          changeACGArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? -1 : 1
-          });
-          initCard(changeACGArray);
-        } else {
-          $('#cardBlock').html('<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>');
-          $('#pageBlock').html('');
-        }
-      }
-      $('select').val('newToOld');
+      if ($(this).hasClass('active')) return
+      let type = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))
+      $('.nav-tabs').find('a').removeClass('active')
+      $(this).addClass('active')
+      buildPage($('#subjectSearch').val().trim(), type, $('#sortSelect').val())
     });
 
     // 搜尋框
     $('#subjectSearch').on('input', function () {
-      let type = '';
-      let searchACGArray = [];
-      $('.nav-tabs').find('a').each(function () {
-        if ($(this).hasClass('active')) {
-          type = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))
-        }
-      });
-      if (type === 'ALL') {
-        if ($('#subjectSearch').val().trim() === '') {
-          $('select').val('newToOld');
-          initCard()
-        } else {
-          for (let i = 0; i < ACGArray.length; i++) {
-            if (ACGArray[i].title.toLowerCase().indexOf($('#subjectSearch').val().trim().toLowerCase()) != -1) {
-              searchACGArray.push(ACGArray[i]);
-            }
-          }
-          if (searchACGArray.length > 0) initCard(searchACGArray);
-          else {
-            $('#cardBlock').html('<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp;查無資料，換個關鍵字試試。</div>');
-            $('#pageBlock').html('');
-          }
-        }
-      } else if ($('#subjectSearch').val().trim() === '') {
-        for (let i = 0; i < ACGArray.length; i++) {
-          if (ACGArray[i].type == type) searchACGArray.push(ACGArray[i]);
-        }
-        initCard(searchACGArray);
-      } else {
-        for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (ACGArray[i].type == type && ACGArray[i].title.toLowerCase().indexOf($('#subjectSearch').val().trim().toLowerCase()) != -1) {
-            searchACGArray.push(ACGArray[i]);
-          }
-        }
-        if (searchACGArray.length > 0) initCard(searchACGArray)
-        else {
-          $('#cardBlock').html('<div class="row justify-content-center h4 text-danger"><i class="fas fa-frown-open"></i>&nbsp;在' + type + '裡查無資料，換個關鍵字或選其他類型試試。</div>');
-          $('#pageBlock').html('');
-        }
-      }
-      if ($('#subjectSearch').val().trim() === '') $('#searchResult').html('')
-      else if (searchACGArray.length > 0) $('#searchResult').html('共&nbsp;' + searchACGArray.length + '&nbsp;筆符合的資料')
-      else $('#searchResult').html('')
+      let type = $('.nav-tabs').find('.active').html()
+      type = type.substring(type.indexOf(';') + 1, type.lastIndexOf('&'))
+      buildPage($(this).val().trim(), type, $('#sortSelect').val())
     });
 
     //排序方式
-    $('select').on('change', function () {
-      let changeACGArray = [];
-      let type = '';
-      $('.nav-tabs').find('a').each(function () {
-        if ($(this).hasClass('active')) {
-          type = $(this).html().substring($(this).html().indexOf(';') + 1, $(this).html().lastIndexOf('&'))
-        }
-      });
-      if (type === 'ALL') {
-        changeACGArray = [...ACGArray];
-        if ($('#subjectSearch').val().trim() !== '') {
-          changeACGArray = changeACGArray.filter(item => {
-            return item.title.indexOf($('#subjectSearch').val().trim()) !== -1
-          })
-        }
-        if ($(this).val().trim() == 'newToOld') {
-          changeACGArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? -1 : 1
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() === 'oldToNew') {
-          changeACGArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? 1 : -1
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() === 'highToLow') {
-          //根據時間新舊和分數高低排序
-          changeACGArray.sort((a, b) => {
-            return b.rate - a.rate || new Date(b.time) - new Date(a.time);
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() === 'lowToHigh') {
-          changeACGArray.sort((a, b) => {
-            return a.rate - b.rate || new Date(a.time) - new Date(b.time);
-          });
-          initCard(changeACGArray)
-        }
-      } else {
-        for (let i = 0; i < ACGArray.length; i = i + 1) {
-          if (ACGArray[i].type == type) changeACGArray.push(ACGArray[i]);
-        }
-        if ($('#subjectSearch').val().trim() !== '') {
-          changeACGArray = changeACGArray.filter(item => {
-            return item.title.indexOf($('#subjectSearch').val().trim()) !== -1
-          })
-        }
-        if ($(this).val().trim() === 'newToOld') {
-          changeACGArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? -1 : 1
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() === 'oldToNew') {
-          changeACGArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? 1 : -1
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() === 'highToLow') {
-          changeACGArray.sort((a, b) => {
-            return b.rate - a.rate || new Date(b.time) - new Date(a.time);
-          });
-          initCard(changeACGArray)
-        } else if ($(this).val().trim() == 'lowToHigh') {
-          changeACGArray.sort((a, b) => {
-            return a.rate - b.rate || new Date(a.time) - new Date(b.time);
-          });
-          initCard(changeACGArray)
-        }
-      }
+    $('#sortSelect').on('change', function () {
+      let type = $('.nav-tabs').find('.active').html()
+      type = type.substring(type.indexOf(';') + 1, type.lastIndexOf('&'))
+      buildPage($('#subjectSearch').val().trim(), type, $('#sortSelect').val())
     });
 
     //詳細頁超連結
@@ -409,12 +270,10 @@
       window.open('detail.html?order=' + $(this).find('input').val().trim());
     });
 
-    // 初始化卡片
-    function initCard(newACGArray, isPage) {
+    // 產生卡片
+    function buildCardHtml(newACGArray) {
       let cardHtml = '';
       $('#cardBlock').html('');
-      if (newACGArray === null || typeof newACGArray === 'undefined') newACGArray = ACGArray
-      if (typeof isPage == 'undefined') isPage = false
       for (let i = 0; i < newACGArray.length; i++) {
         let shortTitle = ''
         if (newACGArray[i].title.length > 5) {
@@ -439,7 +298,7 @@
             if (j < parseInt(newACGArray[i].rate)) cardHtml += '<i class="fas fa-star"></i>'
             else {
               cardHtml += '<i class="fas fa-star-half-alt"></i>';
-              j = j + 1;
+              j++
               if (j < 5) {
                 for (let k = j; k < 5; k++) {
                   cardHtml += '<i class="far fa-star"></i>';
@@ -460,9 +319,8 @@
         cardHtml += '</div></div></div>'
       }
       if (cardHtml == '') {
-        $('#cardBlock').html('<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>');
+        cardHtml += '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
         $('#pageBlock').html('');
-        return false;
       }
       $('#cardBlock').html(cardHtml);
       if (_LAZYLOAD != '') _LAZYLOAD.update()
@@ -470,51 +328,80 @@
       $("img").on("error", function (e) {
         $(this).attr("src", "../images/error.gif");
       });
-      if (isPage) return false
-      buildPage(newACGArray);
     }
 
     //產生頁數
-    function buildPage(newACGArray) {
-      let pageLength = [];
-      let pageAcgArray = [];
-      if (newACGArray.length > 12) {
-        if (newACGArray.length % 12 == 0) {
-          for (let i = 0; i < parseInt(newACGArray.length / 12); i = i + 1) {
+    function buildPage(keyword, type, sort) {
+      $('#searchResult').html('')
+      let changeACGArray = [...ACGArray]
+      if (type !== 'ALL') {
+        changeACGArray = changeACGArray.filter(item => {
+          return item.type === type ? true : false
+        })
+      }
+      if (keyword !== '') {
+        changeACGArray = changeACGArray.filter(item => {
+          return item.title.indexOf(keyword) !== -1 ? true : false
+        })
+        if (changeACGArray.length > 0) {
+          $('#searchResult').html('共&nbsp;' + changeACGArray.length + '&nbsp;筆符合的資料')
+        }
+      }
+      if (sort === 'newToOld') {
+        changeACGArray.sort((a, b) => {
+          return new Date(a.time) > new Date(b.time) ? -1 : 1
+        });
+      } else if (sort === 'oldToNew') {
+        changeACGArray.sort((a, b) => {
+          return new Date(a.time) > new Date(b.time) ? 1 : -1
+        });
+      } else if (sort === 'highToLow') {
+        changeACGArray.sort((a, b) => {
+          return b.rate - a.rate || new Date(b.time) - new Date(a.time);
+        });
+      } else if (sort === 'lowToHigh') {
+        changeACGArray.sort((a, b) => {
+          return a.rate - b.rate || new Date(a.time) - new Date(b.time);
+        });
+      }
+
+      if (changeACGArray.length > 12) {
+        let pageLength = [];
+        if (changeACGArray.length % 12 == 0) {
+          for (let i = 0; i < parseInt(changeACGArray.length / 12); i = i + 1) {
             pageLength.push(i)
           }
         } else {
-          for (let i = 0; i < parseInt(newACGArray.length / 12) + 1; i = i + 1) {
+          for (let i = 0; i < parseInt(changeACGArray.length / 12) + 1; i = i + 1) {
             pageLength.push(i)
           }
         }
-      } else pageLength.push(1)
-      if (newACGArray.length > 12) {
+
         $('#pageBlock').pagination({
           dataSource: pageLength,
           pageSize: 1,
           showPrevious: false,
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
-          callback: (data, pagination)=> {
-            // start: i*12
-            // end:   (i+1)*12-1
-            pageAcgArray = []
-            for (let i = 0; i < newACGArray.length; i = i + 1) {
-              if (i >= parseInt(data[0] * 12) && i <= parseInt((data[0] + 1) * 12 - 1)) pageAcgArray.push(newACGArray[i])
+          callback: (data, pagination) => {
+            let newChangeACGArray = [];
+            for (let i = 0; i < changeACGArray.length; i = i + 1) {
+              if (i >= parseInt(data[0] * 12) && i <= parseInt((data[0] + 1) * 12 - 1)) newChangeACGArray.push(changeACGArray[i])
             }
-            initCard(pageAcgArray, true)
+            buildCardHtml(newChangeACGArray)
+            $('html').scrollTop(130);
           }
         });
       } else {
         $('#pageBlock').pagination({
-          dataSource: pageLength,
+          dataSource: [0],
           pageSize: 1,
           showPrevious: false,
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
-          callback:(data, pagination)=> {}
+          callback: (data, pagination) => {}
         });
+        buildCardHtml(changeACGArray)
       }
     }
   </script>

@@ -278,7 +278,8 @@
       let optionHtml = ''
       let nowYear = new Date().getFullYear()
       for (let i = 2021; i <= nowYear; i++) {
-        optionHtml += '<option value="' + i + '">' + i + '</option>'
+        if (i === nowYear) optionHtml += '<option value="' + i + '" selected>' + i + '</option>'
+        else optionHtml += '<option value="' + i + '">' + i + '</option>'
       }
       $('#lifeYear').html(optionHtml)
       $('#ACGYear').html(optionHtml)

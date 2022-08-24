@@ -264,42 +264,42 @@
       let coverImg = $('#previewImg').attr('src');
       let say = $('#say').val().trim();
       let say_author = $('#say_author').val().trim();
-      let content = CKEDITOR.instances.content.getData()
-      if (title == '') {
+      let content = CKEDITOR.instances.content.getData().trim()
+      if (title === '') {
         check = 1;
         errorMsg = '請寫好標題'
-      } else if (time == '') {
+      } else if (time === '') {
         check = 1;
         errorMsg = '請寫好時間'
-      } else if (type == '請選擇') {
+      } else if (type === '請選擇') {
         check = 1;
         errorMsg = '請選好類型'
-      } else if (collect == '') {
+      } else if (collect === '') {
         check = 1;
         errorMsg = '請寫好集/時數'
-      } else if (rate == '' || rate == undefined) {
+      } else if (rate === '' || typeof rate === 'undefined') {
         check = 1;
         errorMsg = '請寫好評價'
-      } else if (coverImg == '../images/ACG/404.jpg') {
+      } else if (coverImg === '../images/ACG/404.jpg') {
         check = 1;
         errorMsg = '請確認圖片是否上傳'
-      } else if (say == '') {
+      } else if (say === '') {
         check = 1;
         errorMsg = '請寫好名言'
-      } else if (say_author == '') {
+      } else if (say_author === '') {
         check = 1;
         errorMsg = '請寫好名言作者'
-      } else if (content == '') {
+      } else if (content === '') {
         check = 1;
         errorMsg = '請寫好內容'
       }
-      if (check != 0) {
+      if (check !== 0) {
         Swal.fire({
           icon: 'error',
           html: '<p class="h4 text-danger">' + errorMsg + '</p>',
           showConfirmButton: false,
         });
-        return false;
+        return
       } else {
         $('.card').find('img').eq(0).attr('src', coverImg);
         $('.card-body').find('div').each((index, value) => {
@@ -400,7 +400,7 @@
         coverImg: $('#previewImg').attr('src'),
         say: $('#say').val().trim(),
         say_author: $('#say_author').val().trim(),
-        content: CKEDITOR.instances.content.getData(),
+        content: CKEDITOR.instances.content.getData().trim(),
         rate
       }
       if (urlOrder != null) isEdit = true

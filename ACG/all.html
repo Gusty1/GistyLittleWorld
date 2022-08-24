@@ -496,7 +496,7 @@
           showPrevious: false,
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
-          callback: function (data, pagination) {
+          callback: (data, pagination)=> {
             // start: i*12
             // end:   (i+1)*12-1
             pageAcgArray = []
@@ -504,7 +504,6 @@
               if (i >= parseInt(data[0] * 12) && i <= parseInt((data[0] + 1) * 12 - 1)) pageAcgArray.push(newACGArray[i])
             }
             initCard(pageAcgArray, true)
-            $('html').scrollTop(0);
           }
         });
       } else {
@@ -514,7 +513,7 @@
           showPrevious: false,
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
-          callback: function (data, pagination) {}
+          callback:(data, pagination)=> {}
         });
       }
     }

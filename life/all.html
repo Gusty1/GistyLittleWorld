@@ -67,7 +67,7 @@
             <i class="fas fa-sort"></i>&nbsp;排序方式
           </label>
           <div class="col-7">
-            <select class="form-control">
+            <select class="form-control" id="sortSelect">
               <option value="newToOld">時間&nbsp;新-->舊</option>
               <option value="oldToNew">時間&nbsp;舊-->新</option>
             </select>
@@ -145,7 +145,7 @@
 
   <script>
     var lifeArray = [];
-    var clickLabel = '';
+    var clickLabel = 'ALL';
     var _LAZYLOAD = ''
 
     //雙擊標題出現禁忌之地
@@ -155,7 +155,7 @@
       });
     });
 
-    //標籤數量顏色+initcard
+    //標籤數量顏色+buildCardHtml
     $(document).ready(() => {
       $('header').load('header.html')
       $('footer').load('../footer.html')
@@ -177,12 +177,9 @@
         baseZ: 1000,
       });
       new Promise((resolve, reject) => {
-        database.ref('/life').on('value', (result) => {
+        database.ref('/life').once('value', (result) => {
           lifeArray = result.val()
-          lifeArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? -1 : 1
-          });
-          initCard(lifeArray)
+          buildPage('', 'ALL', 'newToOld')
           for (let i = 0; i < lifeArray.length; i = i + 1) {
             if (parseInt(new Date(lifeArray[i].time).getMonth()) + 1 + '-' + new Date(lifeArray[i].time).getDate() === today) {
               adHtml += '<a class="font-weight-bold" style="margin-right:5px;color:#00FFFF;" href="javascript:window.open(\'detail.html?order=' + lifeArray[i].order + '\')">' + lifeArray[i].title + '</a>、'
@@ -255,36 +252,20 @@
 
     // 搜尋框
     $('#subjectSearch').on('input', function () {
-      let changeLifeArray = [];
-      $('#cardGroup').html('');
-      if (clickLabel === '' || clickLabel === 'ALL') {
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (lifeArray[i].title.toLowerCase().indexOf($(this).val().trim().toLowerCase()) != -1) changeLifeArray.push(lifeArray[i])
-        }
-        if (changeLifeArray.length == 0) {
-          $('#cardGroup').html('<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp;查無資料，換個關鍵字試試。</div>')
-          $('#page').html('')
-          $('#searchResult').html('')
-          return
-        } else initCard(changeLifeArray)
-      } else {
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if (lifeArray[i].title.toLowerCase().indexOf($(this).val().trim().toLowerCase()) != -1 && lifeArray[i].label == clickLabel) {
-            changeLifeArray.push(lifeArray[i])
-          }
-        }
-        if (changeLifeArray.length == 0) {
-          $('#cardGroup').html('<div class="col-sm-12 text-danger h4"><i class="fas fa-frown"></i>&nbsp;此標籤內查無資料，換個關鍵字或標籤試試。</div>')
-          $('#page').html('')
-          $('#searchResult').html('')
-          return
-        } else initCard(changeLifeArray)
-      }
-      if ($(this).val().trim() === '') {
-        $('select').val('newToOld');
-        $('#searchResult').html('')
-      } else if (changeLifeArray.length > 0) $('#searchResult').html('共&nbsp;' + changeLifeArray.length + '&nbsp;筆符合的結果')
-      else $('#searchResult').html('')
+      buildPage($(this).val().trim(), clickLabel, $('#sortSelect').val())
+    });
+
+    //排序方式
+    $('#sortSelect').on('change', function () {
+      buildPage($('#subjectSearch').val().trim(), clickLabel, $(this).val())
+    });
+
+    //標籤點擊
+    $('#labelGroup').on('click', '.badge-pill', function () {
+      if (clickLabel == $(this).html().substring(0, $(this).html().indexOf('&'))) return
+      clickLabel = $(this).html().substring(0, $(this).html().indexOf('&'))
+      $('#labelGroup').prev().html('目前標籤:&nbsp;' + clickLabel);
+      buildPage($('#subjectSearch').val().trim(), clickLabel, $('#sortSelect').val())
     });
 
     // 詳細頁超連結
@@ -292,83 +273,9 @@
       window.open('detail.html?order=' + $(this).find('input').val().trim());
     });
 
-    //排序方式
-    $('select').on('change', function () {
-      let changeLifeArray = [...lifeArray]
-      if (clickLabel !== '' && clickLabel !== 'ALL') {
-        let changeLabelLifeArray = [];
-        for (let i = 0; i < changeLifeArray.length; i = i + 1) {
-          if (changeLifeArray[i].label === clickLabel) changeLabelLifeArray.push(changeLifeArray[i])
-        }
-        if ($('#subjectSearch').val().trim() !== '') {
-          changeLabelLifeArray = changeLabelLifeArray.filter(item => {
-            return item.title.indexOf($('#subjectSearch').val().trim()) !== -1
-          })
-        }
-        if ($(this).val().trim() === 'newToOld') {
-          changeLabelLifeArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? -1 : 1
-          });
-          initCard(changeLabelLifeArray)
-        } else {
-          changeLabelLifeArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? 1 : -1
-          });
-          initCard(changeLabelLifeArray)
-        }
-      } else {
-        if ($('#subjectSearch').val().trim() !== '') {
-          changeLifeArray = changeLifeArray.filter(item => {
-            return item.title.indexOf($('#subjectSearch').val().trim()) !== -1
-          })
-        }
-        if ($(this).val().trim() === 'newToOld') {
-          changeLifeArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? -1 : 1
-          });
-          initCard(changeLifeArray)
-        } else {
-          changeLifeArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? 1 : -1
-          });
-          initCard(changeLifeArray)
-        }
-      }
-    });
-
-    //標籤點擊
-    $('#labelGroup').on('click', '.badge-pill', function () {
-      if (clickLabel == $(this).html().substring(0, $(this).html().indexOf('&'))) return false
-      clickLabel = $(this).html().substring(0, $(this).html().indexOf('&'))
-      $('#labelGroup').prev().html('目前標籤:&nbsp;' + clickLabel);
-      $('select').val('newToOld');
-      $('#subjectSearch').val('');
-      $('#searchResult').html('')
-      if ($(this).html().substring(0, $(this).html().indexOf('&')) === 'ALL') {
-        lifeArray.sort((a, b) => {
-          return new Date(a.time) > new Date(b.time) ? -1 : 1
-        });
-        initCard(lifeArray);
-        return false;
-      } else {
-        let changeLifeArray = []
-        for (let i = 0; i < lifeArray.length; i = i + 1) {
-          if ($(this).html().substring(0, $(this).html().indexOf('&')) == lifeArray[i].label) changeLifeArray.push(lifeArray[i])
-        }
-        if (changeLifeArray.length > 0) {
-          changeLifeArray.sort((a, b) => {
-            return new Date(a.time) > new Date(b.time) ? -1 : 1
-          });
-          initCard(changeLifeArray)
-        }
-      }
-    });
-
-    // 初始化卡片
-    function initCard(newLifeArray, isPage) {
+    // 產生卡片
+    function buildCardHtml(newLifeArray) {
       let cardHtml = '';
-      if (newLifeArray == null) newLifeArray = lifeArray
-      if (typeof isPage == 'undefined') isPage = false
       for (let i = 0; i < newLifeArray.length; i = i + 1) {
         cardHtml += '<div class="card mb-3 cardBlock hvr-glow w-100">'
         cardHtml += '<div class="row no-gutters ">'
@@ -384,61 +291,82 @@
         cardHtml += '<p class="card-text h4">' + newLifeArray[i].summary + '</p>'
         cardHtml += '</div></div></div></div>'
       }
+      if (cardHtml === '') {
+        cardHtml += '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
+        $('#page').html('')
+      }
       $('#cardGroup').html(cardHtml);
       if (_LAZYLOAD != '') _LAZYLOAD.update()
       else _LAZYLOAD = new LazyLoad({})
       $("img").on("error", function (e) {
         $(this).attr("src", "../images/error.gif");
       });
-      //頁數
-      if (isPage) return false
-      buildPage(newLifeArray);
     }
 
     // 產生頁數
-    function buildPage(newLifeArray) {
-      let pageLength = [];
-      let pageLifeArray = [];
-      if (newLifeArray.length > 5) {
-        if (newLifeArray.length % 5 == 0) {
-          for (let i = 0; i < parseInt(newLifeArray.length / 5); i = i + 1) {
+    function buildPage(keyword, type, sort) {
+      let changeLifeArray = [...lifeArray];
+      $('#searchResult').html('')
+
+      if (type !== 'ALL') {
+        changeLifeArray = changeLifeArray.filter(item => {
+          return item.label === type ? true : false
+        })
+      }
+      if (keyword !== '') {
+        changeLifeArray = changeLifeArray.filter(item => {
+          return item.title.indexOf(keyword) !== -1 ? true : false
+        })
+        if (changeLifeArray.length > 0) $('#searchResult').html('共&nbsp;' + changeLifeArray.length + '&nbsp;筆符合的資料')
+      }
+      if (sort === 'newToOld') {
+        changeLifeArray.sort((a, b) => {
+          return new Date(a.time) > new Date(b.time) ? -1 : 1
+        });
+      } else {
+        changeLifeArray.sort((a, b) => {
+          return new Date(a.time) > new Date(b.time) ? 1 : -1
+        });
+      }
+
+      if (changeLifeArray.length > 5) {
+        let pageLength = [];
+        if (changeLifeArray.length % 5 == 0) {
+          for (let i = 0; i < parseInt(changeLifeArray.length / 5); i = i + 1) {
             pageLength.push(i);
           }
         } else {
-          for (let i = 0; i < parseInt(newLifeArray.length / 5) + 1; i = i + 1) {
+          for (let i = 0; i < parseInt(changeLifeArray.length / 5) + 1; i = i + 1) {
             pageLength.push(i);
           }
         }
-      } else pageLength.push(1)
-      if (newLifeArray.length > 5) {
         $('#page').pagination({
           dataSource: pageLength,
           pageSize: 1,
           showPrevious: false,
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
-          callback: function (data, pagination) {
+          callback: (data, pagination) => {
             // start: i*5
             // end:   (i+1)*5-1
-            pageLifeArray = [];
-            for (let i = 0; i < newLifeArray.length; i = i + 1) {
-              if (i >= parseInt(data[0] * 5) && i <= parseInt((data[0] + 1) * 5 - 1)) {
-                pageLifeArray.push(newLifeArray[i])
-              }
+            let newLifeAry = [];
+            for (let i = 0; i < changeLifeArray.length; i = i + 1) {
+              if (i >= parseInt(data[0] * 5) && i <= parseInt((data[0] + 1) * 5 - 1)) newLifeAry.push(changeLifeArray[i])
             }
-            initCard(pageLifeArray, true)
-            $('html').scrollTop(0);
+            buildCardHtml(newLifeAry)
+            $('html').scrollTop(130);
           }
         });
       } else {
         $('#page').pagination({
-          dataSource: pageLength,
+          dataSource: [0],
           pageSize: 1,
           showPrevious: false,
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
-          callback: function (data, pagination) {}
+          callback: (data, pagination) => {}
         });
+        buildCardHtml(changeLifeArray)
       }
     }
   </script>

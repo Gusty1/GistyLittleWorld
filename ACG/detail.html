@@ -96,8 +96,6 @@
   <script src="../js/tool.js"></script>
 
   <script>
-    var ACGArray = [];
-
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
       $('header').load('header.html')
@@ -116,8 +114,8 @@
       let nextTitle = ''
       let prevTitle = ''
       new Promise((resolve, reject) => {
-        database.ref('/ACG').on('value', (result) => {
-          ACGArray = result.val()
+        database.ref('/ACG').once('value', (result) => {
+          let ACGArray = result.val()
           document.title = ACGArray[urlOrder].title;
           $('.card').find('img').eq(0).data('src', ACGArray[urlOrder].coverImg).attr('data-src', ACGArray[urlOrder].coverImg)
           $('.card-body').find('div').each((index, value) => {

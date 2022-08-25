@@ -2,7 +2,7 @@
 $("#goTop").click(function () {
   $("html").animate({
     scrollTop: 0
-  }, 1000);
+  }, 300);
 });
 $("#goTop").fadeOut('fast');
 $(window).scroll(function () {

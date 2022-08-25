@@ -177,6 +177,7 @@
     $(document).ready(() => {
       $('header').load("header.html")
       $("footer").load("footer.html");
+
       $.get('data/indexImg.json', (result) => {
         imgAry = result.url
         imgLength = imgAry.length
@@ -185,6 +186,7 @@
           $(this).attr('src', imgAry[random[index]]);
         });
       })
+      
       //cros anywhere 的設定 google recaptcha會用到
       $.ajaxPrefilter((options) => {
         if (options.crossDomain && $.support.cors) {

@@ -399,9 +399,7 @@
               if (i >= parseInt(data[0] * 6) && i <= parseInt((data[0] + 1) * 6 - 1)) newLifeAry.push(changeLifeArray[i])
             }
             buildCardHtml(newLifeAry)
-            $("html").animate({
-              scrollTop: 0
-            }, 300);
+            $("#goTop").click()
           }
         });
       } else {

@@ -428,7 +428,9 @@
               if (i >= parseInt(data[0] * 12) && i <= parseInt((data[0] + 1) * 12 - 1)) newChangeACGArray.push(changeACGArray[i])
             }
             buildCardHtml(newChangeACGArray)
-            $('html').scrollTop(0);
+            $("html").animate({
+              scrollTop: 0
+            }, 300);
           }
         });
       } else {

@@ -150,6 +150,7 @@
     var lifeArray = [];
     var clickLabel = 'ALL';
     var _LAZYLOAD = ''
+    var IsMobileDevice = isMobileDevice()
 
     //雙擊標題出現禁忌之地
     $('#edit').dblclick(function () {
@@ -163,12 +164,9 @@
       $('header').load('../header.html')
       $('footer').load('../footer.html')
 
-      if (isMobileDevice()) {
+      if (IsMobileDevice) {
         $('#labelBlock').hide()
         $('.marquee').addClass('mt-2')
-      } else {
-        $('#labelBlock').show()
-        $('.marquee').removeClass('mt-2')
       }
 
       let labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77', '#95CACA', '#B8B8DC', '#CA8EC2', ' #FFFF6F', '#9AFF02'];
@@ -309,7 +307,7 @@
       for (let i = 0; i < newLifeArray.length; i = i + 1) {
         cardHtml += '<div class="card mb-3 cardBlock hvr-glow w-100">'
         cardHtml += '<div class="row no-gutters">'
-        if (i === 0 || i % 2 === 0) {
+        if (IsMobileDevice || (i === 0 || i % 2 === 0)) {
           cardHtml += '<div class="col-md-4">'
           cardHtml += '<img src="../images/loading.gif" data-src="' + newLifeArray[i].coverImg + '" class="card-img img-fluid rounded lazy" alt="404 not found" style="height:225px;">'
           cardHtml += '</div>'

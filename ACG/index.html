@@ -171,7 +171,14 @@
       $('footer').load('../footer.html')
 
       if (IsMobileDevice) $('.marquee').addClass('mt-2')
-      else $('.marquee').removeClass('mt-2')
+      else {
+        $('#cardBlock').on('mouseenter', '.card', function () {
+          $(this).find('.card-body').eq(0).show('fast')
+        })
+        $('#cardBlock').on('mouseleave', '.card', function () {
+          $(this).find('.card-body').eq(0).hide('fast')
+        })
+      }
 
       let typeArrayCount = [0, 0, 0, 0];
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
@@ -298,14 +305,6 @@
       type = type.substring(type.indexOf(';') + 1, type.lastIndexOf('&'))
       buildPage($('#subjectSearch').val().trim(), type, $('#sortSelect').val())
     });
-
-
-    $('#cardBlock').on('mouseenter', '.card', function () {
-      $(this).find('.card-body').eq(0).show('fast')
-    })
-    $('#cardBlock').on('mouseleave', '.card', function () {
-      $(this).find('.card-body').eq(0).hide('fast')
-    })
 
     // 產生卡片
     function buildCardHtml(newACGArray) {

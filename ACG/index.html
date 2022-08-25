@@ -86,7 +86,7 @@
       </ul>
     </div>
 
-    <div class="card-deck mt-3 justify-content-center" id="cardBlock">
+    <div class="card-columns px-3" id="cardBlock">
       <!-- <div class="card mr-3" style="width: 21rem;">
                 <img class="card-img-top rounded img-fluid" style="height:50vh;" src="../images/test.jpg"
                     alt="Card image cap">
@@ -168,6 +168,9 @@
     $(document).ready(() => {
       $('header').load('../header.html')
       $('footer').load('../footer.html')
+
+      if (isMobileDevice()) $('.marquee').addClass('mt-2')
+      else $('.marquee').removeClass('mt-2')
 
       let typeArrayCount = [0, 0, 0, 0];
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
@@ -295,6 +298,19 @@
       buildPage($('#subjectSearch').val().trim(), type, $('#sortSelect').val())
     });
 
+
+    $('#cardBlock').on('mouseenter', 'img', function () {
+      // $('#cardBlock').find('.card-body').collapse('hide')
+      // setTimeout(() => {
+      //   $(this).next().collapse('show')
+      // }, 100)
+      $(this).next().show('fast')
+    })
+    $('#cardBlock').on('mouseleave', 'img', function () {
+      $(this).next().collapse('hide')
+      $(this).next().hide('fast')
+    })
+
     // 產生卡片
     function buildCardHtml(newACGArray) {
       let cardHtml = '';
@@ -312,7 +328,7 @@
         }
         cardHtml += '<div class="card m-3 hvr-grow" style="min-width: 20rem;max-width: 20rem;">'
         cardHtml += '<img class="card-img-top img-fluid lazy" style="height:350px;" src="../images/loading.gif" data-src="' + newACGArray[i].coverImg + '" alt="not found img">'
-        cardHtml += '<div class="card-body">'
+        cardHtml += '<div class="card-body" style="display: none;">'
         if (shortTitle != '') cardHtml += '<h1 class="h1 text-center text-success" data-title="' + newACGArray[i].title + '">' + shortTitle + '</h1>'
         else cardHtml += '<h1 class="h1 text-center text-success">' + newACGArray[i].title + '</h1>'
         cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'

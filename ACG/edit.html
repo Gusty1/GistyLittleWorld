@@ -222,19 +222,20 @@
       });
 
       let urlOrder = new URL(location.href).searchParams.get('order');
-      if (urlOrder === null) return
-      database.ref('/ACG/' + urlOrder).once('value', (result) => {
+      database.ref('/ACG').once('value', (result) => {
         if (!checkUser()) $('#authModal').modal('toggle')
-        orderObj = result.val()
-        $('#title').val(orderObj.title);
-        $('#time').val(orderObj.time);
-        $('select').val(orderObj.type);
-        $('#collect').val(orderObj.collect);
-        $(".rating").rate("setValue", orderObj.rate);
-        $('#previewImg').attr('src', orderObj.coverImg);
-        $('#say').val(orderObj.say);
-        $('#say_author').val(orderObj.say_author);
-        CKEDITOR.instances.content.setData(orderObj.content);
+        ACGArray = result.val()
+        if (urlOrder !== null) {
+          $('#title').val(ACGArray[urlOrder].title);
+          $('#time').val(ACGArray[urlOrder].time);
+          $('select').val(ACGArray[urlOrder].type);
+          $('#collect').val(ACGArray[urlOrder].collect);
+          $(".rating").rate("setValue", ACGArray[urlOrder].rate);
+          $('#previewImg').attr('src', ACGArray[urlOrder].coverImg);
+          $('#say').val(ACGArray[urlOrder].say);
+          $('#say_author').val(ACGArray[urlOrder].say_author);
+          CKEDITOR.instances.content.setData(ACGArray[urlOrder].content);
+        }
       })
     });
 

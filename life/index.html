@@ -163,8 +163,13 @@
       $('header').load('../header.html')
       $('footer').load('../footer.html')
 
-      if (isMobileDevice()) $('#labelBlock').hide()
-      else $('#labelBlock').show()
+      if (isMobileDevice()) {
+        $('#labelBlock').hide()
+        $('.marquee').addClass('mt-2')
+      } else {
+        $('#labelBlock').show()
+        $('.marquee').removeClass('mt-2')
+      }
 
       let labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77', '#95CACA', '#B8B8DC', '#CA8EC2', ' #FFFF6F', '#9AFF02'];
       let labelArray = [];
@@ -303,18 +308,33 @@
       let cardHtml = '';
       for (let i = 0; i < newLifeArray.length; i = i + 1) {
         cardHtml += '<div class="card mb-3 cardBlock hvr-glow w-100">'
-        cardHtml += '<div class="row no-gutters ">'
-        cardHtml += '<div class="col-md-4">'
-        cardHtml += '<img src="../images/loading.gif" data-src="' + newLifeArray[i].coverImg + '" class="card-img img-fluid rounded lazy" alt="404 not found" style="height:225px;">'
-        cardHtml += '</div>'
-        cardHtml += '<div class="col-md-8">'
-        cardHtml += '<div class="card-body">'
-        cardHtml += '<h1 class="card-title h2 text-success">' + newLifeArray[i].title + '</h1>'
-        cardHtml += '<input type="hidden" value="' + newLifeArray[i].order + '">'
-        cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp;' + newLifeArray[i].time + '</p>'
-        cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp;' + newLifeArray[i].label + '</p>'
-        cardHtml += '<p class="card-text h4">' + newLifeArray[i].summary + '</p>'
-        cardHtml += '</div></div></div></div>'
+        cardHtml += '<div class="row no-gutters">'
+        if (i === 0 || i % 2 === 0) {
+          cardHtml += '<div class="col-md-4">'
+          cardHtml += '<img src="../images/loading.gif" data-src="' + newLifeArray[i].coverImg + '" class="card-img img-fluid rounded lazy" alt="404 not found" style="height:225px;">'
+          cardHtml += '</div>'
+          cardHtml += '<div class="col-md-8">'
+          cardHtml += '<div class="card-body">'
+          cardHtml += '<h1 class="card-title h2 text-success">' + newLifeArray[i].title + '</h1>'
+          cardHtml += '<input type="hidden" value="' + newLifeArray[i].order + '">'
+          cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp;' + newLifeArray[i].time + '</p>'
+          cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp;' + newLifeArray[i].label + '</p>'
+          cardHtml += '<p class="card-text h4">' + newLifeArray[i].summary + '</p>'
+          cardHtml += '</div></div>'
+        } else {
+          cardHtml += '<div class="col-md-8">'
+          cardHtml += '<div class="card-body">'
+          cardHtml += '<h1 class="card-title h2 text-success">' + newLifeArray[i].title + '</h1>'
+          cardHtml += '<input type="hidden" value="' + newLifeArray[i].order + '">'
+          cardHtml += '<p class="card-text h4 text-warning"><i class="fas fa-calendar-alt"></i>&nbsp;' + newLifeArray[i].time + '</p>'
+          cardHtml += '<p class="card-text h4 text-info"><i class="fas fa-tag"></i>&nbsp;' + newLifeArray[i].label + '</p>'
+          cardHtml += '<p class="card-text h4">' + newLifeArray[i].summary + '</p>'
+          cardHtml += '</div></div>'
+          cardHtml += '<div class="col-md-4">'
+          cardHtml += '<img src="../images/loading.gif" data-src="' + newLifeArray[i].coverImg + '" class="card-img img-fluid rounded lazy" alt="404 not found" style="height:225px;">'
+          cardHtml += '</div>'
+        }
+        cardHtml += '</div></div>'
       }
       if (cardHtml === '') {
         cardHtml += '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
@@ -354,14 +374,14 @@
         });
       }
 
-      if (changeLifeArray.length > 5) {
+      if (changeLifeArray.length > 6) {
         let pageLength = [];
-        if (changeLifeArray.length % 5 == 0) {
-          for (let i = 0; i < parseInt(changeLifeArray.length / 5); i = i + 1) {
+        if (changeLifeArray.length % 6 == 0) {
+          for (let i = 0; i < parseInt(changeLifeArray.length / 6); i = i + 1) {
             pageLength.push(i);
           }
         } else {
-          for (let i = 0; i < parseInt(changeLifeArray.length / 5) + 1; i = i + 1) {
+          for (let i = 0; i < parseInt(changeLifeArray.length / 6) + 1; i = i + 1) {
             pageLength.push(i);
           }
         }
@@ -372,14 +392,16 @@
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
           callback: (data, pagination) => {
-            // start: i*5
-            // end:   (i+1)*5-1
+            // start: i*6
+            // end:   (i+1)*6-1
             let newLifeAry = [];
             for (let i = 0; i < changeLifeArray.length; i = i + 1) {
-              if (i >= parseInt(data[0] * 5) && i <= parseInt((data[0] + 1) * 5 - 1)) newLifeAry.push(changeLifeArray[i])
+              if (i >= parseInt(data[0] * 6) && i <= parseInt((data[0] + 1) * 6 - 1)) newLifeAry.push(changeLifeArray[i])
             }
             buildCardHtml(newLifeAry)
-            $('html').scrollTop(0);
+            $("html").animate({
+              scrollTop: 0
+            }, 300);
           }
         });
       } else {

@@ -70,6 +70,15 @@ function removeDuplicates(originalArray, prop) {
   return newArray;
 }
 
+//生成uuid
+function uuid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0,
+      v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 // 下面是以後可能會用到的東西...
 
 // firebase auth 登出，以後可能有G會用到
@@ -77,29 +86,6 @@ function removeDuplicates(originalArray, prop) {
 //     var user = firebase.auth().currentUser;
 //     console.log(user)
 // })
-
-// toastr工具範例
-// toastr.options = {
-//     "closeButton": true,
-//     "debug": false,
-//     "newestOnTop": false,
-//     "progressBar": true,
-//     "positionClass": "toast-bottom-center",
-//     "preventDuplicates": true,
-//     "showDuration": "300",
-//     "hideDuration": "1000",
-//     "timeOut": "5000",
-//     "extendedTimeOut": "1000",
-//     "showEasing": "swing",
-//     "hideEasing": "linear",
-//     "showMethod": "fadeIn",
-//     "hideMethod": "fadeOut"
-// }
-
-// 不知道為啥會跟w3.includeHTML()衝到所以強制硬改顏色、加事件
-// toastr.info('<h4>有人傳送訊息給你<h4>').css('background-color', '#2F96B4').on('click', function () {
-//     window.location.href = 'other/easyChat.html'
-// });
 
 //建立leaflet地圖
 // var map = L.map('mapid', {

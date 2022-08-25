@@ -55,7 +55,7 @@ body {
 
 @media (max-width: 700px), print {
 	#headerIcon {
-		height: 6vh;
+		height: 4vh;
 		width: 8vw;
 	}
 }

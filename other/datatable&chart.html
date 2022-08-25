@@ -51,12 +51,26 @@
           <span class="visually-hidden"></span>
         </div>
       </div>
-      <div class='col-sm-12 mt-2'>
-        <span>範例資料</span>:<br>
-        1.年度國際主要股價指數:<br>
-        https://apiservice.mol.gov.tw/OdService/download/A17000000J-030245-hUa<br>
-        2.國際主要國家貨幣年度匯率概況:<br>
-        https://apiservice.mol.gov.tw/OdService/download/A17030000J-000049-mdw<br>
+      <div class='col-sm-12 mt-3' id="exampleDataArea">
+        <p>範例資料:</p>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">1.年度國際主要股價指數:</label>
+          <div class="col-sm-7 input-group">
+            <input type="text" readonly class="form-control-plaintext" value="https://apiservice.mol.gov.tw/OdService/download/A17000000J-030245-hUa">
+            <div class="input-group-append">
+              <button class="btn btn-secondary btn-sm"><i class="fas fa-copy"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">2.國際主要國家貨幣年度匯率概況:</label>
+          <div class="col-sm-7 input-group">
+            <input type="text" readonly class="form-control-plaintext" value="https://apiservice.mol.gov.tw/OdService/download/A17030000J-000049-mdw">
+            <div class="input-group-append">
+              <button class="btn btn-secondary btn-sm"><i class="fas fa-copy"></i></button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -349,6 +363,12 @@
         });
       }, 400);
     });
+    
+    //複製網址
+    $('#exampleDataArea').on('click', '.btn-secondary', function () {
+      $(this).parent().prev().select()
+      document.execCommand("copy")
+    })
 
     //處理url取得的jsonArray資料
     function success_SelectDataColnum(jsonArray) {

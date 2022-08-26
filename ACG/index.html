@@ -312,13 +312,13 @@
       for (let i = 0; i < newACGArray.length; i++) {
         cardHtml += '<div class="col-md-4 col-sm-12">'
         cardHtml += '<div class="card my-3 hvr-grow w-100">'
-        cardHtml += '<img class="card-img-top img-fluid lazy" style="height:50vh;" src="../images/loading.gif" data-src="' + newACGArray[i].coverImg + '" alt="not found img">'
+        cardHtml += '<img class="card-img-top img-fluid lazy" style="height:45vh;" src="../images/loading.gif" data-src="' + newACGArray[i].coverImg + '" alt="not found img">'
         if (IsMobileDevice) cardHtml += '<div class="card-body">'
         else cardHtml += '<div class="card-img-overlay" style="display:none;">'
-        cardHtml += '<h1 class="h3 text-success">' + newACGArray[i].title + '</h1>'
+        cardHtml += '<h1><span class="h3 text-success bg-light rounded">' + newACGArray[i].title + '</span></h1>'
         cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'
-        cardHtml += '<p class="h5 text-danger"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;' + newACGArray[i].time + '</p>'
-        cardHtml += '<p class="h5 text-warning"><i class="fas fa-medal"></i>&nbsp;&nbsp;'
+        cardHtml += '<p><span class="h5 text-danger bg-light rounded"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;' + newACGArray[i].time + '</span></p>'
+        cardHtml += '<p><span class="h5 text-warning bg-light rounded"><i class="fas fa-medal"></i>&nbsp;&nbsp;'
         if (newACGArray[i].rate.toString().indexOf('.') != -1) {
           for (let j = 0; j < 5; j = j + 1) {
             if (j < parseInt(newACGArray[i].rate)) cardHtml += '<i class="fas fa-star"></i>'
@@ -339,9 +339,9 @@
             else cardHtml += '<i class="far fa-star"></i>'
           }
         }
-        cardHtml += '</p>'
-        if (newACGArray[i].type == '遊戲') cardHtml += '<p class="h4">' + newACGArray[i].type + '，' + newACGArray[i].collect + '小時</p>'
-        else cardHtml += '<p class="h4">' + newACGArray[i].type + '，' + newACGArray[i].collect + '集</p>'
+        cardHtml += '</span></p>'
+        if (newACGArray[i].type == '遊戲') cardHtml += '<p><span class="h4 bg-light rounded">' + newACGArray[i].type + '，' + newACGArray[i].collect + '小時</span></p>'
+        else cardHtml += '<p><span class="h4 bg-light rounded">' + newACGArray[i].type + '，' + newACGArray[i].collect + '集</span></p>'
         cardHtml += '</div></div></div></div>'
       }
       if (cardHtml == '') {

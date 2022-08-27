@@ -315,7 +315,7 @@
         cardHtml += '<img class="card-img-top img-fluid lazy" style="height:45vh;" src="../images/loading.gif" data-src="' + newACGArray[i].coverImg + '" alt="not found img">'
         if (IsMobileDevice) cardHtml += '<div class="card-body">'
         else cardHtml += '<div class="card-img-overlay" style="display:none;">'
-        cardHtml += '<h1><span class="h3 text-success bg-light rounded">' + newACGArray[i].title + '</span></h1>'
+        cardHtml += '<p><span class="h3 text-success bg-light rounded">' + newACGArray[i].title + '</span></p>'
         cardHtml += '<input type="hidden" value="' + newACGArray[i].order + '">'
         cardHtml += '<p><span class="h5 text-danger bg-light rounded"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;' + newACGArray[i].time + '</span></p>'
         cardHtml += '<p><span class="h5 text-warning bg-light rounded"><i class="fas fa-medal"></i>&nbsp;&nbsp;'

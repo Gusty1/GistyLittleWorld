@@ -54,7 +54,7 @@ function checkUser() {
 //隨機load動畫
 function randomLoader() {
   let randomNum = Math.floor(Math.random() * 19) + 1
-  return '<div style="margin:auto;"><img style="height:30vh;width:20vw;" src="../images/loading_gif/load_' + randomNum + '.gif"></div>'
+  return '<div style="margin:auto;"><img style="height:30vh;width:22.5vw;" src="../images/loading_gif/load_' + randomNum + '.gif"></div>'
 }
 
 //陣列物件過濾重復，originalArray:物件陣列，prop:要過濾的key值

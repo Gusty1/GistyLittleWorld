@@ -405,11 +405,25 @@
         ACGObject.order = parseInt(urlOrder);
         database.ref('/ACG/' + parseInt(urlOrder)).update(ACGObject).then((result) => {
           window.close()
+        }).catch((err)=>{
+          Swal.fire({
+            icon: 'error',
+            title: '發生錯誤',
+            html:'<span class="text-danger">'+err+'</span>',
+            showConfirmButton: false,
+          });
         })
       } else { //新增
         ACGObject.order = parseInt(ACGArray.length);
         database.ref('/ACG/' + parseInt(ACGArray.length)).set(ACGObject).then((result) => {
           window.close()
+        }).catch((err)=>{
+          Swal.fire({
+            icon: 'error',
+            title: '發生錯誤',
+            html:'<span class="text-danger">'+err+'</span>',
+            showConfirmButton: false,
+          });
         })
       }
     }

@@ -310,11 +310,11 @@
         life.order = parseInt(lifeArray.length);
         database.ref('/life/' + parseInt(lifeArray.length)).set(life).then((result) => {
           window.close()
-        }).catch((err)=>{
+        }).catch((err) => {
           Swal.fire({
             icon: 'error',
             title: '發生錯誤',
-            html:'<span class="text-danger">'+err+'</span>',
+            html: '<span class="text-danger">' + err + '</span>',
             showConfirmButton: false,
           })
         })
@@ -322,11 +322,11 @@
         life.order = parseInt(urlOrder);
         database.ref('/life/' + parseInt(urlOrder)).update(life).then((result) => {
           window.close()
-        }).catch((err)=>{
+        }).catch((err) => {
           Swal.fire({
             icon: 'error',
             title: '發生錯誤',
-            html:'<span class="text-danger">'+err+'</span>',
+            html: '<span class="text-danger">' + err + '</span>',
             showConfirmButton: false,
           })
         })

@@ -107,79 +107,47 @@ function uuid() {
 
 //爬蟲的js，記得chrome工具要開
 // $.ajax({
-//     url: '',
-//     method: 'get',
-//     dataType: 'text',
-//     success: (result) => {
-//         let html = $.parseHTML(result)
-//         $.each(html, function (i, el) {
-//             $(el).find('img').each((index, value) => {
-//                 //    $(value)...
-//             })
-//         });
-//     },
+//   url: '',
+//   method: 'get',
+//   dataType: 'text',
+//   success: (result) => {
+//     let html = $.parseHTML(result)
+//     $.each(html, (i, el) => {
+//       $(el).find('img').each((index, value) => {
+//         $(value)
+//       })
+//     });
+//   },
 // })
 
-//取各種時間的前後
-// function getSpecialDate(type, number) {
-//   //number -是指前的時間 例 -2 2天前
-//   let nowdate = new Date();
-//   let y = ''
-//   let m = ''
-//   let d = ''
-//   let h = ''
-//   let min = ''
-//   let sec = ''
-//   let retrundate = ''
-//   switch (type) {
-//     case "day": //取number天前、後的時間
-//       nowdate.setTime(nowdate.getTime() + (24 * 3600 * 1000) * number);
-//       y = nowdate.getFullYear();
-//       m = nowdate.getMonth() + 1;
-//       d = nowdate.getDate();
-//       h = nowdate.getHours();
-//       min = nowdate.getMinutes();
-//       sec = nowdate.getSeconds();
-//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
-//       break;
-//     case "week": //取number周前、後的時間
-//       weekdate = new Date(nowdate.getTime() + (7 * 24 * 3600 * 1000) * number);
-//       y = weekdate.getFullYear();
-//       m = weekdate.getMonth() + 1;
-//       d = weekdate.getDate();
-//       h = nowdate.getHours();
-//       min = nowdate.getMinutes();
-//       sec = nowdate.getSeconds();
-//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
-//       break;
-//     case "month": //取number月前、後的時間
-//       nowdate.setMonth(nowdate.getMonth() + number);
-//       y = nowdate.getFullYear();
-//       m = nowdate.getMonth() + 1;
-//       d = nowdate.getDate();
-//       h = nowdate.getHours();
-//       min = nowdate.getMinutes();
-//       sec = nowdate.getSeconds();
-//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
-//       break;
-//     case "year": //取number年前、後的時間
-//       nowdate.setFullYear(nowdate.getFullYear() + number);
-//       y = nowdate.getFullYear();
-//       m = nowdate.getMonth() + 1;
-//       d = nowdate.getDate();
-//       h = nowdate.getHours();
-//       min = nowdate.getMinutes();
-//       sec = nowdate.getSeconds();
-//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
-//       break;
-//     default: //取當前時間
-//       y = nowdate.getFullYear();
-//       m = nowdate.getMonth() + 1;
-//       d = nowdate.getDate();
-//       h = nowdate.getHours();
-//       min = nowdate.getMinutes();
-//       sec = nowdate.getSeconds();
-//       retrundate = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + sec;
+//爬油圖
+// buildPic()
+// async function buildPic() {
+//   let img = []
+//   for (let i = 1; i <= 50; i++) {
+//     console.log(i)
+//     img = [...img, ...await getPic(i)]
 //   }
-//   return retrundate;
+//   console.log(JSON.stringify(img))
+// }
+// function getPic(i) {
+//   return new Promise((resolve, reject) => {
+//     $.ajax({
+//       url: 'https://wall.alphacoders.com/tag/hololive-wallpapers?page=' + i,
+//       method: 'get',
+//       dataType: 'text',
+//       success: (result) => {
+//         let html = $.parseHTML(result)
+//         let url = []
+//         $.each(html, (i, el) => {
+//           $(el).find('img').each((index, value) => {
+//             if ($(value).attr('src').indexOf('alphacoders') === -1) return
+//             if ($(value).attr('src').indexOf('images') === -1) return
+//             url.push($(value).attr('src'))
+//           })
+//         });
+//         resolve(url)
+//       },
+//     })
+//   })
 // }

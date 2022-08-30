@@ -188,18 +188,18 @@
       })
 
       //cros anywhere 的設定 google recaptcha會用到
-      $.ajaxPrefilter((options) => {
-        if (options.crossDomain && $.support.cors) {
-          options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-        }
-      });
+      // $.ajaxPrefilter((options) => {
+      //   if (options.crossDomain && $.support.cors) {
+      //     options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+      //   }
+      // });
     });
 
     // 訪問量隨意拖動+音樂初始化
-    $(window).on('load', function () {
+    $(window).on('load', () => {
       setTimeout(function () {
         $('#viewCount').easydrag();
-        setInterval(function () {
+        setInterval(() => {
           let left = $('#viewCount').offset().left
           let top = $('#viewCount').offset().top
           if (left <= 20) {
@@ -273,7 +273,7 @@
       grecaptcha.ready(() => {
         grecaptcha.execute('6Lf0JjseAAAAAGyRwkGun5ZsK1MibXM-coiE3PEg', {
           action: 'verify'
-        }).then(function (token) {
+        }).then((token) => {
           $.ajax({
             url: 'https://www.google.com/recaptcha/api/siteverify',
             method: 'post',

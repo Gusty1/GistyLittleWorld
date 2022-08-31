@@ -191,7 +191,8 @@
           $(this).attr('src', imgAry[random[index]]);
         });
         if (isMobileDevice()) {
-          $('.carousel').removeClass('mt-3').addClass('mt-1')
+          $('#viewCount').hide()
+          $('.carousel').removeClass('mt-3')
           $('.carousel-caption').eq(0).find('div').eq(0).hide()
           $('body').find('.imgHeight').each((index, value) => {
             $(value).removeClass('imgHeight').addClass('imgHeight-M')

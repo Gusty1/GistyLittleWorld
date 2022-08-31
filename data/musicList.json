@@ -11,12 +11,6 @@
   "lrc": "music/lrc/Be The One.lrc",
   "cover": "music/coverImg/Be The One.jpg"
 }, {
-  "name": "Hikari Are",
-  "artist": "Akihito Okano",
-  "url": "music/mp3/Hikari Are.mp3",
-  "lrc": "music/lrc/Hikari Are.lrc",
-  "cover": "music/coverImg/Hikari Are.jpg"
-}, {
   "name": "Happy Synthesizer",
   "artist": "Noel & Flare",
   "url": "music/mp3/Happy Synthesizer.mp3",
@@ -34,4 +28,10 @@
   "url": "music/mp3/世界に一つだけの花.mp3",
   "lrc": "music/lrc/世界に一つだけの花.lrc",
   "cover": "music/coverImg/世界に一つだけの花.jpg"
+}, {
+  "name": "はじまりの日",
+  "artist": "1FINGER",
+  "url": "music/mp3/はじまりの日.mp3",
+  "lrc": "music/lrc/はじまりの日.lrc",
+  "cover": "music/coverImg/はじまりの日.jpg"
 }]

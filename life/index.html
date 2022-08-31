@@ -41,9 +41,9 @@
 
 <body>
   <header></header>
-  <br><br><br>
+  <br><br>
 
-  <div class="marquee"></div>
+  <div class="marquee mt-3"></div>
 
   <div class="container-xl">
     <div class='row justify-content-center text-primary font-weight-bold display-2 mb-3' id="edit">
@@ -165,7 +165,7 @@
 
       if (IsMobileDevice) {
         $('#labelBlock').hide()
-        $('.marquee').addClass('mt-2')
+        $('.marquee').removeClass('mt-3').addClass('mt-2')
       }
 
       let labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77', '#95CACA', '#B8B8DC', '#CA8EC2', ' #FFFF6F', '#9AFF02'];

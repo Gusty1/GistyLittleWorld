@@ -14,7 +14,7 @@
     .imgHeight {
       height: 78vh;
     }
-    
+
     /*移動板油圖高度*/
     .imgHeight-M {
       height: 50vh;
@@ -42,9 +42,9 @@
 <body>
 
   <header></header>
-  <br><br><br>
+  <br><br>
 
-  <div id="carouselExampleIndicators" class="carousel slide animate__animated animate__rotateInDownLeft" data-ride="carousel">
+  <div id="carouselExampleIndicators" class="mt-3 carousel slide animate__animated animate__rotateInDownLeft" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -59,34 +59,19 @@
         </div>
       </div>
       <div class="carousel-item active">
-        <div class="w-100" style="display:inline-flex;">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-        </div>
+        <img src="images/loading.gif" class="w-100 imgHeight" alt="404 not found">
       </div>
       <div class="carousel-item">
-        <div class="w-100" style="display:inline-flex;">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-        </div>
+        <img src="images/loading.gif" class="w-100 imgHeight" alt="404 not found">
       </div>
       <div class="carousel-item">
-        <div class="w-100" style="display:inline-flex;">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-        </div>
+        <img src="images/loading.gif" class="w-100 imgHeight" alt="404 not found">
       </div>
       <div class="carousel-item">
-        <div class="w-100" style="display:inline-flex;">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-        </div>
+        <img src="images/loading.gif" class="w-100 imgHeight" alt="404 not found">
       </div>
       <div class="carousel-item">
-        <div class="w-100" style="display:inline-flex;">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
-        </div>
+        <img src="images/loading.gif" class="w-100 imgHeight" alt="404 not found">
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -105,11 +90,11 @@
       <div class='h4'>
         Gusty是某天我在學英文單字，打進Google翻譯，覺得很中2就決定一輩子都要用這個英文名字；
         喜歡想些有的沒的，內心GGYY很多，想做的事也很多，目前還在努力實現。<s>夢想是成為下一個馬斯克</s><br>
-        上面的油圖輪播是從
+        上面的油圖是從
         <a href="javascript:window.open('https://wall.alphacoders.com/tags.php?tid=101808')">這裡</a>隨機抓的，
-        要高清圖請自行前往，如果都顯示一樣那就是出事了。最近迷上了Hololive，唯一支持團長。<br>
+        要高清圖請自行前往。<br>
         <div class='row justify-content-center mt-2'>
-          <img src='images/index/noel_face.png' alt="sorry not found" class="rounded img-fluid">
+          <img src='images/index/motto.png' alt="sorry not found" class="rounded img-fluid">
         </div>
       </div>
       <h1 class='display-4 text-center text-danger my-3'>連結介紹</h1>
@@ -199,64 +184,61 @@
       $("footer").load("footer.html");
 
       $.get('data/indexImg.json', (result) => {
-        imgAry = result.url
-        imgLength = imgAry.length
+        console.log(result.url.length)
+        let imgAry = result.url
+        let imgLength = imgAry.length
         let random = randomOrder(imgLength);
         $('#carouselExampleIndicators').find('img').each(function (index, value) {
           $(this).attr('src', imgAry[random[index]]);
         });
         if (isMobileDevice()) {
+          $('.carousel').removeClass('mt-3').addClass('mt-2')
           $('.carousel-caption').eq(0).find('div').eq(0).hide()
-          $('body').find('.w-100').each(function () {
-            $(this).find('img').each((index, value) => {
-              if (index === 0) $(value).remove()
-              else $(value).removeClass('w-50 imgHeight').addClass('imgHeight-M').addClass('w-100')
-            })
+          $('body').find('.imgHeight').each((index, value) => {
+            $(value).removeClass('imgHeight').addClass('imgHeight-M')
           })
         }
       })
 
       //cros anywhere 的設定 google recaptcha會用到
       $.ajaxPrefilter((options) => {
-         if (options.crossDomain && $.support.cors) {
-           options.url = 'https://cors-anywhere.herokuapp.com/' + options.url
-         }
+        if (options.crossDomain && $.support.cors) {
+          options.url = 'https://cors-anywhere.herokuapp.com/' + options.url
+        }
       })
     })
 
     // 訪問量隨意拖動+音樂初始化
     $(window).on('load', () => {
-      setTimeout(() => {
-        $('#viewCount').easydrag();
-        setInterval(() => {
-          let left = $('#viewCount').offset().left
-          let top = $('#viewCount').offset().top
-          if (left <= 20) {
-            $('#viewCount').offset({
-              left: 20,
-              top: top,
-            })
-          }
-          if (left >= 1263) {
-            $('#viewCount').offset({
-              left: 1263,
-              top: top,
-            })
-          }
-          if (top <= 7) {
-            $('#viewCount').offset({
-              left: left,
-              top: 7,
-            })
-          }
-          if (top >= 2230) {
-            $('#viewCount').offset({
-              left: left,
-              top: 2230,
-            })
-          }
-        }, 100)
-      }, 3000)
+      $('#viewCount').easydrag();
+      setInterval(() => {
+        let left = $('#viewCount').offset().left
+        let top = $('#viewCount').offset().top
+        if (left <= 20) {
+          $('#viewCount').offset({
+            left: 20,
+            top: top,
+          })
+        }
+        if (left >= 1263) {
+          $('#viewCount').offset({
+            left: 1263,
+            top: top,
+          })
+        }
+        if (top <= 7) {
+          $('#viewCount').offset({
+            left: left,
+            top: 7,
+          })
+        }
+        if (top >= 2230) {
+          $('#viewCount').offset({
+            left: left,
+            top: 2230,
+          })
+        }
+      }, 1000)
 
       $.get('data/musicList.json', (musicList) => {
         _AP = new APlayer({
@@ -328,7 +310,7 @@
         });
       });
     })
-    
+
     //上下一張防止輪播的scroll auto down
     $('.carousel-control-next,.carousel-control-prev').click((e) => {
       //點擊時會自動在網址加個#位置，然後scroll就被帶到圖片的位置

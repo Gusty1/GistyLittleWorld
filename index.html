@@ -299,6 +299,12 @@
         });
       });
     })
+    
+    //上下一張防止輪播的scroll auto down
+    $('.carousel-control-next,.carousel-control-prev').click((e) => {
+      //點擊時會自動在網址加個#位置，然後scroll就被帶到圖片的位置
+      e.preventDefault()
+    })
 
     //PV UV 介紹
     $('#PV').click(function (e) {

@@ -14,6 +14,11 @@
     .imgHeight {
       height: 78vh;
     }
+    
+    /*移動板油圖高度*/
+    .imgHeight-M {
+      height: 50vh;
+    }
 
     /* 瀏覽量統計位置 */
     #viewCount {
@@ -55,32 +60,32 @@
       </div>
       <div class="carousel-item active">
         <div class="w-100" style="display:inline-flex;">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
         </div>
       </div>
       <div class="carousel-item">
         <div class="w-100" style="display:inline-flex;">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
         </div>
       </div>
       <div class="carousel-item">
         <div class="w-100" style="display:inline-flex;">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
         </div>
       </div>
       <div class="carousel-item">
         <div class="w-100" style="display:inline-flex;">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
         </div>
       </div>
       <div class="carousel-item">
         <div class="w-100" style="display:inline-flex;">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
-          <img src="images/index/404replace.jpg" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
+          <img src="images/loading.gif" class="w-50 imgHeight" alt="404 not found">
         </div>
       </div>
     </div>
@@ -200,15 +205,24 @@
         $('#carouselExampleIndicators').find('img').each(function (index, value) {
           $(this).attr('src', imgAry[random[index]]);
         });
+        if (isMobileDevice()) {
+          $('.carousel-caption').eq(0).find('div').eq(0).hide()
+          $('body').find('.w-100').each(function () {
+            $(this).find('img').each((index, value) => {
+              if (index === 0) $(value).remove()
+              else $(value).removeClass('w-50 imgHeight').addClass('imgHeight-M').addClass('w-100')
+            })
+          })
+        }
       })
 
       //cros anywhere 的設定 google recaptcha會用到
-      // $.ajaxPrefilter((options) => {
-      //   if (options.crossDomain && $.support.cors) {
-      //     options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
-      //   }
-      // });
-    });
+      $.ajaxPrefilter((options) => {
+         if (options.crossDomain && $.support.cors) {
+           options.url = 'https://cors-anywhere.herokuapp.com/' + options.url
+         }
+      })
+    })
 
     // 訪問量隨意拖動+音樂初始化
     $(window).on('load', () => {

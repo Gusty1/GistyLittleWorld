@@ -226,7 +226,7 @@
 
     // 訪問量隨意拖動+音樂初始化
     $(window).on('load', () => {
-      setTimeout(function () {
+      setTimeout(() => {
         $('#viewCount').easydrag();
         setInterval(() => {
           let left = $('#viewCount').offset().left
@@ -258,7 +258,7 @@
         }, 100)
       }, 3000)
 
-      $.get('data/musicList.json', function (musicList) {
+      $.get('data/musicList.json', (musicList) => {
         _AP = new APlayer({
           container: document.getElementById('player'),
           fixed: true,

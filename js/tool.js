@@ -16,7 +16,12 @@ new fairyDustCursor({
 });
 
 //背景泡泡特效
-bubbly({});
+bubbly({
+  colorStart: "#D0D0D0",
+  colorStop: "#D0D0D0",
+  compose: "source-over",
+  bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, .3)`
+});
 
 // firebase realtimedatabase 設定
 //拜託看到不要用我的金鑰，好人一生平安，謝謝

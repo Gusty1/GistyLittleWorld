@@ -46,16 +46,3 @@ body {
 .otherColor {
 	color: #ff00ff;
 }
-
-/*header標題的icon*/
-#headerIcon {
-	height: 4.5vh;
-	width: 3.3vw;
-}
-
-@media (max-width: 700px), print {
-	#headerIcon {
-		height: 4vh;
-		width: 8vw;
-	}
-}

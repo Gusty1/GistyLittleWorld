@@ -105,6 +105,9 @@ function uuid() {
 	//return arr.indexOf(element) === index;
 //});
 
+//html去除換行
+//str.replace(/\r\n|\n/g,"");
+
 //cors anywhere使用，上面是範例，下面是測試(無法頻繁送請求會擋)
 // $.ajaxPrefilter((options)=> {
 //     if (options.crossDomain && $.support.cors) {

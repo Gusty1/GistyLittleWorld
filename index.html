@@ -9,6 +9,7 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" type="text/css" href="css/timeline.min.css">
   <link rel="stylesheet" type="text/css" href="css/APlayer.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Permanent+Marker:400' rel='stylesheet' type='text/css'>
   <style>
     /* 油圖高度控制 */
     .imgHeight {
@@ -22,6 +23,7 @@
 
     /* 瀏覽量統計位置 */
     #viewCount {
+      background-color: #C4E1FF;
       position: fixed;
       right: 14vw;
       bottom: 5vh;
@@ -33,8 +35,22 @@
       cursor: help;
     }
 
+    #busuanzi_value_site_pv,
+    #busuanzi_value_site_uv {
+      width: 25px;
+      color: #F75000;
+      font-size: 14pt;
+    }
+
+    /* 時間軸設定 */
     .timelineBorder {
       border: 2px solid black;
+    }
+
+    /* 標題字形 */
+    #special_title {
+      display: none;
+      font-family: Permanent Marker, sans-serif;
     }
   </style>
 </head>
@@ -54,8 +70,8 @@
     </ol>
     <div class="carousel-inner">
       <div class="carousel-caption d-none d-md-block">
-        <div class='col-sm-12 display-1 text-primary text-center font-weight-bold'>
-          Gusty<span class='text-success'>の</span>Little World
+        <div class='col-sm-12 display-1 text-warning cssanimation lePushReleaseFromTop sequence' id="special_title">
+          GustyのLittle World
         </div>
       </div>
       <div class="carousel-item active">
@@ -146,16 +162,16 @@
 
   <div id="player"></div>
 
-  <div id="viewCount" style="background-color:#C4E1FF;" class="border text-center rounded-lg border-secondary animate__animated animate__backInDown animate__delay-1s">
+  <div id="viewCount" class="border text-center rounded-lg border-dark animate__animated animate__backInDown animate__delay-1s">
     <span id="busuanzi_container_site_pv" class="row">
       <i class="fas fa-info-circle" id="PV"></i>
       本站訪問量(PV):&nbsp;
-      <span id="busuanzi_value_site_pv" style="width: 25px;color:#F75000;font-size: 14pt;" class="font-weight-bold"></span>
+      <span id="busuanzi_value_site_pv" class="font-weight-bold"></span>
     </span><br>
     <span id="busuanzi_container_site_uv" class="row">
       <i class="fas fa-info-circle" id="UV"></i>
       本站訪客數(UV):&nbsp;
-      <span id="busuanzi_value_site_uv" style="width: 25px;color:#F75000;font-size: 14pt;" class="font-weight-bold"></span>
+      <span id="busuanzi_value_site_uv" class="font-weight-bold"></span>
     </span>
   </div>
 
@@ -173,6 +189,7 @@
   <script async src="js/APlayer.min.js"></script>
   <script type="text/javascript" src="js/timeline.min.js"></script>
   <script src="https://www.google.com/recaptcha/api.js?render=6Lf0JjseAAAAAGyRwkGun5ZsK1MibXM-coiE3PEg"></script>
+  <script src="js/letteranimation.min.js"></script>
   <script src="js/tool.js"></script>
 
   <script>
@@ -192,8 +209,6 @@
         });
         if (isMobileDevice()) {
           $('#viewCount').hide()
-          $('.carousel').removeClass('mt-3')
-          $('.carousel-caption').eq(0).find('div').eq(0).hide()
           $('body').find('.imgHeight').each((index, value) => {
             $(value).removeClass('imgHeight').addClass('imgHeight-M')
           })
@@ -210,6 +225,7 @@
 
     // 訪問量隨意拖動+音樂初始化
     $(window).on('load', () => {
+      $('#special_title').show()
       $('#viewCount').easydrag();
       setInterval(() => {
         let left = $('#viewCount').offset().left

@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="../css/pagination.css">
   <link rel="stylesheet" href="../css/jquery-ui.min.css">
   <link href="//unpkg.com/layui@2.7.6/dist/css/layui.css" rel="stylesheet">
-
   <style>
     /* 標籤 */
     .badge-pill {
@@ -45,7 +44,7 @@
   <div class="marquee mt-3"></div>
 
   <div class="container-xl">
-    <div class='row justify-content-center text-primary font-weight-bold display-2 mb-3' id="edit">
+    <div class='row justify-content-center text-primary font-weight-bold display-2 mb-3 cssanimation effect3d' id="edit">
       生活日誌
     </div>
 
@@ -405,7 +404,7 @@
           showPrevious: false,
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
-          callback: (data, pagination) => {}
+          callback: (data, pagination) => { }
         });
         buildCardHtml(changeLifeArray)
       }

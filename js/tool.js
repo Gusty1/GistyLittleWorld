@@ -99,6 +99,12 @@ function uuid() {
 //     layers: new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'), //地圖圖源
 // });
 
+//JS過濾重複資料
+//=== 取出不重複 !==取出重複
+//array = array.filter(function (element, index, arr) {
+	//return arr.indexOf(element) === index;
+//});
+
 //cors anywhere使用，上面是範例，下面是測試(無法頻繁送請求會擋)
 // $.ajaxPrefilter((options)=> {
 //     if (options.crossDomain && $.support.cors) {

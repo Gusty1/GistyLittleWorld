@@ -214,14 +214,11 @@
   <script>
     //原圖可隨便拖曳
     $(document).ready(() => {
-      $('header').load("../header.html")
+      $('header').load("../header.html", () => {
+        $('link[rel="stylesheet"][href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css"]').remove();
+      })
       $("footer").load("../footer.html")
       $('#previewImg').easydrag();
-    })
-
-    //移除文字動畫的CSS，他跟3D電視牆的會有衝突
-    $(window).on('load', () => {
-      $('link[rel="stylesheet"][href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css"]').remove();
     })
 
     //環狀圖片滑鼠移上去暫停動畫，移出繼續

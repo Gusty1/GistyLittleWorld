@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="../favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <link href='../css/icheck-material.min.css' rel='stylesheet' type='text/css'>
   <style>
     .part {
       border-width: 0;
@@ -203,7 +204,7 @@
         </div>
         <div class="modal-body h5">
           <p>跟據漫畫「狂賭之淵」 58話 的遊戲改編</p>
-          <p>1. 玩家人數4人，分別選擇ABCD國，起始分數都是0分，遊戲7回合結束，分數多的一方勝利。</p>
+          <p>1. 玩家人數4人，分別選擇ABCD國，起始分數都是0分，遊戲3回合結束，分數多的一方勝利。</p>
           <p>2. 每回合玩家可以選擇「攻擊」、「防禦」。</p>
           <p> 3. 攻擊:選擇攻擊的國家，攻擊的國家多少都可以選擇。</p>
           <p>4. 防禦:加固防守，不會被攻擊影響；防禦需要-5分，0分也可以防禦。</p>
@@ -251,7 +252,7 @@
         <div class="modal-body h5" style="background-image: url('../images/other/war/result.gif');background-size: cover;background-repeat: repeat;z-index: 10;">
           <p>最終排名:
             <button type="button" class="mb-2 float-right btn btn-warning" id="exportDiplomatic">
-              <i class="fas fa-file-export"></i>匯出外交紀錄(JSON)
+              <i class="fas fa-file-export"></i>匯出外交&操作紀錄(JSON)
             </button>
           </p>
 
@@ -328,39 +329,50 @@
               <button class="btn btn-secondary w-50"><i class="fas fa-handshake"></i>&nbsp;外交</button>
             </div>
           </div>
-          <div class="row justify-content-center mt-5" id="selectAttack_area" style="display: none;">
-            <div class="col-sm-12 text-center">
+          <div class="col-12 text-center mt-3" id="selectAttack_area" style="display: none;">
+            <div class="col-sm-12">
               請選擇要攻擊的國家
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" value="" id="attack_1">
-              <label class="form-check-label mr-4" for="attack_1">A</label>
-              <input class="form-check-input" type="checkbox" value="" id="attack_2">
-              <label class="form-check-label mr-4" for="attack_2">B</label>
-              <input class="form-check-input" type="checkbox" value="" id="attack_3">
-              <label class="form-check-label mr-4" for="attack_3">C</label>
+            <div class="col-12">
+              <div class="icheck-material-teal icheck-inline">
+                <input type="checkbox" id="attack_1" value="" />
+                <label for="attack_1">A</label>
+              </div>
+              <div class="icheck-material-teal icheck-inline">
+                <input type="checkbox" id="attack_2" value="" />
+                <label for="attack_2">B</label>
+              </div>
+              <div class="icheck-material-teal icheck-inline">
+                <input type="checkbox" id="attack_3" value="" />
+                <label for="attack_3">C</label>
+              </div>
             </div>
-            <div class="col-sm-8 text-right mt-3">
+            <div class="col-12 text-right mt-3">
               <button type="button" class="btn btn-warning" id="sentAttack">攻擊</button>
             </div>
           </div>
-          <div class="row justify-content-center mt-5" id="selectdiplomatic_area" style="display: none;">
-            <div class="col-sm-12 text-center">
+          <div class="col-12 text-center mt-3" id="selectdiplomatic_area" style="display: none;">
+            <div class="col-sm-12">
               請選擇要外交的國家
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" value="" id="diplomatic_1">
-              <label class="form-check-label mr-4" for="diplomatic_1">A</label>
-              <input class="form-check-input" type="checkbox" value="" id="diplomatic_2">
-              <label class="form-check-label mr-4" for="diplomatic_2">B</label>
-              <input class="form-check-input" type="checkbox" value="" id="diplomatic_3">
-              <label class="form-check-label mr-4" for="diplomatic_3">C</label>
+            <div class="col-12">
+              <div class="icheck-material-teal icheck-inline">
+                <input type="checkbox" id="diplomatic_1" value="" />
+                <label for="diplomatic_1">A</label>
+              </div>
+              <div class="icheck-material-teal icheck-inline">
+                <input type="checkbox" id="diplomatic_2" value="" />
+                <label for="diplomatic_2">B</label>
+              </div>
+              <div class="icheck-material-teal icheck-inline">
+                <input type="checkbox" id="diplomatic_3" value="" />
+                <label for="diplomatic_3">C</label>
+              </div>
             </div>
-            <div class="col-sm-8">
-              <textarea class="w-100 form-control" placeholder="請輸入外交內容" style="height: 20vh; resize: none;">
-                                </textarea>
+            <div class="col-sm-12">
+              <textarea class="w-100 form-control" placeholder="請輸入外交內容" style="height: 20vh; resize: none;"></textarea>
             </div>
-            <div class="col-sm-8 text-right mt-3">
+            <div class="col-sm-12 text-right mt-3">
               <button type="button" class="btn btn-warning" id="sentDiplomatic">送出</button>
             </div>
           </div>
@@ -442,7 +454,7 @@
       }
       let selectCountry = $(this).text()
       sessionStorage.setItem('country', selectCountry);
-      database.ref('/war/players').once('value', function (result) {
+      database.ref('/war/players').once('value', (result) => {
         let players = result.val();
         let playersHtml = ''
         for (let i = 0; i < players.length; i = i + 1) {
@@ -455,7 +467,7 @@
     });
 
     //讀取玩家狀態 有4人就開始遊戲
-    database.ref('/war/players').on('value', function (result) {
+    database.ref('/war/players').on('value', (result) => {
       let players = result.val();
       let playersHtml = ''
       let readyPlayers = 0
@@ -479,7 +491,7 @@
     });
 
     //顯示操作畫面
-    $('#optionButton').click(function (e) {
+    $('#optionButton').click((e) => {
       e.preventDefault()
       if ($('#attack').attr('disabled') && $('#defense').attr('disabled')) $('#optionInfo').show()
       else $('#optionInfo').hide()
@@ -489,7 +501,7 @@
     });
 
     //操作攻擊顯示選項
-    $('#attack').click(function () {
+    $('#attack').click(() => {
       if ($('#selectdiplomatic_area').is(':visible')) $('#selectdiplomatic_area').hide()
       if ($('#selectAttack_area').is(':visible')) {
         $('#selectAttack_area').hide('fast')
@@ -502,7 +514,7 @@
     })
 
     //操作外交顯示選項
-    $('#diplomatic').click(function () {
+    $('#diplomatic').click(() => {
       if ($('#selectAttack_area').is(':visible')) $('#selectAttack_area').hide()
       if ($('#selectdiplomatic_area').is(':visible')) {
         $('#selectdiplomatic_area').hide('fast')
@@ -529,7 +541,7 @@
             else attackInfo += attackCountry[i] + ','
           } else attackInfo += attackCountry[i]
         }
-        database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
+        database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', (result) => {
           let optionAry = result.val().option;
           for (let i = 0; i < optionAry.length; i = i + 1) {
             if (optionAry[i].country == sessionStorage.getItem('country')) {
@@ -553,8 +565,8 @@
     })
 
     //防禦操作
-    $('#defense').click(function () {
-      database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
+    $('#defense').click(() => {
+      database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', (result) => {
         let optionAry = result.val().option;
         for (let i = 0; i < optionAry.length; i = i + 1) {
           if (optionAry[i].country == sessionStorage.getItem('country')) {
@@ -596,7 +608,7 @@
           }
           _DIPLOMATICARY.push(request)
         }
-        database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
+        database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', (result) => {
           let diplomaticAry = result.val().diplomatic;
           let diplomaticObject = {
             order: diplomaticAry.length,
@@ -612,15 +624,14 @@
     });
 
     //離開網頁玩家登出
-    $(window).on('beforeunload', function (event) {
+    $(window).on('beforeunload', () => {
       if (sessionStorage.getItem('country') != null) {
-        database.ref('/war/players').once('value', function (result) {
+        database.ref('/war/players').once('value', (result) => {
           let players = result.val();
           for (let i = 0; i < players.length; i = i + 1) {
             if (players[i].country == sessionStorage.getItem('country')) {
               players[i].status = 'offline'
-              database.ref('/war/players/' + parseInt(players[i].order)).
-              update(players[i])
+              database.ref('/war/players/' + parseInt(players[i].order)).update(players[i])
             }
           }
           sessionStorage.removeItem('country')
@@ -646,18 +657,18 @@
         rankHtml += '</tr>'
       }
 
-      $('#selectAttack_area').find('label').each(function (index, value) {
-        $(this).text(otherCountry[index]);
+      $('#selectAttack_area').find('label').each((index, value) => {
+        $(value).text(otherCountry[index]);
       })
-      $('#selectAttack_area').find('input[type="checkbox"]').each(function (index, value) {
-        $(this).val(otherCountry[index]);
+      $('#selectAttack_area').find('input[type="checkbox"]').each((index, value) => {
+        $(value).val(otherCountry[index]);
       })
 
-      $('#selectdiplomatic_area').find('label').each(function (index, value) {
-        $(this).text(otherCountry[index]);
+      $('#selectdiplomatic_area').find('label').each((index, value) => {
+        $(value).text(otherCountry[index]);
       })
-      $('#selectdiplomatic_area').find('input[type="checkbox"]').each(function (index, value) {
-        $(this).val(otherCountry[index]);
+      $('#selectdiplomatic_area').find('input[type="checkbox"]').each((index, value) => {
+        $(value).val(otherCountry[index]);
       })
 
       $('#playersRank').html(rankHtml)
@@ -669,7 +680,7 @@
 
     //接收有無外交請求，同意或拒絕
     function detectDiplomatic() {
-      database.ref('/war/warInfo/' + parseInt(_TURN - 1)).on('value', function (result) {
+      database.ref('/war/warInfo/' + parseInt(_TURN - 1)).on('value', (result) => {
         let diplomaticAry = result.val().diplomatic;
         if (sessionStorage.getItem('country') != null && diplomaticAry.length > 1) {
           for (let i = 0; i < diplomaticAry.length; i = i + 1) {
@@ -677,7 +688,7 @@
               if (diplomaticAry[i].enemy[j] == sessionStorage.getItem('country')) {
                 if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
                   let isAnswer = false
-                  $.each(diplomaticAry[i].answer, function (index, answerValue) {
+                  $.each(diplomaticAry[i].answer, (index, answerValue) => {
                     if (answerValue.country == sessionStorage.getItem('country')) {
                       isAnswer = true
                       return false
@@ -715,7 +726,7 @@
             }
             if (diplomaticAry[i].country == sessionStorage.getItem('country')) {
               if (diplomaticAry[i].answer != '' || diplomaticAry[i].answer.length > 0) {
-                $.each(diplomaticAry[i].answer, function (index, answerValue) {
+                $.each(diplomaticAry[i].answer, (index, answerValue) => {
                   for (let l = 0; l < _DIPLOMATICARY.length; l = l + 1) {
                     if (answerValue.country == _DIPLOMATICARY[l].requestCountry) {
                       if (_DIPLOMATICARY[l].requestAnswer != '') return
@@ -762,7 +773,7 @@
 
     //判斷回合
     function callStatus() {
-      database.ref('/war/warInfo/' + parseInt(_TURN - 1)).on('value', function (result) {
+      database.ref('/war/warInfo/' + parseInt(_TURN - 1)).on('value', (result) => {
         let optionAry = result.val().option
         let allReady = 0
         for (let i = 0; i < optionAry.length; i = i + 1) {
@@ -821,13 +832,18 @@
         historyHtml += '<p>' + optionAry[i].country + '共獲得' + optionAry[i].point + '分</p>'
       }
       $('#warHistory').append(historyHtml)
-      optionAry.sort(function (a, b) {
-        if (a.point < b.point) return 1
-        else return -1
+      optionAry.sort((a, b) => {
+        return parseInt(a.point) < parseInt(b.point) ? 1 : -1
       })
+      let newRank = 0
       for (let i = 0; i < optionAry.length; i = i + 1) {
         rankHtml += '<tr>'
-        rankHtml += '<td>' + parseInt(i + 1) + '</td>'
+        if (i > 0 && optionAry[i].point === optionAry[i - 1].point) {
+          rankHtml += '<td>' + newRank + '</td>'
+        } else {
+          newRank++
+          rankHtml += '<td>' + newRank + '</td>'
+        }
         rankHtml += '<td>' + optionAry[i].country + '</td>'
         rankHtml += '<td>' + optionAry[i].point + '</td>'
         rankHtml += '</tr>'
@@ -837,27 +853,27 @@
       }
       $('#playersRank').html(rankHtml)
       for (let i = 0; i < optionAry.length; i = i + 1) {
-        if (optionAry[i].country == sessionStorage.getItem('country') && _TURN < 7) {
+        if (optionAry[i].country == sessionStorage.getItem('country') && _TURN < 3) {
           database.ref('/war/warInfo/' + parseInt(_TURN - 1) + '/option/' + parseInt(optionAry[i].order)).update(optionAry[i])
         }
       }
       let nextTime = 10;
-      setTimeout(function () {
-        let nextTimeCount = setInterval(function () {
+      setTimeout(() => {
+        let nextTimeCount = setInterval(() => {
           nextTime = nextTime - 1;
-          if (_TURN != 7) $('#nextTimeCount').html(nextTime + '秒後進入下一回合').show()
+          if (_TURN != 3) $('#nextTimeCount').html(nextTime + '秒後進入下一回合').show()
           else $('#nextTimeCount').html(nextTime + '秒後進入結算畫面').show()
           if (nextTime == 0) {
             clearInterval(nextTimeCount)
-            if (_TURN != 7) turnNext()
+            if (_TURN != 3) turnNext()
             else showFinalResult()
             return false
           }
         }, 1000)
-        setTimeout(function () {
+        setTimeout(() => {
           for (let i = 0; i < optionAry.length; i = i + 1) {
-            if (optionAry[i].country == sessionStorage.getItem('country') && _TURN < 7) {
-              if (_TURN < 7) {
+            if (optionAry[i].country == sessionStorage.getItem('country') && _TURN < 3) {
+              if (_TURN < 3) {
                 optionAry[i].option = ''
                 optionAry[i].enemy = [""]
                 database.ref('/war/warInfo/' + parseInt(_TURN) + '/option/' + parseInt(optionAry[i].order)).update(optionAry[i])
@@ -873,18 +889,18 @@
       $('#rule').modal('hide')
       $('#option').modal('hide')
       let countryColor = ['badge-danger', 'badge-dark', 'badge-primary', 'badge-warning']
-      $('#warStart').find('label').each(function (index, value) {
-        $(this).removeClass('badge-secondary').removeClass('badge-success').addClass(countryColor[index])
+      $('#warStart').find('label').each((index, value) => {
+        $(value).removeClass('badge-secondary').removeClass('badge-success').addClass(countryColor[index])
       })
-      setTimeout(function () {
+      setTimeout(() => {
         for (let i = 0; i < optionAry.length; i = i + 1) {
           if (optionAry[i].option == 'attack') {
-            $('#warStart').find('label').each(function (index, value) {
-              if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i].country == 'A' || optionAry[i].country == 'B')) {
-                $(this).html(optionAry[i].country + '<br><i class="fas fa-skull-crossbones"></i>')
+            $('#warStart').find('label').each((index, value) => {
+              if ($(value).html().indexOf(optionAry[i].country) != -1 && (optionAry[i].country == 'A' || optionAry[i].country == 'B')) {
+                $(value).html(optionAry[i].country + '<br><i class="fas fa-skull-crossbones"></i>')
               }
-              if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i].country == 'C' || optionAry[i].country == 'D')) {
-                $(this).html('<i class="fas fa-skull-crossbones"></i><br>' + optionAry[i].country)
+              if ($(value).html().indexOf(optionAry[i].country) != -1 && (optionAry[i].country == 'C' || optionAry[i].country == 'D')) {
+                $(value).html('<i class="fas fa-skull-crossbones"></i><br>' + optionAry[i].country)
               }
             });
             for (let j = 0; j < optionAry[i].enemy.length; j = j + 1) {
@@ -901,7 +917,7 @@
                 if (myPosition.y > _COUNTRYA.y) spaceY = spaceY * -1
                 let xA = x
                 let yA = y
-                let fireA = setInterval(function () {
+                let fireA = setInterval(() => {
                   _CONTEXT.beginPath();
                   _CONTEXT.strokeStyle = color;
                   _CONTEXT.lineWidth = 7;
@@ -926,7 +942,7 @@
                 if (myPosition.y > _COUNTRYB.y) spaceY = spaceY * -1
                 let xB = x
                 let yB = y
-                let fireB = setInterval(function () {
+                let fireB = setInterval(() => {
                   _CONTEXT.beginPath();
                   _CONTEXT.strokeStyle = color;
                   _CONTEXT.lineWidth = 7;
@@ -951,7 +967,7 @@
                 if (myPosition.y < _COUNTRYC.y) spaceY = spaceY * -1
                 let xC = x
                 let yC = y
-                let fireC = setInterval(function () {
+                let fireC = setInterval(() => {
                   _CONTEXT.beginPath();
                   _CONTEXT.strokeStyle = color;
                   _CONTEXT.lineWidth = 7;
@@ -976,7 +992,7 @@
                 if (myPosition.y < _COUNTRYD.y) spaceY = spaceY * -1
                 let xD = x
                 let yD = y
-                let fireD = setInterval(function () {
+                let fireD = setInterval(() => {
                   _CONTEXT.beginPath();
                   _CONTEXT.strokeStyle = color;
                   _CONTEXT.lineWidth = 7;
@@ -996,12 +1012,12 @@
               }
             }
           } else if (optionAry[i].option == 'defense') {
-            $('#warStart').find('label').each(function (index, value) {
-              if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i].country == 'A' || optionAry[i].country == 'B')) {
-                $(this).html(optionAry[i].country + '<br><i class="bi bi-shield-fill"></i>')
+            $('#warStart').find('label').each((index, value) => {
+              if ($(value).html().indexOf(optionAry[i].country) != -1 && (optionAry[i].country == 'A' || optionAry[i].country == 'B')) {
+                $(value).html(optionAry[i].country + '<br><i class="bi bi-shield-fill"></i>')
               }
-              if ($(this).html().indexOf(optionAry[i].country) != -1 && (optionAry[i].country == 'C' || optionAry[i].country == 'D')) {
-                $(this).html('<i class="bi bi-shield-fill"></i><br>' + optionAry[i].country)
+              if ($(value).html().indexOf(optionAry[i].country) != -1 && (optionAry[i].country == 'C' || optionAry[i].country == 'D')) {
+                $(value).html('<i class="bi bi-shield-fill"></i><br>' + optionAry[i].country)
               }
             })
           }
@@ -1017,16 +1033,21 @@
 
     //顯示最終結果
     function showFinalResult() {
-      database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', function (result) {
+      database.ref('/war/warInfo/' + parseInt(_TURN - 1)).once('value', (result) => {
         let optionAry = result.val().option;
-        optionAry.sort(function (a, b) {
-          if (a.point < b.point) return 1
-          else return -1
+        optionAry.sort((a, b) => {
+          return parseInt(a.point) < parseInt(b.point) ? 1 : -1
         })
         let tableHtml = ''
+        let newRank = 0
         for (let i = 0; i < optionAry.length; i = i + 1) {
           tableHtml += '<tr>'
-          tableHtml += '<td>' + parseInt(i + 1) + '</td>'
+          if (i > 0 && optionAry[i].point === optionAry[i - 1].point) {
+            tableHtml += '<td>' + newRank + '</td>'
+          } else {
+            newRank++
+            tableHtml += '<td>' + newRank + '</td>'
+          }
           tableHtml += '<td>' + optionAry[i].country + '</td>'
           tableHtml += '<td>' + optionAry[i].point + '</td>'
           tableHtml += '</tr>'
@@ -1046,8 +1067,8 @@
       _ISALLREADY = false
       _CONTEXT.clearRect(0, 0, 540, 400);
       let countryName = ['A', 'B', 'C', 'D']
-      $('#warStart').find('label').each(function (index, value) {
-        $(this).removeClass('badge-danger').removeClass('badge-dark').removeClass('badge-primary')
+      $('#warStart').find('label').each((index, value) => {
+        $(value).removeClass('badge-danger').removeClass('badge-dark').removeClass('badge-primary')
           .removeClass('badge-warning').removeClass('badge-success').removeClass('badge-secondary')
           .addClass('badge-secondary').html(countryName[index])
       })
@@ -1089,24 +1110,15 @@
     }
 
     //匯出外交紀錄
-    $('#exportDiplomatic').click(function () {
+    $('#exportDiplomatic').click(() => {
       let allDiplomaticAry = []
-      for (let i = 0; i < 7; i = i + 1) {
-        database.ref('/war/warInfo/' + parseInt(i)).once('value', function (result) {
-          let diplomaticAry = result.val().diplomatic
-          allDiplomaticAry.push(diplomaticAry)
-          if (i == 6) outPutDiplomatic(allDiplomaticAry)
-        });
-      }
+      database.ref('/war/warInfo/').once('value', (result) => {
+        let blob = new Blob([JSON.stringify(result.val())], {
+          type: ""
+        })
+        saveAs(blob, "diplomatic.json");
+      })
     })
-
-    //匯出外交紀錄
-    function outPutDiplomatic(diplomaticData) {
-      let blob = new Blob([JSON.stringify(diplomaticData)], {
-        type: ""
-      });
-      saveAs(blob, "diplomatic.json");
-    }
 
     //重置本場遊戲的資料
     function clearGameData() {
@@ -1117,8 +1129,8 @@
         enemy: '',
         order: 0
       }
-      for (let i = 0; i < 7; i = i + 1) {
-        database.ref('/war/warInfo/' + i).once('value', function (result) {
+      for (let i = 0; i < 3; i = i + 1) {
+        database.ref('/war/warInfo/' + i).once('value', (result) => {
           let gameDataAry = result.val();
           for (let j = 0; j < gameDataAry.option.length; j = j + 1) {
             gameDataAry.option[j].option = ''
@@ -1133,11 +1145,11 @@
 
     //偵測玩家是否斷線
     function playerIsOnline() {
-      let detectStatus = setInterval(function () {
-        database.ref('/war/players').once('value', function (result) {
+      let detectStatus = setInterval(() => {
+        database.ref('/war/players').once('value', (result) => {
           let players = result.val();
           for (let i = 0; i < players.length; i = i + 1) {
-            if (players[i].status == 'offline' && _TURN != 7) {
+            if (players[i].status == 'offline' && _TURN != 3) {
               Swal.fire({
                 icon: 'error',
                 title: '有玩家中離遊戲，遊戲強制結束',

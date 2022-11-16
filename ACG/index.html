@@ -383,11 +383,11 @@
         });
       } else if (sort === 'highToLow') {
         changeACGArray.sort((a, b) => {
-          return b.rate - a.rate || new Date(b.time) - new Date(a.time);
+          return b.rate - a.rate || new Date(b.time) - new Date(a.time)
         });
       } else if (sort === 'lowToHigh') {
         changeACGArray.sort((a, b) => {
-          return a.rate - b.rate || new Date(a.time) - new Date(b.time);
+          return a.rate - b.rate || new Date(b.time) - new Date(a.time)
         });
       }
 

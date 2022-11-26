@@ -301,11 +301,16 @@
 
       if (chartType === 'pie' || chartType === 'polarArea') {
         let countAry = []
-        let singleDataObj = {}
+        let singleDataObj = {
+          filterDataAry: []
+        }
         for (let i = 0; i < labelAry.length; i++) {
           countAry[i] = 0
           for (let j = 0; j < thisYearData.length; j++) {
-            if (thisYearData[j].label === labelAry[i]) countAry[i]++
+            if (thisYearData[j].label === labelAry[i]) {
+              singleDataObj.filterDataAry.push(thisYearData[j])
+              countAry[i]++
+            }
           }
           if (countAry[i] > max) max = countAry[i]
         }
@@ -328,12 +333,14 @@
             pointStyle: 'circle',
             pointRadius: 6,
             pointHoverRadius: 9,
-            tension: 0.4
+            tension: 0.4,
+            filterDataAry: [],
           }
           for (let m = 1; m <= 12; m++) {
             for (let j = 0; j < thisYearData.length; j++) {
               if (thisYearData[j].label === labelAry[i] && new Date(thisYearData[j].time).getMonth() + 1 === m) {
                 dataObj.data[m - 1]++
+                dataObj.filterDataAry.push(thisYearData[j])
               }
             }
             if (dataObj.data[m - 1] > max) max = dataObj.data[m - 1]
@@ -369,6 +376,25 @@
         }
       } else scales = {}
 
+      let footer = (tooltipItems) => {
+        tooltipItems = tooltipItems[0]
+        let dataAry = [...tooltipItems.dataset.filterDataAry]
+        let titleAry = []
+        if (chartType === 'pie' || chartType === 'polarArea') {
+          dataAry = dataAry.filter((item) => {
+            return item.label === tooltipItems.label
+          })
+        } else {
+          dataAry = dataAry.filter((item) => {
+            return item.label === tooltipItems.dataset.label && new Date(item.time).getMonth() === tooltipItems.dataIndex
+          })
+        }
+        for (let i = 0; i < dataAry.length; i++) {
+          titleAry.push(dataAry[i].title + '\n')
+        }
+        return titleAry.toString().substring(0, titleAry.toString().lastIndexOf('\n')).replaceAll(',', '')
+      };
+
       if (LifeChart !== '') LifeChart.destroy()
       LifeChart = new Chart(document.getElementById('lifeChart'), {
         type: chartType,
@@ -387,6 +413,11 @@
             },
             title: {
               display: false,
+            },
+            tooltip: {
+              callbacks: {
+                footer: footer,
+              }
             }
           },
           scales,
@@ -422,16 +453,24 @@
 
       if (chartType === 'pie' || chartType === 'polarArea') {
         let countAry = []
-        let singleDataObj = {}
+        let singleDataObj = {
+          filterDataAry: []
+        }
         for (let i = 0; i < typeAry.length; i++) {
           countAry[i] = 0
           if (type === 'rate') {
             for (let j = 0; j < thisYearData.length; j++) {
-              if (thisYearData[j].rate === typeAry[i]) countAry[i]++
+              if (thisYearData[j].rate === typeAry[i]) {
+                countAry[i]++
+                singleDataObj.filterDataAry.push(thisYearData[j])
+              }
             }
           } else {
             for (let j = 0; j < thisYearData.length; j++) {
-              if (thisYearData[j].type === typeAry[i]) countAry[i]++
+              if (thisYearData[j].type === typeAry[i]) {
+                countAry[i]++
+                singleDataObj.filterDataAry.push(thisYearData[j])
+              }
             }
           }
           if (countAry[i] > max) max = countAry[i]
@@ -455,17 +494,20 @@
             pointStyle: 'circle',
             pointRadius: 6,
             pointHoverRadius: 9,
-            tension: 0.4
+            tension: 0.4,
+            filterDataAry: []
           }
           for (let m = 1; m <= 12; m++) {
             for (let j = 0; j < thisYearData.length; j++) {
               if (type === 'rate') {
                 if (thisYearData[j].rate === typeAry[i] && new Date(thisYearData[j].time).getMonth() + 1 === m) {
                   dataObj.data[m - 1]++
+                  dataObj.filterDataAry.push(thisYearData[j])
                 }
               } else {
                 if (thisYearData[j].type === typeAry[i] && new Date(thisYearData[j].time).getMonth() + 1 === m) {
                   dataObj.data[m - 1]++
+                  dataObj.filterDataAry.push(thisYearData[j])
                 }
               }
             }
@@ -500,6 +542,40 @@
           },
         }
       } else scales = {}
+
+      let footer = (tooltipItems) => {
+        tooltipItems = tooltipItems[0]
+        let dataAry = [...tooltipItems.dataset.filterDataAry]
+        let titleAry = []
+
+        if (type === 'rate') {
+          if (chartType === 'pie' || chartType === 'polarArea') {
+            dataAry = dataAry.filter((item) => {
+              return item.rate === tooltipItems.label
+            })
+          } else {
+            dataAry = dataAry.filter((item) => {
+              return item.rate === tooltipItems.dataset.label && new Date(item.time).getMonth() === tooltipItems.dataIndex
+            })
+          }
+        } else {
+          if (chartType === 'pie' || chartType === 'polarArea') {
+            dataAry = dataAry.filter((item) => {
+              return item.type === tooltipItems.label
+            })
+          } else {
+            dataAry = dataAry.filter((item) => {
+              return item.type === tooltipItems.dataset.label && new Date(item.time).getMonth() === tooltipItems.dataIndex
+            })
+          }
+        }
+
+        for (let i = 0; i < dataAry.length; i++) {
+          titleAry.push(dataAry[i].title + '\n')
+        }
+        return titleAry.toString().substring(0, titleAry.toString().lastIndexOf('\n')).replaceAll(',', '')
+      };
+
       if (ACGChart !== '') ACGChart.destroy()
       ACGChart = new Chart(document.getElementById('ACGChart'), {
         type: chartType,
@@ -518,6 +594,11 @@
             },
             title: {
               display: false,
+            },
+            tooltip: {
+              callbacks: {
+                footer: footer,
+              }
             }
           },
           scales,

@@ -20,6 +20,10 @@
 </head>
 
 <body>
+  <button class="btn btn-info btn-lg" style="position:fixed;top:0px;left:0px;" id="prevBtn">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+  
   <div class="container-xl">
     <div class='row justify-content-center text-primary display-3 font-weight-bold' id="edit"></div>
 
@@ -83,6 +87,9 @@
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
+      if (new URL(location.href).searchParams.get('before') !== null && new URL(location.href).searchParams.get('before') === 'yes') $('#prevBtn').show()
+      else $('#prevBtn').hide()
+
       $.blockUI({
         message: randomLoader(),
         css: {
@@ -131,17 +138,9 @@
       })
     });
 
-    //內容圖片放大
-    $(window).on("load", function () {
-      $('#content').find('img').each(function () {
-        $(this).data('zoom-image', $(this).attr('src')).attr('data-zoom-image', $(this).attr('src'))
-      })
-      if ($('#content').find('img').length > 0) {
-        $("#content img").elevateZoom({
-          zoomType: "inner",
-          cursor: "crosshair"
-        });
-      }
+    //返回上一頁
+    $('#prevBtn').click(() => {
+      history.go(-1)
     })
 
     //雙擊標題出現封印之地

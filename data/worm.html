@@ -18,7 +18,7 @@
     buildPic()
     async function buildPic() {
       let img = []
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= 50; i++) {
         img = [...img, ...await getPic(i)]
       }
       console.log(JSON.stringify(img))
@@ -38,7 +38,7 @@
                 if ($(value).attr('srcset').indexOf('webp') === -1) return
                 if ($(value).attr('srcset').indexOf('alphacoders') === -1) return
                 if ($(value).attr('srcset').indexOf('images') === -1) return
-                if ($(value).attr('srcset').indexOf('thumb') === -1) return
+                if ($(value).attr('srcset').indexOf('thumbbig') === -1) return
                 url.push($(value).attr('srcset'))
               })
             });

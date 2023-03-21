@@ -360,11 +360,11 @@
         if (changeLifeArray.length > 0) $('#searchResult').html('共&nbsp;' + changeLifeArray.length + '&nbsp;筆符合的資料')
       }
       if (sort === 'newToOld') {
-        changeLifeArray.sort((a, b) => {
+        changeLifeArray = changeLifeArray.sort((a, b) => {
           return new Date(a.time) > new Date(b.time) ? -1 : 1
         });
       } else {
-        changeLifeArray.sort((a, b) => {
+        changeLifeArray = changeLifeArray.sort((a, b) => {
           return new Date(a.time) > new Date(b.time) ? 1 : -1
         });
       }

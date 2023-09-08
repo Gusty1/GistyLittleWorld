@@ -11,12 +11,14 @@
 
 <body>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
 
   <script>
+
     //爬油圖
     buildPic()
-    async function buildPic() {
+    async function buildPic () {
       let img = []
       for (let i = 1; i <= 50; i++) {
         img = [...img, ...await getPic(i)]
@@ -24,26 +26,23 @@
       console.log(JSON.stringify(img))
     }
 
-    function getPic(i) {
+    function getPic (i) {
       return new Promise((resolve, reject) => {
         $.ajax({
-          url: 'https://wall.alphacoders.com/tag/hololive-wallpapers?page=' + i,
+          url: 'http://127.0.0.1:5500/GustyLittleWorld/data/worm.html',
           method: 'get',
           dataType: 'text',
           success: (result) => {
             let html = $.parseHTML(result)
             let url = []
             $.each(html, (i, el) => {
-              $(el).find('source').each((index, value) => {
-                if ($(value).attr('srcset').indexOf('webp') === -1) return
-                if ($(value).attr('srcset').indexOf('alphacoders') === -1) return
-                if ($(value).attr('srcset').indexOf('images') === -1) return
-                if ($(value).attr('srcset').indexOf('thumbbig') === -1) return
-                url.push($(value).attr('srcset'))
+              $(el).find('img').each((index, value) => {
+                console.log($(value).attr('src'))
+                url.push($(value).attr('src'))
               })
-            });
+            })
             resolve(url)
-          },
+          }
         })
       })
     }

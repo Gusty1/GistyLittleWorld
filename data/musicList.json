@@ -34,4 +34,10 @@
   "url": "music/mp3/はじまりの日.mp3",
   "lrc": "music/lrc/はじまりの日.lrc",
   "cover": "music/coverImg/はじまりの日.jpg"
+}, {
+  "name": "spiral",
+  "artist": "LONGMAN",
+  "url": "music/mp3/spiral.mp3",
+  "lrc": "music/lrc/spiral.lrc",
+  "cover": "music/coverImg/spiral.jpg"
 }]

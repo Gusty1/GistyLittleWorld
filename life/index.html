@@ -34,6 +34,11 @@
       font-size: 1.1rem;
       color: #8600FF;
     }
+
+    #cardGroup {
+      height: 57.12vh;
+      overflow-y: auto;
+    }
   </style>
 </head>
 
@@ -44,7 +49,8 @@
   <div class="marquee mt-3"></div>
 
   <div class="container-xl">
-    <div class='row justify-content-center text-primary font-weight-bold display-2 mb-3 cssanimation effect3d' id="edit">
+    <div class='row justify-content-center text-primary font-weight-bold display-2 mb-3 cssanimation effect3d'
+      id="edit">
       生活日誌
     </div>
 
@@ -94,7 +100,7 @@
                         </div>
                     </div>
                 </div> -->
-        <div class="row justify-content-center h4" id="page">
+        <div class="row justify-content-center h4 mt-2" id="page">
         </div>
       </div>
       <div class="col-sm-3 rounded" id='labelBlock'>
@@ -119,15 +125,20 @@
   </div>
 
   <div id="goTop">
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
-      <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+      class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
     </svg>
   </div>
 
   <footer></footer>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
   <script src="../js/jquery-ui.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -138,14 +149,16 @@
   <script src="../js/jquery.blockUI.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js" integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.6.5/firebase-database.min.js"
+    integrity="sha512-x+FKkd5Tc/5BaHtn/ZnRsQlzaEihtLaCOev36dCv5eeyGEDf5ou59tz7q6CypiKBN/L51E0Jd5S7jxIg1v8lcg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <script src="//unpkg.com/layui@2.7.6/dist/layui.js"></script>
   <script src="../js/tool.js"></script>
 
   <script>
-    var lifeArray = [];
-    var clickLabel = 'ALL';
+    var lifeArray = []
+    var clickLabel = 'ALL'
     var _LAZYLOAD = ''
     var IsMobileDevice = isMobileDevice()
 
@@ -153,8 +166,8 @@
     $('#edit').dblclick(function () {
       $("#dialog").dialog({
         resizable: false,
-      });
-    });
+      })
+    })
 
     //標籤數量顏色+buildCardHtml
     $(document).ready(() => {
@@ -166,9 +179,9 @@
         $('.marquee').removeClass('mt-3').addClass('mt-2')
       }
 
-      let labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77', '#95CACA', '#B8B8DC', '#CA8EC2', ' #FFFF6F', '#9AFF02'];
-      let labelArray = [];
-      let labelHtml = '';
+      let labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77', '#95CACA', '#B8B8DC', '#CA8EC2', ' #FFFF6F', '#9AFF02']
+      let labelArray = []
+      let labelHtml = ''
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()
       let adHtml = 'Gusty歷史上的今天發生了:&nbsp;'
       $.blockUI({
@@ -178,7 +191,7 @@
           backgroundColor: 'transparent'
         },
         baseZ: 1000,
-      });
+      })
       new Promise((resolve, reject) => {
         database.ref('/life').once('value', (result) => {
           lifeArray = result.val()
@@ -197,7 +210,7 @@
               direction: 'right',
               duplicated: false,
               pauseOnHover: true,
-            });
+            })
           } else {
             $('.marquee').html('Gusty歷史上的今天甚麼事都沒發生。').marquee({
               duration: 25000,
@@ -206,7 +219,7 @@
               direction: 'right',
               duplicated: false,
               pauseOnHover: true,
-            });
+            })
           }
           labelArray = removeDuplicates(result.val(), 'label')
           labelArray = labelArray.map(item => {
@@ -223,23 +236,23 @@
           labelArray = labelArray.sort((a, b) => {
             return parseInt(a.sum) > parseInt(b.sum) ? -1 : 1
           })
-          labelHtml += '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp;' + lifeArray.length + '</span>';
+          labelHtml += '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:#28FF28">ALL&nbsp;' + lifeArray.length + '</span>'
           for (let i = 0; i < labelArray.length; i = i + 1) {
-            labelHtml += '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' + labelColor[i] + '">' + labelArray[i].label + '&nbsp;' + labelArray[i].sum + '</span>';
+            labelHtml += '<span class="badge badge-pill border border-dark m-1" style="font-size: 12pt;background-color:' + labelColor[i] + '">' + labelArray[i].label + '&nbsp;' + labelArray[i].sum + '</span>'
           }
-          $('#labelGroup').prev().html('目前標籤:&nbsp;ALL');
-          $('#labelGroup').html(labelHtml);
-          $.unblockUI();
+          $('#labelGroup').prev().html('目前標籤:&nbsp;ALL')
+          $('#labelGroup').html(labelHtml)
+          $.unblockUI()
           resolve(lifeArray)
         })
       }).then((resolve) => {
         $('#animeArea').addClass('animate__animated animate__fadeInDownBig')
       })
-    });
+    })
 
     //點擊跳出詳細頁視窗
     $('.marquee').on('click', 'a', function (e) {
-      e.preventDefault();
+      e.preventDefault()
       layer.open({
         type: 2,
         title: $(this).text(),
@@ -248,7 +261,7 @@
         maxmin: true,
         area: ['75vw', '85vh'],
         content: 'detail.html?order=' + $(this).data('order')
-      });
+      })
     })
     $('#cardGroup').on('click', '.card', function () {
       let order = $(this).find('input').eq(0).val()
@@ -261,7 +274,7 @@
         maxmin: true,
         area: ['75vw', '85vh'],
         content: 'detail.html?order=' + order
-      });
+      })
     })
 
     //禁忌之地的密碼框和確認
@@ -274,33 +287,33 @@
           icon: 'error',
           html: '<span class="text-danger h4"><i class="fas fa-ban"></i>凡人無法進入<i class="fas fa-ban"></i></span>',
           showConfirmButton: false,
-        });
+        })
       }
       $('#secret').val('')
-      $("#dialog").dialog('close');
-    });
+      $("#dialog").dialog('close')
+    })
 
     // 搜尋框
     $('#subjectSearch').on('input', function () {
       buildPage($(this).val().trim(), clickLabel, $('#sortSelect').val())
-    });
+    })
 
     //排序方式
     $('#sortSelect').on('change', function () {
       buildPage($('#subjectSearch').val().trim(), clickLabel, $(this).val())
-    });
+    })
 
     //標籤點擊
     $('#labelGroup').on('click', '.badge-pill', function () {
       if (clickLabel == $(this).html().substring(0, $(this).html().indexOf('&'))) return
       clickLabel = $(this).html().substring(0, $(this).html().indexOf('&'))
-      $('#labelGroup').prev().html('目前標籤:&nbsp;' + clickLabel);
+      $('#labelGroup').prev().html('目前標籤:&nbsp;' + clickLabel)
       buildPage($('#subjectSearch').val().trim(), clickLabel, $('#sortSelect').val())
-    });
+    })
 
     // 產生卡片
-    function buildCardHtml(newLifeArray) {
-      let cardHtml = '';
+    function buildCardHtml (newLifeArray) {
+      let cardHtml = ''
       for (let i = 0; i < newLifeArray.length; i = i + 1) {
         cardHtml += '<div class="card mb-3 cardBlock hvr-glow w-100">'
         cardHtml += '<div class="row no-gutters">'
@@ -335,17 +348,17 @@
         cardHtml += '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
         $('#page').html('')
       }
-      $('#cardGroup').html(cardHtml);
+      $('#cardGroup').html(cardHtml)
       if (_LAZYLOAD != '') _LAZYLOAD.update()
       else _LAZYLOAD = new LazyLoad({})
       $("img").on("error", function (e) {
-        $(this).attr("src", "../images/error.gif");
-      });
+        $(this).attr("src", "../images/error.gif")
+      })
     }
 
     // 產生頁數
-    function buildPage(keyword, type, sort) {
-      let changeLifeArray = [...lifeArray];
+    function buildPage (keyword, type, sort) {
+      let changeLifeArray = [...lifeArray]
       $('#searchResult').html('')
 
       if (type !== 'ALL') {
@@ -362,22 +375,22 @@
       if (sort === 'newToOld') {
         changeLifeArray = changeLifeArray.sort((a, b) => {
           return new Date(a.time) > new Date(b.time) ? -1 : 1
-        });
+        })
       } else {
         changeLifeArray = changeLifeArray.sort((a, b) => {
           return new Date(a.time) > new Date(b.time) ? 1 : -1
-        });
+        })
       }
 
       if (changeLifeArray.length > 6) {
-        let pageLength = [];
+        let pageLength = []
         if (changeLifeArray.length % 6 == 0) {
           for (let i = 0; i < parseInt(changeLifeArray.length / 6); i = i + 1) {
-            pageLength.push(i);
+            pageLength.push(i)
           }
         } else {
           for (let i = 0; i < parseInt(changeLifeArray.length / 6) + 1; i = i + 1) {
-            pageLength.push(i);
+            pageLength.push(i)
           }
         }
         $('#page').pagination({
@@ -389,14 +402,14 @@
           callback: (data, pagination) => {
             // start: i*6
             // end:   (i+1)*6-1
-            let newLifeAry = [];
+            let newLifeAry = []
             for (let i = 0; i < changeLifeArray.length; i = i + 1) {
               if (i >= parseInt(data[0] * 6) && i <= parseInt((data[0] + 1) * 6 - 1)) newLifeAry.push(changeLifeArray[i])
             }
             buildCardHtml(newLifeAry)
             $("#goTop").click()
           }
-        });
+        })
       } else {
         $('#page').pagination({
           dataSource: [0],
@@ -405,7 +418,7 @@
           showNext: false,
           className: 'paginationjs-theme-red paginationjs-big',
           callback: (data, pagination) => { }
-        });
+        })
         buildCardHtml(changeLifeArray)
       }
     }

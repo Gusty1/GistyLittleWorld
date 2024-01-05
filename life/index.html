@@ -179,7 +179,7 @@
         $('.marquee').removeClass('mt-3').addClass('mt-2')
       }
 
-      let labelColor = ['#FF60AF', '#FF77FF', '#BE77FF', '#66B3FF', '#7AFEC6', '#FFBB77', '#95CACA', '#B8B8DC', '#CA8EC2', ' #FFFF6F', '#9AFF02']
+      let labelColor = getRandomColorAry(20)
       let labelArray = []
       let labelHtml = ''
       let today = parseInt(new Date().getMonth() + 1) + '-' + new Date().getDate()

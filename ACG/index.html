@@ -28,6 +28,10 @@
       height: 50.1vh;
       overflow-y: auto;
     }
+
+    #pageBlock {
+      min-height: 3.9vh
+    }
   </style>
 </head>
 
@@ -357,7 +361,7 @@
         cardHtml += '</div></div></div></div>'
       }
       if (cardHtml == '') {
-        cardHtml += '<div class="row justify-content-center h2 text-danger"><i class="fas fa-exclamation-triangle"></i>沒有資料</div>'
+        cardHtml += '<div class="col justify-content-center h2 text-danger text-center"><i class="fas fa-exclamation-triangle"></i>查無資料</div>'
         $('#pageBlock').html('')
       }
       $('#cardBlock').html(cardHtml)

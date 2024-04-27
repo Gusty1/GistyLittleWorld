@@ -213,6 +213,7 @@
             $('header').load("header.html")
             $("footer").load("footer.html")
 
+            //圖片load實在是太久了，我已經換成預覽的低畫質圖了，還是很久
             $.get('data/indexImg.json', (result) => {
                 let imgAry = result.url
                 let imgLength = imgAry.length
@@ -228,6 +229,45 @@
                     })
                 }
             })
+
+            $.get('data/musicList.json', (musicList) => {
+                _AP = new APlayer({
+                    container: document.getElementById('player'),
+                    fixed: true,
+                    lrcType: 3,
+                    order: 'random',
+                    // autoplay: true,
+                    volume: 0.5,
+                    audio: musicList,
+                })
+            })
+
+            //應該是動畫還是甚麼會影響這個時間表的顯示，所以延後2.5秒執行
+            setTimeout(() => {
+                $.get('data/timeline.json', (result) => {
+                    let timelineHtml = ''
+                    for (value of result) {
+                        let date = ''
+                        let color = ''
+                        if (value.endDate == '') date = value.startDate
+                        else date = value.startDate + '~' + value.endDate
+                        if (value.type == '工作') color = '#949449'
+                        else if (value.type == '學習') color = '#5A5AAD'
+                        else if (value.type == '其它') color = '#984B4B'
+                        timelineHtml += ` <div class="timeline__item">
+                                <div class="timeline__content text-light h5 timelineBorder" style="background-color:${color};">
+                                    ${date}<br>${value.content}
+                                </div>
+                            </div>`
+                    }
+                    $('.timeline').eq(0).find('.timeline__items').eq(0).html(timelineHtml)
+                    $('.timeline').timeline({
+                        forceVerticalMode: 800,
+                        mode: 'horizontal',
+                        visibleItems: 4
+                    })
+                })
+            }, 2500)
 
             //cros anywhere 的設定 google recaptcha會用到
             $.ajaxPrefilter((options) => {
@@ -269,42 +309,6 @@
                     })
                 }
             }, 1000)
-
-            $.get('data/musicList.json', (musicList) => {
-                _AP = new APlayer({
-                    container: document.getElementById('player'),
-                    fixed: true,
-                    lrcType: 3,
-                    order: 'random',
-                    // autoplay: true,
-                    volume: 0.5,
-                    audio: musicList,
-                })
-            })
-
-            $.get('data/timeline.json', (result) => {
-                let timelineHtml = ''
-                for (value of result) {
-                    let date = ''
-                    let color = ''
-                    if (value.endDate == '') date = value.startDate
-                    else date = value.startDate + '~' + value.endDate
-                    if (value.type == '工作') color = '#949449'
-                    else if (value.type == '學習') color = '#5A5AAD'
-                    else if (value.type == '其它') color = '#984B4B'
-                    timelineHtml += ` <div class="timeline__item">
-                              <div class="timeline__content text-light h5 timelineBorder" style="background-color:${color};">
-                                ${date}<br>${value.content}
-                              </div>
-                            </div>`
-                }
-                $('.timeline').eq(0).find('.timeline__items').eq(0).html(timelineHtml)
-                $('.timeline').timeline({
-                    forceVerticalMode: 800,
-                    mode: 'horizontal',
-                    visibleItems: 4
-                })
-            })
         })
 
         //點擊a、button會觸發google驗證，分數低於0.5就會跳出GG人。

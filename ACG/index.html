@@ -186,7 +186,6 @@
       localStorage.removeItem("gitTalk")
       let urlOrder = new URL(location.href).searchParams.get('order')
       if (urlOrder !== null) {
-        localStorage.removeItem("gitTalk")
         layer.open({
           type: 2,
           title: 'waiting...',
@@ -270,7 +269,6 @@
 
     //點擊跳出詳細頁視窗
     $('.marquee').on('click', 'a', function (e) {
-      localStorage.removeItem("gitTalk")
       e.preventDefault()
       localStorage.removeItem("gitTalk")
       layer.open({
@@ -284,7 +282,6 @@
       })
     })
     $('#cardBlock').on('click', '.card', function () {
-      localStorage.removeItem("gitTalk")
       let title = $(this).find('.text-success').eq(0).text()
       let order = $(this).find('input').eq(0).val()
       localStorage.removeItem("gitTalk")

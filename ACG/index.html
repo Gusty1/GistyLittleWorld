@@ -485,10 +485,10 @@
      * 為了跳過iframe阻擋github登入問題，在主頁這邊另外執行一樣的點擊事件
      */
     function gitTalkLogin () {
-      if ($('body').find('.gt-action-login').length > 0) {
+      if ($('#gitalk-container').find('.gt-action-login').length > 0) {
         $('.gt-action-login').eq(0).click()
       }
-      if ($('body').find('.gt-btn-login').length > 0) {
+      if ($('#gitalk-container').find('.gt-btn-login').length > 0) {
         $('.gt-btn-login').eq(0).click()
       }
     }

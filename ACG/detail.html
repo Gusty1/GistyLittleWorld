@@ -136,6 +136,11 @@
 
             // 回调函数，当观察的变动发生时执行
             const callback = function (mutationsList, observer) {
+              window.addEventListener('beforeunload', function (event) {
+                console.log('pp')
+                localStorage.removeItem("gitTalk")
+                window.close()
+              })
               if ($('#gitalk-container').find('.gt-action-login').length > 0) {
                 $('.gt-action-login').eq(0).click()
               } else if ($('#gitalk-container').find('.gt-btn-login').length > 0) {
@@ -203,8 +208,6 @@
         })
         $.unblockUI()
         new LazyLoad()
-        //呼叫主頁的gitTalkInit
-        console.log(getIframeId())
         gitTalkInit(urlOrder, resolve)
         $('.container-xl').eq(1).addClass('animate__animated animate__rollIn')
       })

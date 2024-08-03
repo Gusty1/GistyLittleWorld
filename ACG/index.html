@@ -187,7 +187,7 @@
 
     //各項初始設定
     $(document).ready(() => {
-      let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
+      let urlOrder = new URL(location.href).searchParams.get('order')
       if (urlOrder !== null) {
         layer.open({
           type: 2,

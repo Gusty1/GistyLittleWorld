@@ -283,8 +283,6 @@
      * 為了跳過iframe阻擋github登入問題，gitTalk點擊登入時另外一頁去處理
      */
     $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
-      e.preventDefault()
-      e.stopPropagation()
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       // window.parent.gitTalkLogin(urlOrder, thisTitle)
       if (isInIframe()) {

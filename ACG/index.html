@@ -466,8 +466,8 @@
     /**
      *為了跳過iframe阻擋github登入問題，在主頁這邊也產生一個一模一樣的gitalk-container，然後設為隱藏
      */
-    function gitTalkInit (urlOrder, title, iframeId) {
-      $('#gitalk-container').html('')
+    function gitTalkInit (urlOrder, title) {
+      $('#gitalk-container').html()
       console.log('aa')
       //拜託看到不要用我的金鑰，好人一生平安，謝謝
       const gitalk = new Gitalk({
@@ -481,16 +481,16 @@
         distractionFreeMode: false,
       })
       gitalk.render('gitalk-container')
-      var iframe = document.querySelector('#' + iframeId)
-      console.log('ff')
-      console.log(iframe)
-      iframe.contentWindow.gitTalkInit(urlOrder, title)
+      // var iframe = document.querySelector('#' + iframeId)
+      // console.log('ff')
+      // console.log(iframe)
+      // iframe.contentWindow.gitTalkInit(urlOrder, title)
     }
 
     /**
      * 為了跳過iframe阻擋github登入問題，在主頁這邊另外執行一樣的點擊事件
      */
-    function gitTalkLogin (urlOrder, thisTitle, iframeId) {
+    function gitTalkLogin (urlOrder, thisTitle) {
       console.log('hh')
       if ($('#gitalk-container').find('.gt-action-login').length > 0) {
         console.log('11')
@@ -500,7 +500,7 @@
         $('.gt-btn-login').eq(0).click()
       } else {
         console.log('33')
-        gitTalkInit(urlOrder, thisTitle, iframeId)
+        gitTalkInit(urlOrder, thisTitle)
       }
     }
   </script>

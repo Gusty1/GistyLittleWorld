@@ -174,13 +174,13 @@
         })
         $.unblockUI()
         new LazyLoad()
-        //呼叫主頁的gitTalkInit
-        console.log(getIframeId())
-        window.parent.gitTalkInit(urlOrder, resolve, getIframeId())
+        //載入gitTalk
+        gitTalkInit(urlOrder, resolve, getIframeId())
         $('.container-xl').eq(1).addClass('animate__animated animate__rollIn')
       })
     })
 
+    //gitTlak渲覽
     function gitTalkInit (urlOrder, title) {
       $('#gitalk-container').html('')
       //拜託看到不要用我的金鑰，好人一生平安，謝謝
@@ -195,24 +195,14 @@
         distractionFreeMode: false,
       })
       gitalk.render('gitalk-container')
+      //不知為何初次載入時總是沒登入的狀態，所以2秒之後重新載入
       setTimeout(() => {
         $('#gitalk-container').html('')
         gitalk.render('gitalk-container')
       }, 2000)
-      // $('#gitalk-container').html('')
-      // const gitalk2 = new Gitalk({
-      //   clientID: 'db818b2dc056c96e75aa',
-      //   clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
-      //   repo: 'GustyLittleWorld',
-      //   owner: 'Gusty1',
-      //   admin: ['Gusty1'],
-      //   id: 'ACG_' + urlOrder,
-      //   title: title,
-      //   distractionFreeMode: false,
-      // })
-      // gitalk2.render('gitalk-container')
     }
 
+    //取得當前iframeID的
     function getIframeId () {
       // 获取所有的 iframe 元素
       var iframes = window.parent.document.getElementsByTagName('iframe')
@@ -261,7 +251,7 @@
      */
     $('body').on('click', '.gt-btn-login,.gt-action-login,.gt-action-logout', () => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
-      window.parent.gitTalkLogin(urlOrder, thisTitle, getIframeId())
+      window.parent.gitTalkLogin(urlOrder, thisTitle)
     })
 
   </script>

@@ -174,13 +174,14 @@
         })
         $.unblockUI()
         new LazyLoad()
-        //載入gitTalk
-        gitTalkInit(urlOrder, resolve, getIframeId())
+        //呼叫主頁的gitTalkInit
+        console.log(getIframeId())
+        window.parent.gitTalkInit(urlOrder, resolve, getIframeId())
         $('.container-xl').eq(1).addClass('animate__animated animate__rollIn')
       })
     })
 
-    //gitTlak渲覽
+    //渲覽gitTalk
     function gitTalkInit (urlOrder, title) {
       $('#gitalk-container').html('')
       //拜託看到不要用我的金鑰，好人一生平安，謝謝
@@ -194,15 +195,15 @@
         title: title,
         distractionFreeMode: false,
       })
+      //不知為何初次載入都會是沒登入的狀態，所以2秒後重新載入
       gitalk.render('gitalk-container')
-      //不知為何初次載入時總是沒登入的狀態，所以2秒之後重新載入
       setTimeout(() => {
         $('#gitalk-container').html('')
         gitalk.render('gitalk-container')
       }, 2000)
     }
 
-    //取得當前iframeID的
+    //取得當前的iframeId
     function getIframeId () {
       // 获取所有的 iframe 元素
       var iframes = window.parent.document.getElementsByTagName('iframe')

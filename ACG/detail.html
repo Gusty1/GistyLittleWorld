@@ -223,7 +223,7 @@
     /**
      * 為了跳過iframe阻擋github登入問題，在iframe這邊的登入事件另外去呼叫主頁的登入事件
      */
-    $('body').on('click', '.gt-btn-login,.gt-action-login', () => {
+    $('body').on('click', '.gt-btn-login,.gt-action-login,.gt-action-logout', () => {
       window.parent.gitTalkLogin()
     })
 

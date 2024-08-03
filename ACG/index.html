@@ -183,6 +183,7 @@
 
     //各項初始設定
     $(document).ready(() => {
+      localStorage.removeItem("gitTalk")
       let urlOrder = new URL(location.href).searchParams.get('order')
       if (urlOrder !== null) {
         localStorage.removeItem("gitTalk")

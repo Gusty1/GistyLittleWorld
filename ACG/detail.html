@@ -141,8 +141,8 @@
               } else if ($('#gitalk-container').find('.gt-btn-login').length > 0) {
                 $('.gt-btn-login').eq(0).click()
               }
-              localStorage.removeItem("gitTalk")
-              window.close()
+              // localStorage.removeItem("gitTalk")
+              // window.close()
             }
 
             // 创建一个 `MutationObserver` 实例并传入回调函数
@@ -275,7 +275,7 @@
     /**
      * 為了跳過iframe阻擋github登入問題，在iframe這邊的登入事件另外去呼叫主頁的登入事件
      */
-    $('body').on('click', '.gt-btn-login,.gt-action-login,.gt-action-logout', (e) => {
+    $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
       e.preventDefault()
       e.stopPropagation()
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))

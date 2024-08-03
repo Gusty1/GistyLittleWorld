@@ -99,7 +99,8 @@
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
-      if (!isInIframe()) {
+      let isGitTalk = localStorage.getItem("gitTalk")
+      if (!isInIframe() && isGitTalk === null) {
         location.href = './index.html?order=' + urlOrder
       }
       if (new URL(location.href).searchParams.get('before') !== null && new URL(location.href).searchParams.get('before') === 'yes') $('#prevBtn').show()
@@ -117,10 +118,38 @@
       new Promise((resolve, reject) => {
         database.ref('/ACG/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
-          const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
-          const titleElement = parentLayerTitle.parentElement.previousElementSibling
-          if (titleElement.innerHTML.trim() === 'waiting...') {
-            titleElement.innerHTML = orderObj.title
+          if (isGitTalk === null) {
+            const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
+            const titleElement = parentLayerTitle.parentElement.previousElementSibling
+            if (titleElement.innerHTML.trim() === 'waiting...') {
+              titleElement.innerHTML = orderObj.title
+            }
+          } else {
+            const targetNode = document.getElementById('gitalk-container')
+
+            // 观察选项
+            const config = {
+              attributes: true, // 监听属性变化
+              childList: true,  // 监听子节点变化
+              subtree: true     // 监听后代节点变化
+            }
+
+            // 回调函数，当观察的变动发生时执行
+            const callback = function (mutationsList, observer) {
+              if ($('#gitalk-container').find('.gt-action-login').length > 0) {
+                $('.gt-action-login').eq(0).click()
+              } else if ($('#gitalk-container').find('.gt-btn-login').length > 0) {
+                $('.gt-btn-login').eq(0).click()
+              }
+              localStorage.removeItem("gitTalk")
+              window.close()
+            }
+
+            // 创建一个 `MutationObserver` 实例并传入回调函数
+            const observer = new MutationObserver(callback)
+
+            // 开始观察目标节点并配置观察选项
+            observer.observe(targetNode, config)
           }
           thisTitle = orderObj.title
           $('.card').find('img').eq(0).data('src', orderObj.coverImg).attr('data-src', orderObj.coverImg)
@@ -176,7 +205,6 @@
         new LazyLoad()
         //呼叫主頁的gitTalkInit
         console.log(getIframeId())
-        window.parent.gitTalkInit(urlOrder, resolve, getIframeId())
         gitTalkInit(urlOrder, resolve)
         $('.container-xl').eq(1).addClass('animate__animated animate__rollIn')
       })
@@ -198,10 +226,6 @@
       })
       //不知為何初次載入都會是沒登入的狀態，所以2秒後重新載入
       gitalk.render('gitalk-container')
-      setTimeout(() => {
-        $('#gitalk-container').html('')
-        gitalk.render('gitalk-container')
-      }, 2000)
     }
 
     //取得當前的iframeId
@@ -251,9 +275,14 @@
     /**
      * 為了跳過iframe阻擋github登入問題，在iframe這邊的登入事件另外去呼叫主頁的登入事件
      */
-    $('body').on('click', '.gt-btn-login,.gt-action-login,.gt-action-logout', () => {
+    $('body').on('click', '.gt-btn-login,.gt-action-login,.gt-action-logout', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
-      window.parent.gitTalkLogin(urlOrder, thisTitle)
+      // window.parent.gitTalkLogin(urlOrder, thisTitle)
+      localStorage.setItem("gitTalk", 'yes')
+      window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
+      window.open(location.href)
     })
 
   </script>

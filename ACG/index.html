@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="../css/pagination.css">
   <link rel="stylesheet" type="text/css" href="../css/animate_headline.css">
   <link href="//unpkg.com/layui@2.7.6/dist/css/layui.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
   <style>
     /* 卡片滑鼠切換 */
     .card {
@@ -142,8 +141,6 @@
     </svg>
   </div>
 
-  <div id="gitalk-container" class=""></div>
-
   <footer></footer>
 
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
@@ -167,7 +164,6 @@
   <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <script src="../js/jquery.blockUI.js"></script>
   <script src="//unpkg.com/layui@2.7.6/dist/layui.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
   <script src="../js/tool.js"></script>
 
   <script>
@@ -189,6 +185,7 @@
     $(document).ready(() => {
       let urlOrder = new URL(location.href).searchParams.get('order')
       if (urlOrder !== null) {
+        localStorage.removeItem("gitTalk")
         layer.open({
           type: 2,
           title: 'waiting...',
@@ -273,6 +270,7 @@
     //點擊跳出詳細頁視窗
     $('.marquee').on('click', 'a', function (e) {
       e.preventDefault()
+      localStorage.removeItem("gitTalk")
       layer.open({
         type: 2,
         title: $(this).text(),
@@ -286,6 +284,7 @@
     $('#cardBlock').on('click', '.card', function () {
       let title = $(this).find('.text-success').eq(0).text()
       let order = $(this).find('input').eq(0).val()
+      localStorage.removeItem("gitTalk")
       layer.open({
         type: 2,
         title: title,
@@ -463,46 +462,27 @@
       }
     }
 
-    /**
-     *為了跳過iframe阻擋github登入問題，在主頁這邊也產生一個一模一樣的gitalk-container，然後設為隱藏
-     */
-    function gitTalkInit (urlOrder, title) {
-      $('#gitalk-container').html()
-      console.log('aa')
-      //拜託看到不要用我的金鑰，好人一生平安，謝謝
-      const gitalk = new Gitalk({
-        clientID: 'db818b2dc056c96e75aa',
-        clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
-        repo: 'GustyLittleWorld',
-        owner: 'Gusty1',
-        admin: ['Gusty1'],
-        id: 'ACG_' + urlOrder,
-        title: title,
-        distractionFreeMode: false,
-      })
-      gitalk.render('gitalk-container')
-      // var iframe = document.querySelector('#' + iframeId)
-      // console.log('ff')
-      // console.log(iframe)
-      // iframe.contentWindow.gitTalkInit(urlOrder, title)
+    function openLayer (iframeId, urlOrder, title) {
+      const startElement = document.querySelector('#' + iframeId)
+      const ancestor = startElement.closest('.layui-layer')
+      ancestor.querySelectorAll('.layui-layer-close')[0].click()
+      let detectGitTalk = setInterval(() => {
+        console.log('tt')
+        if (localStorage.getItem("gitTalk") == null) {
+          clearInterval(detectGitTalk)
+          layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['75vw', '85vh'],
+            content: 'detail.html?order=' + urlOrder
+          })
+        }
+      }, 1000)
     }
 
-    /**
-     * 為了跳過iframe阻擋github登入問題，在主頁這邊另外執行一樣的點擊事件
-     */
-    function gitTalkLogin (urlOrder, thisTitle) {
-      console.log('hh')
-      if ($('#gitalk-container').find('.gt-action-login').length > 0) {
-        console.log('11')
-        $('.gt-action-login').eq(0).click()
-      } else if ($('#gitalk-container').find('.gt-btn-login').length > 0) {
-        console.log('22')
-        $('.gt-btn-login').eq(0).click()
-      } else {
-        console.log('33')
-        gitTalkInit(urlOrder, thisTitle)
-      }
-    }
   </script>
 
 </body>

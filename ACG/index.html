@@ -467,6 +467,7 @@
      *為了跳過iframe阻擋github登入問題，在主頁這邊也產生一個一模一樣的gitalk-container，然後設為隱藏
      */
     function gitTalkInit (urlOrder, title, iframeId) {
+      $('#gitalk-container').html('')
       console.log('aa')
       //拜託看到不要用我的金鑰，好人一生平安，謝謝
       const gitalk = new Gitalk({

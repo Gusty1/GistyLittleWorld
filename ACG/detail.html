@@ -195,6 +195,18 @@
         distractionFreeMode: false,
       })
       gitalk.render('gitalk-container')
+
+      const gitalk2 = new Gitalk({
+        clientID: 'db818b2dc056c96e75aa',
+        clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
+        repo: 'GustyLittleWorld',
+        owner: 'Gusty1',
+        admin: ['Gusty1'],
+        id: 'ACG_' + urlOrder,
+        title: title,
+        distractionFreeMode: false,
+      })
+      gitalk2.render('gitalk-container')
     }
 
     function getIframeId () {

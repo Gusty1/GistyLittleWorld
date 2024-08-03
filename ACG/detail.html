@@ -177,6 +177,7 @@
         //呼叫主頁的gitTalkInit
         console.log(getIframeId())
         window.parent.gitTalkInit(urlOrder, resolve, getIframeId())
+        gitTalkInit(urlOrder, resolve)
         $('.container-xl').eq(1).addClass('animate__animated animate__rollIn')
       })
     })

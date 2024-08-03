@@ -97,8 +97,6 @@
   <script>
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
-      // 使用示例
-
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       if (!isInIframe()) {
         location.href = './index.html?order=' + urlOrder
@@ -224,7 +222,8 @@
      * 為了跳過iframe阻擋github登入問題，在iframe這邊的登入事件另外去呼叫主頁的登入事件
      */
     $('body').on('click', '.gt-btn-login,.gt-action-login,.gt-action-logout', () => {
-      window.parent.gitTalkLogin()
+      let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
+      window.parent.gitTalkLogin(urlOrder, 'waiting...')
     })
 
   </script>

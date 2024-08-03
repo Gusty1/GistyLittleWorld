@@ -136,11 +136,15 @@
 
             // 回调函数，当观察的变动发生时执行
             const callback = function (mutationsList, observer) {
+              //登入完成後會重新加載本頁面，所以偵測重新加載前關閉本業，並清空gitTlak
               window.addEventListener('beforeunload', function (event) {
                 console.log('pp')
                 localStorage.removeItem("gitTalk")
                 window.close()
               })
+              console.log('oo')
+              console.log($('#gitalk-container').find('.gt-action-login').length)
+              console.log($('#gitalk-container').find('.gt-btn-login').length)
               if ($('#gitalk-container').find('.gt-action-login').length > 0) {
                 $('.gt-action-login').eq(0).click()
               } else if ($('#gitalk-container').find('.gt-btn-login').length > 0) {
@@ -276,7 +280,7 @@
     })
 
     /**
-     * 為了跳過iframe阻擋github登入問題，在iframe這邊的登入事件另外去呼叫主頁的登入事件
+     * 為了跳過iframe阻擋github登入問題，gitTalk點擊登入時另外一頁去處理
      */
     $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
       e.preventDefault()

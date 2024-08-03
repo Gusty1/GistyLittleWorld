@@ -281,8 +281,10 @@
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       // window.parent.gitTalkLogin(urlOrder, thisTitle)
       localStorage.setItem("gitTalk", 'yes')
-      window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
-      window.open(location.href)
+      if (isInIframe()) {
+        window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
+        window.open(location.href)
+      }
     })
 
   </script>

@@ -95,6 +95,7 @@
   <script src="../js/tool.js"></script>
 
   <script>
+    let thisTitle = ''
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
@@ -116,10 +117,12 @@
       new Promise((resolve, reject) => {
         database.ref('/ACG/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
-          const parentLayerTitle = window.parent.document.querySelectorAll('.layui-layer-title')[0]
-          if (parentLayerTitle.innerHTML.trim() === 'waiting...') {
-            parentLayerTitle.innerHTML = orderObj.title
+          const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
+          const titleElement = parentLayerTitle.parentElement.previousElementSibling
+          if (titleElement.innerHTML.trim() === 'waiting...') {
+            titleElement.innerHTML = orderObj.title
           }
+          thisTitle = orderObj.title
           $('.card').find('img').eq(0).data('src', orderObj.coverImg).attr('data-src', orderObj.coverImg)
           $('.card-body').find('div').each((index, value) => {
             if (index === 0) $(value).html(orderObj.title)
@@ -171,23 +174,42 @@
         })
         $.unblockUI()
         new LazyLoad()
-        //拜託看到不要用我的金鑰，好人一生平安，謝謝
-        const gitalk = new Gitalk({
-          clientID: 'db818b2dc056c96e75aa',
-          clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
-          repo: 'GustyLittleWorld',
-          owner: 'Gusty1',
-          admin: ['Gusty1'],
-          id: 'ACG_' + urlOrder.toString(),
-          title: resolve,
-          distractionFreeMode: false,
-        })
-        gitalk.render('gitalk-container')
         //呼叫主頁的gitTalkInit
-        window.parent.gitTalkInit(urlOrder, resolve)
+        console.log(getIframeId())
+        window.parent.gitTalkInit(urlOrder, resolve, getIframeId())
         $('.container-xl').eq(1).addClass('animate__animated animate__rollIn')
       })
     })
+
+    function gitTalkInit (urlOrder, title) {
+      window
+      //拜託看到不要用我的金鑰，好人一生平安，謝謝
+      const gitalk = new Gitalk({
+        clientID: 'db818b2dc056c96e75aa',
+        clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
+        repo: 'GustyLittleWorld',
+        owner: 'Gusty1',
+        admin: ['Gusty1'],
+        id: 'ACG_' + urlOrder,
+        title: title,
+        distractionFreeMode: false,
+      })
+      gitalk.render('gitalk-container')
+    }
+
+    function getIframeId () {
+      // 获取所有的 iframe 元素
+      var iframes = window.parent.document.getElementsByTagName('iframe')
+
+      // 遍历 iframe 元素，找到当前 iframe
+      for (var i = 0; i < iframes.length; i++) {
+        if (iframes[i].contentWindow === window) {
+          return iframes[i].id
+        }
+      }
+
+      return null // 如果没有找到，返回 null
+    }
 
     //返回上一頁
     $('#prevBtn').click(() => {
@@ -223,7 +245,7 @@
      */
     $('body').on('click', '.gt-btn-login,.gt-action-login,.gt-action-logout', () => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
-      window.parent.gitTalkLogin(urlOrder, 'waiting...')
+      window.parent.gitTalkLogin(urlOrder, thisTitle, getIframeId())
     })
 
   </script>

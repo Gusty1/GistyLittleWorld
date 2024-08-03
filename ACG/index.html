@@ -466,7 +466,7 @@
     /**
      *為了跳過iframe阻擋github登入問題，在主頁這邊也產生一個一模一樣的gitalk-container，然後設為隱藏
      */
-    function gitTalkInit (urlOrder, title) {
+    function gitTalkInit (urlOrder, title, iframeId) {
       console.log('aa')
       //拜託看到不要用我的金鑰，好人一生平安，謝謝
       const gitalk = new Gitalk({
@@ -475,11 +475,16 @@
         repo: 'GustyLittleWorld',
         owner: 'Gusty1',
         admin: ['Gusty1'],
-        id: 'ACG_' + urlOrder.toString(),
+        id: 'ACG_' + urlOrder,
         title: title,
         distractionFreeMode: false,
       })
       gitalk.render('gitalk-container')
+      var iframe = document.querySelector('#' + iframeId)
+      console.log('ff')
+      console.log(iframe)
+      iframe.contentWindow.gitTalkInit(urlOrder, title)
+
     }
 
     /**

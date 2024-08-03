@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="../css/tool.css" />
   <link rel="stylesheet" href="../css/jquery-ui.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 </head>
 
@@ -90,14 +90,19 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="../js/jquery.blockUI.js"></script>
   <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
   <script src="../js/tool.js"></script>
 
   <script>
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
+      // 使用示例
+
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
+      if (!isInIframe()) {
+        location.href = './index.html?order=' + urlOrder
+      }
       if (new URL(location.href).searchParams.get('before') !== null && new URL(location.href).searchParams.get('before') === 'yes') $('#prevBtn').show()
       else $('#prevBtn').hide()
 
@@ -113,7 +118,10 @@
       new Promise((resolve, reject) => {
         database.ref('/ACG/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
-          document.title = orderObj.title
+          const parentLayerTitle = window.parent.document.querySelectorAll('.layui-layer-title')[0]
+          if (parentLayerTitle.innerHTML.trim() === 'waiting...') {
+            parentLayerTitle.innerHTML = orderObj.title
+          }
           $('.card').find('img').eq(0).data('src', orderObj.coverImg).attr('data-src', orderObj.coverImg)
           $('.card-body').find('div').each((index, value) => {
             if (index === 0) $(value).html(orderObj.title)
@@ -155,7 +163,7 @@
         })
       }).then((resolve) => {
         $('#content').find('img').each(function () {
-          $(this).wrap('<a class="contentImg" href="' + $(this).attr('src') + '" data-fancybox="gallery" data-caption=""></a>')
+          $(this).wrap('<a class="contentImg" data-src="' + $(this).attr('src') + '" data-fancybox="gallery"></a>')
         })
         Fancybox.bind("a.contentImg", {})
         $('body').find("img").each((index, value) => {
@@ -165,6 +173,7 @@
         })
         $.unblockUI()
         new LazyLoad()
+        //拜託看到不要用我的金鑰，好人一生平安，謝謝
         const gitalk = new Gitalk({
           clientID: 'db818b2dc056c96e75aa',
           clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
@@ -176,6 +185,8 @@
           distractionFreeMode: false,
         })
         gitalk.render('gitalk-container')
+        //呼叫主頁的gitTalkInit
+        window.parent.gitTalkInit(urlOrder, resolve)
         $('.container-xl').eq(1).addClass('animate__animated animate__rollIn')
       })
     })
@@ -207,7 +218,15 @@
       }
       $('#secret').val('')
       $("#dialog").dialog('close')
-    });
+    })
+
+    /**
+     * 為了跳過iframe阻擋github登入問題，在iframe這邊的登入事件另外去呼叫主頁的登入事件
+     */
+    $('body').on('click', '.gt-btn-login', () => {
+      window.parent.gitTalkLogin()
+    })
+
   </script>
 
 </body>

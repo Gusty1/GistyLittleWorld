@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../css/pagination.css">
   <link rel="stylesheet" href="../css/jquery-ui.min.css">
   <link href="//unpkg.com/layui@2.7.6/dist/css/layui.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
   <style>
     /* 標籤 */
     .badge-pill {
@@ -136,6 +137,8 @@
     </svg>
   </div>
 
+  <div id="gitalk-container"></div>
+
   <footer></footer>
 
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
@@ -158,6 +161,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <script src="//unpkg.com/layui@2.7.6/dist/layui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
   <script src="../js/tool.js"></script>
 
   <script>
@@ -175,6 +179,18 @@
 
     //標籤數量顏色+buildCardHtml
     $(document).ready(() => {
+      let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
+      if (urlOrder !== null) {
+        layer.open({
+          type: 2,
+          title: 'waiting...',
+          shadeClose: true,
+          shade: false,
+          maxmin: true,
+          area: ['75vw', '85vh'],
+          content: 'detail.html?order=' + urlOrder
+        })
+      }
       $('header').load('../header.html')
       $('footer').load('../footer.html')
 
@@ -424,6 +440,36 @@
           callback: (data, pagination) => { }
         })
         buildCardHtml(changeLifeArray)
+      }
+    }
+
+    /**
+    *為了跳過iframe阻擋github登入問題，在主頁這邊也產生一個一模一樣的gitalk-container，然後設為隱藏
+    */
+    function gitTalkInit (urlOrder, title) {
+      //拜託看到不要用我的金鑰，好人一生平安，謝謝
+      const gitalk = new Gitalk({
+        clientID: 'db818b2dc056c96e75aa',
+        clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
+        repo: 'GustyLittleWorld',
+        owner: 'Gusty1',
+        admin: ['Gusty1'],
+        id: 'life_' + urlOrder.toString(),
+        title: title,
+        distractionFreeMode: false,
+      })
+      gitalk.render('gitalk-container')
+    }
+
+    /**
+     * 為了跳過iframe阻擋github登入問題，在主頁這邊另外執行一樣的點擊事件
+     */
+    function gitTalkLogin () {
+      if ($('body').find('.gt-action-login').length > 0) {
+        $('.gt-action-login').eq(0).click()
+      }
+      if ($('body').find('.gt-btn-login').length > 0) {
+        $('.gt-btn-login').eq(0).click()
       }
     }
   </script>

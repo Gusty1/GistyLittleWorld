@@ -107,6 +107,11 @@ function getRandomColorAry (count) {
   return colorAry
 }
 
+// 判斷當前頁面是否在iframe中
+function isInIframe () {
+  return window.top !== window.self
+}
+
 // 下面是以後可能會用到的東西...
 
 // firebase auth 登出，以後可能有G會用到

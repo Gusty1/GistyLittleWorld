@@ -280,8 +280,8 @@
       e.stopPropagation()
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       // window.parent.gitTalkLogin(urlOrder, thisTitle)
-      localStorage.setItem("gitTalk", 'yes')
       if (isInIframe()) {
+        localStorage.setItem("gitTalk", 'yes')
         window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
         window.open(location.href)
       }

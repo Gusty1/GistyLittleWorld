@@ -469,7 +469,6 @@
       const ancestor = startElement.closest('.layui-layer')
       ancestor.querySelectorAll('.layui-layer-close')[0].click()
       let detectGitTalk = setInterval(() => {
-        console.log('tt')
         if (localStorage.getItem("gitTalk") == null) {
           clearInterval(detectGitTalk)
           layer.open({

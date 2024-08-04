@@ -216,6 +216,9 @@
     function gitTalkInit (urlOrder, title) {
       $('#gitalk-container').html('')
       //拜託看到不要用我的金鑰，好人一生平安，謝謝
+      //初始化issue只有owner、admin做得到而已，其他人會出現問題，但現在已經累積太多資料了...
+      //總之我搞了很久用github api，去搞也很麻煩，他查問題也不會查全部，還有頻繁訪問的問題...
+      //所以就這樣吧，有人要留言在跟我說。
       const gitalk = new Gitalk({
         clientID: 'db818b2dc056c96e75aa',
         clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',

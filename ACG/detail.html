@@ -286,6 +286,9 @@
       console.log('rr')
       const issuesResponse = await fetch(`https://api.github.com/repos/gusty1/gustylittleWorld/issues`, {
         method: 'GET',
+        headers: {
+          'Cache-Control': 'no-cache'  // 禁用缓存
+        }
       })
 
       if (!issuesResponse.ok) {

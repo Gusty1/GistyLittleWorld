@@ -183,6 +183,7 @@
 
     //各項初始設定
     $(document).ready(() => {
+      //怕會出現什麼問題所以，點進來時移除gitTalk，開啟modal也移除gitTalk
       localStorage.removeItem("gitTalk")
       let urlOrder = new URL(location.href).searchParams.get('order')
       if (urlOrder !== null) {

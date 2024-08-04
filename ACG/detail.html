@@ -91,7 +91,7 @@
   <script src="../js/jquery.blockUI.js"></script>
   <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-  <script src="gitalk.js"></script>
+  <script src="../js/gitalk.js"></script>
   <script src="../js/tool.js"></script>
 
   <script>
@@ -100,6 +100,7 @@
     $(document).ready(() => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       let isGitTalk = localStorage.getItem("gitTalk")
+      //github留言的網址是detail.html，我不想讓他進detail，所以改跳回index，並在index開啟modal
       if (!isInIframe() && isGitTalk === null) {
         location.href = './index.html?order=' + urlOrder
       }
@@ -118,15 +119,29 @@
       new Promise((resolve, reject) => {
         database.ref('/ACG/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
-          if (!isInIframe()) {
-          }
           if (isGitTalk === null) {
+            //有時候取不到title，就設定waiting，等他載入後再調整title
             const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
             const titleElement = parentLayerTitle.parentElement.previousElementSibling
             if (titleElement.innerHTML.trim() === 'waiting...') {
               titleElement.innerHTML = orderObj.title
             }
           } else {
+            /**
+             *執行是github登入頁的部分，原本是用MutationObserver，但必須要等到出現輸入框才算完成。
+             *出現輸入框之前關閉都算是沒有登入完成
+             */
+            Swal.fire({
+              icon: 'info',
+              title: '登入gitHub中...登入完畢後會自動關閉本頁',
+              html: `<div class="text=center">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+              </div>`,
+              allowOutsideClick: false,
+              showConfirmButton: false,
+            })
             let detectGitalk = setInterval(() => {
               if ($('body').find('.gt-header-textarea').length > 0) {
                 localStorage.removeItem('gitTalk')
@@ -206,23 +221,7 @@
         title: title,
         distractionFreeMode: false,
       })
-      //不知為何初次載入都會是沒登入的狀態，所以2秒後重新載入
       gitalk.render('gitalk-container')
-    }
-
-    //取得當前的iframeId
-    function getIframeId () {
-      // 获取所有的 iframe 元素
-      var iframes = window.parent.document.getElementsByTagName('iframe')
-
-      // 遍历 iframe 元素，找到当前 iframe
-      for (var i = 0; i < iframes.length; i++) {
-        if (iframes[i].contentWindow === window) {
-          return iframes[i].id
-        }
-      }
-
-      return null // 如果没有找到，返回 null
     }
 
     //返回上一頁
@@ -257,6 +256,11 @@
     /**
      * 為了跳過iframe阻擋github登入問題，gitTalk點擊登入時另外一頁去處理
      * 這邊我是修改gitalk.js裡的handleLogin
+     * 
+     * 邏輯是這樣的，只有點擊登入時不能用iframe，所以登入按鈕另外做些處理
+     * 1.先設定window.open另開一頁detail.html，並設定localStorage
+     * 2.在新開的detail.html判斷localStorage，然後等他登入完成，就是出現輸入留言框就代表完成
+     * 3.完成後關閉新開的detail.html，原本的index會重新開啟modal
      */
     $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))

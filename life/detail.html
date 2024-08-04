@@ -89,14 +89,18 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="../js/gitalk.js"></script>
   <script src="../js/tool.js"></script>
 
   <script>
+    let thisTitle = ''
+
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
-      if (!isInIframe()) {
+      let isGitTalk = localStorage.getItem("gitTalk")
+      //github留言的網址是detail.html，我不想讓他進detail，所以改跳回index，並在index開啟modal
+      if (!isInIframe() && isGitTalk === null) {
         location.href = './index.html?order=' + urlOrder
       }
       if (new URL(location.href).searchParams.get('before') !== null && new URL(location.href).searchParams.get('before') === 'yes') $('#prevBtn').show()
@@ -114,10 +118,38 @@
       new Promise((resolve, reject) => {
         database.ref('/life/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
-          const parentLayerTitle = window.parent.document.querySelectorAll('.layui-layer-title')[0]
-          if (parentLayerTitle.innerHTML.trim() === 'waiting...') {
-            parentLayerTitle.innerHTML = orderObj.title
+          if (isGitTalk === null) {
+            //有時候取不到title，就設定waiting，等他載入後再調整title
+            const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
+            const titleElement = parentLayerTitle.parentElement.previousElementSibling
+            if (titleElement.innerHTML.trim() === 'waiting...') {
+              titleElement.innerHTML = orderObj.title
+            }
+          } else {
+            /**
+             *執行是github登入頁的部分，原本是用MutationObserver，但必須要等到出現輸入框才算完成。
+             *出現輸入框之前關閉都算是沒有登入完成
+             */
+            Swal.fire({
+              icon: 'info',
+              title: '登入gitHub中...登入完畢後會自動關閉本頁',
+              html: `<div class="text=center">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+              </div>`,
+              allowOutsideClick: false,
+              showConfirmButton: false,
+            })
+            let detectGitalk = setInterval(() => {
+              if ($('body').find('.gt-header-textarea').length > 0) {
+                localStorage.removeItem('gitTalk')
+                clearInterval(detectGitalk)
+                window.close()
+              }
+            })
           }
+          thisTitle = orderObj.title
           $('#edit').html(orderObj.title)
           $('#time').append(orderObj.time)
           $('#label').append(orderObj.label)
@@ -138,23 +170,27 @@
         })
         Fancybox.bind("a.contentImg", {})
         $.unblockUI()
-        //拜託看到不要用我的金鑰，好人一生平安，謝謝
-        const gitalk = new Gitalk({
-          clientID: 'db818b2dc056c96e75aa',
-          clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
-          repo: 'GustyLittleWorld',
-          owner: 'Gusty1',
-          admin: ['Gusty1'],
-          id: 'life_' + urlOrder.toString(),
-          title: resolve,
-          distractionFreeMode: false,
-        })
-        gitalk.render('gitalk-container')
-        //呼叫主頁的gitTalkInit
-        window.parent.gitTalkInit(urlOrder, resolve)
+        gitTalkInit(urlOrder, resolve)
         $('.container-xl').eq(1).addClass('animate__animated animate__rotateIn')
       })
     })
+
+    //渲覽gitTalk
+    function gitTalkInit (urlOrder, title) {
+      $('#gitalk-container').html('')
+      //拜託看到不要用我的金鑰，好人一生平安，謝謝
+      const gitalk = new Gitalk({
+        clientID: 'db818b2dc056c96e75aa',
+        clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
+        repo: 'GustyLittleWorld',
+        owner: 'Gusty1',
+        admin: ['Gusty1'],
+        id: 'ACG_' + urlOrder,
+        title: title,
+        distractionFreeMode: false,
+      })
+      gitalk.render('gitalk-container')
+    }
 
     //返回上一頁
     $('#prevBtn').click(() => {
@@ -186,10 +222,20 @@
     })
 
     /**
-     * 為了跳過iframe阻擋github登入問題，在iframe這邊的登入事件另外去呼叫主頁的登入事件
+     * 為了跳過iframe阻擋github登入問題，gitTalk點擊登入時另外一頁去處理
+     * 這邊我是修改gitalk.js裡的handleLogin
+     * 
+     * 邏輯是這樣的，只有點擊登入時不能用iframe，所以登入按鈕另外做些處理
+     * 1.先設定window.open另開一頁detail.html，並設定localStorage
+     * 2.在新開的detail.html判斷localStorage，然後等他登入完成，就是出現輸入留言框就代表完成
+     * 3.完成後關閉新開的detail.html，原本的index會重新開啟modal
      */
-    $('body').on('click', '.gt-btn-login', () => {
-      window.parent.gogo()
+    $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
+      let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
+      if (isInIframe()) {
+        localStorage.setItem("gitTalk", 'yes')
+        window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
+      }
     })
   </script>
 

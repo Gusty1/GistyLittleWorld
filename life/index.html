@@ -179,6 +179,8 @@
 
     //標籤數量顏色+buildCardHtml
     $(document).ready(() => {
+      //怕會出現什麼問題所以，點進來時移除gitTalk，開啟modal也移除gitTalk
+      localStorage.removeItem("gitTalk")
       let urlOrder = new URL(location.href).searchParams.get('order')
       if (urlOrder !== null) {
         layer.open({
@@ -273,6 +275,7 @@
     //點擊跳出詳細頁視窗
     $('.marquee').on('click', 'a', function (e) {
       e.preventDefault()
+      localStorage.removeItem("gitTalk")
       layer.open({
         type: 2,
         title: $(this).text(),
@@ -286,6 +289,7 @@
     $('#cardGroup').on('click', '.card', function () {
       let order = $(this).find('input').eq(0).val()
       let title = $(this).find('.text-success').text()
+      localStorage.removeItem("gitTalk")
       layer.open({
         type: 2,
         title: title,
@@ -443,34 +447,26 @@
       }
     }
 
-    /**
-    *為了跳過iframe阻擋github登入問題，在主頁這邊也產生一個一模一樣的gitalk-container，然後設為隱藏
-    */
-    function gitTalkInit (urlOrder, title) {
-      //拜託看到不要用我的金鑰，好人一生平安，謝謝
-      const gitalk = new Gitalk({
-        clientID: 'db818b2dc056c96e75aa',
-        clientSecret: '6a0b634ef4ffb325c50b94c1addc6353cc425711',
-        repo: 'GustyLittleWorld',
-        owner: 'Gusty1',
-        admin: ['Gusty1'],
-        id: 'life_' + urlOrder.toString(),
-        title: title,
-        distractionFreeMode: false,
-      })
-      gitalk.render('gitalk-container')
-    }
-
-    /**
-     * 為了跳過iframe阻擋github登入問題，在主頁這邊另外執行一樣的點擊事件
-     */
-    function gitTalkLogin () {
-      if ($('body').find('.gt-action-login').length > 0) {
-        $('.gt-action-login').eq(0).click()
-      }
-      if ($('body').find('.gt-btn-login').length > 0) {
-        $('.gt-btn-login').eq(0).click()
-      }
+    //gitTalk登入成功後的layer重開
+    function openLayer (iframeId, urlOrder, title) {
+      const startElement = document.querySelector('#' + iframeId)
+      const ancestor = startElement.closest('.layui-layer')
+      ancestor.querySelectorAll('.layui-layer-close')[0].click()
+      let detectGitTalk = setInterval(() => {
+        console.log('tt')
+        if (localStorage.getItem("gitTalk") == null) {
+          clearInterval(detectGitTalk)
+          layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['75vw', '85vh'],
+            content: 'detail.html?order=' + urlOrder
+          })
+        }
+      }, 1000)
     }
   </script>
 

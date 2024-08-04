@@ -112,6 +112,21 @@ function isInIframe () {
   return window.top !== window.self
 }
 
+//取得當前的iframeId
+function getIframeId () {
+  // 获取所有的 iframe 元素
+  var iframes = window.parent.document.getElementsByTagName('iframe')
+
+  // 遍历 iframe 元素，找到当前 iframe
+  for (var i = 0; i < iframes.length; i++) {
+    if (iframes[i].contentWindow === window) {
+      return iframes[i].id
+    }
+  }
+
+  return null // 如果没有找到，返回 null
+}
+
 // 下面是以後可能會用到的東西...
 
 // firebase auth 登出，以後可能有G會用到

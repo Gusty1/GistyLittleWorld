@@ -127,6 +127,29 @@ function getIframeId () {
   return null // 如果没有找到，返回 null
 }
 
+function createIssue (title, url, label) {
+  console.log('createIssue')
+  fetch('https://api.github.com/repos/Gusty1/GustyLittleWorld/dispatches', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/vnd.github.v3+json',
+      'Authorization': '',
+    },
+    body: JSON.stringify({
+      event_type: 'create-issue',
+      client_payload: {
+        title: title,
+        body: url,
+        labels: [label, 'Gitalk']
+      }
+    })
+  })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error))
+
+}
+
 // 下面是以後可能會用到的東西...
 
 // firebase auth 登出，以後可能有G會用到

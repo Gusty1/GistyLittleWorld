@@ -118,6 +118,7 @@
       new Promise((resolve, reject) => {
         database.ref('/life/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
+          createIssue(orderObj.title, location.href, 'life_' + urlOrder)
           if (isInIframe()) {
             //有時候取不到title，就設定waiting，等他載入後再調整title
             const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
@@ -147,7 +148,12 @@
                 clearInterval(detectGitalk)
                 window.close()
               }
-            })
+            }, 1000)
+            //9秒後自動關閉，避免出問題，造成頁面關不掉
+            setTimeout(() => {
+              localStorage.removeItem('gitTalk')
+              window.close()
+            }, 9000)
           }
           thisTitle = orderObj.title
           $('#edit').html(orderObj.title)

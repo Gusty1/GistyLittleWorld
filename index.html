@@ -244,11 +244,15 @@
       //應該是動畫還是甚麼會影響這個時間表的顯示，所以延後2.5秒執行
       setTimeout(() => {
         $.get('data/timeline.json', (result) => {
+          //用最新~最舊排序
+          result = result.sort((a, b) => {
+            return a.startDate > b.startDate ? -1 : 1
+          })
           let timelineHtml = ''
           for (value of result) {
             let date = ''
             let color = ''
-            if (value.endDate == '') date = value.startDate
+            if (value.startDate === value.endDate) date = value.startDate
             else date = value.startDate + '~' + value.endDate
             if (value.type == '工作') color = '#949449'
             else if (value.type == '學習') color = '#5A5AAD'

@@ -118,14 +118,14 @@
       new Promise((resolve, reject) => {
         database.ref('/life/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
-          if (isGitTalk === null) {
+          if (isInIframe()) {
             //有時候取不到title，就設定waiting，等他載入後再調整title
             const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
             const titleElement = parentLayerTitle.parentElement.previousElementSibling
             if (titleElement.innerHTML.trim() === 'waiting...') {
               titleElement.innerHTML = orderObj.title
             }
-          } else {
+          } else if (isGitTalk !== null) {
             /**
              *執行是github登入頁的部分，原本是用MutationObserver，但必須要等到出現輸入框才算完成。
              *出現輸入框之前關閉都算是沒有登入完成

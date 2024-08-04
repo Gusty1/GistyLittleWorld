@@ -133,7 +133,7 @@ function createIssue (title, url, label) {
     method: 'POST',
     headers: {
       'Accept': 'application/vnd.github.v3+json',
-      'Authorization': '',
+      'Authorization': atob('Z2hwX1pqSDFzSG9zMENMczFsTUJmS1p5OVJONE12R2VEVjBiVTk3bA=='),
     },
     body: JSON.stringify({
       event_type: 'create-issue',
@@ -147,7 +147,6 @@ function createIssue (title, url, label) {
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error('Error:', error))
-
 }
 
 // 下面是以後可能會用到的東西...

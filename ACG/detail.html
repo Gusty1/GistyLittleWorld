@@ -100,9 +100,9 @@
     $(document).ready(() => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       let isGitTalk = localStorage.getItem("gitTalk")
-      if (!isInIframe() && isGitTalk === null) {
-        location.href = './index.html?order=' + urlOrder
-      }
+      // if (!isInIframe() && isGitTalk === null) {
+      //   location.href = './index.html?order=' + urlOrder
+      // }
       if (new URL(location.href).searchParams.get('before') !== null && new URL(location.href).searchParams.get('before') === 'yes') $('#prevBtn').show()
       else $('#prevBtn').hide()
 
@@ -125,40 +125,40 @@
               titleElement.innerHTML = orderObj.title
             }
           } else {
-            const targetNode = document.getElementById('gitalk-container')
+            // const targetNode = document.getElementById('gitalk-container')
 
-            // 观察选项
-            const config = {
-              attributes: true, // 监听属性变化
-              childList: true,  // 监听子节点变化
-              subtree: true     // 监听后代节点变化
-            }
+            // // 观察选项
+            // const config = {
+            //   attributes: true, // 监听属性变化
+            //   childList: true,  // 监听子节点变化
+            //   subtree: true     // 监听后代节点变化
+            // }
 
-            // 回调函数，当观察的变动发生时执行
-            const callback = function (mutationsList, observer) {
-              //登入完成後會重新加載本頁面，所以偵測重新加載前關閉本業，並清空gitTlak
-              window.addEventListener('beforeunload', function (event) {
-                console.log('pp')
-                localStorage.removeItem("gitTalk")
-                // window.close()
-              })
-              console.log('oo')
-              console.log($('#gitalk-container').find('.gt-action-login').length)
-              console.log($('#gitalk-container').find('.gt-btn-login').length)
-              if ($('#gitalk-container').find('.gt-action-login').length > 0) {
-                // $('.gt-action-login').eq(0).click()
-              } else if ($('#gitalk-container').find('.gt-btn-login').length > 0) {
-                // $('.gt-btn-login').eq(0).click()
-              }
-              // localStorage.removeItem("gitTalk")
-              // window.close()
-            }
+            // // 回调函数，当观察的变动发生时执行
+            // const callback = function (mutationsList, observer) {
+            //   //登入完成後會重新加載本頁面，所以偵測重新加載前關閉本業，並清空gitTlak
+            //   window.addEventListener('beforeunload', function (event) {
+            //     console.log('pp')
+            //     localStorage.removeItem("gitTalk")
+            //     // window.close()
+            //   })
+            //   console.log('oo')
+            //   console.log($('#gitalk-container').find('.gt-action-login').length)
+            //   console.log($('#gitalk-container').find('.gt-btn-login').length)
+            //   if ($('#gitalk-container').find('.gt-action-login').length > 0) {
+            //     // $('.gt-action-login').eq(0).click()
+            //   } else if ($('#gitalk-container').find('.gt-btn-login').length > 0) {
+            //     // $('.gt-btn-login').eq(0).click()
+            //   }
+            //   // localStorage.removeItem("gitTalk")
+            //   // window.close()
+            // }
 
-            // 创建一个 `MutationObserver` 实例并传入回调函数
-            const observer = new MutationObserver(callback)
+            // // 创建一个 `MutationObserver` 实例并传入回调函数
+            // const observer = new MutationObserver(callback)
 
-            // 开始观察目标节点并配置观察选项
-            observer.observe(targetNode, config)
+            // // 开始观察目标节点并配置观察选项
+            // observer.observe(targetNode, config)
           }
           thisTitle = orderObj.title
           $('.card').find('img').eq(0).data('src', orderObj.coverImg).attr('data-src', orderObj.coverImg)
@@ -282,7 +282,7 @@
     /**
      * 為了跳過iframe阻擋github登入問題，gitTalk點擊登入時另外一頁去處理
      */
-    $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
+    // $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
       // let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       // // window.parent.gitTalkLogin(urlOrder, thisTitle)
       // if (isInIframe()) {
@@ -290,7 +290,7 @@
       //   window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
       //   window.open(location.href)
       // }
-    })
+    // })
 
   </script>
 

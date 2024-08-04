@@ -100,9 +100,9 @@
     $(document).ready(() => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
       let isGitTalk = localStorage.getItem("gitTalk")
-      // if (!isInIframe() && isGitTalk === null) {
-      //   location.href = './index.html?order=' + urlOrder
-      // }
+      if (!isInIframe() && isGitTalk === null) {
+        location.href = './index.html?order=' + urlOrder
+      }
       if (new URL(location.href).searchParams.get('before') !== null && new URL(location.href).searchParams.get('before') === 'yes') $('#prevBtn').show()
       else $('#prevBtn').hide()
 
@@ -121,11 +121,11 @@
           if (!isInIframe()) {
           }
           if (isGitTalk === null) {
-            // const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
-            // const titleElement = parentLayerTitle.parentElement.previousElementSibling
-            // if (titleElement.innerHTML.trim() === 'waiting...') {
-            //   titleElement.innerHTML = orderObj.title
-            // }
+            const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
+            const titleElement = parentLayerTitle.parentElement.previousElementSibling
+            if (titleElement.innerHTML.trim() === 'waiting...') {
+              titleElement.innerHTML = orderObj.title
+            }
           } else {
             let detectGitalk = setInterval(() => {
               if ($('body').find('.gt-header-textarea').length > 0) {
@@ -256,14 +256,13 @@
 
     /**
      * 為了跳過iframe阻擋github登入問題，gitTalk點擊登入時另外一頁去處理
+     * 這邊我是修改gitalk.js裡的handleLogin
      */
     $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
       let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
-      // window.parent.gitTalkLogin(urlOrder, thisTitle)
       if (isInIframe()) {
         localStorage.setItem("gitTalk", 'yes')
         window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
-        window.open(location.href)
       }
     })
 

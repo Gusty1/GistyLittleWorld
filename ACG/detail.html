@@ -91,7 +91,7 @@
   <script src="../js/jquery.blockUI.js"></script>
   <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script src="gitalk.js"></script>
   <script src="../js/tool.js"></script>
 
   <script>
@@ -283,13 +283,13 @@
      * 為了跳過iframe阻擋github登入問題，gitTalk點擊登入時另外一頁去處理
      */
     $('body').on('click', '.gt-btn-login,.gt-action-login', (e) => {
-      let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
-      // window.parent.gitTalkLogin(urlOrder, thisTitle)
-      if (isInIframe()) {
-        localStorage.setItem("gitTalk", 'yes')
-        window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
-        window.open(location.href)
-      }
+      // let urlOrder = parseInt(new URL(location.href).searchParams.get('order'))
+      // // window.parent.gitTalkLogin(urlOrder, thisTitle)
+      // if (isInIframe()) {
+      //   localStorage.setItem("gitTalk", 'yes')
+      //   window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
+      //   window.open(location.href)
+      // }
     })
 
   </script>

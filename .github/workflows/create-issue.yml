@@ -1,7 +1,8 @@
 name: Create Issue
 on:
   repository_dispatch:
-    types: [create-issue]
+    types:
+      - create-issue
 
 jobs:
   create_issue:
@@ -13,7 +14,6 @@ jobs:
       - name: Create Issue
         uses: actions/github-script@v6
         with:
-          token: ${{ github.token }}
           script: |
             const { title, body, labels } = github.event.client_payload;
             const issues = await github.rest.issues.listForRepo({

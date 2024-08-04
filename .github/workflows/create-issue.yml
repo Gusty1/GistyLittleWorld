@@ -1,0 +1,36 @@
+name: Create Issue
+on:
+  repository_dispatch:
+    types: [create-issue]
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create Issue
+        id: create_issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { title, body, labels } = github.event.client_payload;
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+            });
+            const existingIssue = issues.data.find(issue => issue.title === title);
+            if (!existingIssue) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: body,
+                labels: labels,
+              });
+              core.setOutput('issue_created', 'true');
+            } else {
+              core.setOutput('issue_created', 'false');
+            }

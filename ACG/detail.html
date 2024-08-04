@@ -119,11 +119,11 @@
         database.ref('/ACG/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
           if (isGitTalk === null) {
-            const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
-            const titleElement = parentLayerTitle.parentElement.previousElementSibling
-            if (titleElement.innerHTML.trim() === 'waiting...') {
-              titleElement.innerHTML = orderObj.title
-            }
+            // const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
+            // const titleElement = parentLayerTitle.parentElement.previousElementSibling
+            // if (titleElement.innerHTML.trim() === 'waiting...') {
+            //   titleElement.innerHTML = orderObj.title
+            // }
           } else {
             // const targetNode = document.getElementById('gitalk-container')
 

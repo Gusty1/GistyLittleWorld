@@ -94,13 +94,7 @@
   <script src="../js/gitalk.js"></script>
   <script src="../js/tool.js"></script>
 
-  <script type="module">
-    import { Octokit } from "https://esm.sh/@octokit/core"
-
-    const octokit = new Octokit({
-      auth: atob('Z2hwX2c3VTZkb3lCSDZkdjNoZ0ZQTll1YXRybFNqUEJrNTRERjdBSQ==')
-    })
-
+  <script>
     let thisTitle = ''
     // 抓網頁參數資料+顯示
     $(document).ready(() => {
@@ -125,7 +119,6 @@
       new Promise((resolve, reject) => {
         database.ref('/ACG/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
-          createIssue(orderObj.title, location.href, urlOrder)
           if (isInIframe()) {
             //有時候取不到title，就設定waiting，等他載入後再調整title
             const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())
@@ -281,40 +274,6 @@
         window.parent.openLayer(getIframeId(), urlOrder, thisTitle)
       }
     })
-
-    async function createIssue (title, url, urlOrder) {
-      console.log('rr')
-      const issuesResponse = await fetch(`https://api.github.com/repos/gusty1/gustylittleWorld/issues`, {
-        method: 'GET',
-      })
-
-      if (!issuesResponse.ok) {
-        throw new Error(`Failed to fetch issues: ${issuesResponse.statusText}`)
-      }
-
-      const issues = await issuesResponse.json()
-      console.log(issues.length)
-      const existingIssue = issues.find(issue => issue.title === title)
-
-      if (existingIssue) {
-        console.log('Issue已存在:', existingIssue)
-        return
-      }
-
-      await octokit.request('POST /repos/gusty1/gustylittleworld/issues', {
-        owner: 'gusty1',
-        repo: 'gustylittleworld',
-        title: title,
-        body: url,
-        labels: ['ACG_' + urlOrder, 'Gitalk'],
-        headers: {
-          'X-GitHub-Api-Version': '2022-11-28'
-        }
-      }).then(response => {
-        $('#gitalk-container').html('')
-        gitTalkInit(urlOrder, title)
-      })
-    }
 
   </script>
 

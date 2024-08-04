@@ -133,7 +133,7 @@ function createIssue (title, url, label) {
     method: 'POST',
     headers: {
       'Accept': 'application/vnd.github.v3+json',
-      'Authorization': atob('Z2hwX2pKNkJ5aUYwaXZqVjFMWUNiaU5NMzVRRVZXNVN3bTFHVjRoeA=='),
+      'Authorization': atob('Z2hwX01pNGY1RXQ2YlF5dll2eVJRcnBsRUJOOERXZE03bDA3dUt6Sg=='),
     },
     body: JSON.stringify({
       event_type: 'create-issue',

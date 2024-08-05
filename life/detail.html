@@ -118,7 +118,6 @@
       new Promise((resolve, reject) => {
         database.ref('/life/' + urlOrder).once('value', (result) => {
           let orderObj = result.val()
-          createIssue(orderObj.title, location.href, 'life_' + urlOrder)
           if (isInIframe()) {
             //有時候取不到title，就設定waiting，等他載入後再調整title
             const parentLayerTitle = window.parent.document.querySelector('#' + getIframeId())

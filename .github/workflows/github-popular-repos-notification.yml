@@ -1,0 +1,73 @@
+name: Monitor External Repository
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # 每天9點檢查一次
+
+jobs:
+
+  check_for_updates:
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+    - name: Get latest commit from target repository
+      id: get_commit
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      run: |
+        OWNER="OpenGithubs"  # 目標專案的 GitHub 擁有者
+        REPO="weekly"        # 目標專案的名稱
+        latest_commit=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/repos/$OWNER/$REPO/commits/main")
+        echo "::set-output name=commit_sha::$latest_commit"
+        
+    - name: Check if there is a new commit
+      id: compare_commits
+      run: |
+        last_commit=$(cat .last_commit || echo "")
+        if [[ "$last_commit" != "${{ steps.get_commit.outputs.commit_sha }}" ]]; then
+          echo "New commit detected!"
+          echo "${{ steps.get_commit.outputs.commit_sha }}" > .last_commit
+          echo "::set-output name=new_commit::true"
+        else
+          echo "No new commit found."
+          echo "::set-output name=new_commit::false"
+        fi
+        
+    - name: Send Email Notification via MAILJET
+      if: steps.compare_commits.outputs.new_commit == 'true'
+      env:
+        MAILJET_API_KEY: ${{ secrets.MAILJET_API_KEY }}
+        MAILJET_API_SECRET: ${{ secrets.MAILJET_API_SECRET }}
+      run: |
+        echo "Sending daily email notification via Mailjet..."
+        curl --request POST \
+        --url https://api.mailjet.com/v3.1/send \
+        --user "${{ secrets.MAILJET_API_KEY }}:${{ secrets.MAILJET_API_SECRET }}" \
+        --header "Content-Type: application/json" \
+        --data '{
+          "Messages":[
+            {
+              "From": {
+                "Email": "a0985209465@gmail.com",
+                "Name": "Yuan Zong Fu"
+              },
+              "To": [
+                {
+                  "Email": "a0985209465@gmail.com",
+                  "Name": "Yuan Zong Fu"
+                }
+              ],
+              "Subject": "Github熱門專案更新通知",
+              "HTMLPart": "<html>
+                            <body>
+                              <h1>Github 熱門專案有新的提交!</h1>
+                              <h2>
+                                <a href="https://github.com/OpenGithubs/weekly" target="_blank">點我前往</a>
+                              </h2>
+                            </body>
+                           </html>"
+            }
+          ]
+        }'

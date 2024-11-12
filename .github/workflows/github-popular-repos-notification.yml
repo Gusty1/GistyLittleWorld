@@ -11,6 +11,9 @@ jobs:
     
     steps:
     
+    - name: Initialize last commit file
+      run: echo "" > .last_commit || true
+    
     - name: Get latest commit from target repository
       id: get_commit
       env:
@@ -19,24 +22,23 @@ jobs:
         OWNER="OpenGithubs"  # 目標專案的 GitHub 擁有者
         REPO="weekly"        # 目標專案的名稱
         latest_commit=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/repos/$OWNER/$REPO/commits/main")
-        echo "::set-output name=commit_sha::$latest_commit"
+          "https://api.github.com/repos/$OWNER/$REPO/commits/main" | jq -r .sha)
+        echo "commit_sha=${latest_commit}" >> $GITHUB_ENV
         
     - name: Check if there is a new commit
       id: compare_commits
       run: |
         last_commit=$(cat .last_commit || echo "")
-        if [[ "$last_commit" != "${{ steps.get_commit.outputs.commit_sha }}" ]]; then
+        if [[ "$last_commit" != "${{ env.commit_sha }}" ]]; then
           echo "New commit detected!"
-          echo "${{ steps.get_commit.outputs.commit_sha }}" > .last_commit
-          echo "::set-output name=new_commit::true"
+          echo "${{ env.commit_sha }}" > .last_commit
+          echo "new_commit=true" >> $GITHUB_ENV
         else
           echo "No new commit found."
-          echo "::set-output name=new_commit::false"
-        fi
+          echo "new_commit=false" >> $GITHUB_ENV
         
     - name: Send Email Notification via MAILJET
-      if: steps.compare_commits.outputs.new_commit == 'true'
+      if: env.new_commit == 'true'
       env:
         MAILJET_API_KEY: ${{ secrets.MAILJET_API_KEY }}
         MAILJET_API_SECRET: ${{ secrets.MAILJET_API_SECRET }}
@@ -60,14 +62,7 @@ jobs:
                 }
               ],
               "Subject": "Github熱門專案更新通知",
-              "HTMLPart": "<html>
-                            <body>
-                              <h1>Github 熱門專案有新的提交!</h1>
-                              <h2>
-                                <a href="https://github.com/OpenGithubs/weekly" target="_blank">點我前往</a>
-                              </h2>
-                            </body>
-                           </html>"
+              "HTMLPart": "<html><body><h1>Github 熱門專案有新的提交!</h1><h2><a href=\"https://github.com/OpenGithubs/weekly\" target=\"_blank\">點我前往</a></h2></body></html>"
             }
           ]
         }'

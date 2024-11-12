@@ -35,6 +35,7 @@ jobs:
         else
           echo "No new commit found."
           echo "new_commit=false" >> $GITHUB_ENV
+        fi
         
     - name: Send Email Notification via MAILJET
       if: env.new_commit == 'true'

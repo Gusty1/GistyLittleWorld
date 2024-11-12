@@ -1,7 +1,8 @@
 name: Github popular Repos Notify
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'  # 每天9點檢查一次
 
 jobs:
 
@@ -10,11 +11,8 @@ jobs:
     
     steps:
     
-    - name: Initialize last commit file if it doesn't exist
-      run: |
-        if [ ! -f .last_commit ]; then
-          echo "" > .last_commit
-        fi
+    - name: Initialize last commit file
+      run: echo "" > .last_commit || true
     
     - name: Get latest commit from target repository
       id: get_commit
@@ -25,12 +23,12 @@ jobs:
         REPO="weekly"        # 目標專案的名稱
         latest_commit=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
           "https://api.github.com/repos/$OWNER/$REPO/commits/main" | jq -r .sha)
-        echo "commit_sha=$latest_commit" >> $GITHUB_ENV
-
+        echo "commit_sha=${latest_commit}" >> $GITHUB_ENV
+        
     - name: Check if there is a new commit
       id: compare_commits
       run: |
-        last_commit=$(cat .last_commit)
+        last_commit=$(cat .last_commit || echo "")
         if [[ "$last_commit" != "${{ env.commit_sha }}" ]]; then
           echo "New commit detected!"
           echo "${{ env.commit_sha }}" > .last_commit

@@ -1,7 +1,8 @@
 name: Github popular Repos Notify
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 9 * * *'  # 每天9點檢查一次
 
 jobs:
 

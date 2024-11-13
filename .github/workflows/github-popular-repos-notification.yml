@@ -1,8 +1,7 @@
 name: Github popular Repos Notify
 
 on:
-  schedule:
-    - cron: '0 9 * * *'  # 每天9點檢查一次
+  workflow_dispatch:
 
 jobs:
 
@@ -11,8 +10,8 @@ jobs:
     
     steps:
     
-    - name: Initialize last commit file
-      run: echo "" > .last_commit || true
+    - name: Initialize last commit date file
+      run: echo "" > .last_commit_date || true
     
     - name: Get latest commit from target repository
       id: get_commit
@@ -21,20 +20,25 @@ jobs:
       run: |
         OWNER="OpenGithubs"  # 目標專案的 GitHub 擁有者
         REPO="weekly"        # 目標專案的名稱
-        latest_commit=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/repos/$OWNER/$REPO/commits/main" | jq -r .sha)
-        echo "commit_sha=${latest_commit}" >> $GITHUB_ENV
+        latest_commit_info=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/repos/$OWNER/$REPO/commits/main")
+        latest_commit_sha=$(echo "$latest_commit_info" | jq -r .sha)
+        latest_commit_date=$(echo "$latest_commit_info" | jq -r .commit.committer.date | cut -d'T' -f1)
+        echo "commit_sha=${latest_commit_sha}" >> $GITHUB_ENV
+        echo "commit_date=${latest_commit_date}" >> $GITHUB_ENV
         
-    - name: Check if there is a new commit
-      id: compare_commits
+    - name: Check if the latest commit is from today
+      id: compare_commit_date
       run: |
-        last_commit=$(cat .last_commit || echo "")
-        if [[ "$last_commit" != "${{ env.commit_sha }}" ]]; then
-          echo "New commit detected!"
-          echo "${{ env.commit_sha }}" > .last_commit
+        last_commit_date=$(cat .last_commit_date || echo "")
+        today_date=$(date +'%Y-%m-%d')
+        
+        if [[ "${{ env.commit_date }}" == "$today_date" && "$last_commit_date" != "$today_date" ]]; then
+          echo "New commit from today detected!"
+          echo "$today_date" > .last_commit_date
           echo "new_commit=true" >> $GITHUB_ENV
         else
-          echo "No new commit found."
+          echo "No new commit from today found."
           echo "new_commit=false" >> $GITHUB_ENV
         fi
         

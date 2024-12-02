@@ -1,4 +1,4 @@
-name: Github popular Repos Notify
+name: Github-popular-Repos-Notify
 
 on:
   schedule:

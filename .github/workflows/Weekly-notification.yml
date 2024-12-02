@@ -1,0 +1,74 @@
+name: Weekly-notification
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # 每天9點檢查一次
+
+jobs:
+
+  check_for_updates:
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+    - name: Initialize last commit date file
+      run: echo "" > .last_commit_date || true
+    
+    - name: Get latest commit from target repository
+      id: get_commit
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      run: |
+        OWNER="ruanyf"  # 目標專案的 GitHub 擁有者
+        REPO="weekly"   # 目標專案的名稱
+        latest_commit_info=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/repos/$OWNER/$REPO/commits/main")
+        latest_commit_sha=$(echo "$latest_commit_info" | jq -r .sha)
+        latest_commit_date=$(echo "$latest_commit_info" | jq -r .commit.committer.date | cut -d'T' -f1)
+        echo "commit_sha=${latest_commit_sha}" >> $GITHUB_ENV
+        echo "commit_date=${latest_commit_date}" >> $GITHUB_ENV
+        
+    - name: Check if the latest commit is from today
+      id: compare_commit_date
+      run: |
+        last_commit_date=$(cat .last_commit_date || echo "")
+        today_date=$(date +'%Y-%m-%d')
+        
+        if [[ "${{ env.commit_date }}" == "$today_date" && "$last_commit_date" != "$today_date" ]]; then
+          echo "New commit from today detected!"
+          echo "$today_date" > .last_commit_date
+          echo "new_commit=true" >> $GITHUB_ENV
+        else
+          echo "No new commit from today found."
+          echo "new_commit=false" >> $GITHUB_ENV
+        fi
+        
+    - name: Send Email Notification via MAILJET
+      if: env.new_commit == 'true'
+      env:
+        MAILJET_API_KEY: ${{ secrets.MAILJET_API_KEY }}
+        MAILJET_API_SECRET: ${{ secrets.MAILJET_API_SECRET }}
+      run: |
+        echo "Sending daily email notification via Mailjet..."
+        curl --request POST \
+        --url https://api.mailjet.com/v3.1/send \
+        --user "${{ secrets.MAILJET_API_KEY }}:${{ secrets.MAILJET_API_SECRET }}" \
+        --header "Content-Type: application/json" \
+        --data '{
+          "Messages":[
+            {
+              "From": {
+                "Email": "a0985209465@gmail.com",
+                "Name": "Yuan Zong Fu"
+              },
+              "To": [
+                {
+                  "Email": "a0985209465@gmail.com",
+                  "Name": "Yuan Zong Fu"
+                }
+              ],
+              "Subject": "Github開源項目精選周刊更新通知",
+              "HTMLPart": "<html><body><h1>Github開源項目精選周刊有新的提交!</h1><h2><a href=\"https://github.com/OpenGithubs/weekly\" target=\"_blank\">點我前往</a></h2></body></html>"
+            }
+          ]
+        }'

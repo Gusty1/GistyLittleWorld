@@ -68,7 +68,7 @@ jobs:
                 }
               ],
               "Subject": "Github熱門專案更新通知",
-              "HTMLPart": "<html><body><h1>Github 熱門專案有新的提交!</h1><h2><a href=\"https://github.com/OpenGithubs/weekly\" target=\"_blank\">點我前往</a></h2></body></html>"
+              "HTMLPart": "<html><body><h1>Github熱門專案有新的提交!</h1><h2><a href=\"https://github.com/OpenGithubs/weekly\" target=\"_blank\">點我前往</a></h2></body></html>"
             }
           ]
         }'

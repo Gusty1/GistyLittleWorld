@@ -68,7 +68,7 @@ jobs:
                 }
               ],
               "Subject": "Github開源項目精選周刊更新通知",
-              "HTMLPart": "<html><body><h1>Github Github開源項目精選周刊有新的提交!</h1><h2><a href=\"https://github.com/OpenGithubs/weekly\" target=\"_blank\">點我前往</a></h2></body></html>"
+              "HTMLPart": "<html><body><h1>Github開源項目精選周刊有新的提交!</h1><h2><a href=\"https://github.com/OpenGithubs/weekly\" target=\"_blank\">點我前往</a></h2></body></html>"
             }
           ]
         }'

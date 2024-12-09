@@ -22,7 +22,7 @@ jobs:
         OWNER="ruanyf"  # 目標專案的 GitHub 擁有者
         REPO="weekly"   # 目標專案的名稱
         latest_commit_info=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/repos/$OWNER/$REPO/commits/main")
+          "https://api.github.com/repos/$OWNER/$REPO/commits/master")
         latest_commit_sha=$(echo "$latest_commit_info" | jq -r .sha)
         latest_commit_date=$(echo "$latest_commit_info" | jq -r .commit.committer.date | cut -d'T' -f1)
         echo "commit_sha=${latest_commit_sha}" >> $GITHUB_ENV
